@@ -1,0 +1,30 @@
+{
+    "name": "ilovepdf/ilovepdf-php",
+    "description": "iLovePDF Php Api",
+    "type": "library",
+    "homepage": "https://ilovepdf.com/",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "ilovepdf",
+            "email": "info@ilovepdf.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Ilovepdf\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    },
+    "require": {
+        "php": ">=5.5.9",
+        "ext-curl": "*"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^6.1"
+    }
+}
