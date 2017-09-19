@@ -1,19 +1,14 @@
-=== iLove PDF wordpress plugin ===
-Contributors: iLovePDF
-Tags: pdf, api, watermark, compress, optimize, bulk
-Requires at least: 3.0.1
-Tested up to: 4.8
-Stable tag: 1.0
-License: GPLv2 or later
-License URI: http://www.gnu.org/licenses/gpl-2.0.html
+iLove PDF wordpress plugin
+==========================
 
 A wordpress plugin by iLovePDF. PDF tools directly to your wordpress.
 
-== Description ==
+Description
+-----------
 
 Compress your PDF files and Stamp Images or text into PDF files. This is the Official iLovePDF plugin for Wordpress. You can optimize all your PDF and stamp them automatically as you do in ilovepdf.com.
 
-HOW IT WORKS
+###How it works
 
 The plugin has two modes of work, automatic or manual.
 Compress PDF: Every time a PDF file is uploaded to your Media Library, is compressed by our iLovePDF API and saved in your WordPress site already optimized, saving you disk space. This feature can be disabled. 
@@ -24,15 +19,16 @@ Watermark PDF: Every time a PDF file is uploaded to your Media Library, is stamp
 It can also stamp images or text in PDF already in your Media Library at once or stamp PDF files one by one. 
 
 
-= Bulk actions =
+###Bulk actions
 
 All tools can be done for an individual files or appplied to all your existing files.
 
-= Atomatic process =
+###Atomatic process
 
 All tools can be applied automatically when a PDF file is uplaod, so you don't need to apply any manual anymore.
 
-== Installation ==
+Installation
+------------
 
 This section describes how to install the plugin and get it working.
 
@@ -45,28 +41,17 @@ By going to Settings -> iLovePDF -> Watermark PDF you can set many options on wh
 To Compress or Stamp PDF files that are already in your Media Library go to Media -> iLovePDF -> Compress PDF or Media -> iLovePDF -> Watermark
 
 
-== Frequently Asked Questions ==
+Frequently Asked Questions
+--------------------------
 
-= Do I need a iLovePDF account =
+###Do I need a iLovePDF account
 
 Yes, you need a `developer` account. It can be created easly from your wordpress, or you can use your existing one.
 
-= Is this service free? =
+###Is this service free?
 
 With a free account you can process up to 250 files each month. If you need more, you can upgrade your account. Both with file packages or monthly ammount.
 
-= What happens when the limit is reatched? =
+###What happens when the limit is reatched?
 
 We will send you an email before limit is reatched. When limit is reatched, no more PDF files will be processed. But remember each month, 250 files are free, so in next month you will be able to process more files again!
-
-== Screenshots ==
-
-1. Create an account or login.
-2. Configure your pluggin
-3. Bulk actions with existing files
-4. PDF actions
-
-== Changelog ==
-
-= 1.0 =
-* Initial version.
