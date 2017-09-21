@@ -1,6 +1,6 @@
 <?php
 
-function ilovepdf_get_statistics() {
+function ilove_pdf_get_statistics() {
 	$response = wp_remote_get(ILOVEPDF_USER_URL.'/'.get_option('ilovepdf_user_id', true), 
 		array(
 			'headers' => array('Authorization' => 'Bearer '.get_option('ilovepdf_user_token', true))
@@ -14,7 +14,7 @@ function ilovepdf_get_statistics() {
 	}
 }
 
-function ilovepdf_get_percentage($used, $limit) {
+function ilove_pdf_get_percentage($used, $limit) {
 	if ($limit == 0) {
 		return 0;
 	}
@@ -24,7 +24,7 @@ function ilovepdf_get_percentage($used, $limit) {
 	return ($percentage > 100) ? 100 : $percentage;
 }
 
-function ilovepdf_get_percentage_compress($original, $compressed) {
+function ilove_pdf_get_percentage_compress($original, $compressed) {
 	if ($original == 0) {
 		return 0;
 	}
@@ -34,7 +34,7 @@ function ilovepdf_get_percentage_compress($original, $compressed) {
 	return round(($percentage > 100) ? 100 : $percentage);
 }
 
-function ilovepdf_get_all_pdf_current_size() {
+function ilove_pdf_get_all_pdf_current_size() {
 
 	$query_files_args = array(
         'post_type'      => 'attachment',
@@ -58,7 +58,7 @@ function ilovepdf_get_all_pdf_current_size() {
     return $total_current_size;
 }
 
-function ilovepdf_get_all_pdf_original_size() {
+function ilove_pdf_get_all_pdf_original_size() {
 
 	$query_files_args = array(
         'post_type'      => 'attachment',

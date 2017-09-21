@@ -171,10 +171,9 @@ function ilove_pdf_compress_pdf($id_file, $auto=false, $bulk=false) {
     return $html;
 }
 
-function pdf_handle_file_upload_compress($attachment_id){
+function ilove_pdf_handle_file_upload_compress($attachment_id){
     if(get_post_mime_type($attachment_id) == 'application/pdf'){
         $options = get_option('ilove_pdf_display_settings_compress');
-        //update_option('ilovepdf_initial_pdf_files_size', get_option('ilovepdf_initial_pdf_files_size')+filesize(get_attached_file($attachment_id)));
         $options_watermark = get_option('ilove_pdf_display_settings_watermark');
         
        if (isset($options['ilove_pdf_compress_autocompress_new']) && !ilove_pdf_is_file_compressed($attachment_id) && !isset($options_watermark['ilove_pdf_watermark_auto'])) {
@@ -221,9 +220,9 @@ function pdf_handle_file_upload_compress($attachment_id){
         }
     }
 }
-add_filter('add_attachment', 'pdf_handle_file_upload_compress', 8);
+add_filter('add_attachment', 'ilove_pdf_handle_file_upload_compress', 8);
 
-function ilovepdf_compress_action() {
+function ilove_pdf_compress_action() {
     if (isset($_GET['action']) && $_GET['action'] == 'ilovepdf_compress' && intval($_GET['id'])) {
         $id = intval($_GET['id']);
         $html = ilove_pdf_compress_pdf($id, 1); //este
@@ -237,7 +236,7 @@ function ilovepdf_compress_action() {
         if(isset($id)){
             $original_current_file_size = get_post_meta($id, '_wp_attached_original_size',true);
             $compress_file_size = get_post_meta($id, '_wp_attached_compress_size',true);
-            $return['percent'] = ilovepdf_get_percentage_compress($original_current_file_size, $original_current_file_size - $compress_file_size);
+            $return['percent'] = ilove_pdf_get_percentage_compress($original_current_file_size, $original_current_file_size - $compress_file_size);
             $return['compress_size'] = size_format($compress_file_size,2);
         }
 
@@ -254,18 +253,18 @@ function ilovepdf_compress_action() {
 
         $return['status'] = 1;
         $return['total_files'] = get_option('ilovepdf_compressed_files');
-        $return['initial_size'] = size_format(ilovepdf_get_all_pdf_original_size(),2);
-        $return['current_size'] = size_format(ilovepdf_get_all_pdf_current_size(),2);
-        $return['percentage'] = ilovepdf_get_percentage_compress(ilovepdf_get_all_pdf_original_size(),ilovepdf_get_all_pdf_original_size() - ilovepdf_get_all_pdf_current_size());
+        $return['initial_size'] = size_format(ilove_pdf_get_all_pdf_original_size(),2);
+        $return['current_size'] = size_format(ilove_pdf_get_all_pdf_current_size(),2);
+        $return['percentage'] = ilove_pdf_get_percentage_compress(ilove_pdf_get_all_pdf_original_size(),ilove_pdf_get_all_pdf_original_size() - ilove_pdf_get_all_pdf_current_size());
 
         echo json_encode($return);
     } else {
         wp_safe_redirect(wp_get_referer());
     }
 }
-add_action('admin_post_ilovepdf_compress', 'ilovepdf_compress_action');
+add_action('admin_post_ilovepdf_compress', 'ilove_pdf_compress_action');
 
-function ilovepdf_compress_list_action() {
+function ilove_pdf_compress_list_action() {
     $files = ilove_pdf_initialize_list_compress_pdf();
     $id_files = array();
                                 
@@ -279,4 +278,4 @@ function ilovepdf_compress_list_action() {
     echo json_encode($return);
 
 }
-add_action('admin_post_ilovepdf_compress_list', 'ilovepdf_compress_list_action');
+add_action('admin_post_ilovepdf_compress_list', 'ilove_pdf_compress_list_action');

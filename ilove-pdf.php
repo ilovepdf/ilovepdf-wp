@@ -80,8 +80,8 @@ $plugin->run();
 
 
 
-add_action( 'before_delete_post', 'before_delete_media' );
-function before_delete_media( $postid ){
+add_action( 'ilove_pdf_before_delete_post', 'ilove_pdf_before_delete_media' );
+function ilove_pdf_before_delete_media( $postid ){
 
 	// We check if the global post type isn't ours and just return
     global $post_type;   

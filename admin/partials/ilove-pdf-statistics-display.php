@@ -31,7 +31,7 @@ function ilove_pdf_content_page_statistics() {
                     </g>
                     </svg>';
 
-$stats = ilovepdf_get_statistics();
+$stats = ilove_pdf_get_statistics();
 ?>
     <div class="wrap">
         <h2 class="plugin-logo-full"><?php echo $logo_svg;?></h2>
@@ -56,7 +56,7 @@ $stats = ilovepdf_get_statistics();
                                     <div class="progress">
                                         <div class="progress__text"><?php echo __('Free', 'ilovepdf')?></div>
                                         <div class="progress__total">
-                                            <div class="progress__total__percent" style="width: <?php echo ilovepdf_get_percentage($stats['files_used'], $stats['free_files_limit']) ?>%;"></div>
+                                            <div class="progress__total__percent" style="width: <?php echo ilove_pdf_get_percentage($stats['files_used'], $stats['free_files_limit']) ?>%;"></div>
                                             <div class="progress__total_text"><?php echo ($stats['files_used'] < $stats['free_files_limit']) ? $stats['files_used'] : 250 ; ?> / <?php echo $stats['free_files_limit']?> <?php echo __('processed files this month. Free Tier.', 'ilovepdf')?></div>
                                         </div>
                                     </div>
@@ -67,7 +67,7 @@ $stats = ilovepdf_get_statistics();
                                                 <?php
                                                     $paid_files = ($stats['files_used'] < $stats['free_files_limit']) ? 0 : $stats['files_used'] -  $stats['free_files_limit'];
                                                 ?>
-                                                <div class="progress__total__percent" style="width: <?php echo ilovepdf_get_percentage($paid_files, $stats['subscription_files_limit']) ?>%;"></div>
+                                                <div class="progress__total__percent" style="width: <?php echo ilove_pdf_get_percentage($paid_files, $stats['subscription_files_limit']) ?>%;"></div>
                                                 <div class="progress__total_text"><?php echo $paid_files; ?> / <?php echo $stats['subscription_files_limit']; ?> <?php echo ($stats['subscription']['period'] == 'yearly') ? __('processed files this month. <strong>Yearly</strong> subscription.', 'ilovepdf') : __('processed files this month. <strong>Monthly</strong> subscription.', 'ilovepdf'); ?></div>
                                             </div>
                                         </div>
@@ -76,7 +76,7 @@ $stats = ilovepdf_get_statistics();
                                         <div class="progress">
                                             <div class="progress__text"><?php echo __('Prepaid', 'ilovepdf')?></div>
                                             <div class="progress__total">
-                                                <div class="progress__total__percent" style="width: <?php echo ilovepdf_get_percentage($stats['package_files_used'], $stats['package_files_limit']) ?>%;"></div>
+                                                <div class="progress__total__percent" style="width: <?php echo ilove_pdf_get_percentage($stats['package_files_used'], $stats['package_files_limit']) ?>%;"></div>
                                                 <div class="progress__total_text"><?php echo $stats['package_files_used'] ?> / <?php echo $stats['package_files_limit'] ?> <?php echo __('processed files. Prepaid files.', 'ilovepdf')?></div>
                                             </div>
                                         </div>
@@ -115,10 +115,10 @@ $stats = ilovepdf_get_statistics();
                                     <h3><?php echo __('Total savings', 'ilovepdf') ?></h3>
                                     <p style="margin-bottom: 20px;">Here you can check how much space you saved.</p>
                                     <div style="overflow: hidden;">
-                                        <div class="c100 p<?php echo ilovepdf_get_percentage_compress(ilovepdf_get_all_pdf_original_size(),ilovepdf_get_all_pdf_original_size() - ilovepdf_get_all_pdf_current_size());?> green"> 
+                                        <div class="c100 p<?php echo ilove_pdf_get_percentage_compress(ilove_pdf_get_all_pdf_original_size(),ilove_pdf_get_all_pdf_original_size() - ilove_pdf_get_all_pdf_current_size());?> green"> 
                                             <span style="top: -15px"><?php echo __('Saved!', 'ilovepdf') ?></span>
                                             <?php
-                                            $percent = ilovepdf_get_percentage_compress(ilovepdf_get_all_pdf_original_size(),ilovepdf_get_all_pdf_original_size() - ilovepdf_get_all_pdf_current_size());
+                                            $percent = ilove_pdf_get_percentage_compress(ilove_pdf_get_all_pdf_original_size(),ilove_pdf_get_all_pdf_original_size() - ilove_pdf_get_all_pdf_current_size());
                                             ?>
                                             <span id="stats_total_percentage"><?php echo ($percent > 0) ? $percent : 0;?>%</span>
                                             <div class="slice">
@@ -129,8 +129,8 @@ $stats = ilovepdf_get_statistics();
                                         <div class="status-c100">
                                             <ul>
                                                 <li><strong id="stats_total_files_compressed"><?php echo (get_option('ilovepdf_compressed_files') > 0) ? get_option('ilovepdf_compressed_files') : 0  ?></strong> <?php echo __('PDF files compressed', 'ilovepdf') ?></li>                                               
-                                                <li><strong id="stats_initial_size"><?php echo size_format(ilovepdf_get_all_pdf_original_size(),2);?></strong> <?php echo __('initial size', 'ilovepdf') ?></li>
-                                                <li><strong id="stats_current_size"><?php echo size_format(ilovepdf_get_all_pdf_current_size(),2);?></strong> <?php echo __('current size', 'ilovepdf') ?></li>
+                                                <li><strong id="stats_initial_size"><?php echo size_format(ilove_pdf_get_all_pdf_original_size(),2);?></strong> <?php echo __('initial size', 'ilovepdf') ?></li>
+                                                <li><strong id="stats_current_size"><?php echo size_format(ilove_pdf_get_all_pdf_current_size(),2);?></strong> <?php echo __('current size', 'ilovepdf') ?></li>
                                             </ul>
                                         </div>
                                     </div>
@@ -204,7 +204,7 @@ $stats = ilovepdf_get_statistics();
                                                     <?php else: ?>
                                                             <?php $original_current_file_size = get_post_meta(get_the_ID(), '_wp_attached_original_size',true);?>
                                                             <?php $compress_file_size = get_post_meta(get_the_ID(), '_wp_attached_compress_size',true);?>
-                                                            <?php echo ilovepdf_get_percentage_compress($original_current_file_size, $original_current_file_size - $compress_file_size).'%';?>                                                 
+                                                            <?php echo ilove_pdf_get_percentage_compress($original_current_file_size, $original_current_file_size - $compress_file_size).'%';?>                                                 
                                                     <?php endif;?>
                                                     </td>
                                                 </tr>

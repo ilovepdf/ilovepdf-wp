@@ -95,7 +95,7 @@ function ilove_pdf_restore_pdf($attachment_id) {
 	delete_post_meta($attachment_id, '_wp_attached_compress_size');
 }
 
-function pdf_handle_delete_file($attachment_id){
+function ilove_pdf_handle_delete_file($attachment_id){
     if (get_post_mime_type($attachment_id) == 'application/pdf') {
     	$result = 0;
     	if(get_post_meta($attachment_id, '_wp_attached_original_size',true)){
@@ -136,9 +136,9 @@ function pdf_handle_delete_file($attachment_id){
 		
     }
 }
-add_filter('delete_attachment', 'pdf_handle_delete_file');
+add_filter('delete_attachment', 'ilove_pdf_handle_delete_file');
 
-function pdf_handle_file_upload_duplicate($attachment_id){
+function ilove_pdf_handle_file_upload_duplicate($attachment_id){
     if(get_post_mime_type($attachment_id) == 'application/pdf'){
     	
         $post = get_post($attachment_id);
@@ -151,9 +151,9 @@ function pdf_handle_file_upload_duplicate($attachment_id){
 	    update_attached_file( $attachment_id, $newfile );
     }
 }
-add_filter('add_attachment', 'pdf_handle_file_upload_duplicate');
+add_filter('add_attachment', 'ilove_pdf_handle_file_upload_duplicate');
 
-function ilovepdf_handle_file_upload_compress_watermark($attachment_id){
+function ilove_pdf_handle_file_upload_compress_watermark($attachment_id){
     if(get_post_mime_type($attachment_id) == 'application/pdf'){
         $options_compress = get_option('ilove_pdf_display_settings_compress');
         $options_watermark = get_option('ilove_pdf_display_settings_watermark');
@@ -220,4 +220,4 @@ function ilovepdf_handle_file_upload_compress_watermark($attachment_id){
         }
     }
 }
-add_filter('add_attachment', 'ilovepdf_handle_file_upload_compress_watermark');
+add_filter('add_attachment', 'ilove_pdf_handle_file_upload_compress_watermark');

@@ -6,13 +6,13 @@
 ***********************/
  
 // Add the column
-function compress_media_column( $cols ) {
+function ilove_pdf_compress_media_column( $cols ) {
     $cols["compression"] = "iLovePDF";
     return $cols;
 }
 
 // Display Button
-function compress_button_value( $column_name, $id ) {
+function ilove_pdf_compress_button_value( $column_name, $id ) {
 	$filetype = wp_check_filetype(basename(get_attached_file($id)));
     $options = get_option('ilove_pdf_display_settings_watermark');
 	if (strcasecmp($filetype['ext'], 'pdf') == 0) {
@@ -24,7 +24,7 @@ function compress_button_value( $column_name, $id ) {
            $html .= '<span class="stats-compress"></span>';
         } else {
            $original_current_file_size = get_post_meta($id, '_wp_attached_original_size',true);
-           $html .= '<span class="stats-compress"><i class="fa fa-check" aria-hidden="true"></i> '.__('Compressed', 'ilovepdf').'<br />'.__('Savings','ilovepdf').' '.ilovepdf_get_percentage_compress($original_current_file_size, $original_current_file_size - get_post_meta($id, '_wp_attached_compress_size',true)).'%</span>';
+           $html .= '<span class="stats-compress"><i class="fa fa-check" aria-hidden="true"></i> '.__('Compressed', 'ilovepdf').'<br />'.__('Savings','ilovepdf').' '.ilove_pdf_get_percentage_compress($original_current_file_size, $original_current_file_size - get_post_meta($id, '_wp_attached_compress_size',true)).'%</span>';
         }
         $html .= '<span class="compressing pdf-status">'.__('Compressing', 'ilovepdf').'...</span>';
         $html .= '<span class="error pdf-status">'.__('Error', 'ilovepdf').'</span>';
@@ -64,13 +64,13 @@ function compress_button_value( $column_name, $id ) {
 }
 
 // Hook actions to admin_init
-function hook_new_media_columns() {
+function ilove_pdf_hook_new_media_columns() {
     if (!get_option('ilovepdf_user_id')) { return; }
     
-    add_filter( 'manage_media_columns', 'compress_media_column' );
-    add_action( 'manage_media_custom_column', 'compress_button_value', 10, 2 );        
+    add_filter( 'manage_media_columns', 'ilove_pdf_compress_media_column' );
+    add_action( 'manage_media_custom_column', 'ilove_pdf_compress_button_value', 10, 2 );        
 }
-add_action( 'admin_init', 'hook_new_media_columns' );
+add_action( 'admin_init', 'ilove_pdf_hook_new_media_columns' );
 
 /***************
 *** PDF LIST ***
@@ -118,7 +118,7 @@ function ilove_pdf_initialize_list_watermark_pdf() {
 *** MEDIA VIEW ***
 ******************/
 
-function custom_meta_box_ilovepdf($object)
+function ilove_pdf_custom_meta_box($object)
 {
     if (get_option('ilovepdf_user_id')) {
         wp_nonce_field(basename(__FILE__), "meta-box-nonce");
@@ -165,17 +165,17 @@ function custom_meta_box_ilovepdf($object)
     echo $html;
 }
 
-function add_custom_meta_box_ilovepdf()
+function ilove_pdf_add_custom_meta_box()
 {
-    add_meta_box("demo-meta-box", "iLovePDF", "custom_meta_box_ilovepdf", "attachment", "side", "low", null);
+    add_meta_box("demo-meta-box", "iLovePDF", "ilove_pdf_custom_meta_box", "attachment", "side", "low", null);
 }
-add_action("add_meta_boxes", "add_custom_meta_box_ilovepdf");
+add_action("add_meta_boxes", "ilove_pdf_add_custom_meta_box");
 
 /**
  * Add the custom Bulk Action to the select media menus
  */
-add_filter( 'bulk_actions-upload', 'register_ilovepdf_bulk_actions' );
-function register_ilovepdf_bulk_actions($bulk_actions) {
+add_filter( 'bulk_actions-upload', 'ilove_pdf_register_bulk_actions' );
+function ilove_pdf_register_bulk_actions($bulk_actions) {
     if (get_option('ilovepdf_user_id')) { 
         $bulk_actions['compress'] = __( 'Compress PDF', 'ilovepdf');
         $bulk_actions['watermark'] = __( 'Apply Watermark', 'ilovepdf');
@@ -184,8 +184,8 @@ function register_ilovepdf_bulk_actions($bulk_actions) {
     return $bulk_actions;
 }
 
-add_filter( 'handle_bulk_actions-upload', 'ilovepdf_compress_bulk_action_handler', 10, 3 ); 
-function ilovepdf_compress_bulk_action_handler( $redirect_to, $doaction, $post_ids ) {
+add_filter( 'handle_bulk_actions-upload', 'ilove_pdf_compress_bulk_action_handler', 10, 3 ); 
+function ilove_pdf_compress_bulk_action_handler( $redirect_to, $doaction, $post_ids ) {
 
   if ( $doaction == 'compress' ) {
 
@@ -209,8 +209,8 @@ function ilovepdf_compress_bulk_action_handler( $redirect_to, $doaction, $post_i
 
 }
 
-add_action( 'admin_notices', 'ilovepdf_bulk_action_admin_notice' );
-function ilovepdf_bulk_action_admin_notice() {
+add_action( 'admin_notices', 'ilove_pdf_bulk_action_admin_notice' );
+function ilove_pdf_bulk_action_admin_notice() {
   if ( ! empty( $_REQUEST['ilovepdf_notification'] ) ) {
     if ($_REQUEST['ilovepdf_notification'] == 200)
         printf( '<div id="message" class="updated fade">' .__('Process complete!','ilovepdf'). '</div>' );
@@ -233,7 +233,7 @@ function ilovepdf_bulk_action_admin_notice() {
 }
 
 
-function be_attachment_field_mode_grid( $form_fields, $post ) {
+function ilove_pdf_be_attachment_field_mode_grid( $form_fields, $post ) {
     if (get_option('ilovepdf_user_id') && substr($_SERVER['SCRIPT_NAME'], strrpos($_SERVER['SCRIPT_NAME'], '/')+1) != 'post.php') { 
         $filetype = wp_check_filetype(basename(get_attached_file($post->ID)));
         if (strcasecmp($filetype['ext'], 'pdf') == 0) {
@@ -274,7 +274,7 @@ function be_attachment_field_mode_grid( $form_fields, $post ) {
 
     return $form_fields;
 }
-add_filter( 'attachment_fields_to_edit', 'be_attachment_field_mode_grid', 10, 2 );
+add_filter( 'attachment_fields_to_edit', 'ilove_pdf_be_attachment_field_mode_grid', 10, 2 );
 
 
 

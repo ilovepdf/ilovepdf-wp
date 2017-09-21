@@ -211,7 +211,7 @@ function ilove_pdf_watermark_pdf($id_file, $auto=false, $bulk=false) {
 
 }
 
-function pdf_handle_file_upload_watermark($attachment_id){
+function ilove_pdf_handle_file_upload_watermark($attachment_id){
     if(get_post_mime_type($attachment_id) == 'application/pdf'){
         $options = get_option('ilove_pdf_display_settings_watermark');
         $options_compress = get_option('ilove_pdf_display_settings_compress');
@@ -261,9 +261,9 @@ function pdf_handle_file_upload_watermark($attachment_id){
         }
     }
 }
-add_filter('add_attachment', 'pdf_handle_file_upload_watermark', 9);
+add_filter('add_attachment', 'ilove_pdf_handle_file_upload_watermark', 9);
 
-function ilovepdf_watermark_action() {
+function ilove_pdf_watermark_action() {
     if (isset($_GET['action']) && $_GET['action'] == 'ilovepdf_watermark' && intval($_GET['id'])) {
         $id = intval($_GET['id']);
         $html = ilove_pdf_watermark_pdf(intval($_GET['id']), 1);
@@ -297,9 +297,9 @@ function ilovepdf_watermark_action() {
         wp_safe_redirect(wp_get_referer());
     }
 }
-add_action('admin_post_ilovepdf_watermark', 'ilovepdf_watermark_action');
+add_action('admin_post_ilovepdf_watermark', 'ilove_pdf_watermark_action');
 
-function ilovepdf_watermark_list_action() {
+function ilove_pdf_watermark_list_action() {
     $files = ilove_pdf_initialize_list_watermark_pdf();
     $id_files = array();
                                 
@@ -313,9 +313,9 @@ function ilovepdf_watermark_list_action() {
     echo json_encode($return);
 
 }
-add_action('admin_post_ilovepdf_watermark_list', 'ilovepdf_watermark_list_action');
+add_action('admin_post_ilovepdf_watermark_list', 'ilove_pdf_watermark_list_action');
 
-function ilovepdf_restore_action() {
+function ilove_pdf_restore_action() {
     if (isset($_GET['action']) && $_GET['action'] == 'ilovepdf_restore' && intval($_GET['id'])) {
         ilove_pdf_restore_pdf($_GET['id']);
     }
@@ -323,4 +323,4 @@ function ilovepdf_restore_action() {
     if (!isset($_GET['ajax']))
         wp_safe_redirect(wp_get_referer());
 }
-add_action('admin_post_ilovepdf_restore', 'ilovepdf_restore_action');        
+add_action('admin_post_ilovepdf_restore', 'ilove_pdf_restore_action');        

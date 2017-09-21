@@ -59,7 +59,7 @@ function ilove_pdf_content_page_setting() {
                 <div class="container no-center">
                     <div class="row">
                         <?php if (get_option('ilovepdf_user_id')): ?>
-                            <?php $stats = ilovepdf_get_statistics();?>
+                            <?php $stats = ilove_pdf_get_statistics();?>
                             <div class="col-md-4">
                                  <div class="panel" style="margin-right: 10px;">
                                     <h3><?php echo __('Account', 'ilovepdf')?></h3>
@@ -84,7 +84,7 @@ function ilove_pdf_content_page_setting() {
                                     <div class="progress">
                                         <div class="progress__text"><?php echo __('Free', 'ilovepdf')?></div>
                                         <div class="progress__total">
-                                            <div class="progress__total__percent" style="width: <?php echo ilovepdf_get_percentage($stats['files_used'], $stats['free_files_limit']) ?>%;"></div>
+                                            <div class="progress__total__percent" style="width: <?php echo ilove_pdf_get_percentage($stats['files_used'], $stats['free_files_limit']) ?>%;"></div>
                                             <div class="progress__total_text"><?php echo ($stats['files_used'] < $stats['free_files_limit']) ? $stats['files_used'] : 250 ; ?> / <?php echo $stats['free_files_limit']?> <?php echo __('processed files this month. Free Tier.', 'ilovepdf')?></div>
                                         </div>
                                     </div>
@@ -95,7 +95,7 @@ function ilove_pdf_content_page_setting() {
                                                 <?php
                                                     $paid_files = ($stats['files_used'] < $stats['free_files_limit']) ? 0 : $stats['files_used'] -  $stats['free_files_limit'];
                                                 ?>
-                                                <div class="progress__total__percent" style="width: <?php echo ilovepdf_get_percentage($paid_files, $stats['subscription_files_limit']) ?>%;"></div>
+                                                <div class="progress__total__percent" style="width: <?php echo ilove_pdf_get_percentage($paid_files, $stats['subscription_files_limit']) ?>%;"></div>
                                                 <div class="progress__total_text"><?php echo $paid_files; ?> / <?php echo $stats['subscription_files_limit']; ?> <?php echo ($stats['subscription']['period'] == 'yearly') ? __('processed files this month. <strong>Yearly</strong> subscription.', 'ilovepdf') : __('processed files this month. <strong>Monthly</strong> subscription.', 'ilovepdf'); ?></div>
                                             </div>
                                         </div>
@@ -104,7 +104,7 @@ function ilove_pdf_content_page_setting() {
                                         <div class="progress">
                                             <div class="progress__text"><?php echo __('Prepaid', 'ilovepdf')?></div>
                                             <div class="progress__total">
-                                                <div class="progress__total__percent" style="width: <?php echo ilovepdf_get_percentage($stats['package_files_used'], $stats['package_files_limit']) ?>%;"></div>
+                                                <div class="progress__total__percent" style="width: <?php echo ilove_pdf_get_percentage($stats['package_files_used'], $stats['package_files_limit']) ?>%;"></div>
                                                 <div class="progress__total_text"><?php echo $stats['package_files_used'] ?> / <?php echo $stats['package_files_limit'] ?> <?php echo __('processed files. Prepaid files.', 'ilovepdf')?></div>
                                             </div>
                                         </div>

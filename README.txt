@@ -3,8 +3,8 @@ Contributors: iLovePDF
 Donate link: https://ilovepdf.com/
 Tags: pdf, api, watermark, compress, optimize, bulk
 Requires at least: 3.0.1
-Tested up to: 4.8
-Stable tag: 1.0
+Tested up to: 3.4
+Stable tag: 4.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -12,18 +12,10 @@ A wordpress plugin by iLovePDF. PDF tools directly to your wordpress.
 
 == Description ==
 
-Compress your PDF files and Stamp Images or text into PDF files. This is the Official iLovePDF plugin for Wordpress. You can optimize all your PDF and stamp them automatically as you do in ilovepdf.com.
+iLovePDF give the power of his PDF tools to your wordpress.
 
-HOW IT WORKS
-
-The plugin has two modes of work, automatic or manual.
-Compress PDF: Every time a PDF file is uploaded to your Media Library, is compressed by our iLovePDF API and saved in your WordPress site already optimized, saving you disk space. This feature can be disabled. 
-
-It can also compress all PDF already in your Media Library at once or compress PDF files one by one. The compression ratio depends on the PDF but on average you can save up to 50% of disk space occupied by PDF files without loosing quality. 
-
-Watermark PDF: Every time a PDF file is uploaded to your Media Library, is stamped by our iLovePDF API and saved in your WordPress. This feature can be disabled. 
-It can also stamp images or text in PDF already in your Media Library at once or stamp PDF files one by one. 
-
+* Compress your PDF files and save space and bandwith. 
+* Watermark all your PDF, with a text or your logo.
 
 = Bulk actions =
 
@@ -37,14 +29,10 @@ All tools can be applied automatically when a PDF file is uplaod, so you don't n
 
 This section describes how to install the plugin and get it working.
 
-Install this plugin and go to Settings -> iLovePDF to create your iLovePDF Developer account (if you already registered previously on https://developer.ilovepdf.com you can login directly) and choose your Project, but by default it will be selected ‘Default Project’. A project is what defines which API keys will be used. If you need it, you can manage your projects in your iLovePDF developer account. With your iLovePDF API Free account you get 250 free PDF files to process per month. If you need more you can purchase them 
-
-By going to Settings -> iLovePDF -> Compress PDF you can set the compression level you prefer to optimize your PDF files. We strongly recommend you to use ‘Recommended Compression’ which offers the perfect balance between compression and quality. In this section you can disable the auto compression of new uploaded PDF files in your Media Library.
-
-By going to Settings -> iLovePDF -> Watermark PDF you can set many options on what to stamp and how into your PDF files. In this section you can disable the auto stamping of new uploaded PDF files in your Media Library.
-
-To Compress or Stamp PDF files that are already in your Media Library go to Media -> iLovePDF -> Compress PDF or Media -> iLovePDF -> Watermark
-
+1. Upload `ilove-pdf` to the `/wp-content/plugins/` directory
+2. Activate the plugin through the 'Plugins' menu in WordPress
+3. Create a free account in the plugin settings page, or use your existing one
+4. Configure the plugin as you like
 
 == Frequently Asked Questions ==
 
