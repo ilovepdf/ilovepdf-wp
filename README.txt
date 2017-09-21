@@ -1,6 +1,5 @@
 === iLove PDF wordpress plugin ===
 Contributors: iLovePDF
-Donate link: https://ilovepdf.com/
 Tags: pdf, api, watermark, compress, optimize, bulk
 Requires at least: 3.0.1
 Tested up to: 3.4
