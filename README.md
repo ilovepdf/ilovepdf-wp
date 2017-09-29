@@ -1,7 +1,7 @@
-iLove PDF wordpress plugin
+iLovePDF WP
 ==========================
 
-A wordpress plugin by iLovePDF. PDF tools directly to your wordpress.
+A wordpress plugin by iLovePDF. PDF tools directly to your Wordpress.
 
 Description
 -----------
@@ -21,37 +21,40 @@ It can also stamp images or text in PDF already in your Media Library at once or
 
 ###Bulk actions
 
-All tools can be done for an individual files or appplied to all your existing files.
+All tools can be done for an individual files or applied to all your existing files.
 
-###Atomatic process
+###Automatic process
 
-All tools can be applied automatically when a PDF file is uplaod, so you don't need to apply any manual anymore.
+All tools can be applied automatically when a PDF file is upload, so you don't need to apply any manual anymore.
 
 Installation
 ------------
+From your Admin panel:
+1. Visit Plugins > Add New.
+2. Search for ‘ilovepdf’ and press the ‘Install Now’ button.
+3. Activate the plugin from your Plugins page.
 
-This section describes how to install the plugin and get it working.
+Manual: 
+1. Upload `ilove-pdf` to the `/wp-content/plugins/` directory
+2. Activate the plugin through the 'Plugins' menu in WordPress
+3. Create a free account in the plugin settings page, or use your existing one
+4. Configure the plugin as you like
 
-Install this plugin and go to Settings -> iLovePDF to create your iLovePDF Developer account (if you already registered previously on https://developer.ilovepdf.com you can login directly) and choose your Project, but by default it will be selected ‘Default Project’. A project is what defines which API keys will be used. If you need it, you can manage your projects in your iLovePDF developer account. With your iLovePDF API Free account you get 250 free PDF files to process per month. If you need more you can purchase them 
-
-By going to Settings -> iLovePDF -> Compress PDF you can set the compression level you prefer to optimize your PDF files. We strongly recommend you to use ‘Recommended Compression’ which offers the perfect balance between compression and quality. In this section you can disable the auto compression of new uploaded PDF files in your Media Library.
-
-By going to Settings -> iLovePDF -> Watermark PDF you can set many options on what to stamp and how into your PDF files. In this section you can disable the auto stamping of new uploaded PDF files in your Media Library.
-
-To Compress or Stamp PDF files that are already in your Media Library go to Media -> iLovePDF -> Compress PDF or Media -> iLovePDF -> Watermark
+Configure your iLovePDF Developer Account:
+Install this plugin and go to Settings -> iLovePDF to create your iLovePDF Developer account (if you already registered previously on https://developer.ilovepdf.com you can login directly) and choose your Project, but by default it will be selected ‘Default Project’. A project is what defines which API keys will be used. If you need it, you can manage your projects in your iLovePDF developer account. With your iLovePDF API Free account you get 250 free PDF files to process per month. If you need more you can purchase them
 
 
 Frequently Asked Questions
 --------------------------
 
-###Do I need a iLovePDF account
+###Do I need a iLovePDF account?
 
-Yes, you need a `developer` account. It can be created easly from your wordpress, or you can use your existing one.
+Yes, you need a `developer` account. It can be created easily from your Wordpress, or you can use your existing one.
 
 ###Is this service free?
 
-With a free account you can process up to 250 files each month. If you need more, you can upgrade your account. Both with file packages or monthly ammount.
+With a free account you can process up to 250 files each month. If you need more, you can upgrade your account.
 
-###What happens when the limit is reatched?
+###What happens when the limit is reached?
 
-We will send you an email before limit is reatched. When limit is reatched, no more PDF files will be processed. But remember each month, 250 files are free, so in next month you will be able to process more files again!
+We will send you an email before limit is reached. When limit is reached, no more PDF files will be processed. But remember each month, 250 files are free, so in next month you will be able to process more files again!
