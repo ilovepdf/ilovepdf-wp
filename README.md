@@ -1,7 +1,7 @@
 iLovePDF WP
 ==========================
 
-A wordpress plugin by iLovePDF. PDF tools directly to your Wordpress.
+A wordpress plugin by iLovePDF.
 
 Description
 -----------

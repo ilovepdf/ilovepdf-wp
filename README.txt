@@ -7,7 +7,7 @@ Stable tag: 1.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-A wordpress plugin by iLovePDF. PDF tools directly to your wordpress.
+A wordpress plugin by iLovePDF.
 
 == Description ==
 
