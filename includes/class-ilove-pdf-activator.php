@@ -50,7 +50,7 @@ class Ilove_Pdf_Activator {
 		    wp_mkdir_p($pdf_dirname);
 		}	
 
-		$initial_pdf_size = ilovepdf_get_all_pdf_current_size();
+		$initial_pdf_size = ilove_pdf_get_all_pdf_current_size();
 		add_option('ilovepdf_initial_pdf_files_size',$initial_pdf_size);
 		add_option('ilove_pdf_display_settings_watermark',array('ilove_pdf_watermark_backup' => 1));
 		if(get_option('ilovepdf_wordpress_id') == null)
