@@ -1,12 +1,20 @@
-iLovePDF WP
-==========================
-
-A wordpress plugin by iLovePDF.
-
-Description
------------
+=== PDF Compressor & Watermark - iLovePDF ===
+Plugin Name: Image Compressor & Optimizer - iLovePDF
+Version: 1.0.1
+Author: iLovePDF
+Author URI: https://www.ilovepdf.com/
+Contributors: iLovePDF
+Tags: compress, watermark, optimize, performance, pdf optimizer
+Requires at least: 4.6
+Tested up to: 5.2.1
+Stable tag: 1.0.1
+Requires PHP: 7.1
+License: GPLv2 or later
+License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
 Compress your PDF files and Stamp Images or text into PDF files. This is the Official iLovePDF plugin for Wordpress. You can optimize all your PDF and stamp them automatically as you do in ilovepdf.com.
+
+== Description ==
 
 ###How it works
 
@@ -27,8 +35,8 @@ All tools can be done for an individual files or applied to all your existing fi
 
 All tools can be applied automatically when a PDF file is upload, so you don't need to apply any manual anymore.
 
-Installation
-------------
+== Installation ==
+
 From your Admin panel:
 1. Visit Plugins > Add New.
 2. Search for ‘ilovepdf’ and press the ‘Install Now’ button.
@@ -44,8 +52,7 @@ Configure your iLovePDF Developer Account:
 Install this plugin and go to Settings -> iLovePDF to create your iLovePDF Developer account (if you already registered previously on https://developer.ilovepdf.com you can login directly) and choose your Project, but by default it will be selected ‘Default Project’. A project is what defines which API keys will be used. If you need it, you can manage your projects in your iLovePDF developer account. With your iLovePDF API Free account you get 250 free PDF files to process per month. If you need more you can purchase them
 
 
-Frequently Asked Questions
---------------------------
+== Frequently Asked Questions ==
 
 ###Do I need a iLovePDF account?
 
