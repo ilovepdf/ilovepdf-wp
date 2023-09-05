@@ -103,9 +103,13 @@ function ilove_pdf_watermark_auto_callback($args) {
 
 function ilove_pdf_initialize_options_format_watermark() {
 
-    wp_enqueue_media();
+   
+
+    if( ! empty ( $_SERVER['PHP_SELF'] ) && 'options-general.php' === basename( $_SERVER['PHP_SELF'] )) { wp_enqueue_media(); }
+    
     // Add the color picker css file       
-    wp_enqueue_style( 'wp-color-picker' );  
+    wp_enqueue_style( 'wp-color-picker' );   
+    
     // Include our custom jQuery file with WordPress Color Picker dependency
     wp_enqueue_script( 'ilove-pdf-admin', plugins_url( 'js/ilove-pdf-admin.js', __FILE__ ), array( 'wp-color-picker' ), false, true ); 
     
@@ -404,8 +408,9 @@ function ilove_pdf_format_watermark_mode_callback($args) {
 
 function ilove_pdf_format_watermark_image_callback($args) {
     $options = get_option('ilove_pdf_display_settings_format_watermark');
-    $image = ($options['ilove_pdf_format_watermark_image']) ? '<img id="image-preview" src="'.wp_get_attachment_url($options['ilove_pdf_format_watermark_image']).'" height="100">' : '<img id="image-preview" height="100" style="max-width: 100px">';
-    $html = '<div class="image-preview-wrapper">
+    
+	$image = isset($options['ilove_pdf_format_watermark_image']) ? '<img id="image-preview" src="'.wp_get_attachment_url($options['ilove_pdf_format_watermark_image']).'" height="100">' : '<img id="image-preview" height="100" style="max-width: 100px">';
+	$html = '<div class="image-preview-wrapper">
                 '.$image.'
             </div>
             <input id="upload_image_button" type="button" class="button" value="'. __('Upload image','ilovepdf').'" />
@@ -417,7 +422,7 @@ function ilove_pdf_format_watermark_image_callback($args) {
 
 function ilove_pdf_media_selector_print_scripts() {
     $options = get_option('ilove_pdf_display_settings_format_watermark');
-    $my_saved_attachment_post_id = ($options['ilove_pdf_format_watermark_image']) ? $options['ilove_pdf_format_watermark_image'] : 0;
+    $my_saved_attachment_post_id = isset($options['ilove_pdf_format_watermark_image']) && $options['ilove_pdf_format_watermark_image'] != '' ? $options['ilove_pdf_format_watermark_image'] : 0;
     ?><script type='text/javascript'>
         jQuery( document ).ready( function( $ ) {
             // Uploading files
