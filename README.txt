@@ -3,7 +3,7 @@ Contributors: iLovePDF
 Tags: pdf, api, watermark, compress, optimize, bulk, compress pdf, stamp pdf
 Requires at least: 4.6
 Tested up to: 5.8.2
-Stable tag: 1.2.2
+Stable tag: 1.2.3
 Requires PHP: 7.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -80,3 +80,10 @@ We will send you an email before limit is reached. When limit is reached, no mor
 
 = 1.0 =
 * Initial version.
+
+= 1.2.2 =
+* update version
+
+= 1.2.3 =
+* match version and tag.
+* update readme
