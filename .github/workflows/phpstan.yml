@@ -11,3 +11,4 @@ jobs:
         with:
           configuration: ./phpstan.neon
           memory_limit: -1
+          php_version: 7.4
