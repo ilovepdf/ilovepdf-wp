@@ -1,0 +1,10 @@
+parameters:
+	level: 5
+	paths:
+			- ./
+	excludePaths:
+			analyseAndScan:
+					- vendor
+					- node_modules
+			analyse:
+					- lib
