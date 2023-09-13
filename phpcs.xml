@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<ruleset name="ilovecompany">
+    <description>WordPress Config.</description>
+        <rule ref="WordPress-Extra">
+            <exclude name="Generic.WhiteSpace.DisallowSpaceIndent" />
+                <property name="indent" value="2"/>
+            <properties>
+            </properties>
+        </rule>
+        <rule ref="WordPress.WP.I18n">
+            <properties>
+                <property name="text_domain" type="array">
+                    <element value="ilovepdf"/>
+                    <element value="tgmpa"/>
+                </property>
+            </properties>
+        </rule>
+        <rule ref="WordPress.NamingConventions.PrefixAllGlobals">
+            <properties>
+                <property name="prefixes" type="array">
+                    <element value="ilove_pdf"/>
+                    <element value="tgmpa"/>
+                </property>
+
+            </properties>
+        </rule>
+        <rule ref="WordPress"></rule>
+        <rule ref="Squiz.Commenting.FileComment.Missing">
+            <severity>0</severity>
+        </rule>
+        <rule ref="Generic.Commenting.DocComment.MissingShort">
+            <severity>0</severity>
+        </rule>
+        <config name="minimum_wp_version" value="4.6"/>
+        <!-- <rule ref="Squiz.Commenting.DocCommentAlignment"></rule> -->
+</ruleset>
