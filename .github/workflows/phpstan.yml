@@ -10,5 +10,3 @@ jobs:
         uses: dingo-d/phpstan-wp-action@v1
         with:
           configuration: ./phpstan.neon
-          memory_limit: -1
-          php_version: 7.4
