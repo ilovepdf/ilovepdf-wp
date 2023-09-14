@@ -6,7 +6,7 @@
 
 function ilove_pdf_initialize_options_watermark() {
 
-    if ( false == get_option( 'ilove_pdf_display_settings_watermark' ) ) {
+    if ( false === get_option( 'ilove_pdf_display_settings_watermark' ) ) {
         add_option( 'ilove_pdf_display_settings_watermark' );
     }
 
@@ -107,7 +107,7 @@ function ilove_pdf_initialize_options_format_watermark() {
     // Include our custom jQuery file with WordPress Color Picker dependency
     wp_enqueue_script( 'ilove-pdf-admin', plugins_url( 'js/ilove-pdf-admin.js', __FILE__ ), array( 'wp-color-picker' ), false, true );
 
-    if ( false == get_option( 'ilove_pdf_display_settings_format_watermark' ) ) {
+    if ( false === get_option( 'ilove_pdf_display_settings_format_watermark' ) ) {
         add_option( 'ilove_pdf_display_settings_format_watermark' );
     }
 
@@ -404,7 +404,7 @@ function ilove_pdf_format_watermark_image_callback( $args ) {
 
 function ilove_pdf_media_selector_print_scripts() {
     $options                     = get_option( 'ilove_pdf_display_settings_format_watermark' );
-    $my_saved_attachment_post_id = isset( $options['ilove_pdf_format_watermark_image'] ) && $options['ilove_pdf_format_watermark_image'] != '' ? $options['ilove_pdf_format_watermark_image'] : 0;
+    $my_saved_attachment_post_id = isset( $options['ilove_pdf_format_watermark_image'] ) && $options['ilove_pdf_format_watermark_image'] !== '' ? $options['ilove_pdf_format_watermark_image'] : 0;
     ?><script type='text/javascript'>
         jQuery( document ).ready( function( $ ) {
             // Uploading files

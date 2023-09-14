@@ -53,7 +53,7 @@ class Ilove_Pdf_Activator {
 		$initial_pdf_size = ilove_pdf_get_all_pdf_current_size();
 		add_option( 'ilovepdf_initial_pdf_files_size', $initial_pdf_size );
 		add_option( 'ilove_pdf_display_settings_watermark', array( 'ilove_pdf_watermark_backup' => 1 ) );
-		if ( get_option( 'ilovepdf_wordpress_id' ) == null ) {
+		if ( get_option( 'ilovepdf_wordpress_id' ) === null ) {
 			add_option( 'ilovepdf_wordpress_id', md5( get_option( 'siteurl' ) . get_option( 'admin_email' ) ) );
         }
 	}

@@ -15,7 +15,7 @@ function ilove_pdf_compress_media_column( $cols ) {
 function ilove_pdf_compress_button_value( $column_name, $id ) {
 	$filetype = wp_check_filetype( basename( get_attached_file( $id ) ) );
     $options  = get_option( 'ilove_pdf_display_settings_watermark' );
-	if ( strcasecmp( $filetype['ext'], 'pdf' ) == 0 ) {
+	if ( strcasecmp( $filetype['ext'], 'pdf' ) === 0 ) {
         $restore = false;
         $html    = '<div class="row-library"><div class="row-child-library">';
 
@@ -123,7 +123,7 @@ function ilove_pdf_custom_meta_box( $object ) {
         wp_nonce_field( basename( __FILE__ ), 'meta-box-nonce' );
 
         $filetype = wp_check_filetype( basename( get_attached_file( $object->ID ) ) );
-        if ( strcasecmp( $filetype['ext'], 'pdf' ) == 0 ) {
+        if ( strcasecmp( $filetype['ext'], 'pdf' ) === 0 ) {
             $restore = false;
             $html    = '';
 
@@ -185,7 +185,7 @@ function ilove_pdf_register_bulk_actions( $bulk_actions ) {
 add_filter( 'handle_bulk_actions-upload', 'ilove_pdf_compress_bulk_action_handler', 10, 3 );
 function ilove_pdf_compress_bulk_action_handler( $redirect_to, $doaction, $post_ids ) {
 
-	if ( $doaction == 'compress' ) {
+	if ( $doaction === 'compress' ) {
 
 		$redirect_to = '<form id="bulkActionsForm" name="compress_bulk_actions" action="?page=ilove-pdf-content-statistics&tab=compress_statistic" method="post">';
 		foreach ( $post_ids as $post_id ) {
@@ -194,7 +194,7 @@ function ilove_pdf_compress_bulk_action_handler( $redirect_to, $doaction, $post_
 
 		$redirect_to .= '</form><script type="text/javascript">document.getElementById("bulkActionsForm").submit();</script>';
 
-	} elseif ( $doaction == 'watermark' ) {
+	} elseif ( $doaction === 'watermark' ) {
 
 		$redirect_to = '<form id="bulkActionsForm" name="watermark_bulk_actions" action="?page=ilove-pdf-content-statistics&tab=watermark_statistic" method="post">';
 		foreach ( $post_ids as $post_id ) {
@@ -209,27 +209,27 @@ function ilove_pdf_compress_bulk_action_handler( $redirect_to, $doaction, $post_
 add_action( 'admin_notices', 'ilove_pdf_bulk_action_admin_notice' );
 function ilove_pdf_bulk_action_admin_notice() {
 	if ( ! empty( $_REQUEST['ilovepdf_notification'] ) ) {
-		if ( $_REQUEST['ilovepdf_notification'] == 200 ) {
+		if ( $_REQUEST['ilovepdf_notification'] === 200 ) {
 			printf( '<div id="message" class="updated fade">' . __( 'Process complete!', 'ilovepdf' ) . '</div>' );
 		}
 
-		if ( $_REQUEST['ilovepdf_notification'] == 'error_start' ) {
+		if ( $_REQUEST['ilovepdf_notification'] === 'error_start' ) {
 			printf( '<div id="message" class="error fade">' . __( 'An error occured on start.', 'ilovepdf' ) . '</div>' );
 		}
 
-		if ( $_REQUEST['ilovepdf_notification'] == 'error_auth' ) {
+		if ( $_REQUEST['ilovepdf_notification'] === 'error_auth' ) {
 			printf( '<div id="message" class="error fade">' . __( 'An error occured on auth.', 'ilovepdf' ) . '</div>' );
 		}
 
-		if ( $_REQUEST['ilovepdf_notification'] == 'error_upload' ) {
+		if ( $_REQUEST['ilovepdf_notification'] === 'error_upload' ) {
 			printf( '<div id="message" class="error fade">' . __( 'An error occured on upload.', 'ilovepdf' ) . '</div>' );
 		}
 
-		if ( $_REQUEST['ilovepdf_notification'] == 'error_proccess' ) {
+		if ( $_REQUEST['ilovepdf_notification'] === 'error_proccess' ) {
 			printf( '<div id="message" class="error fade">' . __( 'An error occured on process.', 'ilovepdf' ) . '</div>' );
 		}
 
-		if ( $_REQUEST['ilovepdf_notification'] == 'error_occured' ) {
+		if ( $_REQUEST['ilovepdf_notification'] === 'error_occured' ) {
 			printf( '<div id="message" class="error fade">' . __( 'An error occured.', 'ilovepdf' ) . '</div>' );
 		}
 	}
@@ -237,9 +237,9 @@ function ilove_pdf_bulk_action_admin_notice() {
 
 
 function ilove_pdf_be_attachment_field_mode_grid( $form_fields, $post ) {
-    if ( get_option( 'ilovepdf_user_id' ) && substr( $_SERVER['SCRIPT_NAME'], strrpos( $_SERVER['SCRIPT_NAME'], '/' ) + 1 ) != 'post.php' ) {
+    if ( get_option( 'ilovepdf_user_id' ) && substr( $_SERVER['SCRIPT_NAME'], strrpos( $_SERVER['SCRIPT_NAME'], '/' ) + 1 ) !== 'post.php' ) {
         $filetype = wp_check_filetype( basename( get_attached_file( $post->ID ) ) );
-        if ( strcasecmp( $filetype['ext'], 'pdf' ) == 0 ) {
+        if ( strcasecmp( $filetype['ext'], 'pdf' ) === 0 ) {
             $restore = false;
             $html    = '';
             if ( ! ilove_pdf_is_file_compressed( $post->ID ) ) {

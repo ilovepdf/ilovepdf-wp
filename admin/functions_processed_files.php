@@ -66,7 +66,7 @@ function ilove_pdf_restore_pdf( $attachment_id ) {
 	$wp_upload_dir = wp_upload_dir();
 
 	if ( ilove_pdf_is_file_compressed( $attachment_id ) ) {
-		if ( get_option( 'ilovepdf_compressed_files' ) == 1 ) {
+		if ( get_option( 'ilovepdf_compressed_files' ) === 1 ) {
 			delete_option( 'ilovepdf_compressed_files' );
 		} else {
 			update_option( 'ilovepdf_compressed_files', get_option( 'ilovepdf_compressed_files' ) - 1 );
@@ -76,7 +76,7 @@ function ilove_pdf_restore_pdf( $attachment_id ) {
 	}
 
 	if ( ilove_pdf_is_file_watermarked( $attachment_id ) ) {
-		if ( get_option( 'ilovepdf_watermarked_files' ) == 1 ) {
+		if ( get_option( 'ilovepdf_watermarked_files' ) === 1 ) {
 			delete_option( 'ilovepdf_watermarked_files' );
 		} else {
 			update_option( 'ilovepdf_watermarked_files', get_option( 'ilovepdf_watermarked_files' ) - 1 );
@@ -95,7 +95,7 @@ function ilove_pdf_restore_pdf( $attachment_id ) {
 }
 
 function ilove_pdf_handle_delete_file( $attachment_id ) {
-    if ( get_post_mime_type( $attachment_id ) == 'application/pdf' ) {
+    if ( get_post_mime_type( $attachment_id ) === 'application/pdf' ) {
     	$result = 0;
     	if ( get_post_meta( $attachment_id, '_wp_attached_original_size', true ) ) {
     		$result = get_option( 'ilovepdf_initial_pdf_files_size' ) - get_post_meta( $attachment_id, '_wp_attached_original_size', true );
@@ -104,7 +104,7 @@ function ilove_pdf_handle_delete_file( $attachment_id ) {
     	$wp_upload_dir = wp_upload_dir();
     	$file_name     = basename( get_attached_file( $attachment_id ) );
         if ( ilove_pdf_is_file_compressed( $attachment_id ) ) {
-        	if ( get_option( 'ilovepdf_compressed_files' ) == 1 ) {
+        	if ( get_option( 'ilovepdf_compressed_files' ) === 1 ) {
 				delete_option( 'ilovepdf_compressed_files' );
 			} else {
 				update_option( 'ilovepdf_compressed_files', get_option( 'ilovepdf_compressed_files' ) - 1 );
@@ -114,7 +114,7 @@ function ilove_pdf_handle_delete_file( $attachment_id ) {
         }
 
 		if ( ilove_pdf_is_file_watermarked( $attachment_id ) ) {
-			if ( get_option( 'ilovepdf_watermarked_files' ) == 1 ) {
+			if ( get_option( 'ilovepdf_watermarked_files' ) === 1 ) {
 				delete_option( 'ilovepdf_watermarked_files' );
 			} else {
 				update_option( 'ilovepdf_watermarked_files', get_option( 'ilovepdf_watermarked_files' ) - 1 );
@@ -139,7 +139,7 @@ function ilove_pdf_handle_delete_file( $attachment_id ) {
 add_filter( 'delete_attachment', 'ilove_pdf_handle_delete_file' );
 
 function ilove_pdf_handle_file_upload_duplicate( $attachment_id ) {
-    if ( get_post_mime_type( $attachment_id ) == 'application/pdf' ) {
+    if ( get_post_mime_type( $attachment_id ) === 'application/pdf' ) {
 
         $post = get_post( $attachment_id );
 	    $file = get_attached_file( $attachment_id );
@@ -154,7 +154,7 @@ function ilove_pdf_handle_file_upload_duplicate( $attachment_id ) {
 add_filter( 'add_attachment', 'ilove_pdf_handle_file_upload_duplicate' );
 
 function ilove_pdf_handle_file_upload_compress_watermark( $attachment_id ) {
-    if ( get_post_mime_type( $attachment_id ) == 'application/pdf' ) {
+    if ( get_post_mime_type( $attachment_id ) === 'application/pdf' ) {
         $options_compress  = get_option( 'ilove_pdf_display_settings_compress' );
         $options_watermark = get_option( 'ilove_pdf_display_settings_watermark' );
         update_option( 'ilovepdf_initial_pdf_files_size', get_option( 'ilovepdf_initial_pdf_files_size' ) + filesize( get_attached_file( $attachment_id ) ) );
@@ -163,7 +163,7 @@ function ilove_pdf_handle_file_upload_compress_watermark( $attachment_id ) {
             $html_compress  = ilove_pdf_compress_pdf( $attachment_id, 1 );
             $html_watermark = ilove_pdf_watermark_pdf( $attachment_id, 1 );
 
-            if ( get_user_option( 'media_library_mode', get_current_user_id() ) == 'list' && ! wp_doing_ajax() ) {
+            if ( get_user_option( 'media_library_mode', get_current_user_id() ) === 'list' && ! wp_doing_ajax() ) {
 
 	            echo '<img class="pinkynail" src="' . includes_url() . '/images/media/document.png" alt="">';
 	            echo '<span class="title custom-title">' . get_the_title( $attachment_id ) . '</span><span class="pdf-id">ID: ';
@@ -176,7 +176,7 @@ function ilove_pdf_handle_file_upload_compress_watermark( $attachment_id ) {
 	                    var parentDiv = parentTag.parent();
 	                    parentDiv.find('.progress').find('.percent').html('Compressing...');
 	                    window.setTimeout(function(){
-	                        if (response_compress != '1') {
+	                        if (response_compress !==  '1') {
 	                            parentDiv.find('.progress').find('.percent').html(response_compress.replace(/<\/?p[^>]*>/g, "").replace(/<\/?div[^>]*>/g, ""));
 	                            parentDiv.find('.progress').css('width','600px');
 	                            parentDiv.find('.progress').find('.percent').css('width','600px');
@@ -185,7 +185,7 @@ function ilove_pdf_handle_file_upload_compress_watermark( $attachment_id ) {
 	                        	var response_watermark = '<?php echo $html_watermark; ?>';
 	                        	parentDiv.find('.progress').find('.percent').html('Applying Watermark...');
 			                    window.setTimeout(function(){
-			                        if (response_watermark != '1') {
+			                        if (response_watermark !==  '1') {
 			                            parentDiv.find('.progress').find('.percent').html(response_watermark.replace(/<\/?p[^>]*>/g, "").replace(/<\/?div[^>]*>/g, ""));
 			                            parentDiv.find('.progress').css('width','600px');
 			                            parentDiv.find('.progress').find('.percent').css('width','600px');
@@ -203,13 +203,13 @@ function ilove_pdf_handle_file_upload_compress_watermark( $attachment_id ) {
 
 	            </script>
                 <?php
-            } elseif ( get_user_option( 'media_library_mode', get_current_user_id() ) == 'grid' || wp_doing_ajax() ) {
-            	if ( $html_compress != '1' || $html_watermark != '1' ) {
-            		if ( $html_compress != '1' ) {
+            } elseif ( get_user_option( 'media_library_mode', get_current_user_id() ) === 'grid' || wp_doing_ajax() ) {
+            	if ( $html_compress !== '1' || $html_watermark !== '1' ) {
+            		if ( $html_compress !== '1' ) {
             			$return = array( 'message' => strip_tags( $html_compress ) );
                     }
 
-            		if ( $html_watermark != '1' ) {
+            		if ( $html_watermark !== '1' ) {
                     	$return = array( 'message' => strip_tags( $html_watermark ) );
                     }
 

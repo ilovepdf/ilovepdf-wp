@@ -5,15 +5,15 @@
 */
 function ilove_pdf_content_page_statistics() {
     if ( isset( $_POST['file'] ) ) {
-        if ( strcmp( $_GET['tab'], 'compress_statistic' ) == 0 ) {
+        if ( strcmp( $_GET['tab'], 'compress_statistic' ) === 0 ) {
             ilove_pdf_compress_pdf( $_POST['file'] );
-        } elseif ( strcmp( $_GET['tab'], 'watermark_statistic' ) == 0 ) {
+        } elseif ( strcmp( $_GET['tab'], 'watermark_statistic' ) === 0 ) {
             ilove_pdf_watermark_pdf( $_POST['file'] );
         }
     } elseif ( isset( $_POST['multi'] ) ) {
-        if ( strcmp( $_GET['tab'], 'compress_statistic' ) == 0 ) {
+        if ( strcmp( $_GET['tab'], 'compress_statistic' ) === 0 ) {
             ilove_pdf_compress_pdf( null );
-        } elseif ( strcmp( $_GET['tab'], 'watermark_statistic' ) == 0 ) {
+        } elseif ( strcmp( $_GET['tab'], 'watermark_statistic' ) === 0 ) {
             ilove_pdf_watermark_pdf( null );
         }
     }
@@ -41,13 +41,13 @@ function ilove_pdf_content_page_statistics() {
             ?>
              
             <h2 class="nav-tab-wrapper">
-                <a href="?page=ilove-pdf-content-statistics&tab=statistic_statistic" class="nav-tab <?php echo $active_tab == 'statistic_statistic' ? 'nav-tab-active tab-ilovepdf' : ''; ?>"><?php echo __( 'Overview', 'ilovepdf' ); ?></a>
-                <a href="?page=ilove-pdf-content-statistics&tab=compress_statistic" class="nav-tab <?php echo $active_tab == 'compress_statistic' ? 'nav-tab-active tab-ilovepdf' : ''; ?>"><?php echo __( 'Compress PDF', 'ilovepdf' ); ?></a>
-                <a href="?page=ilove-pdf-content-statistics&tab=watermark_statistic" class="nav-tab <?php echo $active_tab == 'watermark_statistic' ? 'nav-tab-active tab-ilovepdf' : ''; ?>"><?php echo __( 'Watermark', 'ilovepdf' ); ?></a>
+                <a href="?page=ilove-pdf-content-statistics&tab=statistic_statistic" class="nav-tab <?php echo $active_tab === 'statistic_statistic' ? 'nav-tab-active tab-ilovepdf' : ''; ?>"><?php echo __( 'Overview', 'ilovepdf' ); ?></a>
+                <a href="?page=ilove-pdf-content-statistics&tab=compress_statistic" class="nav-tab <?php echo $active_tab === 'compress_statistic' ? 'nav-tab-active tab-ilovepdf' : ''; ?>"><?php echo __( 'Compress PDF', 'ilovepdf' ); ?></a>
+                <a href="?page=ilove-pdf-content-statistics&tab=watermark_statistic" class="nav-tab <?php echo $active_tab === 'watermark_statistic' ? 'nav-tab-active tab-ilovepdf' : ''; ?>"><?php echo __( 'Watermark', 'ilovepdf' ); ?></a>
             </h2>
              	        
              
-          		<?php if ( $active_tab == 'statistic_statistic' ) : ?>
+          		<?php if ( $active_tab === 'statistic_statistic' ) : ?>
                     <div class="wrap">
                         <div class="container no-center">
                             <div class="row">
@@ -68,7 +68,7 @@ function ilove_pdf_content_page_statistics() {
                                                     $paid_files = ( $stats['files_used'] < $stats['free_files_limit'] ) ? 0 : $stats['files_used'] - $stats['free_files_limit'];
                                                 ?>
                                                 <div class="progress__total__percent" style="width: <?php echo ilove_pdf_get_percentage( $paid_files, $stats['subscription_files_limit'] ); ?>%;"></div>
-                                                <div class="progress__total_text"><?php echo $paid_files; ?> / <?php echo $stats['subscription_files_limit']; ?> <?php echo ( $stats['subscription']['period'] == 'yearly' ) ? __( 'processed files this month. <strong>Yearly</strong> subscription.', 'ilovepdf' ) : __( 'processed files this month. <strong>Monthly</strong> subscription.', 'ilovepdf' ); ?></div>
+                                                <div class="progress__total_text"><?php echo $paid_files; ?> / <?php echo $stats['subscription_files_limit']; ?> <?php echo ( $stats['subscription']['period'] === 'yearly' ) ? __( 'processed files this month. <strong>Yearly</strong> subscription.', 'ilovepdf' ) : __( 'processed files this month. <strong>Monthly</strong> subscription.', 'ilovepdf' ); ?></div>
                                             </div>
                                         </div>
                                     <?php endif; ?>
@@ -94,7 +94,7 @@ function ilove_pdf_content_page_statistics() {
                     </div>
                     
 
-     			<?php elseif ( $active_tab == 'compress_statistic' ) : ?>
+     			<?php elseif ( $active_tab === 'compress_statistic' ) : ?>
                     <?php
                     if ( isset( $_POST['array_ids'] ) ) {
                         ?>
@@ -246,7 +246,7 @@ function ilove_pdf_content_page_statistics() {
                             </div>
                         </div>
                     </div>
-     			<?php elseif ( $active_tab == 'watermark_statistic' ) : ?>
+     			<?php elseif ( $active_tab === 'watermark_statistic' ) : ?>
                     <?php
                     if ( isset( $_POST['array_ids'] ) ) {
                         ?>

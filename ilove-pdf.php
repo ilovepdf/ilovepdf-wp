@@ -83,7 +83,7 @@ function ilove_pdf_before_delete_media( $postid ) {
 
 	// We check if the global post type isn't ours and just return
     global $post_type;
-    if ( $post_type == 'attachment' ) {
+    if ( $post_type === 'attachment' ) {
     	// update_option('ilovepdf_initial_pdf_files_size', 0);
     }
 

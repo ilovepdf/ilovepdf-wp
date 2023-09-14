@@ -57,7 +57,7 @@ function ilove_pdf_watermark_pdf( $id_file, $auto = false, $bulk = false ) {
                         $myTask->setLayer( $layer[ $options['ilove_pdf_format_watermark_layer'] ] );
                     }
 
-                    if ( isset( $options['ilove_pdf_format_watermark_mosaic'] ) && intval( $options['ilove_pdf_format_watermark_mosaic'] ) == 1 ) {
+                    if ( isset( $options['ilove_pdf_format_watermark_mosaic'] ) && intval( $options['ilove_pdf_format_watermark_mosaic'] ) === 1 ) {
                         $myTask->setMosaic( true );
                     }
 
@@ -230,7 +230,7 @@ function ilove_pdf_watermark_pdf( $id_file, $auto = false, $bulk = false ) {
 }
 
 function ilove_pdf_handle_file_upload_watermark( $attachment_id ) {
-    if ( get_post_mime_type( $attachment_id ) == 'application/pdf' ) {
+    if ( get_post_mime_type( $attachment_id ) === 'application/pdf' ) {
         $options          = get_option( 'ilove_pdf_display_settings_watermark' );
         $options_compress = get_option( 'ilove_pdf_display_settings_compress' );
 
@@ -238,7 +238,7 @@ function ilove_pdf_handle_file_upload_watermark( $attachment_id ) {
 
             $html = ilove_pdf_watermark_pdf( $attachment_id, 1 );
 
-            if ( ! ilove_pdf_is_file_compressed( $attachment_id ) && get_user_option( 'media_library_mode', get_current_user_id() ) == 'list' && ! wp_doing_ajax() ) {
+            if ( ! ilove_pdf_is_file_compressed( $attachment_id ) && get_user_option( 'media_library_mode', get_current_user_id() ) === 'list' && ! wp_doing_ajax() ) {
 
                 echo '<img class="pinkynail" src="' . includes_url() . '/images/media/document.png" alt="">';
                 echo '<span class="title custom-title">' . get_the_title( $attachment_id ) . '</span><span class="pdf-id">ID: ';
@@ -252,7 +252,7 @@ function ilove_pdf_handle_file_upload_watermark( $attachment_id ) {
                         var parentDiv = parentTag.parent();
                         parentDiv.find('.progress').find('.percent').html('Applying Watermark...');
                         window.setTimeout(function(){
-                            if (response != '1') {
+                            if (response !==  '1') {
                                 parentDiv.find('.progress').find('.percent').html(response.replace(/<\/?p[^>]*>/g, "").replace(/<\/?div[^>]*>/g, ""));
                                 parentDiv.find('.progress').css('width','600px');
                                 parentDiv.find('.progress').find('.percent').css('width','600px');
@@ -267,8 +267,8 @@ function ilove_pdf_handle_file_upload_watermark( $attachment_id ) {
 
                 </script>
                 <?php
-            } elseif ( ! ilove_pdf_is_file_compressed( $attachment_id ) && get_user_option( 'media_library_mode', get_current_user_id() ) == 'grid' || wp_doing_ajax() ) {
-                if ( $html != '1' ) {
+            } elseif ( ! ilove_pdf_is_file_compressed( $attachment_id ) && get_user_option( 'media_library_mode', get_current_user_id() ) === 'grid' || wp_doing_ajax() ) {
+                if ( $html !== '1' ) {
                     $return = array( 'message' => strip_tags( $html ) );
                     wp_send_json_error( $return );
                 } else {
@@ -283,10 +283,10 @@ function ilove_pdf_handle_file_upload_watermark( $attachment_id ) {
 add_filter( 'add_attachment', 'ilove_pdf_handle_file_upload_watermark', 9 );
 
 function ilove_pdf_watermark_action() {
-    if ( isset( $_GET['action'] ) && $_GET['action'] == 'ilovepdf_watermark' && intval( $_GET['id'] ) ) {
+    if ( isset( $_GET['action'] ) && $_GET['action'] === 'ilovepdf_watermark' && intval( $_GET['id'] ) ) {
         $id   = intval( $_GET['id'] );
         $html = ilove_pdf_watermark_pdf( intval( $_GET['id'] ), 1 );
-    } elseif ( isset( $_GET['action'] ) && $_GET['action'] == 'ilovepdf_watermark' ) {
+    } elseif ( isset( $_GET['action'] ) && $_GET['action'] === 'ilovepdf_watermark' ) {
         ilove_pdf_watermark_pdf( null, 0 );
     }
 
@@ -338,7 +338,7 @@ function ilove_pdf_watermark_list_action() {
 add_action( 'admin_post_ilovepdf_watermark_list', 'ilove_pdf_watermark_list_action' );
 
 function ilove_pdf_restore_action() {
-    if ( isset( $_GET['action'] ) && $_GET['action'] == 'ilovepdf_restore' && intval( $_GET['id'] ) ) {
+    if ( isset( $_GET['action'] ) && $_GET['action'] === 'ilovepdf_restore' && intval( $_GET['id'] ) ) {
         ilove_pdf_restore_pdf( $_GET['id'] );
     }
 

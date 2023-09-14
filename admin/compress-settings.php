@@ -6,7 +6,7 @@
 
 function ilove_pdf_initialize_options_compress() {
 
-    if ( false == get_option( 'ilove_pdf_display_settings_compress' ) ) {
+    if ( false === get_option( 'ilove_pdf_display_settings_compress' ) ) {
         add_option( 'ilove_pdf_display_settings_compress' );
     }
 
