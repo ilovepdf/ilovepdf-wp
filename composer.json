@@ -12,13 +12,17 @@
     "scripts": {
         "post-install-cmd": [
             "@stan",
-            "@phpcs"
+            "@phpcs",
+            "@phpcbf"
         ],
         "stan": [
             "vendor/bin/phpstan analyse --memory-limit=-1"
         ],
         "phpcs": [
             "phpcs -s --ignore=*/vendor/*,*/lib/*,*/.github/* ./"
+        ],
+        "phpcbf": [
+            "phpcbf --ignore=vendor/,lib/,.github/ ./"
         ]
     }
 }
