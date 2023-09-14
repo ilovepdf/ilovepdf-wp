@@ -6,7 +6,7 @@ function ilove_pdf_register_action() {
 
         if ( get_option( 'ilovepdf_user_register_times' ) !== null ) {
             $response = wp_remote_post(
-                ILOVEPDF_REGISTER_URL,
+                ILOVE_PDF_REGISTER_URL,
                 array(
 					'body' => array(
 						'name'         => sanitize_text_field( $_POST['ilove_pdf_account_name'] ),
@@ -19,7 +19,7 @@ function ilove_pdf_register_action() {
             );
         } else {
             $response = wp_remote_post(
-                ILOVEPDF_REGISTER_URL,
+                ILOVE_PDF_REGISTER_URL,
                 array(
 					'body' => array(
 						'name'         => sanitize_text_field( $_POST['ilove_pdf_account_name'] ),
@@ -48,7 +48,7 @@ add_action( 'admin_post_ilovepdf_login', 'ilove_pdf_login_action' );
 function ilove_pdf_login_action() {
     if ( isset( $_POST['action'] ) && $_POST['action'] === 'ilovepdf_login' ) {
         $response = wp_remote_post(
-            ILOVEPDF_LOGIN_URL,
+            ILOVE_PDF_LOGIN_URL,
             array(
 				'body' => array(
 					'email'        => sanitize_email( $_POST['ilove_pdf_account_email'] ),

@@ -2,7 +2,7 @@
 
 function ilove_pdf_get_statistics() {
 	$response = wp_remote_get(
-        ILOVEPDF_USER_URL . '/' . get_option( 'ilovepdf_user_id', true ),
+        ILOVE_PDF_USER_URL . '/' . get_option( 'ilovepdf_user_id', true ),
 		array(
 			'headers' => array( 'Authorization' => 'Bearer ' . get_option( 'ilovepdf_user_token', true ) ),
 		)

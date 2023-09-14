@@ -37,22 +37,21 @@ if ( ! defined( 'WPINC' ) ) {
  * The code that runs during plugin activation.
  * This action is documented in includes/class-ilove-pdf-activator.php
  */
-function activate_ilove_pdf() {
+function ilove_pdf_activate() {
 	require_once plugin_dir_path( __FILE__ ) . 'includes/class-ilove-pdf-activator.php';
 	Ilove_Pdf_Activator::activate();
 }
+register_activation_hook( __FILE__, 'ilove_pdf_activate' );
 
 /**
  * The code that runs during plugin deactivation.
  * This action is documented in includes/class-ilove-pdf-deactivator.php
  */
-function deactivate_ilove_pdf() {
+function ilove_pdf_deactivate() {
 	require_once plugin_dir_path( __FILE__ ) . 'includes/class-ilove-pdf-deactivator.php';
 	Ilove_Pdf_Deactivator::deactivate();
 }
-
-register_activation_hook( __FILE__, 'activate_ilove_pdf' );
-register_deactivation_hook( __FILE__, 'deactivate_ilove_pdf' );
+register_deactivation_hook( __FILE__, 'ilove_pdf_deactivate' );
 
 /**
  * The core plugin class that is used to define internationalization,
@@ -71,9 +70,9 @@ require plugin_dir_path( __FILE__ ) . 'includes/class-ilove-pdf.php';
  */
 require_once plugin_dir_path( __FILE__ ) . 'lib/ilovepdf-php-master/init.php';
 
-define( 'ILOVEPDF_REGISTER_URL', 'https://api.ilovepdf.com/v1/user' );
-define( 'ILOVEPDF_LOGIN_URL', 'https://api.ilovepdf.com/v1/user/login' );
-define( 'ILOVEPDF_USER_URL', 'https://api.ilovepdf.com/v1/user' );
+define( 'ILOVE_PDF_REGISTER_URL', 'https://api.ilovepdf.com/v1/user' );
+define( 'ILOVE_PDF_LOGIN_URL', 'https://api.ilovepdf.com/v1/user/login' );
+define( 'ILOVE_PDF_USER_URL', 'https://api.ilovepdf.com/v1/user' );
 
 $plugin = new Ilove_Pdf();
 $plugin->run();
