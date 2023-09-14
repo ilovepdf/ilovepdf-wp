@@ -26,7 +26,7 @@
  * Domain Path:       /languages
  */
 
-require dirname( __FILE__ ) . '/admin/ilove-pdf-admin.php';
+require __DIR__ . '/admin/ilove-pdf-admin.php';
 
 // If this file is called directly, abort.
 if ( ! defined( 'WPINC' ) ) {

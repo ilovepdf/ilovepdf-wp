@@ -1,18 +1,18 @@
 <?php
 
-require dirname( __FILE__ ) . '/general-settings.php';
-require dirname( __FILE__ ) . '/compress-settings.php';
-require dirname( __FILE__ ) . '/watermark-settings.php';
-require dirname( __FILE__ ) . '/general-statistics.php';
-require dirname( __FILE__ ) . '/partials/ilove-pdf-settings-display.php';
-require dirname( __FILE__ ) . '/partials/ilove-pdf-statistics-display.php';
+require __DIR__ . '/general-settings.php';
+require __DIR__ . '/compress-settings.php';
+require __DIR__ . '/watermark-settings.php';
+require __DIR__ . '/general-statistics.php';
+require __DIR__ . '/partials/ilove-pdf-settings-display.php';
+require __DIR__ . '/partials/ilove-pdf-statistics-display.php';
 
-require dirname( __FILE__ ) . '/functions_processed_files.php';
-require dirname( __FILE__ ) . '/functions_compress.php';
-require dirname( __FILE__ ) . '/functions_watermark.php';
-require dirname( __FILE__ ) . '/functions_statistics.php';
+require __DIR__ . '/functions_processed_files.php';
+require __DIR__ . '/functions_compress.php';
+require __DIR__ . '/functions_watermark.php';
+require __DIR__ . '/functions_statistics.php';
 
-require_once plugin_dir_path( __DIR__ ).'lib/ilovepdf-php-master/init.php';
+require_once plugin_dir_path( __DIR__ ) . 'lib/ilovepdf-php-master/init.php';
 
 /*
 * Función para añadir una página al menú de administrador de WordPress
