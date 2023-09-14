@@ -74,8 +74,8 @@ define( 'ILOVE_PDF_REGISTER_URL', 'https://api.ilovepdf.com/v1/user' );
 define( 'ILOVE_PDF_LOGIN_URL', 'https://api.ilovepdf.com/v1/user/login' );
 define( 'ILOVE_PDF_USER_URL', 'https://api.ilovepdf.com/v1/user' );
 
-$plugin = new Ilove_Pdf();
-$plugin->run();
+$ilove_pdf_plugin = new Ilove_Pdf();
+$ilove_pdf_plugin->run();
 
 add_action( 'ilove_pdf_before_delete_post', 'ilove_pdf_before_delete_media' );
 function ilove_pdf_before_delete_media( $postid ) {

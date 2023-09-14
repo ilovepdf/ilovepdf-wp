@@ -19,7 +19,7 @@
             "vendor/bin/phpstan analyse --memory-limit=-1"
         ],
         "phpcs": [
-            "phpcs -s --ignore=*/vendor/*,*/lib/*,*/.github/* ./"
+            "phpcs -s --ignore=*/vendor/*,*/lib/*,*/.github/* --report-file=../../../condesniffer-report.txt ./"
         ],
         "phpcbf": [
             "phpcbf --ignore=vendor/,lib/,.github/ ./"
