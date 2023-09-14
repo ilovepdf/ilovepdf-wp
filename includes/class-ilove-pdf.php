@@ -69,12 +69,11 @@ class Ilove_Pdf {
 	public function __construct() {
 
 		$this->plugin_name = 'ilove-pdf';
-		$this->version = 'wp.1.2.0';
+		$this->version     = 'wp.1.2.0';
 
 		$this->load_dependencies();
 		$this->set_locale();
 		$this->define_admin_hooks();
-
 	}
 
 	/**
@@ -113,7 +112,6 @@ class Ilove_Pdf {
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-ilove-pdf-admin.php';
 
 		$this->loader = new Ilove_Pdf_Loader();
-
 	}
 
 	/**
@@ -130,7 +128,6 @@ class Ilove_Pdf {
 		$plugin_i18n = new Ilove_Pdf_i18n();
 
 		$this->loader->add_action( 'plugins_loaded', $plugin_i18n, 'load_plugin_textdomain' );
-
 	}
 
 	/**
@@ -146,7 +143,6 @@ class Ilove_Pdf {
 
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
-
 	}
 
 	/**
@@ -188,5 +184,4 @@ class Ilove_Pdf {
 	public function get_version() {
 		return $this->version;
 	}
-
 }

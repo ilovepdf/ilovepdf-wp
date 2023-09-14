@@ -4,16 +4,16 @@
 * Función que pinta la página de estadísticas
 */
 function ilove_pdf_content_page_statistics() {
-    if(isset( $_POST[ 'file' ] )){
-        if(strcmp( $_GET[ 'tab' ], 'compress_statistic') == 0){
+    if ( isset( $_POST['file'] ) ) {
+        if ( strcmp( $_GET['tab'], 'compress_statistic' ) == 0 ) {
             ilove_pdf_compress_pdf( $_POST['file'] );
-        }elseif(strcmp( $_GET[ 'tab' ], 'watermark_statistic') == 0){
+        } elseif ( strcmp( $_GET['tab'], 'watermark_statistic' ) == 0 ) {
             ilove_pdf_watermark_pdf( $_POST['file'] );
         }
-    }elseif(isset( $_POST[ 'multi' ] )){
-        if(strcmp( $_GET[ 'tab' ], 'compress_statistic') == 0){
+    } elseif ( isset( $_POST['multi'] ) ) {
+        if ( strcmp( $_GET['tab'], 'compress_statistic' ) == 0 ) {
             ilove_pdf_compress_pdf( null );
-        }elseif(strcmp( $_GET[ 'tab' ], 'watermark_statistic') == 0){
+        } elseif ( strcmp( $_GET['tab'], 'watermark_statistic' ) == 0 ) {
             ilove_pdf_watermark_pdf( null );
         }
     }
@@ -31,77 +31,77 @@ function ilove_pdf_content_page_statistics() {
                     </g>
                     </svg>';
 
-$stats = ilove_pdf_get_statistics();
-?>
+	$stats = ilove_pdf_get_statistics();
+	?>
     <div class="wrap">
-        <h2 class="plugin-logo-full"><?php echo $logo_svg;?></h2>
-        <?php if (get_option('ilovepdf_user_id')): ?>         
+        <h2 class="plugin-logo-full"><?php echo $logo_svg; ?></h2>
+        <?php if ( get_option( 'ilovepdf_user_id' ) ) : ?>         
             <?php
-               $active_tab = isset( $_GET[ 'tab' ] ) ? $_GET[ 'tab' ] : 'statistic_statistic';
+                $active_tab = isset( $_GET['tab'] ) ? $_GET['tab'] : 'statistic_statistic';
             ?>
              
             <h2 class="nav-tab-wrapper">
-                <a href="?page=ilove-pdf-content-statistics&tab=statistic_statistic" class="nav-tab <?php echo $active_tab == 'statistic_statistic' ? 'nav-tab-active tab-ilovepdf' : ''; ?>"><?php echo __('Overview', 'ilovepdf')?></a>
-                <a href="?page=ilove-pdf-content-statistics&tab=compress_statistic" class="nav-tab <?php echo $active_tab == 'compress_statistic' ? 'nav-tab-active tab-ilovepdf' : ''; ?>"><?php echo __('Compress PDF', 'ilovepdf')?></a>
-                <a href="?page=ilove-pdf-content-statistics&tab=watermark_statistic" class="nav-tab <?php echo $active_tab == 'watermark_statistic' ? 'nav-tab-active tab-ilovepdf' : ''; ?>"><?php echo __('Watermark', 'ilovepdf')?></a>
+                <a href="?page=ilove-pdf-content-statistics&tab=statistic_statistic" class="nav-tab <?php echo $active_tab == 'statistic_statistic' ? 'nav-tab-active tab-ilovepdf' : ''; ?>"><?php echo __( 'Overview', 'ilovepdf' ); ?></a>
+                <a href="?page=ilove-pdf-content-statistics&tab=compress_statistic" class="nav-tab <?php echo $active_tab == 'compress_statistic' ? 'nav-tab-active tab-ilovepdf' : ''; ?>"><?php echo __( 'Compress PDF', 'ilovepdf' ); ?></a>
+                <a href="?page=ilove-pdf-content-statistics&tab=watermark_statistic" class="nav-tab <?php echo $active_tab == 'watermark_statistic' ? 'nav-tab-active tab-ilovepdf' : ''; ?>"><?php echo __( 'Watermark', 'ilovepdf' ); ?></a>
             </h2>
              	        
              
-          		<?php if( $active_tab == 'statistic_statistic' ):?>
+          		<?php if ( $active_tab == 'statistic_statistic' ) : ?>
                     <div class="wrap">
                         <div class="container no-center">
                             <div class="row">
                                 <div class="col-md-6 panel">
-                                    <h3><?php echo __('Available files to process', 'ilovepdf')?></h3>
+                                    <h3><?php echo __( 'Available files to process', 'ilovepdf' ); ?></h3>
                                     <div class="progress">
-                                        <div class="progress__text"><?php echo __('Free', 'ilovepdf')?></div>
+                                        <div class="progress__text"><?php echo __( 'Free', 'ilovepdf' ); ?></div>
                                         <div class="progress__total">
-                                            <div class="progress__total__percent" style="width: <?php echo ilove_pdf_get_percentage($stats['files_used'], $stats['free_files_limit']) ?>%;"></div>
-                                            <div class="progress__total_text"><?php echo ($stats['files_used'] < $stats['free_files_limit']) ? $stats['files_used'] : 250 ; ?> / <?php echo $stats['free_files_limit']?> <?php echo __('processed files this month. Free Tier.', 'ilovepdf')?></div>
+                                            <div class="progress__total__percent" style="width: <?php echo ilove_pdf_get_percentage( $stats['files_used'], $stats['free_files_limit'] ); ?>%;"></div>
+                                            <div class="progress__total_text"><?php echo ( $stats['files_used'] < $stats['free_files_limit'] ) ? $stats['files_used'] : 250; ?> / <?php echo $stats['free_files_limit']; ?> <?php echo __( 'processed files this month. Free Tier.', 'ilovepdf' ); ?></div>
                                         </div>
                                     </div>
-                                    <?php if ($stats['subscription_files_limit'])   : ?>
+                                    <?php if ( $stats['subscription_files_limit'] ) : ?>
                                         <div class="progress">
-                                            <div class="progress__text"><?php echo __('Subscription', 'ilovepdf')?></div>
+                                            <div class="progress__text"><?php echo __( 'Subscription', 'ilovepdf' ); ?></div>
                                             <div class="progress__total">
                                                 <?php
-                                                    $paid_files = ($stats['files_used'] < $stats['free_files_limit']) ? 0 : $stats['files_used'] -  $stats['free_files_limit'];
+                                                    $paid_files = ( $stats['files_used'] < $stats['free_files_limit'] ) ? 0 : $stats['files_used'] - $stats['free_files_limit'];
                                                 ?>
-                                                <div class="progress__total__percent" style="width: <?php echo ilove_pdf_get_percentage($paid_files, $stats['subscription_files_limit']) ?>%;"></div>
-                                                <div class="progress__total_text"><?php echo $paid_files; ?> / <?php echo $stats['subscription_files_limit']; ?> <?php echo ($stats['subscription']['period'] == 'yearly') ? __('processed files this month. <strong>Yearly</strong> subscription.', 'ilovepdf') : __('processed files this month. <strong>Monthly</strong> subscription.', 'ilovepdf'); ?></div>
+                                                <div class="progress__total__percent" style="width: <?php echo ilove_pdf_get_percentage( $paid_files, $stats['subscription_files_limit'] ); ?>%;"></div>
+                                                <div class="progress__total_text"><?php echo $paid_files; ?> / <?php echo $stats['subscription_files_limit']; ?> <?php echo ( $stats['subscription']['period'] == 'yearly' ) ? __( 'processed files this month. <strong>Yearly</strong> subscription.', 'ilovepdf' ) : __( 'processed files this month. <strong>Monthly</strong> subscription.', 'ilovepdf' ); ?></div>
                                             </div>
                                         </div>
                                     <?php endif; ?>
-                                    <?php if ($stats['package_files_limit']): ?>
+                                    <?php if ( $stats['package_files_limit'] ) : ?>
                                         <div class="progress">
-                                            <div class="progress__text"><?php echo __('Prepaid', 'ilovepdf')?></div>
+                                            <div class="progress__text"><?php echo __( 'Prepaid', 'ilovepdf' ); ?></div>
                                             <div class="progress__total">
-                                                <div class="progress__total__percent" style="width: <?php echo ilove_pdf_get_percentage($stats['package_files_used'], $stats['package_files_limit']) ?>%;"></div>
-                                                <div class="progress__total_text"><?php echo $stats['package_files_used'] ?> / <?php echo $stats['package_files_limit'] ?> <?php echo __('processed files. Prepaid files.', 'ilovepdf')?></div>
+                                                <div class="progress__total__percent" style="width: <?php echo ilove_pdf_get_percentage( $stats['package_files_used'], $stats['package_files_limit'] ); ?>%;"></div>
+                                                <div class="progress__total_text"><?php echo $stats['package_files_used']; ?> / <?php echo $stats['package_files_limit']; ?> <?php echo __( 'processed files. Prepaid files.', 'ilovepdf' ); ?></div>
                                             </div>
                                         </div>
                                     <?php endif; ?>
-                                    <a href="https://developer.ilovepdf.com/user/account" class="link" target="_blank"><?php echo __('Account info', 'ilovepdf')?> (<?php echo get_option('ilovepdf_user_email')?>) &raquo;</a>
-                                    <a href="https://developer.ilovepdf.com/pricing" target="_blank" class="button button-primary"><?php echo __('Buy more files', 'ilovepdf')?></a>
+                                    <a href="https://developer.ilovepdf.com/user/account" class="link" target="_blank"><?php echo __( 'Account info', 'ilovepdf' ); ?> (<?php echo get_option( 'ilovepdf_user_email' ); ?>) &raquo;</a>
+                                    <a href="https://developer.ilovepdf.com/pricing" target="_blank" class="button button-primary"><?php echo __( 'Buy more files', 'ilovepdf' ); ?></a>
                                 </div>
                                 <div class="col-md-5 col-md-offset-1 panel panel-margin-left">
                                     <h3>Tools</h3>
-                                    <a href="?page=ilove-pdf-content-statistics&tab=compress_statistic" class="button button-primary"><?php echo __('Go to Compress PDF tab', 'ilovepdf')?></a>
-                                    <a href="?page=ilove-pdf-content-statistics&tab=watermark_statistic" class="button button-primary"><?php echo __('Go to Watermark tab', 'ilovepdf')?></a>
+                                    <a href="?page=ilove-pdf-content-statistics&tab=compress_statistic" class="button button-primary"><?php echo __( 'Go to Compress PDF tab', 'ilovepdf' ); ?></a>
+                                    <a href="?page=ilove-pdf-content-statistics&tab=watermark_statistic" class="button button-primary"><?php echo __( 'Go to Watermark tab', 'ilovepdf' ); ?></a>
                                 </div>
                             </div>
                         </div>
                     </div>
                     
 
-     			<?php elseif( $active_tab == 'compress_statistic' ):?>
+     			<?php elseif ( $active_tab == 'compress_statistic' ) : ?>
                     <?php
-                    if(isset($_POST['array_ids'])){
+                    if ( isset( $_POST['array_ids'] ) ) {
                         ?>
                         <script type="text/javascript">
                         document.onreadystatechange = function(){
                             if(document.readyState === 'complete'){
-                                window.exportedCompressMultiPDF(<?php echo json_encode($_POST["array_ids"]);?>);
+                                window.exportedCompressMultiPDF(<?php echo json_encode( $_POST['array_ids'] ); ?>);
                             }
                         }
                         </script>
@@ -112,15 +112,15 @@ $stats = ilove_pdf_get_statistics();
                         <div class="container no-center">
                             <div class="row">
                                 <div class="col-md-12 col-md-offset-1 panel">
-                                    <h3><?php echo __('Total savings', 'ilovepdf') ?></h3>
+                                    <h3><?php echo __( 'Total savings', 'ilovepdf' ); ?></h3>
                                     <p style="margin-bottom: 20px;">Here you can check how much space you saved.</p>
                                     <div style="overflow: hidden;">
-                                        <div class="c100 p<?php echo ilove_pdf_get_percentage_compress(ilove_pdf_get_all_pdf_original_size(),ilove_pdf_get_all_pdf_original_size() - ilove_pdf_get_all_pdf_current_size());?> green"> 
-                                            <span style="top: -15px"><?php echo __('Saved!', 'ilovepdf') ?></span>
+                                        <div class="c100 p<?php echo ilove_pdf_get_percentage_compress( ilove_pdf_get_all_pdf_original_size(), ilove_pdf_get_all_pdf_original_size() - ilove_pdf_get_all_pdf_current_size() ); ?> green"> 
+                                            <span style="top: -15px"><?php echo __( 'Saved!', 'ilovepdf' ); ?></span>
                                             <?php
-                                            $percent = ilove_pdf_get_percentage_compress(ilove_pdf_get_all_pdf_original_size(),ilove_pdf_get_all_pdf_original_size() - ilove_pdf_get_all_pdf_current_size());
+                                            $percent = ilove_pdf_get_percentage_compress( ilove_pdf_get_all_pdf_original_size(), ilove_pdf_get_all_pdf_original_size() - ilove_pdf_get_all_pdf_current_size() );
                                             ?>
-                                            <span id="stats_total_percentage"><?php echo ($percent > 0) ? $percent : 0;?>%</span>
+                                            <span id="stats_total_percentage"><?php echo ( $percent > 0 ) ? $percent : 0; ?>%</span>
                                             <div class="slice">
                                                 <div class="bar"></div>
                                                 <div class="fill"></div>
@@ -128,120 +128,132 @@ $stats = ilove_pdf_get_statistics();
                                         </div>
                                         <div class="status-c100">
                                             <ul>
-                                                <li><strong id="stats_total_files_compressed"><?php echo (get_option('ilovepdf_compressed_files') > 0) ? get_option('ilovepdf_compressed_files') : 0  ?></strong> <?php echo __('PDF files compressed', 'ilovepdf') ?></li>                                               
-                                                <li><strong id="stats_initial_size"><?php echo size_format(ilove_pdf_get_all_pdf_original_size(),2);?></strong> <?php echo __('initial size', 'ilovepdf') ?></li>
-                                                <li><strong id="stats_current_size"><?php echo size_format(ilove_pdf_get_all_pdf_current_size(),2);?></strong> <?php echo __('current size', 'ilovepdf') ?></li>
+                                                <li><strong id="stats_total_files_compressed"><?php echo ( get_option( 'ilovepdf_compressed_files' ) > 0 ) ? get_option( 'ilovepdf_compressed_files' ) : 0; ?></strong> <?php echo __( 'PDF files compressed', 'ilovepdf' ); ?></li>                                               
+                                                <li><strong id="stats_initial_size"><?php echo size_format( ilove_pdf_get_all_pdf_original_size(), 2 ); ?></strong> <?php echo __( 'initial size', 'ilovepdf' ); ?></li>
+                                                <li><strong id="stats_current_size"><?php echo size_format( ilove_pdf_get_all_pdf_current_size(), 2 ); ?></strong> <?php echo __( 'current size', 'ilovepdf' ); ?></li>
                                             </ul>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="multi-process">
                                             <div class="all-compressing pdf-status">
-                                                <!-- <?php echo __('Processing', 'ilovepdf') ?>... -->
+                                                <!-- <?php echo __( 'Processing', 'ilovepdf' ); ?>... -->
                                                 <span></span>
                                                 <div class="progress-percent"></div>
                                             </div>
-                                            <span class="compress-error pdf-status"><?php echo __('Error', 'ilovepdf')?></span>
-                                            <span class="compress-success pdf-status"><?php echo __('Finished', 'ilovepdf')?></span>
-                                            <span class="compress-abort pdf-status"><?php echo __('Canceled', 'ilovepdf')?></span>
+                                            <span class="compress-error pdf-status"><?php echo __( 'Error', 'ilovepdf' ); ?></span>
+                                            <span class="compress-success pdf-status"><?php echo __( 'Finished', 'ilovepdf' ); ?></span>
+                                            <span class="compress-abort pdf-status"><?php echo __( 'Canceled', 'ilovepdf' ); ?></span>
                                         </div>
                                         <div class="multi-process">
-                                            <a href="#" class="button-primary media-ilovepdf-box btn-cancel" id="cancel-compress"><?php echo __('Cancel Process', 'ilovepdf') ?></a>
+                                            <a href="#" class="button-primary media-ilovepdf-box btn-cancel" id="cancel-compress"><?php echo __( 'Cancel Process', 'ilovepdf' ); ?></a>
                                         </div>
                                     </div>
 
                                 </div>
                                 <div class="col-md-12 panel" id="compress-pdf-list">
-                                    <h3><?php echo __('PDFs in your library', 'ilovepdf')?></h3>
+                                    <h3><?php echo __( 'PDFs in your library', 'ilovepdf' ); ?></h3>
                                     <p>Compress all non compressed PDF in your library at once.</p>
-                                    <?php $files = ilove_pdf_initialize_list_compress_pdf();?>
+                                    <?php $files = ilove_pdf_initialize_list_compress_pdf(); ?>
                                     <?php
-                                        $paged = ($_GET[ 'paged' ]) ? $_GET[ 'paged' ] : 1;
+                                        $paged            = ( $_GET['paged'] ) ? $_GET['paged'] : 1;
                                         $query_files_args = array(
-                                            'post_type'      => 'attachment',
-                                            'post_status'    => 'inherit',
+                                            'post_type'   => 'attachment',
+                                            'post_status' => 'inherit',
                                             'post_mime_type' => 'application/pdf',
                                             'posts_per_page' => 250,
-                                            'paged'          => $paged,
+                                            'paged'       => $paged,
                                         );
 
                                         $query_files = new WP_Query( $query_files_args );
-                                    ?>
+										?>
 
                                     <!-- New Multi Ajax -->
-                                    <?php if (count($files) > 0):?>
-                                           <p><a href="#" class="button-primary media-ilovepdf-box btn-compress-all"><?php echo __('Compress ' .count($files). ' PDF', 'ilovepdf') ?></a></p>
-                                     <?php endif; ?>
-                                     <!-- End Multi Ajax -->
+                                    <?php if ( count( $files ) > 0 ) : ?>
+                                            <p><a href="#" class="button-primary media-ilovepdf-box btn-compress-all"><?php echo __( 'Compress ' . count( $files ) . ' PDF', 'ilovepdf' ); ?></a></p>
+                                    <?php endif; ?>
+                                    <!-- End Multi Ajax -->
                                     
-                                    <?php if($query_files->have_posts()): ?>
+                                    <?php if ( $query_files->have_posts() ) : ?>
                                     <table class="wp-list-table widefat optimization-pdf">
                                         <thead>
                                             <tr>
-                                                <th class="column-primary"><?php echo __('File', 'ilovepdf')?></th>
-                                                <th class="column-author"><?php echo __('Original Size', 'ilovepdf')?></th>
-                                                <th class="column-author"><?php echo __('Compressed Size', 'ilovepdf')?></th>
+                                                <th class="column-primary"><?php echo __( 'File', 'ilovepdf' ); ?></th>
+                                                <th class="column-author"><?php echo __( 'Original Size', 'ilovepdf' ); ?></th>
+                                                <th class="column-author"><?php echo __( 'Compressed Size', 'ilovepdf' ); ?></th>
                                                 <th class="column-author">&nbsp;</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <?php while($query_files->have_posts() ): $query_files->the_post();?>
-                                                <tr id="file-row-<?php echo get_the_ID();?>">
-                                                    <td><a href="<?php echo get_edit_post_link(get_the_ID()); ?>"><?php echo the_title();?></a></td>
-                                                    <?php if(!ilove_pdf_is_file_compressed( get_the_ID() )):?>
-                                                        <td><?php echo size_format(filesize(get_attached_file(get_the_ID())),2);?></td>
+                                            <?php
+                                            while ( $query_files->have_posts() ) :
+												$query_files->the_post();
+												?>
+                                                <tr id="file-row-<?php echo get_the_ID(); ?>">
+                                                    <td><a href="<?php echo get_edit_post_link( get_the_ID() ); ?>"><?php echo the_title(); ?></a></td>
+                                                    <?php if ( ! ilove_pdf_is_file_compressed( get_the_ID() ) ) : ?>
+                                                        <td><?php echo size_format( filesize( get_attached_file( get_the_ID() ) ), 2 ); ?></td>
                                                         <td></td>
-                                                    <?php else: ?>
-                                                        <td><?php echo size_format(get_post_meta(get_the_ID(), '_wp_attached_original_size',true),2); ?></td>
-                                                        <td><?php echo size_format(get_post_meta(get_the_ID(), '_wp_attached_compress_size',true),2);?></td>
+                                                    <?php else : ?>
+                                                        <td><?php echo size_format( get_post_meta( get_the_ID(), '_wp_attached_original_size', true ), 2 ); ?></td>
+                                                        <td><?php echo size_format( get_post_meta( get_the_ID(), '_wp_attached_compress_size', true ), 2 ); ?></td>
                                                     <?php endif; ?>
                                                     <td>
-                                                    <?php if(!ilove_pdf_is_file_compressed( get_the_ID() )):?>
-                                                        <a href="<?php echo admin_url( 'admin-post.php' ) ?>?action=ilovepdf_compress&id=<?php echo get_the_ID() ?>" class="button-primary media-ilovepdf-box btn-compress"><?php echo __('Compress', 'ilovepdf') ?></a>
-                                                        <span class="compressing pdf-status"><?php echo __('Compressing', 'ilovepdf') ?>...</span>
-                                                        <span class="error pdf-status"><?php echo __('Error', 'ilovepdf')?></span>
-                                                        <span class="success pdf-status"><?php echo __('Completed', 'ilovepdf')?></span>
-                                                    <?php else: ?>
-                                                            <?php $original_current_file_size = get_post_meta(get_the_ID(), '_wp_attached_original_size',true);?>
-                                                            <?php $compress_file_size = get_post_meta(get_the_ID(), '_wp_attached_compress_size',true);?>
-                                                            <?php echo ilove_pdf_get_percentage_compress($original_current_file_size, $original_current_file_size - $compress_file_size).'%';?>                                                 
-                                                    <?php endif;?>
+                                                    <?php if ( ! ilove_pdf_is_file_compressed( get_the_ID() ) ) : ?>
+                                                        <a href="<?php echo admin_url( 'admin-post.php' ); ?>?action=ilovepdf_compress&id=<?php echo get_the_ID(); ?>" class="button-primary media-ilovepdf-box btn-compress"><?php echo __( 'Compress', 'ilovepdf' ); ?></a>
+                                                        <span class="compressing pdf-status"><?php echo __( 'Compressing', 'ilovepdf' ); ?>...</span>
+                                                        <span class="error pdf-status"><?php echo __( 'Error', 'ilovepdf' ); ?></span>
+                                                        <span class="success pdf-status"><?php echo __( 'Completed', 'ilovepdf' ); ?></span>
+                                                    <?php else : ?>
+                                                            <?php $original_current_file_size = get_post_meta( get_the_ID(), '_wp_attached_original_size', true ); ?>
+                                                            <?php $compress_file_size = get_post_meta( get_the_ID(), '_wp_attached_compress_size', true ); ?>
+                                                            <?php echo ilove_pdf_get_percentage_compress( $original_current_file_size, $original_current_file_size - $compress_file_size ) . '%'; ?>                                                 
+                                                    <?php endif; ?>
                                                     </td>
                                                 </tr>
-                                            <?php wp_reset_postdata(); ?>
-                                            <?php endwhile;?>
+												<?php wp_reset_postdata(); ?>
+                                            <?php endwhile; ?>
                                         </tbody>
                                     </table>
                                     <div class="tablenav bottom" style="margin-bottom: 20px;">
                                         <div class="tablenav-pages">
-                                        <?php if (count($files) > 0):?> 
-                                            <span class="displaying-num"><?php echo count($files);?> <?php echo __('PDFs non compressed', 'ilovepdf') ?></span>
+                                        <?php if ( count( $files ) > 0 ) : ?> 
+                                            <span class="displaying-num"><?php echo count( $files ); ?> <?php echo __( 'PDFs non compressed', 'ilovepdf' ); ?></span>
                                         <?php endif; ?>
-                                        <?php echo paginate_links( array('base' => 'upload.php%_%', 'format' => '?paged=%#%', 'current' => max( 1, $_GET[ 'paged' ] ), 'total' => $query_files->max_num_pages));?>
+                                        <?php
+                                        echo paginate_links(
+                                            array(
+												'base'    => 'upload.php%_%',
+												'format'  => '?paged=%#%',
+												'current' => max( 1, $_GET['paged'] ),
+												'total'   => $query_files->max_num_pages,
+                                            )
+                                        );
+										?>
                                         </div>
                                         <br class="clear">
                                     </div>
                                     <!-- New Multi Ajax -->
-                                        <?php if (count($files) > 0):?>
-                                            <a href="#" class="button-primary media-ilovepdf-box btn-compress-all"><?php echo __('Compress ' .count($files). ' PDF', 'ilovepdf') ?></a>
+                                        <?php if ( count( $files ) > 0 ) : ?>
+                                            <a href="#" class="button-primary media-ilovepdf-box btn-compress-all"><?php echo __( 'Compress ' . count( $files ) . ' PDF', 'ilovepdf' ); ?></a>
                                         <?php endif; ?>
                                     <!-- End Multi Ajax --> 
-                                    <?php else: ?>
-                                        <span class="files-not-found"><?php echo __('No pdf files found','ilovepdf')?></span>
+                                    <?php else : ?>
+                                        <span class="files-not-found"><?php echo __( 'No pdf files found', 'ilovepdf' ); ?></span>
                                     <?php endif; ?>
-                                    <a href="options-general.php?page=ilove-pdf-content-setting" class="button button-primary"><?php echo __('Settings', 'ilovepdf') ?></a>
+                                    <a href="options-general.php?page=ilove-pdf-content-setting" class="button button-primary"><?php echo __( 'Settings', 'ilovepdf' ); ?></a>
                                 </div>
                             </div>
                         </div>
                     </div>
-     			<?php elseif( $active_tab == 'watermark_statistic' ):?>
+     			<?php elseif ( $active_tab == 'watermark_statistic' ) : ?>
                     <?php
-                    if(isset($_POST['array_ids'])){
+                    if ( isset( $_POST['array_ids'] ) ) {
                         ?>
                         <script type="text/javascript">
                         document.onreadystatechange = function(){
                             if(document.readyState === 'complete'){
-                                window.exportedWatermarkMultiPDF(<?php echo json_encode($_POST["array_ids"]);?>);
+                                window.exportedWatermarkMultiPDF(<?php echo json_encode( $_POST['array_ids'] ); ?>);
                             }
                         }
                         </script>
@@ -253,107 +265,120 @@ $stats = ilove_pdf_get_statistics();
                         <div class="container no-center">
                             <div class="row">
                                 <div class="col-md-12 col-md-offset-1 panel">
-                                    <h3><?php echo __('Total PDF files stamped', 'ilovepdf') ?></h3>
+                                    <h3><?php echo __( 'Total PDF files stamped', 'ilovepdf' ); ?></h3>
                                     <p style="margin-bottom: 20px;">Here you can check how many PDF files have been stamped.</p>
-                                    <h1><strong id="stats_total_files_watermarked"><?php echo (get_option('ilovepdf_watermarked_files')?get_option('ilovepdf_watermarked_files'):0) ?></strong> <?php echo __('PDF files have been stamped!', 'ilovepdf') ?></h1>
+                                    <h1><strong id="stats_total_files_watermarked"><?php echo ( get_option( 'ilovepdf_watermarked_files' ) ? get_option( 'ilovepdf_watermarked_files' ) : 0 ); ?></strong> <?php echo __( 'PDF files have been stamped!', 'ilovepdf' ); ?></h1>
 
                                     <div class="row">
                                         <div class="multi-process">
                                             <div class="all-applying-watermark pdf-status">
-                                                <!-- <?php echo __('Processing', 'ilovepdf') ?>... -->
+                                                <!-- <?php echo __( 'Processing', 'ilovepdf' ); ?>... -->
                                                 <span></span>
                                                 <div class="progress-percent"></div>
                                             </div>
-                                            <span class="applied-error pdf-status"><?php echo __('Error', 'ilovepdf')?></span>
-                                            <span class="applied-success pdf-status"><?php echo __('Finished', 'ilovepdf')?></span>
-                                            <span class="applied-abort pdf-status"><?php echo __('Canceled', 'ilovepdf')?></span>
+                                            <span class="applied-error pdf-status"><?php echo __( 'Error', 'ilovepdf' ); ?></span>
+                                            <span class="applied-success pdf-status"><?php echo __( 'Finished', 'ilovepdf' ); ?></span>
+                                            <span class="applied-abort pdf-status"><?php echo __( 'Canceled', 'ilovepdf' ); ?></span>
                                         </div>
                                         <div class="multi-process">
-                                            <a href="#" class="button-primary media-ilovepdf-box btn-cancel" id="cancel-watermark"><?php echo __('Cancel Process', 'ilovepdf') ?></a>
+                                            <a href="#" class="button-primary media-ilovepdf-box btn-cancel" id="cancel-watermark"><?php echo __( 'Cancel Process', 'ilovepdf' ); ?></a>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md-12 panel" id="watermark-pdf-list">
-                                    <h3><?php echo __('PDFs in your library', 'ilovepdf') ?></h3>
+                                    <h3><?php echo __( 'PDFs in your library', 'ilovepdf' ); ?></h3>
                                     <p>Stamp all non stamped PDF in your library at once.</p>
-                                    <?php $files = ilove_pdf_initialize_list_watermark_pdf();?>
+                                    <?php $files = ilove_pdf_initialize_list_watermark_pdf(); ?>
                                     <?php
-                                        $paged = ($_GET[ 'paged' ]) ? $_GET[ 'paged' ] : 1;
+                                        $paged            = ( $_GET['paged'] ) ? $_GET['paged'] : 1;
                                         $query_files_args = array(
-                                            'post_type'      => 'attachment',
-                                            'post_status'    => 'inherit',
+                                            'post_type'   => 'attachment',
+                                            'post_status' => 'inherit',
                                             'post_mime_type' => 'application/pdf',
                                             'posts_per_page' => 250,
-                                            'paged'          => $paged,
+                                            'paged'       => $paged,
                                         );
 
                                         $query_files = new WP_Query( $query_files_args );
-                                    ?>
+										?>
 
                                     <!-- New Multi Ajax -->
-                                     <?php if (count($files) > 0):?>
-                                         <p><a href="#" class="button-primary media-ilovepdf-box btn-watermark-all"><?php echo __('Apply watermark in ' .count($files). ' PDF', 'ilovepdf') ?></a></p>
-                                     <?php endif; ?>
+                                    <?php if ( count( $files ) > 0 ) : ?>
+                                        <p><a href="#" class="button-primary media-ilovepdf-box btn-watermark-all"><?php echo __( 'Apply watermark in ' . count( $files ) . ' PDF', 'ilovepdf' ); ?></a></p>
+                                    <?php endif; ?>
                                     <!-- End Multi Ajax -->
 
 
-                                    <?php if($query_files->have_posts()): ?>
+                                    <?php if ( $query_files->have_posts() ) : ?>
                                     <table class="wp-list-table widefat optimization-pdf">
                                         <thead>
                                             <tr>
-                                                <th class="column-primary"><?php echo __('File', 'ilovepdf') ?></th>
-                                                <th class="column-author"><?php echo __('Size', 'ilovepdf') ?></th>
+                                                <th class="column-primary"><?php echo __( 'File', 'ilovepdf' ); ?></th>
+                                                <th class="column-author"><?php echo __( 'Size', 'ilovepdf' ); ?></th>
                                                 <th class="column-author">&nbsp;</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <?php while($query_files->have_posts() ): $query_files->the_post();?>
-                                                <tr id="file-row-<?php echo get_the_ID();?>">
-                                                    <td><a href="<?php echo get_edit_post_link(get_the_ID()); ?>"><?php echo the_title();?></a></td>
-                                                    <td><?php echo size_format(filesize(get_attached_file( get_the_ID() )),2);?></td>
+                                            <?php
+                                            while ( $query_files->have_posts() ) :
+												$query_files->the_post();
+												?>
+                                                <tr id="file-row-<?php echo get_the_ID(); ?>">
+                                                    <td><a href="<?php echo get_edit_post_link( get_the_ID() ); ?>"><?php echo the_title(); ?></a></td>
+                                                    <td><?php echo size_format( filesize( get_attached_file( get_the_ID() ) ), 2 ); ?></td>
                                                     <td>
-                                                    <?php if(!ilove_pdf_is_file_watermarked( get_the_ID() )):?>
-                                                        <a href="<?php echo admin_url( 'admin-post.php' ) ?>?action=ilovepdf_watermark&id=<?php echo get_the_ID() ?>" class="button-primary media-ilovepdf-box btn-watermark"><?php echo __('Apply Watermark', 'ilovepdf') ?></a>
-                                                        <span class="applying-watermark pdf-status"><?php echo __('Applying Watermark', 'ilovepdf') ?>...</span>
-                                                        <span class="error pdf-status"><?php echo __('Error', 'ilovepdf')?></span>
-                                                        <span class="success pdf-status"><?php echo __('Completed', 'ilovepdf')?></span>
-                                                    <?php endif;?>
+                                                    <?php if ( ! ilove_pdf_is_file_watermarked( get_the_ID() ) ) : ?>
+                                                        <a href="<?php echo admin_url( 'admin-post.php' ); ?>?action=ilovepdf_watermark&id=<?php echo get_the_ID(); ?>" class="button-primary media-ilovepdf-box btn-watermark"><?php echo __( 'Apply Watermark', 'ilovepdf' ); ?></a>
+                                                        <span class="applying-watermark pdf-status"><?php echo __( 'Applying Watermark', 'ilovepdf' ); ?>...</span>
+                                                        <span class="error pdf-status"><?php echo __( 'Error', 'ilovepdf' ); ?></span>
+                                                        <span class="success pdf-status"><?php echo __( 'Completed', 'ilovepdf' ); ?></span>
+                                                    <?php endif; ?>
                                                     </td>
                                                 </tr>
-                                            <?php endwhile;?>
+                                            <?php endwhile; ?>
                                         </tbody>
                                     </table>
                                     <div class="tablenav bottom" style="margin-bottom: 20px;">
                                         <div class="tablenav-pages">
-                                        <?php if (count($files) > 0):?>
-                                            <span class="displaying-num"><?php echo count($files);?> <?php echo __('PDFs without watermark', 'ilovepdf') ?></span>
+                                        <?php if ( count( $files ) > 0 ) : ?>
+                                            <span class="displaying-num"><?php echo count( $files ); ?> <?php echo __( 'PDFs without watermark', 'ilovepdf' ); ?></span>
                                         <?php endif; ?>
-                                        <?php echo paginate_links( array('base' => 'upload.php%_%', 'format' => '?paged=%#%', 'current' => max( 1, $_GET[ 'paged' ] ), 'total' => $query_files->max_num_pages));?></div>
+                                        <?php
+                                        echo paginate_links(
+                                            array(
+												'base'    => 'upload.php%_%',
+												'format'  => '?paged=%#%',
+												'current' => max( 1, $_GET['paged'] ),
+												'total'   => $query_files->max_num_pages,
+                                            )
+                                        );
+										?>
+                                        </div>
                                         <br class="clear">
                                     </div>
                                     <!-- New Multi Ajax -->
-                                        <?php if (count($files) > 0):?>
-                                            <a href="#" class="button-primary media-ilovepdf-box btn-watermark-all"><?php echo __('Apply watermark in ' .count($files). ' PDF', 'ilovepdf') ?></a>
+                                        <?php if ( count( $files ) > 0 ) : ?>
+                                            <a href="#" class="button-primary media-ilovepdf-box btn-watermark-all"><?php echo __( 'Apply watermark in ' . count( $files ) . ' PDF', 'ilovepdf' ); ?></a>
                                         <?php endif; ?>
                                     <!-- End Multi Ajax -->
-                                    <?php else: ?>
-                                        <span class="files-not-found"><?php echo __('No pdf files found','ilovepdf')?></span>
+                                    <?php else : ?>
+                                        <span class="files-not-found"><?php echo __( 'No pdf files found', 'ilovepdf' ); ?></span>
                                     <?php endif; ?>
-                                    <a href="options-general.php?page=ilove-pdf-content-setting&tab=watermark_options" class="button button-primary"><?php echo __('Settings', 'ilovepdf') ?></a>
+                                    <a href="options-general.php?page=ilove-pdf-content-setting&tab=watermark_options" class="button button-primary"><?php echo __( 'Settings', 'ilovepdf' ); ?></a>
                                 </div>
                             </div>
                         </div>
                     </div>
-     			<?php endif;?>
+     			<?php endif; ?>
      		</div>
-        <?php else: ?>
+        <?php else : ?>
             <div class="col-md-12">
                 <div class="panel">            
-                    <p><?php echo __('You must first login or register to use this plugin', 'ilovepdf') ?></p>
-                    <a href="<?php echo admin_url('options-general.php?page=ilove-pdf-content-setting') ?>" class="button button-primary"><?php echo __('Go to Settings', 'ilovepdf') ?></a>
+                    <p><?php echo __( 'You must first login or register to use this plugin', 'ilovepdf' ); ?></p>
+                    <a href="<?php echo admin_url( 'options-general.php?page=ilove-pdf-content-setting' ); ?>" class="button button-primary"><?php echo __( 'Go to Settings', 'ilovepdf' ); ?></a>
                 </div>
             </div>
         <?php endif; ?>
     </div>
-<?php   
+	<?php
 }

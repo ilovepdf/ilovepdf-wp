@@ -17,127 +17,127 @@ function ilove_pdf_content_page_setting() {
                         <polygon fill="#FFFFFF" points="93.946,33.938 93.946,6.254 121.63,33.938  "/>
                     </g>
                     </svg>';
-?>
+	?>
 	<div class="wrap">
 		<div class="plugin-logo">
-            <?php echo $logo_svg;?>
+            <?php echo $logo_svg; ?>
         </div>
-        <?php if(isset($_GET['response_code'])):?>
+        <?php if ( isset( $_GET['response_code'] ) ) : ?>
 
             <?php
-            switch ($_GET['response_code']) {
+            switch ( $_GET['response_code'] ) {
                 case 400:
-                    echo '<div class="settings-error notice is-dismissible error"><p>'.__('Bad request.');
+                    echo '<div class="settings-error notice is-dismissible error"><p>' . __( 'Bad request.' );
                     break;
 
                 case 401:
-                    echo '<div class="settings-error notice is-dismissible error"><p>'.__('Incorrect email or password.');
+                    echo '<div class="settings-error notice is-dismissible error"><p>' . __( 'Incorrect email or password.' );
                     break;
 
                 case 200:
-                    echo '<div class="settings-error notice is-dismissible updated"><p>'.__('Welcome!');
+                    echo '<div class="settings-error notice is-dismissible updated"><p>' . __( 'Welcome!' );
                     break;
 
                 case 500:
-                    echo '<div class="settings-error notice is-dismissible error"><p>'.__('Error on register/login.');
+                    echo '<div class="settings-error notice is-dismissible error"><p>' . __( 'Error on register/login.' );
                     break;
             }
             ?>
             </p></div>
-        <?php endif;?>
+        <?php endif; ?>
         <?php
-           $active_tab = isset( $_GET[ 'tab' ] ) ? $_GET[ 'tab' ] : 'setting_options';
+            $active_tab = isset( $_GET['tab'] ) ? $_GET['tab'] : 'setting_options';
         ?>
          
         <h2 class="nav-tab-wrapper">
-            <a href="?page=ilove-pdf-content-setting&tab=setting_options" class="nav-tab <?php echo $active_tab == 'setting_options' ? 'nav-tab-active tab-ilovepdf' : ''; ?>"><?php echo __('General', 'ilovepdf') ?></a>
-            <a href="?page=ilove-pdf-content-setting&tab=compress_options" class="nav-tab <?php echo $active_tab == 'compress_options' ? 'nav-tab-active tab-ilovepdf' : ''; ?>"><?php echo __('Compress PDF', 'ilovepdf') ?></a>
-            <a href="?page=ilove-pdf-content-setting&tab=watermark_options" class="nav-tab <?php echo $active_tab == 'watermark_options' ? 'nav-tab-active tab-ilovepdf' : ''; ?>"><?php echo __('Watermark', 'ilovepdf') ?></a>
+            <a href="?page=ilove-pdf-content-setting&tab=setting_options" class="nav-tab <?php echo $active_tab == 'setting_options' ? 'nav-tab-active tab-ilovepdf' : ''; ?>"><?php echo __( 'General', 'ilovepdf' ); ?></a>
+            <a href="?page=ilove-pdf-content-setting&tab=compress_options" class="nav-tab <?php echo $active_tab == 'compress_options' ? 'nav-tab-active tab-ilovepdf' : ''; ?>"><?php echo __( 'Compress PDF', 'ilovepdf' ); ?></a>
+            <a href="?page=ilove-pdf-content-setting&tab=watermark_options" class="nav-tab <?php echo $active_tab == 'watermark_options' ? 'nav-tab-active tab-ilovepdf' : ''; ?>"><?php echo __( 'Watermark', 'ilovepdf' ); ?></a>
         </h2> 	        
-      		<?php if( $active_tab == 'setting_options' ):?>
+      		<?php if ( $active_tab == 'setting_options' ) : ?>
             <div class="wrap">           
                 <div class="container no-center">
                     <div class="row">
-                        <?php if (get_option('ilovepdf_user_id')): ?>
-                            <?php $stats = ilove_pdf_get_statistics();?>
+                        <?php if ( get_option( 'ilovepdf_user_id' ) ) : ?>
+                            <?php $stats = ilove_pdf_get_statistics(); ?>
                             <div class="col-md-4">
-                                 <div class="panel" style="margin-right: 10px;">
-                                    <h3><?php echo __('Account', 'ilovepdf')?></h3>
-                                    <p><i class="fa fa-check" aria-hidden="true"></i> <?php echo __('Logged as', 'ilovepdf') ?><strong> <?php echo get_option('ilovepdf_user_email') ?></strong>&nbsp;&nbsp;&nbsp;<a href="<?php echo admin_url('admin-post.php') ?>?action=ilovepdf_logout" class="button button-primary" style="    margin-top: 10px;"><?php echo __('Logout', 'ilovepdf') ?></a></p>
+                                <div class="panel" style="margin-right: 10px;">
+                                    <h3><?php echo __( 'Account', 'ilovepdf' ); ?></h3>
+                                    <p><i class="fa fa-check" aria-hidden="true"></i> <?php echo __( 'Logged as', 'ilovepdf' ); ?><strong> <?php echo get_option( 'ilovepdf_user_email' ); ?></strong>&nbsp;&nbsp;&nbsp;<a href="<?php echo admin_url( 'admin-post.php' ); ?>?action=ilovepdf_logout" class="button button-primary" style="    margin-top: 10px;"><?php echo __( 'Logout', 'ilovepdf' ); ?></a></p>
 
                                     <hr style="    margin: 30px 0px;" />
-                                    <form action="<?php echo admin_url('admin-post.php') ?>?action=ilovepdf_change_project" method="POST">
+                                    <form action="<?php echo admin_url( 'admin-post.php' ); ?>?action=ilovepdf_change_project" method="POST">
                                     <select name="ilovepdf_select_project">
-                                    <?php $total_projects = 0;?>
-                                    <?php foreach ($stats['projects'] as $project): ?>
-                                        <option value="<?php echo $total_projects?>" <?php echo (get_option('ilovepdf_user_public_key') == $project['public_key']?'selected':'')?>><?php echo $project['name'];?></option>
-                                        <?php $total_projects++;?>
-                                    <?php endforeach;?>
+                                    <?php $total_projects = 0; ?>
+                                    <?php foreach ( $stats['projects'] as $project ) : ?>
+                                        <option value="<?php echo $total_projects; ?>" <?php echo ( get_option( 'ilovepdf_user_public_key' ) == $project['public_key'] ? 'selected' : '' ); ?>><?php echo $project['name']; ?></option>
+                                        <?php ++$total_projects; ?>
+                                    <?php endforeach; ?>
                                     </select>
-                                    <input type="submit" class="button button-primary pull-right" value="<?php echo __('Change Project') ?>">
+                                    <input type="submit" class="button button-primary pull-right" value="<?php echo __( 'Change Project' ); ?>">
                                     </form>
                                 </div>
                             </div>
                             <div class="col-md-8">
                                 <div class="panel" style="margin-left: 10px; height: 350px;">
-                                    <h3><?php echo __('Available files to process', 'ilovepdf')?></h3>
+                                    <h3><?php echo __( 'Available files to process', 'ilovepdf' ); ?></h3>
                                     <div class="progress">
-                                        <div class="progress__text"><?php echo __('Free', 'ilovepdf')?></div>
+                                        <div class="progress__text"><?php echo __( 'Free', 'ilovepdf' ); ?></div>
                                         <div class="progress__total">
-                                            <div class="progress__total__percent" style="width: <?php echo ilove_pdf_get_percentage($stats['files_used'], $stats['free_files_limit']) ?>%;"></div>
-                                            <div class="progress__total_text"><?php echo ($stats['files_used'] < $stats['free_files_limit']) ? $stats['files_used'] : 250 ; ?> / <?php echo $stats['free_files_limit']?> <?php echo __('processed files this month. Free Tier.', 'ilovepdf')?></div>
+                                            <div class="progress__total__percent" style="width: <?php echo ilove_pdf_get_percentage( $stats['files_used'], $stats['free_files_limit'] ); ?>%;"></div>
+                                            <div class="progress__total_text"><?php echo ( $stats['files_used'] < $stats['free_files_limit'] ) ? $stats['files_used'] : 250; ?> / <?php echo $stats['free_files_limit']; ?> <?php echo __( 'processed files this month. Free Tier.', 'ilovepdf' ); ?></div>
                                         </div>
                                     </div>
-                                    <?php if ($stats['subscription_files_limit']): ?>
+                                    <?php if ( $stats['subscription_files_limit'] ) : ?>
                                         <div class="progress">
-                                            <div class="progress__text"><?php echo __('Subscription', 'ilovepdf')?></div>
+                                            <div class="progress__text"><?php echo __( 'Subscription', 'ilovepdf' ); ?></div>
                                             <div class="progress__total">
                                                 <?php
-                                                    $paid_files = ($stats['files_used'] < $stats['free_files_limit']) ? 0 : $stats['files_used'] -  $stats['free_files_limit'];
+                                                    $paid_files = ( $stats['files_used'] < $stats['free_files_limit'] ) ? 0 : $stats['files_used'] - $stats['free_files_limit'];
                                                 ?>
-                                                <div class="progress__total__percent" style="width: <?php echo ilove_pdf_get_percentage($paid_files, $stats['subscription_files_limit']) ?>%;"></div>
-                                                <div class="progress__total_text"><?php echo $paid_files; ?> / <?php echo $stats['subscription_files_limit']; ?> <?php echo ($stats['subscription']['period'] == 'yearly') ? __('processed files this month. <strong>Yearly</strong> subscription.', 'ilovepdf') : __('processed files this month. <strong>Monthly</strong> subscription.', 'ilovepdf'); ?></div>
+                                                <div class="progress__total__percent" style="width: <?php echo ilove_pdf_get_percentage( $paid_files, $stats['subscription_files_limit'] ); ?>%;"></div>
+                                                <div class="progress__total_text"><?php echo $paid_files; ?> / <?php echo $stats['subscription_files_limit']; ?> <?php echo ( $stats['subscription']['period'] == 'yearly' ) ? __( 'processed files this month. <strong>Yearly</strong> subscription.', 'ilovepdf' ) : __( 'processed files this month. <strong>Monthly</strong> subscription.', 'ilovepdf' ); ?></div>
                                             </div>
                                         </div>
                                     <?php endif; ?>
-                                    <?php if ($stats['package_files_limit']): ?>
+                                    <?php if ( $stats['package_files_limit'] ) : ?>
                                         <div class="progress">
-                                            <div class="progress__text"><?php echo __('Prepaid', 'ilovepdf')?></div>
+                                            <div class="progress__text"><?php echo __( 'Prepaid', 'ilovepdf' ); ?></div>
                                             <div class="progress__total">
-                                                <div class="progress__total__percent" style="width: <?php echo ilove_pdf_get_percentage($stats['package_files_used'], $stats['package_files_limit']) ?>%;"></div>
-                                                <div class="progress__total_text"><?php echo $stats['package_files_used'] ?> / <?php echo $stats['package_files_limit'] ?> <?php echo __('processed files. Prepaid files.', 'ilovepdf')?></div>
+                                                <div class="progress__total__percent" style="width: <?php echo ilove_pdf_get_percentage( $stats['package_files_used'], $stats['package_files_limit'] ); ?>%;"></div>
+                                                <div class="progress__total_text"><?php echo $stats['package_files_used']; ?> / <?php echo $stats['package_files_limit']; ?> <?php echo __( 'processed files. Prepaid files.', 'ilovepdf' ); ?></div>
                                             </div>
                                         </div>
                                     <?php endif; ?>
-                                    <a href="https://developer.ilovepdf.com/user/account" target="_blank" class="link"><?php echo __('Account info', 'ilovepdf')?> (<?php echo get_option('ilovepdf_user_email')?>) &raquo;</a>
-                                    <a href="https://developer.ilovepdf.com/pricing" target="_blank" class="button button-primary"><?php echo __('Buy more files', 'ilovepdf')?></a>
+                                    <a href="https://developer.ilovepdf.com/user/account" target="_blank" class="link"><?php echo __( 'Account info', 'ilovepdf' ); ?> (<?php echo get_option( 'ilovepdf_user_email' ); ?>) &raquo;</a>
+                                    <a href="https://developer.ilovepdf.com/pricing" target="_blank" class="button button-primary"><?php echo __( 'Buy more files', 'ilovepdf' ); ?></a>
                                     <br /><br />
                                 </div>
                             </div>
-                        <?php else: ?>
+                        <?php else : ?>
                             <div class="col-md-6">
                                 <div class="panel" style="margin-right: 10px; height: 350px;">
-                                    <h3 style="margin-bottom: 20px;"><?php echo __('Register as iLovePDF developer', 'ilovepdf') ?></h3>
+                                    <h3 style="margin-bottom: 20px;"><?php echo __( 'Register as iLovePDF developer', 'ilovepdf' ); ?></h3>
                                     <form method="post" id="ilovepdf_register_form" name="ilove_pdf_form_settings_section" action="">
                                         <input type="hidden" name="action" value="ilovepdf_register" />
-                                        <p><?php echo __('Provide your name and email address to generate keys.', 'ilovepdf')?></p>
-                                        <input type="text" id="ilove_pdf_account_name" name="ilove_pdf_account_name" placeholder="<?php echo __('Name', 'ilovepdf')?>"><br><br>   
-                                        <input type="text" id="ilove_pdf_account_email" name="ilove_pdf_account_email" placeholder="<?php echo __('Email', 'ilovepdf')?>" value=""><br><br>   
-                                        <input type="password" id="ilove_pdf_account_password" name="ilove_pdf_account_password" placeholder="<?php echo __('Password', 'ilovepdf')?>" value=""><br><br> 
-                                        <input type="password" id="ilove_pdf_account_confirm_password" name="ilove_pdf_account_confirm_password" placeholder="<?php echo __('Confirm Password', 'ilovepdf')?>" value=""><span id="check_password_match"></span><br><br>   
-                                        <input type="submit" class="button-primary" id="ilove_pdf_account_register" name="ilove_pdf_account_register" value="<?php echo __('Register &amp; Generate keys', 'ilovepdf')?>">  
+                                        <p><?php echo __( 'Provide your name and email address to generate keys.', 'ilovepdf' ); ?></p>
+                                        <input type="text" id="ilove_pdf_account_name" name="ilove_pdf_account_name" placeholder="<?php echo __( 'Name', 'ilovepdf' ); ?>"><br><br>   
+                                        <input type="text" id="ilove_pdf_account_email" name="ilove_pdf_account_email" placeholder="<?php echo __( 'Email', 'ilovepdf' ); ?>" value=""><br><br>   
+                                        <input type="password" id="ilove_pdf_account_password" name="ilove_pdf_account_password" placeholder="<?php echo __( 'Password', 'ilovepdf' ); ?>" value=""><br><br> 
+                                        <input type="password" id="ilove_pdf_account_confirm_password" name="ilove_pdf_account_confirm_password" placeholder="<?php echo __( 'Confirm Password', 'ilovepdf' ); ?>" value=""><span id="check_password_match"></span><br><br>   
+                                        <input type="submit" class="button-primary" id="ilove_pdf_account_register" name="ilove_pdf_account_register" value="<?php echo __( 'Register &amp; Generate keys', 'ilovepdf' ); ?>">  
                                     </form>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="panel" style="margin-left: 10px; height: 350px;">
-                                    <h3 style="margin-bottom: 20px;"><?php echo __('Login', 'ilovepdf')?></h3>
+                                    <h3 style="margin-bottom: 20px;"><?php echo __( 'Login', 'ilovepdf' ); ?></h3>
                                     <form method="post" name="ilove_pdf_form_settings_section" action="<?php echo admin_url( 'admin-post.php' ); ?>">
                                         <input type="hidden" name="action" value="ilovepdf_login" />  
-                                        <p><?php echo __('If you have an account, please log in.', 'ilovepdf') ?></p>
-                                        <input type="text" id="ilove_pdf_account_email" name="ilove_pdf_account_email" placeholder="<?php echo __('Email', 'ilovepdf')?>" value=""><br><br>   
-                                        <input type="password" id="ilove_pdf_account_password" name="ilove_pdf_account_password" placeholder="<?php echo __('Password', 'ilovepdf')?>" value=""><br><br>  
-                                        <input type="submit" class="button-primary" id="ilove_pdf_account_login" name="ilove_pdf_account_login" value="<?php echo __('Login', 'ilovepdf')?>">  
+                                        <p><?php echo __( 'If you have an account, please log in.', 'ilovepdf' ); ?></p>
+                                        <input type="text" id="ilove_pdf_account_email" name="ilove_pdf_account_email" placeholder="<?php echo __( 'Email', 'ilovepdf' ); ?>" value=""><br><br>   
+                                        <input type="password" id="ilove_pdf_account_password" name="ilove_pdf_account_password" placeholder="<?php echo __( 'Password', 'ilovepdf' ); ?>" value=""><br><br>  
+                                        <input type="submit" class="button-primary" id="ilove_pdf_account_login" name="ilove_pdf_account_login" value="<?php echo __( 'Login', 'ilovepdf' ); ?>">  
                                     </form>
                                 </div>
                             </div>
@@ -148,11 +148,11 @@ function ilove_pdf_content_page_setting() {
                                         var confirmPassword = $("#ilove_pdf_account_confirm_password").val();
 
                                         if (password != confirmPassword){
-                                            $("#check_password_match").html(" <?php echo __('Incorrect password.')?>");
+                                            $("#check_password_match").html(" <?php echo __( 'Incorrect password.' ); ?>");
                                             $("#check_password_match").css("color","red");
                                             $("#ilovepdf_register_form").attr("action", "#");
                                         }else{
-                                            $("#check_password_match").html(" <?php echo __('Correct password.')?>");
+                                            $("#check_password_match").html(" <?php echo __( 'Correct password.' ); ?>");
                                             $("#check_password_match").css("color","green");
                                             $("#ilovepdf_register_form").attr("action", "<?php echo admin_url( 'admin-post.php' ); ?>");
                                         }
@@ -163,7 +163,7 @@ function ilove_pdf_content_page_setting() {
                     </div>
                 </div>        
             </div>
- 			<?php elseif( $active_tab == 'compress_options' ):?>
+ 			<?php elseif ( $active_tab == 'compress_options' ) : ?>
             <div class="wrap">
                 <div class="panel">
                     <form method="post" name="ilove_pdf_form_compress" action="options.php">
@@ -173,7 +173,7 @@ function ilove_pdf_content_page_setting() {
                     </form>
                 </div>
             </div>
-            <?php elseif( $active_tab == 'watermark_options' ):?>
+            <?php elseif ( $active_tab == 'watermark_options' ) : ?>
             <div class="wrap">
                 <div class="panel">
                     <form method="post" name="ilove_pdf_form_watermark" action="options.php">
@@ -186,31 +186,31 @@ function ilove_pdf_content_page_setting() {
                     <form method="post" name="ilove_pdf_form_watermark_format" action="options.php">
                         <div class="">
                             <?php settings_fields( 'ilove_pdf_display_settings_format_watermark' ); ?>
-                            <?php do_settings_sections( 'ilove_pdf_display_settings_format_watermark','format_watermark_settings_section' ); ?>
+                            <?php do_settings_sections( 'ilove_pdf_display_settings_format_watermark', 'format_watermark_settings_section' ); ?>
                             <table class="form-table">
-                                <tr><?php do_settings_fields( 'ilove_pdf_display_settings_format_watermark','format_watermark_settings_section_vertical' ); ?></tr>
-                                <tr><?php do_settings_fields( 'ilove_pdf_display_settings_format_watermark','format_watermark_settings_section_horizontal' ); ?></tr>
-                                <tr><?php do_settings_fields( 'ilove_pdf_display_settings_format_watermark','format_watermark_settings_section_mode' ); ?></tr>
+                                <tr><?php do_settings_fields( 'ilove_pdf_display_settings_format_watermark', 'format_watermark_settings_section_vertical' ); ?></tr>
+                                <tr><?php do_settings_fields( 'ilove_pdf_display_settings_format_watermark', 'format_watermark_settings_section_horizontal' ); ?></tr>
+                                <tr><?php do_settings_fields( 'ilove_pdf_display_settings_format_watermark', 'format_watermark_settings_section_mode' ); ?></tr>
                             </table>
                             <?php
-                                $options = get_option('ilove_pdf_display_settings_format_watermark');
-                                $div_display = (isset($options['ilove_pdf_format_watermark_mode'])?$options['ilove_pdf_format_watermark_mode']:'0');
+                                $options     = get_option( 'ilove_pdf_display_settings_format_watermark' );
+                                $div_display = ( isset( $options['ilove_pdf_format_watermark_mode'] ) ? $options['ilove_pdf_format_watermark_mode'] : '0' );
                             ?>
-                            <div class="watermark-mode" id="div-mode0" style="<?php echo ($div_display == 0 ? '' :'display: none')?>">
+                            <div class="watermark-mode" id="div-mode0" style="<?php echo ( $div_display == 0 ? '' : 'display: none' ); ?>">
                                 <table class="form-table">
-                                    <tr><?php do_settings_fields( 'ilove_pdf_display_settings_format_watermark','format_watermark_settings_section_text' ); ?></tr>
-                                    <tr><?php do_settings_fields( 'ilove_pdf_display_settings_format_watermark','format_watermark_settings_section_size' ); ?></tr>
-                                    <tr><?php do_settings_fields( 'ilove_pdf_display_settings_format_watermark','format_watermark_settings_section_font_family' ); ?></tr>
-                                    <tr><?php do_settings_fields( 'ilove_pdf_display_settings_format_watermark','format_watermark_settings_section_text_color' ); ?></tr>
+                                    <tr><?php do_settings_fields( 'ilove_pdf_display_settings_format_watermark', 'format_watermark_settings_section_text' ); ?></tr>
+                                    <tr><?php do_settings_fields( 'ilove_pdf_display_settings_format_watermark', 'format_watermark_settings_section_size' ); ?></tr>
+                                    <tr><?php do_settings_fields( 'ilove_pdf_display_settings_format_watermark', 'format_watermark_settings_section_font_family' ); ?></tr>
+                                    <tr><?php do_settings_fields( 'ilove_pdf_display_settings_format_watermark', 'format_watermark_settings_section_text_color' ); ?></tr>
                                 </table>
                             </div>
-                            <div class="watermark-mode" id="div-mode1" style="<?php echo ($div_display == 1 ? '' :'display: none')?>">
+                            <div class="watermark-mode" id="div-mode1" style="<?php echo ( $div_display == 1 ? '' : 'display: none' ); ?>">
                                 <table class="form-table">
-                                    <tr><?php do_settings_fields( 'ilove_pdf_display_settings_format_watermark','format_watermark_settings_section_image' ); ?></tr>
-                                    <tr><?php do_settings_fields( 'ilove_pdf_display_settings_format_watermark','format_watermark_settings_section_opacity' ); ?></tr>
-                                    <tr><?php do_settings_fields( 'ilove_pdf_display_settings_format_watermark','format_watermark_settings_section_rotation' ); ?></tr>
-                                    <tr><?php do_settings_fields( 'ilove_pdf_display_settings_format_watermark','format_watermark_settings_section_layer' ); ?></tr>
-                                    <tr><?php do_settings_fields( 'ilove_pdf_display_settings_format_watermark','format_watermark_settings_section_mosaic' ); ?></tr>
+                                    <tr><?php do_settings_fields( 'ilove_pdf_display_settings_format_watermark', 'format_watermark_settings_section_image' ); ?></tr>
+                                    <tr><?php do_settings_fields( 'ilove_pdf_display_settings_format_watermark', 'format_watermark_settings_section_opacity' ); ?></tr>
+                                    <tr><?php do_settings_fields( 'ilove_pdf_display_settings_format_watermark', 'format_watermark_settings_section_rotation' ); ?></tr>
+                                    <tr><?php do_settings_fields( 'ilove_pdf_display_settings_format_watermark', 'format_watermark_settings_section_layer' ); ?></tr>
+                                    <tr><?php do_settings_fields( 'ilove_pdf_display_settings_format_watermark', 'format_watermark_settings_section_mosaic' ); ?></tr>
                                 </table>
                             </div>
                             <?php submit_button(); ?>
@@ -218,9 +218,9 @@ function ilove_pdf_content_page_setting() {
                     </form>
                 </div>
             </div>
- 			<?php endif;?>
+ 			<?php endif; ?>
 
 	</div>
 
-<?php	
+	<?php
 }

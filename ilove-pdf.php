@@ -15,7 +15,7 @@
  * @wordpress-plugin
  * Plugin Name:       iLovePDF
  * Plugin URI:        https://developer.ilovepdf.com/
- * Description:       Compress your PDF files and Stamp Images or text into PDF files. This is the Official iLovePDF plugin for Wordpress. You can optimize all your PDF and stamp them automatically as you do in ilovepdf.com.
+ * Description:       Compress your PDF files and Stamp Images or text into PDF files. This is the Official iLovePDF plugin for WordPress. You can optimize all your PDF and stamp them automatically as you do in ilovepdf.com.
  * Version:           1.2.3
  * Author:            ILovePDF
  * Author URI:        https://ilovepdf.com/
@@ -70,23 +70,20 @@ require plugin_dir_path( __FILE__ ) . 'includes/class-ilove-pdf.php';
  */
 require_once plugin_dir_path( __FILE__ ) . 'lib/ilovepdf-php-master/init.php';
 
-
-define('ILOVEPDF_REGISTER_URL', 'https://api.ilovepdf.com/v1/user');
-define('ILOVEPDF_LOGIN_URL', 'https://api.ilovepdf.com/v1/user/login');
-define('ILOVEPDF_USER_URL', 'https://api.ilovepdf.com/v1/user');
+define( 'ILOVEPDF_REGISTER_URL', 'https://api.ilovepdf.com/v1/user' );
+define( 'ILOVEPDF_LOGIN_URL', 'https://api.ilovepdf.com/v1/user/login' );
+define( 'ILOVEPDF_USER_URL', 'https://api.ilovepdf.com/v1/user' );
 
 $plugin = new Ilove_Pdf();
 $plugin->run();
 
-
-
 add_action( 'ilove_pdf_before_delete_post', 'ilove_pdf_before_delete_media' );
-function ilove_pdf_before_delete_media( $postid ){
+function ilove_pdf_before_delete_media( $postid ) {
 
 	// We check if the global post type isn't ours and just return
-    global $post_type;   
+    global $post_type;
     if ( $post_type == 'attachment' ) {
-    	//update_option('ilovepdf_initial_pdf_files_size', 0);
+    	// update_option('ilovepdf_initial_pdf_files_size', 0);
     }
 
     // My custom stuff for deleting my custom post type here

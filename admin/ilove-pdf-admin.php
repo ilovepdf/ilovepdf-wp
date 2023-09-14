@@ -15,11 +15,11 @@ require dirname( __FILE__ ) . '/functions_statistics.php';
 require_once plugin_dir_path( __DIR__ ).'lib/ilovepdf-php-master/init.php';
 
 /*
-* Función para añadir una página al menú de administrador de wordpress
+* Función para añadir una página al menú de administrador de WordPress
 */
 function ilove_pdf_menu() {
-	//Añade una página de menú a wordpress
-	
+	// Añade una página de menú a WordPress
+
     add_submenu_page(
         'options-general.php',              // Register this submenu with the menu defined above
         'iLovePDF Settings',                // The text to the display in the browser when this menu item is active
@@ -38,4 +38,4 @@ function ilove_pdf_menu() {
         'ilove_pdf_content_page_statistics'
     );
 }
-add_action('admin_menu', 'ilove_pdf_menu');
+add_action( 'admin_menu', 'ilove_pdf_menu' );
