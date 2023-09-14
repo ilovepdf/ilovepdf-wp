@@ -5,7 +5,7 @@ Author: iLovePDF
 Author URI: https://www.ilovepdf.com/
 Contributors: iLovePDF
 Tags: compress, watermark, optimize, performance, pdf optimizer
-Requires at least: 4.6
+Requires at least: 4.7
 Tested up to: 5.8.2
 Stable tag: 1.2.3
 Requires PHP: 7.1
