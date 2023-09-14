@@ -3,7 +3,7 @@
     <description>WordPress Config.</description>
         <rule ref="WordPress-Extra">
             <exclude name="Generic.WhiteSpace.DisallowSpaceIndent" />
-                <property name="indent" value="2"/>
+                <property name="indent" value="4"/>
             <properties>
             </properties>
         </rule>
@@ -31,6 +31,6 @@
         <rule ref="Generic.Commenting.DocComment.MissingShort">
             <severity>0</severity>
         </rule>
-        <config name="minimum_wp_version" value="4.6"/>
+        <config name="minimum_wp_version" value="4.7"/>
         <!-- <rule ref="Squiz.Commenting.DocCommentAlignment"></rule> -->
 </ruleset>
