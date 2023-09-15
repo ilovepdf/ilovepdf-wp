@@ -23,7 +23,7 @@
  * @subpackage Ilove_Pdf/includes
  * @author     ILovePDF <info@ilovepdf.com>
  */
-class Ilove_Pdf_i18n {
+class Ilove_Pdf_I18n {
 
 	/**
 	 * Load the plugin text domain for translation.
