@@ -1,6 +1,19 @@
 <?php
+/**
+ * Admin General Settings
+ *
+ * @link       https://ilovepdf.com/
+ * @since      1.0.0
+ *
+ * @package    Ilove_Pdf
+ * @subpackage Ilove_Pdf/admin
+ */
 
-add_action( 'admin_post_ilovepdf_register', 'ilove_pdf_register_action' );
+/**
+ * Register Options
+ *
+ * @since    1.0.0
+ */
 function ilove_pdf_register_action() {
     if ( isset( $_POST['action'] ) && $_POST['action'] === 'ilovepdf_register' ) {
 
@@ -43,8 +56,13 @@ function ilove_pdf_register_action() {
 
     wp_safe_redirect( wp_get_referer() . '&response_code=' . $response['response']['code'] );
 }
+add_action( 'admin_post_ilovepdf_register', 'ilove_pdf_register_action' );
 
-add_action( 'admin_post_ilovepdf_login', 'ilove_pdf_login_action' );
+/**
+ * Login Action
+ *
+ * @since    1.0.0
+ */
 function ilove_pdf_login_action() {
     if ( isset( $_POST['action'] ) && $_POST['action'] === 'ilovepdf_login' ) {
         $response = wp_remote_post(
@@ -69,8 +87,13 @@ function ilove_pdf_login_action() {
     }
     wp_safe_redirect( wp_get_referer() . '&response_code=' . $response['response']['code'] );
 }
+add_action( 'admin_post_ilovepdf_login', 'ilove_pdf_login_action' );
 
-add_action( 'admin_post_ilovepdf_logout', 'ilove_pdf_logout_action' );
+/**
+ * Logout Action
+ *
+ * @since    1.0.0
+ */
 function ilove_pdf_logout_action() {
     if ( isset( $_GET['action'] ) && $_GET['action'] === 'ilovepdf_logout' ) {
         delete_option( 'ilovepdf_user_token' );
@@ -82,8 +105,13 @@ function ilove_pdf_logout_action() {
 
     wp_safe_redirect( wp_get_referer() );
 }
+add_action( 'admin_post_ilovepdf_logout', 'ilove_pdf_logout_action' );
 
-add_action( 'admin_post_ilovepdf_change_project', 'ilove_pdf_change_project_action' );
+/**
+ * Project Action
+ *
+ * @since    1.0.0
+ */
 function ilove_pdf_change_project_action() {
     if ( isset( $_GET['action'] ) && $_GET['action'] === 'ilovepdf_change_project' ) {
         $stats = ilove_pdf_get_statistics();
@@ -93,9 +121,13 @@ function ilove_pdf_change_project_action() {
 
     wp_safe_redirect( wp_get_referer() );
 }
+add_action( 'admin_post_ilovepdf_change_project', 'ilove_pdf_change_project_action' );
 
-
-add_action( 'admin_footer', 'ilove_pdf_popup_buymore_action' );
+/**
+ * Popup Buymore Action
+ *
+ * @since    1.0.0
+ */
 function ilove_pdf_popup_buymore_action() {
 
     add_thickbox();
@@ -112,3 +144,4 @@ function ilove_pdf_popup_buymore_action() {
                     </g>
                     </svg><div><a href="https://developer.ilovepdf.com/pricing" target="_blank" class="button button-primary">' . __( 'Accept', 'ilovepdf' ) . '</a> <a href="#" onClick="tb_remove();"  class="button button-primary">' . __( 'Cancel', 'ilovepdf' ) . '</a></div></div></div>';
 }
+add_action( 'admin_footer', 'ilove_pdf_popup_buymore_action' );

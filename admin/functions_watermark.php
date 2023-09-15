@@ -1,10 +1,24 @@
 <?php
+/**
+ * Watermark API Functions
+ *
+ * @link       https://ilovepdf.com/
+ * @since      1.0.0
+ *
+ * @package    Ilove_Pdf
+ * @subpackage Ilove_Pdf/admin
+ */
 
 use Ilovepdf\WatermarkTask;
 
-/****************
- * API FUNCTIONS *
- *****************/
+/**
+ * Watermark PDF.
+ *
+ * @since    1.0.0
+ * @param    int     $id_file    File ID.
+ * @param    boolean $auto       Auto compress.
+ * @param    boolean $bulk       Bulk.
+ */
 function ilove_pdf_watermark_pdf( $id_file, $auto = false, $bulk = false ) {
     $general_options_watermark = get_option( 'ilove_pdf_display_settings_watermark' );
     $options                   = get_option( 'ilove_pdf_display_settings_format_watermark' );
@@ -153,10 +167,12 @@ function ilove_pdf_watermark_pdf( $id_file, $auto = false, $bulk = false ) {
         } catch ( \Ilovepdf\Exceptions\AuthException $e ) {
             // echo "An error occured on auth: " . $e->getMessage() . " ";
             // echo implode(', ', $e->getErrors());
+            
 			/*
             $html = '<div class="settings-error notice is-dismissible error">';
             $html .= '<p>'.__('An error occured on auth: ','ilovepdf') . $e->getMessage() .'</p>';
-            $html .= '</div>';*/
+            $html .= '</div>';
+            */
             $html = 'error_auth';
 
             if ( $bulk ) {
@@ -229,6 +245,12 @@ function ilove_pdf_watermark_pdf( $id_file, $auto = false, $bulk = false ) {
     return $html;
 }
 
+/**
+ * Watermark File Upload.
+ *
+ * @since    1.0.0
+ * @param    int $attachment_id    File ID.
+ */
 function ilove_pdf_handle_file_upload_watermark( $attachment_id ) {
     if ( get_post_mime_type( $attachment_id ) === 'application/pdf' ) {
         $options          = get_option( 'ilove_pdf_display_settings_watermark' );
@@ -282,6 +304,11 @@ function ilove_pdf_handle_file_upload_watermark( $attachment_id ) {
 }
 add_filter( 'add_attachment', 'ilove_pdf_handle_file_upload_watermark', 9 );
 
+/**
+ * Watermark Action.
+ *
+ * @since    1.0.0
+ */
 function ilove_pdf_watermark_action() {
     if ( isset( $_GET['action'] ) && $_GET['action'] === 'ilovepdf_watermark' && intval( $_GET['id'] ) ) {
         $id   = intval( $_GET['id'] );
@@ -322,6 +349,11 @@ function ilove_pdf_watermark_action() {
 }
 add_action( 'admin_post_ilovepdf_watermark', 'ilove_pdf_watermark_action' );
 
+/**
+ * Watermark list action.
+ *
+ * @since    1.0.0
+ */
 function ilove_pdf_watermark_list_action() {
     $files    = ilove_pdf_initialize_list_watermark_pdf();
     $id_files = array();
@@ -337,6 +369,11 @@ function ilove_pdf_watermark_list_action() {
 }
 add_action( 'admin_post_ilovepdf_watermark_list', 'ilove_pdf_watermark_list_action' );
 
+/**
+ * Watermark restore action.
+ *
+ * @since    1.0.0
+ */
 function ilove_pdf_restore_action() {
     if ( isset( $_GET['action'] ) && $_GET['action'] === 'ilovepdf_restore' && intval( $_GET['id'] ) ) {
         ilove_pdf_restore_pdf( $_GET['id'] );

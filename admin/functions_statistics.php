@@ -1,5 +1,19 @@
 <?php
+/**
+ * Functions Statistics
+ *
+ * @link       https://ilovepdf.com/
+ * @since      1.0.0
+ *
+ * @package    Ilove_Pdf
+ * @subpackage Ilove_Pdf/admin
+ */
 
+/**
+ * Get Statistics.
+ *
+ * @since    1.0.0
+ */
 function ilove_pdf_get_statistics() {
 	$response = wp_remote_get(
         ILOVE_PDF_USER_URL . '/' . get_option( 'ilovepdf_user_id', true ),
@@ -15,6 +29,13 @@ function ilove_pdf_get_statistics() {
 	}
 }
 
+/**
+ * Get Percentage.
+ *
+ * @since    1.0.0
+ * @param    int $used    Used.
+ * @param    int $limit   Limit.
+ */
 function ilove_pdf_get_percentage( $used, $limit ) {
 	if ( $limit === 0 ) {
 		return 0;
@@ -25,6 +46,13 @@ function ilove_pdf_get_percentage( $used, $limit ) {
 	return ( $percentage > 100 ) ? 100 : $percentage;
 }
 
+/**
+ * Get Percentage Compress.
+ *
+ * @since    1.0.0
+ * @param    int $original    original.
+ * @param    int $compressed   Compressed.
+ */
 function ilove_pdf_get_percentage_compress( $original, $compressed ) {
 	if ( $original === 0 ) {
 		return 0;
@@ -35,6 +63,11 @@ function ilove_pdf_get_percentage_compress( $original, $compressed ) {
 	return round( ( $percentage > 100 ) ? 100 : $percentage );
 }
 
+/**
+ * Get All PDF Files current size.
+ *
+ * @since    1.0.0
+ */
 function ilove_pdf_get_all_pdf_current_size() {
 
 	$query_files_args = array(
@@ -58,6 +91,11 @@ function ilove_pdf_get_all_pdf_current_size() {
     return $total_current_size;
 }
 
+/**
+ * Get All PDF Files original size.
+ *
+ * @since    1.0.0
+ */
 function ilove_pdf_get_all_pdf_original_size() {
 
 	$query_files_args = array(

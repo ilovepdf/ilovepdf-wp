@@ -76,15 +76,3 @@ define( 'ILOVE_PDF_USER_URL', 'https://api.ilovepdf.com/v1/user' );
 
 $ilove_pdf_plugin = new Ilove_Pdf();
 $ilove_pdf_plugin->run();
-
-add_action( 'ilove_pdf_before_delete_post', 'ilove_pdf_before_delete_media' );
-function ilove_pdf_before_delete_media( $postid ) {
-
-	// We check if the global post type isn't ours and just return
-    global $post_type;
-    if ( $post_type === 'attachment' ) {
-    	// update_option('ilovepdf_initial_pdf_files_size', 0);
-    }
-
-    // My custom stuff for deleting my custom post type here
-}

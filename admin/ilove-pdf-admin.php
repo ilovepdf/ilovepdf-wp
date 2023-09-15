@@ -1,4 +1,13 @@
 <?php
+/**
+ * Main Settings Admin
+ *
+ * @link       https://ilovepdf.com/
+ * @since      1.0.0
+ *
+ * @package    Ilove_Pdf
+ * @subpackage Ilove_Pdf/admin
+ */
 
 require __DIR__ . '/general-settings.php';
 require __DIR__ . '/compress-settings.php';
@@ -14,9 +23,11 @@ require __DIR__ . '/functions_statistics.php';
 
 require_once plugin_dir_path( __DIR__ ) . 'lib/ilovepdf-php-master/init.php';
 
-/*
-* Función para añadir una página al menú de administrador de WordPress
-*/
+/**
+ * Add Menu Page to Dashboard.
+ *
+ * @since    1.0.0
+ */
 function ilove_pdf_menu() {
 	// Añade una página de menú a WordPress
 

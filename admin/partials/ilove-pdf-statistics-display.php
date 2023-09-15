@@ -1,8 +1,7 @@
 <?php
-
-/*
-* Función que pinta la página de estadísticas
-*/
+/**
+ * Función que pinta la página de estadísticas
+ */
 function ilove_pdf_content_page_statistics() {
     if ( isset( $_POST['file'] ) ) {
         if ( strcmp( $_GET['tab'], 'compress_statistic' ) === 0 ) {

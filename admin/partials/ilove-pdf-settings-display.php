@@ -1,8 +1,7 @@
 <?php
-
-/*
-* Función que pinta la página de configuración
-*/
+/**
+ * Función que pinta la página de configuración
+ */
 function ilove_pdf_content_page_setting() {
 
     $logo_svg = '<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="150px" height="75.51px" viewBox="0 0 300 75.51" enable-background="new 0 0 300 75.51" xml:space="preserve">

@@ -1,9 +1,19 @@
 <?php
+/**
+ * Watermark settings
+ *
+ * @link       https://ilovepdf.com/
+ * @since      1.0.0
+ *
+ * @package    Ilove_Pdf
+ * @subpackage Ilove_Pdf/admin
+ */
 
-/****************
- * ** WATERMARK ***
- *****************/
-
+/**
+ * Initialize Options for the admin area.
+ *
+ * @since    1.0.0
+ */
 function ilove_pdf_initialize_options_watermark() {
 
     if ( false === get_option( 'ilove_pdf_display_settings_watermark' ) ) {
@@ -58,10 +68,21 @@ function ilove_pdf_initialize_options_watermark() {
 }
 add_action( 'admin_init', 'ilove_pdf_initialize_options_watermark' );
 
+/**
+ * Options Callback.
+ *
+ * @since    1.0.0
+ */
 function ilove_pdf_watermark_options_callback() {
     echo '<h3>' . __( 'Configure your Watermark PDF settings.', 'ilovepdf' ) . '</h3>';
 }
 
+/**
+ * Active Callback.
+ *
+ * @since    1.0.0
+ * @param    array $args    Arguments options.
+ */
 function ilove_pdf_watermark_active_callback( $args ) {
 
     $options = get_option( 'ilove_pdf_display_settings_watermark' );
@@ -71,6 +92,12 @@ function ilove_pdf_watermark_active_callback( $args ) {
     echo $html;
 }
 
+/**
+ * Backup Callback.
+ *
+ * @since    1.0.0
+ * @param    array $args    Arguments options.
+ */
 function ilove_pdf_watermark_backup_callback( $args ) {
 
     $options = get_option( 'ilove_pdf_display_settings_watermark' );
@@ -83,6 +110,12 @@ function ilove_pdf_watermark_backup_callback( $args ) {
     echo $html;
 }
 
+/**
+ * Auto Callback.
+ *
+ * @since    1.0.0
+ * @param    array $args    Arguments options.
+ */
 function ilove_pdf_watermark_auto_callback( $args ) {
 
     $options = get_option( 'ilove_pdf_display_settings_watermark' );
@@ -92,10 +125,11 @@ function ilove_pdf_watermark_auto_callback( $args ) {
     echo $html;
 }
 
-/***********************
- * ** FORMAT WATERMARK ***
- ************************/
-
+/**
+ * Initialize Options for Watermark the admin area.
+ *
+ * @since    1.0.0
+ */
 function ilove_pdf_initialize_options_format_watermark() {
 
     if ( ! empty( $_SERVER['PHP_SELF'] ) && 'options-general.php' === basename( $_SERVER['PHP_SELF'] ) ) {
@@ -260,10 +294,21 @@ function ilove_pdf_initialize_options_format_watermark() {
 }
 add_action( 'admin_init', 'ilove_pdf_initialize_options_format_watermark' );
 
+/**
+ * Watermark Options Callback.
+ *
+ * @since    1.0.0
+ */
 function ilove_pdf_format_watermark_options_callback() {
     echo '<h3>' . __( 'Configure your Watermark format.', 'ilovepdf' ) . '</h3>';
 }
 
+/**
+ * Watermark Text Callback.
+ *
+ * @since    1.0.0
+ * @param    array $args    Arguments options.
+ */
 function ilove_pdf_format_watermark_text_callback( $args ) {
 
     $options = get_option( 'ilove_pdf_display_settings_format_watermark' );
@@ -273,6 +318,12 @@ function ilove_pdf_format_watermark_text_callback( $args ) {
     echo $html;
 }
 
+/**
+ * Watermark Text Size Callback.
+ *
+ * @since    1.0.0
+ * @param    array $args    Arguments options.
+ */
 function ilove_pdf_format_watermark_text_size_callback( $args ) {
 
     $options = get_option( 'ilove_pdf_display_settings_format_watermark' );
@@ -282,6 +333,12 @@ function ilove_pdf_format_watermark_text_size_callback( $args ) {
     echo $html;
 }
 
+/**
+ * Watermark Font Family Callback.
+ *
+ * @since    1.0.0
+ * @param    array $args    Arguments options.
+ */
 function ilove_pdf_format_watermark_font_family_callback( $args ) {
 
     $options = get_option( 'ilove_pdf_display_settings_format_watermark' );
@@ -294,6 +351,12 @@ function ilove_pdf_format_watermark_font_family_callback( $args ) {
     echo $html;
 }
 
+/**
+ * Watermark Text Color Callback.
+ *
+ * @since    1.0.0
+ * @param    array $args    Arguments options.
+ */
 function ilove_pdf_format_watermark_text_color_callback( $args ) {
 
     $options = get_option( 'ilove_pdf_display_settings_format_watermark' );
@@ -302,6 +365,12 @@ function ilove_pdf_format_watermark_text_color_callback( $args ) {
     echo $html;
 }
 
+/**
+ * Watermark Vertical Callback.
+ *
+ * @since    1.0.0
+ * @param    array $args    Arguments options.
+ */
 function ilove_pdf_format_watermark_vertical_callback( $args ) {
 
     $options = get_option( 'ilove_pdf_display_settings_format_watermark' );
@@ -317,6 +386,12 @@ function ilove_pdf_format_watermark_vertical_callback( $args ) {
     echo $html;
 }
 
+/**
+ * Watermark Horizontal Callback.
+ *
+ * @since    1.0.0
+ * @param    array $args    Arguments options.
+ */
 function ilove_pdf_format_watermark_horizontal_callback( $args ) {
 
     $options = get_option( 'ilove_pdf_display_settings_format_watermark' );
@@ -332,6 +407,12 @@ function ilove_pdf_format_watermark_horizontal_callback( $args ) {
     echo $html;
 }
 
+/**
+ * Watermark Opacity Callback.
+ *
+ * @since    1.0.0
+ * @param    array $args    Arguments options.
+ */
 function ilove_pdf_format_watermark_opacity_callback( $args ) {
 
     $options = get_option( 'ilove_pdf_display_settings_format_watermark' );
@@ -341,6 +422,12 @@ function ilove_pdf_format_watermark_opacity_callback( $args ) {
     echo $html;
 }
 
+/**
+ * Watermark Rotation Callback.
+ *
+ * @since    1.0.0
+ * @param    array $args    Arguments options.
+ */
 function ilove_pdf_format_watermark_rotation_callback( $args ) {
 
     $options = get_option( 'ilove_pdf_display_settings_format_watermark' );
@@ -350,6 +437,12 @@ function ilove_pdf_format_watermark_rotation_callback( $args ) {
     echo $html;
 }
 
+/**
+ * Watermark Layer Callback.
+ *
+ * @since    1.0.0
+ * @param    array $args    Arguments options.
+ */
 function ilove_pdf_format_watermark_layer_callback( $args ) {
 
     $options = get_option( 'ilove_pdf_display_settings_format_watermark' );
@@ -362,6 +455,12 @@ function ilove_pdf_format_watermark_layer_callback( $args ) {
     echo $html;
 }
 
+/**
+ * Watermark Mosaic Callback.
+ *
+ * @since    1.0.0
+ * @param    array $args    Arguments options.
+ */
 function ilove_pdf_format_watermark_mosaic_callback( $args ) {
 
     $options = get_option( 'ilove_pdf_display_settings_format_watermark' );
@@ -371,6 +470,12 @@ function ilove_pdf_format_watermark_mosaic_callback( $args ) {
     echo $html;
 }
 
+/**
+ * Watermark Mode Callback.
+ *
+ * @since    1.0.0
+ * @param    array $args    Arguments options.
+ */
 function ilove_pdf_format_watermark_mode_callback( $args ) {
 
     $options = get_option( 'ilove_pdf_display_settings_format_watermark' );
@@ -383,11 +488,12 @@ function ilove_pdf_format_watermark_mode_callback( $args ) {
     echo $html;
 }
 
-
-/*****************
- * MEDIA SELECTOR *
- ******************/
-
+/**
+ * Watermark Image Callback.
+ *
+ * @since    1.0.0
+ * @param    array $args    Arguments options.
+ */
 function ilove_pdf_format_watermark_image_callback( $args ) {
     $options = get_option( 'ilove_pdf_display_settings_format_watermark' );
 
@@ -402,6 +508,11 @@ function ilove_pdf_format_watermark_image_callback( $args ) {
     echo $html;
 }
 
+/**
+ * Watermark Selector Print Callback.
+ *
+ * @since    1.0.0
+ */
 function ilove_pdf_media_selector_print_scripts() {
     $options                     = get_option( 'ilove_pdf_display_settings_format_watermark' );
     $my_saved_attachment_post_id = isset( $options['ilove_pdf_format_watermark_image'] ) && $options['ilove_pdf_format_watermark_image'] !== '' ? $options['ilove_pdf_format_watermark_image'] : 0;

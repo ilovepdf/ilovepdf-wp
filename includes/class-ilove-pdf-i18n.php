@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Define the internationalization functionality
  *
@@ -25,7 +24,6 @@
  * @author     ILovePDF <info@ilovepdf.com>
  */
 class Ilove_Pdf_i18n {
-
 
 	/**
 	 * Load the plugin text domain for translation.

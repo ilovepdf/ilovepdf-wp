@@ -28,6 +28,9 @@
         <rule ref="Squiz.Commenting.FileComment.Missing">
             <severity>0</severity>
         </rule>
+        <rule ref="Squiz.Commenting.InlineComment.InvalidEndChar">
+            <severity>0</severity>
+        </rule>
         <rule ref="Generic.Commenting.DocComment.MissingShort">
             <severity>0</severity>
         </rule>

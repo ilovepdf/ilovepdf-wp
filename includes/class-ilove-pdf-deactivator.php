@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Fired during plugin deactivation
  *
@@ -30,10 +29,6 @@ class Ilove_Pdf_Deactivator {
 	 * @since    1.0.0
 	 */
 	public static function deactivate() {
-		/*
-		delete_option('ilovepdf_initial_pdf_files_size');
-		delete_option('ilovepdf_compressed_files');
-		delete_option('ilovepdf_watermarked_files');*/
 		update_option( 'ilovepdf_initial_pdf_files_size', 0 );
 		update_option( 'ilovepdf_compressed_files', 0 );
 		update_option( 'ilovepdf_watermarked_files', 0 );

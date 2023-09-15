@@ -1,17 +1,32 @@
 <?php
+/**
+ * General Statistics Functions
+ *
+ * @link       https://ilovepdf.com/
+ * @since      1.0.0
+ *
+ * @package    Ilove_Pdf
+ * @subpackage Ilove_Pdf/admin
+ */
 
-
-/**********************
- * ** COMRPESS BUTTON ***
- ***********************/
-
-// Add the column
+/**
+ * Compress Add Media Column.
+ *
+ * @since    1.0.0
+ * @param    array $cols    Columns.
+ */
 function ilove_pdf_compress_media_column( $cols ) {
     $cols['compression'] = 'iLovePDF';
     return $cols;
 }
 
-// Display Button
+/**
+ * Compress Display Button.
+ *
+ * @since    1.0.0
+ * @param    string $column_name    Column Name.
+ * @param    int    $id             File ID.
+ */
 function ilove_pdf_compress_button_value( $column_name, $id ) {
 	$filetype = wp_check_filetype( basename( get_attached_file( $id ) ) );
     $options  = get_option( 'ilove_pdf_display_settings_watermark' );
@@ -60,20 +75,26 @@ function ilove_pdf_compress_button_value( $column_name, $id ) {
     echo $html;
 }
 
-// Hook actions to admin_init
+/**
+ * Add Columns to Hooks.
+ *
+ * @since    1.0.0
+ */
 function ilove_pdf_hook_new_media_columns() {
     if ( ! get_option( 'ilovepdf_user_id' ) ) {
-		return; }
+		return;
+    }
 
     add_filter( 'manage_media_columns', 'ilove_pdf_compress_media_column' );
     add_action( 'manage_media_custom_column', 'ilove_pdf_compress_button_value', 10, 2 );
 }
 add_action( 'admin_init', 'ilove_pdf_hook_new_media_columns' );
 
-/***************
- * ** PDF LIST ***
- ****************/
-
+/**
+ * List PDF Files compress.
+ *
+ * @since    1.0.0
+ */
 function ilove_pdf_initialize_list_compress_pdf() {
     $query_files_args = array(
         'post_type'      => 'attachment',
@@ -94,6 +115,11 @@ function ilove_pdf_initialize_list_compress_pdf() {
     return $files;
 }
 
+/**
+ * List PDF Files watermark.
+ *
+ * @since    1.0.0
+ */
 function ilove_pdf_initialize_list_watermark_pdf() {
     $query_files_args = array(
         'post_type'      => 'attachment',
@@ -114,10 +140,12 @@ function ilove_pdf_initialize_list_watermark_pdf() {
     return $files;
 }
 
-/*****************
- * ** MEDIA VIEW ***
- ******************/
-
+/**
+ * Custom Meta Box Callback.
+ *
+ * @since    1.0.0
+ * @param    object $object    Object.
+ */
 function ilove_pdf_custom_meta_box( $object ) {
     if ( get_option( 'ilovepdf_user_id' ) ) {
         wp_nonce_field( basename( __FILE__ ), 'meta-box-nonce' );
@@ -164,15 +192,22 @@ function ilove_pdf_custom_meta_box( $object ) {
     echo $html;
 }
 
+/**
+ * Custom Meta Box Register.
+ *
+ * @since    1.0.0
+ */
 function ilove_pdf_add_custom_meta_box() {
     add_meta_box( 'demo-meta-box', 'iLovePDF', 'ilove_pdf_custom_meta_box', 'attachment', 'side', 'low', null );
 }
 add_action( 'add_meta_boxes', 'ilove_pdf_add_custom_meta_box' );
 
 /**
- * Add the custom Bulk Action to the select media menus
+ * Add the custom Bulk Action to the select media menus.
+ *
+ * @since    1.0.0
+ * @param    array $bulk_actions    Actions registered.
  */
-add_filter( 'bulk_actions-upload', 'ilove_pdf_register_bulk_actions' );
 function ilove_pdf_register_bulk_actions( $bulk_actions ) {
     if ( get_option( 'ilovepdf_user_id' ) ) {
         $bulk_actions['compress']  = __( 'Compress PDF', 'ilovepdf' );
@@ -181,8 +216,16 @@ function ilove_pdf_register_bulk_actions( $bulk_actions ) {
 
     return $bulk_actions;
 }
+add_filter( 'bulk_actions-upload', 'ilove_pdf_register_bulk_actions' );
 
-add_filter( 'handle_bulk_actions-upload', 'ilove_pdf_compress_bulk_action_handler', 10, 3 );
+/**
+ * Bulk Action Handler.
+ *
+ * @since    1.0.0
+ * @param    string $redirect_to    Form action.
+ * @param    string $doaction       Action.
+ * @param    array  $post_ids       Posts ID.
+ */
 function ilove_pdf_compress_bulk_action_handler( $redirect_to, $doaction, $post_ids ) {
 
 	if ( $doaction === 'compress' ) {
@@ -205,8 +248,13 @@ function ilove_pdf_compress_bulk_action_handler( $redirect_to, $doaction, $post_
 
 	echo $redirect_to;
 }
+add_filter( 'handle_bulk_actions-upload', 'ilove_pdf_compress_bulk_action_handler', 10, 3 );
 
-add_action( 'admin_notices', 'ilove_pdf_bulk_action_admin_notice' );
+/**
+ * Bulk Action Notifications.
+ *
+ * @since    1.0.0
+ */
 function ilove_pdf_bulk_action_admin_notice() {
 	if ( ! empty( $_REQUEST['ilovepdf_notification'] ) ) {
 		if ( $_REQUEST['ilovepdf_notification'] === 200 ) {
@@ -234,8 +282,15 @@ function ilove_pdf_bulk_action_admin_notice() {
 		}
 	}
 }
+add_action( 'admin_notices', 'ilove_pdf_bulk_action_admin_notice' );
 
-
+/**
+ * Attachment fields to edit.
+ *
+ * @since    1.0.0
+ * @param    array   $form_fields    An array of attachment form fields..
+ * @param    WP_Post $post           The WP_Post attachment object..
+ */
 function ilove_pdf_be_attachment_field_mode_grid( $form_fields, $post ) {
     if ( get_option( 'ilovepdf_user_id' ) && substr( $_SERVER['SCRIPT_NAME'], strrpos( $_SERVER['SCRIPT_NAME'], '/' ) + 1 ) !== 'post.php' ) {
         $filetype = wp_check_filetype( basename( get_attached_file( $post->ID ) ) );

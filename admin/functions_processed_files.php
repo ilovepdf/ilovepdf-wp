@@ -1,13 +1,41 @@
 <?php
+/**
+ * Functions of Processed Files
+ *
+ * @link       https://ilovepdf.com/
+ * @since      1.0.0
+ *
+ * @package    Ilove_Pdf
+ * @subpackage Ilove_Pdf/admin
+ */
 
+/**
+ * Check if file is compressed.
+ *
+ * @since    1.0.0
+ * @param    int $file_id    File ID.
+ */
 function ilove_pdf_is_file_compressed( $file_id ) {
 	return get_post_meta( $file_id, '_compressed_file', true );
 }
 
+/**
+ * Check if file is watermarked.
+ *
+ * @since    1.0.0
+ * @param    int $file_id    File ID.
+ */
 function ilove_pdf_is_file_watermarked( $file_id ) {
 	return get_post_meta( $file_id, '_watermarked_file', true );
 }
 
+/**
+ * Upload Compress File.
+ *
+ * @since    1.0.0
+ * @param    string $filename         File Name.
+ * @param    int    $attachment_id    File ID.
+ */
 function ilove_pdf_upload_compress_file( $filename, $attachment_id ) {
 	$wp_upload_dir = wp_upload_dir();
 
@@ -31,6 +59,13 @@ function ilove_pdf_upload_compress_file( $filename, $attachment_id ) {
 	update_post_meta( $attachment_id, '_compressed_file', 1 );
 }
 
+/**
+ * Upload Watermark File.
+ *
+ * @since    1.0.0
+ * @param    string $filename         File Name.
+ * @param    int    $attachment_id    File ID.
+ */
 function ilove_pdf_upload_watermark_file( $filename, $attachment_id ) {
 	$wp_upload_dir = wp_upload_dir();
 	if ( ! ilove_pdf_is_file_compressed( $attachment_id ) ) {
@@ -62,6 +97,12 @@ function ilove_pdf_upload_watermark_file( $filename, $attachment_id ) {
 	update_post_meta( $attachment_id, '_watermarked_file', 1 );
 }
 
+/**
+ * Restore File.
+ *
+ * @since    1.0.0
+ * @param    int $attachment_id    File ID.
+ */
 function ilove_pdf_restore_pdf( $attachment_id ) {
 	$wp_upload_dir = wp_upload_dir();
 
@@ -94,6 +135,12 @@ function ilove_pdf_restore_pdf( $attachment_id ) {
 	delete_post_meta( $attachment_id, '_wp_attached_compress_size' );
 }
 
+/**
+ * Delete File.
+ *
+ * @since    1.0.0
+ * @param    int $attachment_id    File ID.
+ */
 function ilove_pdf_handle_delete_file( $attachment_id ) {
     if ( get_post_mime_type( $attachment_id ) === 'application/pdf' ) {
     	$result = 0;
@@ -138,6 +185,12 @@ function ilove_pdf_handle_delete_file( $attachment_id ) {
 }
 add_filter( 'delete_attachment', 'ilove_pdf_handle_delete_file' );
 
+/**
+ * File Upload Duplicate.
+ *
+ * @since    1.0.0
+ * @param    int $attachment_id    File ID.
+ */
 function ilove_pdf_handle_file_upload_duplicate( $attachment_id ) {
     if ( get_post_mime_type( $attachment_id ) === 'application/pdf' ) {
 
@@ -153,6 +206,12 @@ function ilove_pdf_handle_file_upload_duplicate( $attachment_id ) {
 }
 add_filter( 'add_attachment', 'ilove_pdf_handle_file_upload_duplicate' );
 
+/**
+ * File Upload Compress Watermark.
+ *
+ * @since    1.0.0
+ * @param    int $attachment_id    File ID.
+ */
 function ilove_pdf_handle_file_upload_compress_watermark( $attachment_id ) {
     if ( get_post_mime_type( $attachment_id ) === 'application/pdf' ) {
         $options_compress  = get_option( 'ilove_pdf_display_settings_compress' );

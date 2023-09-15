@@ -1,9 +1,19 @@
 <?php
+/**
+ * Compress Settings
+ *
+ * @link       https://ilovepdf.com/
+ * @since      1.0.0
+ *
+ * @package    Ilove_Pdf
+ * @subpackage Ilove_Pdf/admin
+ */
 
-/***************
- * ** COMPRESS ***
- ****************/
-
+/**
+ * Initialize Options for the admin area.
+ *
+ * @since    1.0.0
+ */
 function ilove_pdf_initialize_options_compress() {
 
     if ( false === get_option( 'ilove_pdf_display_settings_compress' ) ) {
@@ -59,10 +69,21 @@ function ilove_pdf_initialize_options_compress() {
 }
 add_action( 'admin_init', 'ilove_pdf_initialize_options_compress' );
 
+/**
+ * Options Callback.
+ *
+ * @since    1.0.0
+ */
 function ilove_pdf_compress_options_callback() {
     echo '<h3>' . __( 'Configure your Compress PDF settings.', 'ilovepdf' ) . '</h3>';
 }
 
+/**
+ * Active Callback.
+ *
+ * @since    1.0.0
+ * @param    array $args    Arguments options.
+ */
 function ilove_pdf_compress_active_callback( $args ) {
 
     $options = get_option( 'ilove_pdf_display_settings_compress' );
@@ -72,6 +93,12 @@ function ilove_pdf_compress_active_callback( $args ) {
     echo $html;
 }
 
+/**
+ * Quality Callback.
+ *
+ * @since    1.0.0
+ * @param    array $args    Arguments options.
+ */
 function ilove_pdf_compress_quality_callback( $args ) {
 
     $options = get_option( 'ilove_pdf_display_settings_compress' );
@@ -87,6 +114,12 @@ function ilove_pdf_compress_quality_callback( $args ) {
     echo $html;
 }
 
+/**
+ * Autocompress new Callback.
+ *
+ * @since    1.0.0
+ * @param    array $args    Arguments options.
+ */
 function ilove_pdf_compress_autocompress_new_callback( $args ) {
 
     $options = get_option( 'ilove_pdf_display_settings_compress' );

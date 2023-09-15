@@ -1,10 +1,24 @@
 <?php
+/**
+ * Compress API Functions
+ *
+ * @link       https://ilovepdf.com/
+ * @since      1.0.0
+ *
+ * @package    Ilove_Pdf
+ * @subpackage Ilove_Pdf/admin
+ */
 
 use Ilovepdf\CompressTask;
 
-/****************
- * API FUNCTIONS *
- *****************/
+/**
+ * Compress PDF File.
+ *
+ * @since    1.0.0
+ * @param    int     $id_file    File ID.
+ * @param    boolean $auto    Auto compress.
+ * @param    boolean $bulk    Bulk compress.
+ */
 function ilove_pdf_compress_pdf( $id_file, $auto = false, $bulk = false ) {
     $options = get_option( 'ilove_pdf_display_settings_compress' );
     $html    = true;
@@ -100,10 +114,12 @@ function ilove_pdf_compress_pdf( $id_file, $auto = false, $bulk = false ) {
         } catch ( \Ilovepdf\Exceptions\AuthException $e ) {
             // echo "An error occured on auth: " . $e->getMessage() . " ";
             // echo implode(', ', $e->getErrors());
+
             /*
             $html = '<div class="settings-error notice is-dismissible error">';
             $html .= '<p>'.__('An error occured on auth: ','ilovepdf') . $e->getMessage() .'</p>';
-            $html .= '</div>';*/
+            $html .= '</div>';
+            */
             $html = 'error_auth';
 
             if ( $bulk ) {
@@ -176,6 +192,12 @@ function ilove_pdf_compress_pdf( $id_file, $auto = false, $bulk = false ) {
     return $html;
 }
 
+/**
+ * PDF File Upload Compress.
+ *
+ * @since    1.0.0
+ * @param    int $attachment_id    File ID.
+ */
 function ilove_pdf_handle_file_upload_compress( $attachment_id ) {
     if ( get_post_mime_type( $attachment_id ) === 'application/pdf' ) {
         $options           = get_option( 'ilove_pdf_display_settings_compress' );
@@ -227,6 +249,11 @@ function ilove_pdf_handle_file_upload_compress( $attachment_id ) {
 }
 add_filter( 'add_attachment', 'ilove_pdf_handle_file_upload_compress', 8 );
 
+/**
+ * Register Compress Action.
+ *
+ * @since    1.0.0
+ */
 function ilove_pdf_compress_action() {
     if ( isset( $_GET['action'] ) && $_GET['action'] === 'ilovepdf_compress' && intval( $_GET['id'] ) ) {
         $id   = intval( $_GET['id'] );
@@ -272,6 +299,11 @@ function ilove_pdf_compress_action() {
 }
 add_action( 'admin_post_ilovepdf_compress', 'ilove_pdf_compress_action' );
 
+/**
+ * Compress List.
+ *
+ * @since    1.0.0
+ */
 function ilove_pdf_compress_list_action() {
     $files    = ilove_pdf_initialize_list_compress_pdf();
     $id_files = array();
