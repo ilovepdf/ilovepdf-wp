@@ -263,12 +263,12 @@ function ilove_pdf_handle_file_upload_compress_watermark( $attachment_id ) {
 	            </script>
                 <?php
             } elseif ( get_user_option( 'media_library_mode', get_current_user_id() ) === 'grid' || wp_doing_ajax() ) {
-            	if ( $html_compress !== '1' || $html_watermark !== '1' ) {
-            		if ( $html_compress !== '1' ) {
+            	if ( '1' !== $html_compress || '1' !== $html_watermark ) {
+            		if ( '1' !== $html_compress ) {
             			$return = array( 'message' => strip_tags( $html_compress ) );
                     }
 
-            		if ( $html_watermark !== '1' ) {
+            		if ( '1' !== $html_watermark ) {
                     	$return = array( 'message' => strip_tags( $html_watermark ) );
                     }
 

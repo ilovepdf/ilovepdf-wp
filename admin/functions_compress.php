@@ -34,7 +34,7 @@ function ilove_pdf_compress_pdf( $id_file, $auto = false, $bulk = false ) {
 
             // file var keeps info about server file id, name...
             // it can be used latter to cancel file
-            if ( $id_file !== null ) {
+            if ( null !== $id_file ) {
                 $file = $myTask->addFile( get_attached_file( $id_file ) );
             } else {
                 $count     = 1;
@@ -80,7 +80,7 @@ function ilove_pdf_compress_pdf( $id_file, $auto = false, $bulk = false ) {
                 wp_delete_file( $upload_dir['basedir'] . '/pdf/compress/output.zip' );
             }
 
-            if ( $id_file !== null ) {
+            if ( null !== $id_file ) {
                 ilove_pdf_upload_compress_file( get_attached_file( $id_file ), $id_file );
             } else {
                 foreach ( $files_pdf as $file_pdf ) {
@@ -235,7 +235,7 @@ function ilove_pdf_handle_file_upload_compress( $attachment_id ) {
                 </script>
                 <?php
 			} elseif ( ! ilove_pdf_is_file_watermarked( $attachment_id ) && get_user_option( 'media_library_mode', get_current_user_id() ) === 'grid' || wp_doing_ajax() ) {
-                if ( $html !== '1' ) {
+                if ( '1' !== $html ) {
                     $return = array( 'message' => strip_tags( $html ) );
                     wp_send_json_error( $return );
                 } else {
@@ -255,10 +255,10 @@ add_filter( 'add_attachment', 'ilove_pdf_handle_file_upload_compress', 8 );
  * @since    1.0.0
  */
 function ilove_pdf_compress_action() {
-    if ( isset( $_GET['action'] ) && $_GET['action'] === 'ilovepdf_compress' && intval( $_GET['id'] ) ) {
+    if ( isset( $_GET['action'] ) && 'ilovepdf_compress' === $_GET['action'] && intval( $_GET['id'] ) ) {
         $id   = intval( $_GET['id'] );
         $html = ilove_pdf_compress_pdf( $id, 1 ); // este
-    } elseif ( isset( $_GET['action'] ) && $_GET['action'] === 'ilovepdf_compress' ) {
+    } elseif ( isset( $_GET['action'] ) && 'ilovepdf_compress' === $_GET['action'] ) {
         ilove_pdf_compress_pdf( null, 0 );
     }
 

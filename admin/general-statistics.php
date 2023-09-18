@@ -228,7 +228,7 @@ add_filter( 'bulk_actions-upload', 'ilove_pdf_register_bulk_actions' );
  */
 function ilove_pdf_compress_bulk_action_handler( $redirect_to, $doaction, $post_ids ) {
 
-	if ( $doaction === 'compress' ) {
+	if ( 'compress' === $doaction ) {
 
 		$redirect_to = '<form id="bulkActionsForm" name="compress_bulk_actions" action="?page=ilove-pdf-content-statistics&tab=compress_statistic" method="post">';
 		foreach ( $post_ids as $post_id ) {
@@ -237,7 +237,7 @@ function ilove_pdf_compress_bulk_action_handler( $redirect_to, $doaction, $post_
 
 		$redirect_to .= '</form><script type="text/javascript">document.getElementById("bulkActionsForm").submit();</script>';
 
-	} elseif ( $doaction === 'watermark' ) {
+	} elseif ( 'watermark' === $doaction ) {
 
 		$redirect_to = '<form id="bulkActionsForm" name="watermark_bulk_actions" action="?page=ilove-pdf-content-statistics&tab=watermark_statistic" method="post">';
 		foreach ( $post_ids as $post_id ) {
@@ -257,27 +257,27 @@ add_filter( 'handle_bulk_actions-upload', 'ilove_pdf_compress_bulk_action_handle
  */
 function ilove_pdf_bulk_action_admin_notice() {
 	if ( ! empty( $_REQUEST['ilovepdf_notification'] ) ) {
-		if ( $_REQUEST['ilovepdf_notification'] === 200 ) {
+		if ( 200 === $_REQUEST['ilovepdf_notification'] ) {
 			printf( '<div id="message" class="updated fade">' . __( 'Process complete!', 'ilovepdf' ) . '</div>' );
 		}
 
-		if ( $_REQUEST['ilovepdf_notification'] === 'error_start' ) {
+		if ( 'error_start' === $_REQUEST['ilovepdf_notification'] ) {
 			printf( '<div id="message" class="error fade">' . __( 'An error occured on start.', 'ilovepdf' ) . '</div>' );
 		}
 
-		if ( $_REQUEST['ilovepdf_notification'] === 'error_auth' ) {
+		if ( 'error_auth' === $_REQUEST['ilovepdf_notification'] ) {
 			printf( '<div id="message" class="error fade">' . __( 'An error occured on auth.', 'ilovepdf' ) . '</div>' );
 		}
 
-		if ( $_REQUEST['ilovepdf_notification'] === 'error_upload' ) {
+		if ( 'error_upload' === $_REQUEST['ilovepdf_notification'] ) {
 			printf( '<div id="message" class="error fade">' . __( 'An error occured on upload.', 'ilovepdf' ) . '</div>' );
 		}
 
-		if ( $_REQUEST['ilovepdf_notification'] === 'error_proccess' ) {
+		if ( 'error_proccess' === $_REQUEST['ilovepdf_notification'] ) {
 			printf( '<div id="message" class="error fade">' . __( 'An error occured on process.', 'ilovepdf' ) . '</div>' );
 		}
 
-		if ( $_REQUEST['ilovepdf_notification'] === 'error_occured' ) {
+		if ( 'error_occured' === $_REQUEST['ilovepdf_notification'] ) {
 			printf( '<div id="message" class="error fade">' . __( 'An error occured.', 'ilovepdf' ) . '</div>' );
 		}
 	}

@@ -22,7 +22,7 @@ function ilove_pdf_get_statistics() {
 		)
 	);
 
-	if ( isset( $response['response']['code'] ) && $response['response']['code'] === 200 ) {
+	if ( isset( $response['response']['code'] ) && 200 === $response['response']['code'] ) {
 		return json_decode( $response['body'], true );
 	} else {
 		return;
@@ -37,7 +37,7 @@ function ilove_pdf_get_statistics() {
  * @param    int $limit   Limit.
  */
 function ilove_pdf_get_percentage( $used, $limit ) {
-	if ( $limit === 0 ) {
+	if ( 0 === $limit ) {
 		return 0;
 	}
 
@@ -54,7 +54,7 @@ function ilove_pdf_get_percentage( $used, $limit ) {
  * @param    int $compressed   Compressed.
  */
 function ilove_pdf_get_percentage_compress( $original, $compressed ) {
-	if ( $original === 0 ) {
+	if ( 0 === $original ) {
 		return 0;
 	}
 

@@ -15,7 +15,7 @@
  * @since    1.0.0
  */
 function ilove_pdf_register_action() {
-    if ( isset( $_POST['action'] ) && $_POST['action'] === 'ilovepdf_register' ) {
+    if ( isset( $_POST['action'] ) && 'ilovepdf_register' === $_POST['action'] ) {
 
         if ( get_option( 'ilovepdf_user_register_times' ) !== null ) {
             $response = wp_remote_post(
@@ -43,7 +43,7 @@ function ilove_pdf_register_action() {
                 )
             );
         }
-        if ( isset( $response['response']['code'] ) && $response['response']['code'] === 200 ) {
+        if ( isset( $response['response']['code'] ) && 200 === $response['response']['code'] ) {
             $user = json_decode( $response['body'], true );
             add_option( 'ilovepdf_user_token', $user['token'] );
             add_option( 'ilovepdf_user_email', $user['email'] );
@@ -64,7 +64,7 @@ add_action( 'admin_post_ilovepdf_register', 'ilove_pdf_register_action' );
  * @since    1.0.0
  */
 function ilove_pdf_login_action() {
-    if ( isset( $_POST['action'] ) && $_POST['action'] === 'ilovepdf_login' ) {
+    if ( isset( $_POST['action'] ) && 'ilovepdf_login' === $_POST['action'] ) {
         $response = wp_remote_post(
             ILOVE_PDF_LOGIN_URL,
             array(
@@ -76,7 +76,7 @@ function ilove_pdf_login_action() {
             )
         );
 
-        if ( isset( $response['response']['code'] ) && $response['response']['code'] === 200 ) {
+        if ( isset( $response['response']['code'] ) && 200 === $response['response']['code'] ) {
             $user = json_decode( $response['body'], true );
             add_option( 'ilovepdf_user_token', $user['token'] );
             add_option( 'ilovepdf_user_email', $user['email'] );
@@ -95,7 +95,7 @@ add_action( 'admin_post_ilovepdf_login', 'ilove_pdf_login_action' );
  * @since    1.0.0
  */
 function ilove_pdf_logout_action() {
-    if ( isset( $_GET['action'] ) && $_GET['action'] === 'ilovepdf_logout' ) {
+    if ( isset( $_GET['action'] ) && 'ilovepdf_logout' === $_GET['action'] ) {
         delete_option( 'ilovepdf_user_token' );
         delete_option( 'ilovepdf_user_email' );
         delete_option( 'ilovepdf_user_private_key' );
@@ -113,7 +113,7 @@ add_action( 'admin_post_ilovepdf_logout', 'ilove_pdf_logout_action' );
  * @since    1.0.0
  */
 function ilove_pdf_change_project_action() {
-    if ( isset( $_GET['action'] ) && $_GET['action'] === 'ilovepdf_change_project' ) {
+    if ( isset( $_GET['action'] ) && 'ilovepdf_change_project' === $_GET['action'] ) {
         $stats = ilove_pdf_get_statistics();
         update_option( 'ilovepdf_user_private_key', $stats['projects'][ sanitize_text_field( $_POST['ilovepdf_select_project'] ) ]['secret_key'] );
         update_option( 'ilovepdf_user_public_key', $stats['projects'][ sanitize_text_field( $_POST['ilovepdf_select_project'] ) ]['public_key'] );
