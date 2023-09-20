@@ -16,10 +16,10 @@ require __DIR__ . '/general-statistics.php';
 require __DIR__ . '/partials/ilove-pdf-settings-display.php';
 require __DIR__ . '/partials/ilove-pdf-statistics-display.php';
 
-require __DIR__ . '/functions_processed_files.php';
-require __DIR__ . '/functions_compress.php';
-require __DIR__ . '/functions_watermark.php';
-require __DIR__ . '/functions_statistics.php';
+require __DIR__ . '/functions-processed-files.php';
+require __DIR__ . '/functions-compress.php';
+require __DIR__ . '/functions-watermark.php';
+require __DIR__ . '/functions-statistics.php';
 
 require_once plugin_dir_path( __DIR__ ) . 'lib/ilovepdf-php-master/init.php';
 
