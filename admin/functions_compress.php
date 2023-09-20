@@ -30,17 +30,17 @@ function ilove_pdf_compress_pdf( $id_file, $auto = false, $bulk = false ) {
         try {
             // you can call task class directly
             // to get your key pair, please visit https://developer.ilovepdf.com/user/projects
-            $myTask = new CompressTask( get_option( 'ilovepdf_user_public_key', true ), get_option( 'ilovepdf_user_private_key', true ) );
+            $my_task = new CompressTask( get_option( 'ilovepdf_user_public_key', true ), get_option( 'ilovepdf_user_private_key', true ) );
 
             // file var keeps info about server file id, name...
             // it can be used latter to cancel file
             if ( null !== $id_file ) {
-                $file = $myTask->addFile( get_attached_file( $id_file ) );
+                $file = $my_task->addFile( get_attached_file( $id_file ) );
             } else {
                 $count     = 1;
                 $files_pdf = ilove_pdf_initialize_list_compress_pdf();
                 foreach ( $files_pdf as $file_pdf ) {
-                    ${'file' . $count} = $myTask->addFile( get_attached_file( $file_pdf->ID ) );
+                    ${'file' . $count} = $my_task->addFile( get_attached_file( $file_pdf->ID ) );
                     ++$count;
                 }
             }
@@ -48,29 +48,29 @@ function ilove_pdf_compress_pdf( $id_file, $auto = false, $bulk = false ) {
             if ( isset( $options['ilove_pdf_compress_quality'] ) ) {
                 switch ( $options['ilove_pdf_compress_quality'] ) {
                     case 0:
-                        $compressionLevel = 'low';
+                        $compression_level = 'low';
                         break;
                     case 1:
-                        $compressionLevel = 'recommended';
+                        $compression_level = 'recommended';
                         break;
                     case 2:
-                        $compressionLevel = 'extreme';
+                        $compression_level = 'extreme';
                         break;
                 }
             } else {
-                $compressionLevel = 'recommended';
+                $compression_level = 'recommended';
             }
 
             // Set your tool options
-            $myTask->setCompressionLevel( $compressionLevel );
+            $my_task->setCompressionLevel( $compression_level );
 
             // process files
-            $myTask->execute();
+            $my_task->execute();
 
             $upload_dir = wp_upload_dir();
 
             // and finally download file. If no path is set, it will be downloaded on current folder
-            $myTask->download( $upload_dir['basedir'] . '/pdf/compress' );
+            $my_task->download( $upload_dir['basedir'] . '/pdf/compress' );
 
             if ( is_null( $id_file ) ) {
                 $zip = new ZipArchive();

@@ -33,17 +33,17 @@ function ilove_pdf_watermark_pdf( $id_file, $auto = false, $bulk = false ) {
         try {
             // you can call task class directly
             // to get your key pair, please visit https://developer.ilovepdf.com/user/projects
-            $myTask = new WatermarkTask( get_option( 'ilovepdf_user_public_key', true ), get_option( 'ilovepdf_user_private_key', true ) );
+            $my_task = new WatermarkTask( get_option( 'ilovepdf_user_public_key', true ), get_option( 'ilovepdf_user_private_key', true ) );
 
             // file var keeps info about server file id, name...
             // it can be used latter to cancel file
             if ( null !== $id_file ) {
-                $file = $myTask->addFile( get_attached_file( $id_file ) );
+                $file = $my_task->addFile( get_attached_file( $id_file ) );
             } else {
                 $count     = 1;
                 $files_pdf = ilove_pdf_initialize_list_watermark_pdf();
                 foreach ( $files_pdf as $file_pdf ) {
-                    ${'file' . $count} = $myTask->addFile( get_attached_file( $file_pdf->ID ) );
+                    ${'file' . $count} = $my_task->addFile( get_attached_file( $file_pdf->ID ) );
                     ++$count;
                 }
             }
@@ -51,28 +51,28 @@ function ilove_pdf_watermark_pdf( $id_file, $auto = false, $bulk = false ) {
             switch ( $options['ilove_pdf_format_watermark_mode'] ) {
                 case 1:
                     // set mode to text
-                    $myTask->setMode( 'image' );
+                    $my_task->setMode( 'image' );
 
                     if ( isset( $options['ilove_pdf_format_watermark_image'] ) ) {
-                        $image = $myTask->addFile( get_attached_file( $options['ilove_pdf_format_watermark_image'] ) );
-                        $myTask->setImage( $image->getServerFilename() );
+                        $image = $my_task->addFile( get_attached_file( $options['ilove_pdf_format_watermark_image'] ) );
+                        $my_task->setImage( $image->getServerFilename() );
                     }
 
                     if ( isset( $options['ilove_pdf_format_watermark_opacity'] ) ) {
-                        $myTask->setTransparency( $options['ilove_pdf_format_watermark_opacity'] );
+                        $my_task->setTransparency( $options['ilove_pdf_format_watermark_opacity'] );
                     }
 
                     if ( isset( $options['ilove_pdf_format_watermark_rotation'] ) ) {
-                        $myTask->setRotation( $options['ilove_pdf_format_watermark_rotation'] );
+                        $my_task->setRotation( $options['ilove_pdf_format_watermark_rotation'] );
                     }
 
                     $layer = array( 'above', 'below' );
                     if ( isset( $options['ilove_pdf_format_watermark_layer'] ) ) {
-                        $myTask->setLayer( $layer[ $options['ilove_pdf_format_watermark_layer'] ] );
+                        $my_task->setLayer( $layer[ $options['ilove_pdf_format_watermark_layer'] ] );
                     }
 
                     if ( isset( $options['ilove_pdf_format_watermark_mosaic'] ) && intval( $options['ilove_pdf_format_watermark_mosaic'] ) === 1 ) {
-                        $myTask->setMosaic( true );
+                        $my_task->setMosaic( true );
                     }
 
                     break;
@@ -80,28 +80,28 @@ function ilove_pdf_watermark_pdf( $id_file, $auto = false, $bulk = false ) {
                 case 0:
                 default:
                     // set mode to text
-                    $myTask->setMode( 'text' );
+                    $my_task->setMode( 'text' );
 
                     // set the text
                     if ( isset( $options['ilove_pdf_format_watermark_text'] ) ) {
-                        $myTask->setText( $options['ilove_pdf_format_watermark_text'] );
+                        $my_task->setText( $options['ilove_pdf_format_watermark_text'] );
                     } else {
-                        $myTask->setText( get_bloginfo() );
+                        $my_task->setText( get_bloginfo() );
                     }
 
                     // set mode to text
                     if ( isset( $options['ilove_pdf_format_watermark_font_family'] ) ) {
-                        $myTask->setFontFamily( $options['ilove_pdf_format_watermark_font_family'] );
+                        $my_task->setFontFamily( $options['ilove_pdf_format_watermark_font_family'] );
                     }
 
                     // set the font size
                     if ( isset( $options['ilove_pdf_format_watermark_text_size'] ) ) {
-                        $myTask->setFontSize( $options['ilove_pdf_format_watermark_text_size'] );
+                        $my_task->setFontSize( $options['ilove_pdf_format_watermark_text_size'] );
                     }
 
                     // set color to red
                     if ( isset( $options['ilove_pdf_format_watermark_text_color'] ) ) {
-                        $myTask->setFontColor( $options['ilove_pdf_format_watermark_text_color'] );
+                        $my_task->setFontColor( $options['ilove_pdf_format_watermark_text_color'] );
                     }
 
                     break;
@@ -109,21 +109,21 @@ function ilove_pdf_watermark_pdf( $id_file, $auto = false, $bulk = false ) {
 
             $vertical_position = array( 'bottom', 'top', 'middle' );
             if ( isset( $options['ilove_pdf_format_watermark_vertical'] ) ) {
-                $myTask->setVerticalPosition( $vertical_position[ $options['ilove_pdf_format_watermark_vertical'] ] );
+                $my_task->setVerticalPosition( $vertical_position[ $options['ilove_pdf_format_watermark_vertical'] ] );
             }
 
             $horizontal_position = array( 'left', 'right', 'center' );
             if ( isset( $options['ilove_pdf_format_watermark_horizontal'] ) ) {
-                $myTask->setHorizontalPosition( $horizontal_position[ $options['ilove_pdf_format_watermark_horizontal'] ] );
+                $my_task->setHorizontalPosition( $horizontal_position[ $options['ilove_pdf_format_watermark_horizontal'] ] );
             }
 
             // process files
-            $myTask->execute();
+            $my_task->execute();
 
             $upload_dir = wp_upload_dir();
 
             // and finally download the unlocked file. If no path is set, it will be downloaded on current folder
-            $myTask->download( $upload_dir['basedir'] . '/pdf/watermark' );
+            $my_task->download( $upload_dir['basedir'] . '/pdf/watermark' );
 
             if ( is_null( $id_file ) ) {
                 $zip = new ZipArchive();
