@@ -199,7 +199,7 @@ function ilove_pdf_content_page_statistics() {
                                                     <?php endif; ?>
                                                     <td>
                                                     <?php if ( ! ilove_pdf_is_file_compressed( get_the_ID() ) ) : ?>
-                                                        <a href="<?php echo admin_url( 'admin-post.php' ); ?>?action=ilovepdf_compress&id=<?php echo get_the_ID(); ?>" class="button-primary media-ilovepdf-box btn-compress"><?php echo __( 'Compress', 'ilovepdf' ); ?></a>
+                                                        <a href="<?php echo admin_url( 'admin-post.php' ); ?>?action=ilovepdf_compress&id=<?php echo get_the_ID(); ?>&nonce_ilove_pdf_compress=<?php echo wp_create_nonce( 'admin-post' ); ?>" class="button-primary media-ilovepdf-box btn-compress"><?php echo __( 'Compress', 'ilovepdf' ); ?></a>
                                                         <span class="compressing pdf-status"><?php echo __( 'Compressing', 'ilovepdf' ); ?>...</span>
                                                         <span class="error pdf-status"><?php echo __( 'Error', 'ilovepdf' ); ?></span>
                                                         <span class="success pdf-status"><?php echo __( 'Completed', 'ilovepdf' ); ?></span>
@@ -327,7 +327,7 @@ function ilove_pdf_content_page_statistics() {
                                                     <td><?php echo size_format( filesize( get_attached_file( get_the_ID() ) ), 2 ); ?></td>
                                                     <td>
                                                     <?php if ( ! ilove_pdf_is_file_watermarked( get_the_ID() ) ) : ?>
-                                                        <a href="<?php echo admin_url( 'admin-post.php' ); ?>?action=ilovepdf_watermark&id=<?php echo get_the_ID(); ?>" class="button-primary media-ilovepdf-box btn-watermark"><?php echo __( 'Apply Watermark', 'ilovepdf' ); ?></a>
+                                                        <a href="<?php echo add_query_arg( 'nonce_ilove_pdf_watermark', wp_create_nonce( 'admin-post' ), admin_url( 'admin-post.php' ) . '?action=ilovepdf_watermark&id=' . get_the_ID() ); ?>" class="button-primary media-ilovepdf-box btn-watermark"><?php echo __( 'Apply Watermark', 'ilovepdf' ); ?></a>
                                                         <span class="applying-watermark pdf-status"><?php echo __( 'Applying Watermark', 'ilovepdf' ); ?>...</span>
                                                         <span class="error pdf-status"><?php echo __( 'Error', 'ilovepdf' ); ?></span>
                                                         <span class="success pdf-status"><?php echo __( 'Completed', 'ilovepdf' ); ?></span>

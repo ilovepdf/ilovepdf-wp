@@ -310,10 +310,11 @@ add_filter( 'add_attachment', 'ilove_pdf_handle_file_upload_watermark', 9 );
  * @since    1.0.0
  */
 function ilove_pdf_watermark_action() {
-    if ( isset( $_GET['action'] ) && 'ilovepdf_watermark' === $_GET['action'] && intval( $_GET['id'] ) ) {
+    if ( isset( $_GET['action'] ) && 'ilovepdf_watermark' === $_GET['action'] && isset( $_GET['nonce_ilove_pdf_watermark'] ) && wp_verify_nonce( sanitize_key( $_GET['nonce_ilove_pdf_watermark'] ), 'admin-post' ) && intval( $_GET['id'] ) ) {
         $id   = intval( $_GET['id'] );
         $html = ilove_pdf_watermark_pdf( intval( $_GET['id'] ), 1 );
-    } elseif ( isset( $_GET['action'] ) && 'ilovepdf_watermark' === $_GET['action'] ) {
+
+    } elseif ( isset( $_GET['action'] ) && 'ilovepdf_watermark' === $_GET['action'] && isset( $_GET['nonce_ilove_pdf_watermark'] ) && wp_verify_nonce( sanitize_key( $_GET['nonce_ilove_pdf_watermark'] ), 'admin-post' ) ) {
         ilove_pdf_watermark_pdf( null, 0 );
     }
 
@@ -375,7 +376,7 @@ add_action( 'admin_post_ilovepdf_watermark_list', 'ilove_pdf_watermark_list_acti
  * @since    1.0.0
  */
 function ilove_pdf_restore_action() {
-    if ( isset( $_GET['action'] ) && 'ilovepdf_restore' === $_GET['action'] && intval( $_GET['id'] ) ) {
+    if ( isset( $_GET['action'] ) && 'ilovepdf_restore' === $_GET['action'] && isset( $_GET['nonce_ilove_pdf_restore_watermark'] ) && wp_verify_nonce( sanitize_key( $_GET['nonce_ilove_pdf_restore_watermark'] ), 'admin-post' ) && intval( $_GET['id'] ) ) {
         ilove_pdf_restore_pdf( $_GET['id'] );
     }
 

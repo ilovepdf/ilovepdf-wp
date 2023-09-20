@@ -21,7 +21,7 @@ function ilove_pdf_content_page_setting() {
 		<div class="plugin-logo">
             <?php echo $logo_svg; ?>
         </div>
-        <?php if ( isset( $_GET['response_code'] ) ) : ?>
+        <?php if ( isset( $_GET['response_code'] ) && isset( $_GET['nonce_ilove_pdf_response'] ) && wp_verify_nonce( sanitize_key( $_GET['nonce_ilove_pdf_response'] ) ) ) : ?>
 
             <?php
             switch ( $_GET['response_code'] ) {
@@ -45,13 +45,14 @@ function ilove_pdf_content_page_setting() {
             </p></div>
         <?php endif; ?>
         <?php
-            $active_tab = isset( $_GET['tab'] ) ? $_GET['tab'] : 'setting_options';
+            $nonce_settings = wp_create_nonce();
+            $active_tab = isset( $_GET['tab'] ) && isset( $_GET['nonce_ilove_pdf_settings_tab'] ) && wp_verify_nonce( sanitize_key( $_GET['nonce_ilove_pdf_settings_tab'] ) ) ? $_GET['tab'] : 'setting_options';
         ?>
          
         <h2 class="nav-tab-wrapper">
-            <a href="?page=ilove-pdf-content-setting&tab=setting_options" class="nav-tab <?php echo 'setting_options' === $active_tab ? 'nav-tab-active tab-ilovepdf' : ''; ?>"><?php echo __( 'General', 'ilovepdf' ); ?></a>
-            <a href="?page=ilove-pdf-content-setting&tab=compress_options" class="nav-tab <?php echo 'compress_options' === $active_tab ? 'nav-tab-active tab-ilovepdf' : ''; ?>"><?php echo __( 'Compress PDF', 'ilovepdf' ); ?></a>
-            <a href="?page=ilove-pdf-content-setting&tab=watermark_options" class="nav-tab <?php echo 'watermark_options' === $active_tab ? 'nav-tab-active tab-ilovepdf' : ''; ?>"><?php echo __( 'Watermark', 'ilovepdf' ); ?></a>
+            <a href="?page=ilove-pdf-content-setting&tab=setting_options&nonce_ilove_pdf_settings_tab=<?php echo $nonce_settings; ?>" class="nav-tab <?php echo 'setting_options' === $active_tab ? 'nav-tab-active tab-ilovepdf' : ''; ?>"><?php echo __( 'General', 'ilovepdf' ); ?></a>
+            <a href="?page=ilove-pdf-content-setting&tab=compress_options&nonce_ilove_pdf_settings_tab=<?php echo $nonce_settings; ?>" class="nav-tab <?php echo 'compress_options' === $active_tab ? 'nav-tab-active tab-ilovepdf' : ''; ?>"><?php echo __( 'Compress PDF', 'ilovepdf' ); ?></a>
+            <a href="?page=ilove-pdf-content-setting&tab=watermark_options&nonce_ilove_pdf_settings_tab=<?php echo $nonce_settings; ?>" class="nav-tab <?php echo 'watermark_options' === $active_tab ? 'nav-tab-active tab-ilovepdf' : ''; ?>"><?php echo __( 'Watermark', 'ilovepdf' ); ?></a>
         </h2> 	        
       		<?php if ( 'setting_options' === $active_tab ) : ?>
             <div class="wrap">           
@@ -62,10 +63,11 @@ function ilove_pdf_content_page_setting() {
                             <div class="col-md-4">
                                 <div class="panel" style="margin-right: 10px;">
                                     <h3><?php echo __( 'Account', 'ilovepdf' ); ?></h3>
-                                    <p><i class="fa fa-check" aria-hidden="true"></i> <?php echo __( 'Logged as', 'ilovepdf' ); ?><strong> <?php echo get_option( 'ilovepdf_user_email' ); ?></strong>&nbsp;&nbsp;&nbsp;<a href="<?php echo admin_url( 'admin-post.php' ); ?>?action=ilovepdf_logout" class="button button-primary" style="    margin-top: 10px;"><?php echo __( 'Logout', 'ilovepdf' ); ?></a></p>
+                                    <p><i class="fa fa-check" aria-hidden="true"></i> <?php echo __( 'Logged as', 'ilovepdf' ); ?><strong> <?php echo get_option( 'ilovepdf_user_email' ); ?></strong>&nbsp;&nbsp;&nbsp;<a href="<?php echo add_query_arg( 'nonce_ilove_pdf_logout', wp_create_nonce( 'admin-post' ), admin_url( 'admin-post.php' ) . '?action=ilovepdf_logout' ); ?>" class="button button-primary" style="    margin-top: 10px;"><?php echo __( 'Logout', 'ilovepdf' ); ?></a></p>
 
                                     <hr style="    margin: 30px 0px;" />
                                     <form action="<?php echo admin_url( 'admin-post.php' ); ?>?action=ilovepdf_change_project" method="POST">
+                                    <?php wp_nonce_field( 'admin-post', 'nonce_ilove_pdf_change_project' ); ?>
                                     <select name="ilovepdf_select_project">
                                     <?php $total_projects = 0; ?>
                                     <?php foreach ( $stats['projects'] as $project ) : ?>
@@ -119,6 +121,7 @@ function ilove_pdf_content_page_setting() {
                                     <h3 style="margin-bottom: 20px;"><?php echo __( 'Register as iLovePDF developer', 'ilovepdf' ); ?></h3>
                                     <form method="post" id="ilovepdf_register_form" name="ilove_pdf_form_settings_section" action="">
                                         <input type="hidden" name="action" value="ilovepdf_register" />
+                                        <?php wp_nonce_field( 'admin-post', 'nonce_ilove_pdf_register' ); ?>
                                         <p><?php echo __( 'Provide your name and email address to generate keys.', 'ilovepdf' ); ?></p>
                                         <input type="text" id="ilove_pdf_account_name" name="ilove_pdf_account_name" placeholder="<?php echo __( 'Name', 'ilovepdf' ); ?>"><br><br>   
                                         <input type="text" id="ilove_pdf_account_email" name="ilove_pdf_account_email" placeholder="<?php echo __( 'Email', 'ilovepdf' ); ?>" value=""><br><br>   
@@ -132,7 +135,8 @@ function ilove_pdf_content_page_setting() {
                                 <div class="panel" style="margin-left: 10px; height: 350px;">
                                     <h3 style="margin-bottom: 20px;"><?php echo __( 'Login', 'ilovepdf' ); ?></h3>
                                     <form method="post" name="ilove_pdf_form_settings_section" action="<?php echo admin_url( 'admin-post.php' ); ?>">
-                                        <input type="hidden" name="action" value="ilovepdf_login" />  
+                                        <input type="hidden" name="action" value="ilovepdf_login" />
+                                        <?php wp_nonce_field( 'admin-post', 'nonce_ilove_pdf_login' ); ?>  
                                         <p><?php echo __( 'If you have an account, please log in.', 'ilovepdf' ); ?></p>
                                         <input type="text" id="ilove_pdf_account_email" name="ilove_pdf_account_email" placeholder="<?php echo __( 'Email', 'ilovepdf' ); ?>" value=""><br><br>   
                                         <input type="password" id="ilove_pdf_account_password" name="ilove_pdf_account_password" placeholder="<?php echo __( 'Password', 'ilovepdf' ); ?>" value=""><br><br>  
