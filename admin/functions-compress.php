@@ -282,7 +282,7 @@ function ilove_pdf_compress_action() {
         $return['current_size'] = size_format( ilove_pdf_get_all_pdf_current_size(), 2 );
         $return['percentage']   = ilove_pdf_get_percentage_compress( ilove_pdf_get_all_pdf_original_size(), ilove_pdf_get_all_pdf_original_size() - ilove_pdf_get_all_pdf_current_size() );
 
-        echo json_encode( $return );
+        echo wp_json_encode( $return );
     } else {
         wp_safe_redirect( wp_get_referer() );
     }
@@ -305,6 +305,6 @@ function ilove_pdf_compress_list_action() {
     $return             = array();
     $return['status']   = 1;
     $return['list_pdf'] = $id_files;
-    echo json_encode( $return );
+    echo wp_json_encode( $return );
 }
 add_action( 'admin_post_ilovepdf_compress_list', 'ilove_pdf_compress_list_action' );

@@ -330,7 +330,7 @@ function ilove_pdf_watermark_action() {
 
         $return['total_files'] = get_option( 'ilovepdf_watermarked_files' );
 
-        echo json_encode( $return );
+        echo wp_json_encode( $return );
 
     } else {
         wp_safe_redirect( wp_get_referer() );
@@ -354,7 +354,7 @@ function ilove_pdf_watermark_list_action() {
     $return             = array();
     $return['status']   = 1;
     $return['list_pdf'] = $id_files;
-    echo json_encode( $return );
+    echo wp_json_encode( $return );
 }
 add_action( 'admin_post_ilovepdf_watermark_list', 'ilove_pdf_watermark_list_action' );
 
