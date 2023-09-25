@@ -292,7 +292,7 @@ add_action( 'admin_notices', 'ilove_pdf_bulk_action_admin_notice' );
  * @param    WP_Post $post           The WP_Post attachment object..
  */
 function ilove_pdf_be_attachment_field_mode_grid( $form_fields, $post ) {
-    if ( get_option( 'ilovepdf_user_id' ) && substr( $_SERVER['SCRIPT_NAME'], strrpos( $_SERVER['SCRIPT_NAME'], '/' ) + 1 ) !== 'post.php' ) {
+    if ( get_option( 'ilovepdf_user_id' ) && isset( $_SERVER['SCRIPT_NAME'] ) && substr( sanitize_url( $_SERVER['SCRIPT_NAME'] ), strrpos( sanitize_url( $_SERVER['SCRIPT_NAME'] ), '/' ) + 1 ) !== 'post.php' ) { // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.MissingUnslash
         $filetype = wp_check_filetype( basename( get_attached_file( $post->ID ) ) );
         if ( strcasecmp( $filetype['ext'], 'pdf' ) === 0 ) {
             $restore = false;

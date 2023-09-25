@@ -244,7 +244,7 @@ add_filter( 'add_attachment', 'ilove_pdf_handle_file_upload_compress', 8 );
  * @since    1.0.0
  */
 function ilove_pdf_compress_action() {
-    if ( isset( $_GET['action'] ) && 'ilovepdf_compress' === $_GET['action'] && isset( $_GET['nonce_ilove_pdf_compress'] ) && wp_verify_nonce( sanitize_key( $_GET['nonce_ilove_pdf_compress'] ), 'admin-post' ) && intval( $_GET['id'] ) ) {
+    if ( isset( $_GET['action'] ) && 'ilovepdf_compress' === $_GET['action'] && isset( $_GET['nonce_ilove_pdf_compress'] ) && wp_verify_nonce( sanitize_key( $_GET['nonce_ilove_pdf_compress'] ), 'admin-post' ) && isset( $_GET['id'] ) && intval( $_GET['id'] ) ) {
         $id   = intval( $_GET['id'] );
         $html = ilove_pdf_compress_pdf( $id, 1 );
 

@@ -36,7 +36,7 @@ function ilove_pdf_content_page_setting() {
         <?php endif; ?>
         <?php
             $nonce_settings = wp_create_nonce();
-            $active_tab     = isset( $_GET['tab'] ) && isset( $_GET['nonce_ilove_pdf_settings_tab'] ) && wp_verify_nonce( sanitize_key( $_GET['nonce_ilove_pdf_settings_tab'] ) ) ? $_GET['tab'] : 'setting_options';
+            $active_tab     = isset( $_GET['tab'] ) && isset( $_GET['nonce_ilove_pdf_settings_tab'] ) && wp_verify_nonce( sanitize_key( $_GET['nonce_ilove_pdf_settings_tab'] ) ) ? sanitize_text_field( wp_unslash( $_GET['tab'] ) ) : 'setting_options';
         ?>
          
         <h2 class="nav-tab-wrapper">

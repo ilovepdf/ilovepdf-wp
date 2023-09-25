@@ -1,18 +1,18 @@
 <?php
 /**
- * Función que pinta la página de estadísticas
+ * Function that shows the statistics page.
  */
 function ilove_pdf_content_page_statistics() {
     if ( isset( $_POST['file'] ) ) {
-        if ( strcmp( $_GET['tab'], 'compress_statistic' ) === 0 ) {
-            ilove_pdf_compress_pdf( $_POST['file'] );
-        } elseif ( strcmp( $_GET['tab'], 'watermark_statistic' ) === 0 ) {
-            ilove_pdf_watermark_pdf( $_POST['file'] );
+        if ( isset( $_GET['tab'] ) && strcmp( sanitize_text_field( wp_unslash( $_GET['tab'] ) ), 'compress_statistic' ) === 0 ) {
+            ilove_pdf_compress_pdf( sanitize_text_field( wp_unslash( $_POST['file'] ) ) );
+        } elseif ( isset( $_GET['tab'] ) && strcmp( sanitize_text_field( wp_unslash( $_GET['tab'] ) ), 'watermark_statistic' ) === 0 ) {
+            ilove_pdf_watermark_pdf( sanitize_text_field( wp_unslash( $_POST['file'] ) ) );
         }
     } elseif ( isset( $_POST['multi'] ) ) {
-        if ( strcmp( $_GET['tab'], 'compress_statistic' ) === 0 ) {
+        if ( isset( $_GET['tab'] ) && strcmp( sanitize_text_field( wp_unslash( $_GET['tab'] ) ), 'compress_statistic' ) === 0 ) {
             ilove_pdf_compress_pdf( null );
-        } elseif ( strcmp( $_GET['tab'], 'watermark_statistic' ) === 0 ) {
+        } elseif ( isset( $_GET['tab'] ) && strcmp( sanitize_text_field( wp_unslash( $_GET['tab'] ) ), 'watermark_statistic' ) === 0 ) {
             ilove_pdf_watermark_pdf( null );
         }
     }
@@ -25,7 +25,7 @@ function ilove_pdf_content_page_statistics() {
         <h2 class="plugin-logo-full"><img src="<?php echo esc_url( $logo_svg ); ?>" alt="logo ilovepdf" /></h2>
         <?php if ( get_option( 'ilovepdf_user_id' ) ) : ?>         
             <?php
-                $active_tab = isset( $_GET['tab'] ) ? $_GET['tab'] : 'statistic_statistic';
+                $active_tab = isset( $_GET['tab'] ) ? sanitize_text_field( wp_unslash( $_GET['tab'] ) ) : 'statistic_statistic';
             ?>
              
             <h2 class="nav-tab-wrapper">
@@ -89,7 +89,7 @@ function ilove_pdf_content_page_statistics() {
                         <script type="text/javascript">
                         document.onreadystatechange = function(){
                             if(document.readyState === 'complete'){
-                                window.exportedCompressMultiPDF(<?php echo json_encode( $_POST['array_ids'] ); ?>);
+                                window.exportedCompressMultiPDF(<?php echo json_encode( wp_unslash( $_POST['array_ids'] ) ); ?>);
                             }
                         }
                         </script>
@@ -144,12 +144,12 @@ function ilove_pdf_content_page_statistics() {
                                     <p>Compress all non compressed PDF in your library at once.</p>
                                     <?php $files = ilove_pdf_initialize_list_compress_pdf(); ?>
                                     <?php
-                                        $paged            = ( $_GET['paged'] ) ? $_GET['paged'] : 1;
+                                        $paged            = isset( $_GET['paged'] ) ? sanitize_url( wp_unslash( $_GET['paged'] ) ) : 1;
                                         $query_files_args = array(
                                             'post_type'   => 'attachment',
                                             'post_status' => 'inherit',
                                             'post_mime_type' => 'application/pdf',
-                                            'posts_per_page' => 250,
+                                            'posts_per_page' => 150,
                                             'paged'       => $paged,
                                         );
 
@@ -214,7 +214,7 @@ function ilove_pdf_content_page_statistics() {
                                                 array(
 													'base' => 'upload.php%_%',
 													'format' => '?paged=%#%',
-													'current' => max( 1, isset( $_GET['paged'] ) ? $_GET['paged'] : 1 ),
+													'current' => max( 1, isset( $_GET['paged'] ) ? sanitize_url( wp_unslash( $_GET['paged'] ) ) : 1 ),
 													'total' => $query_files->max_num_pages,
                                                 )
                                             )
@@ -243,7 +243,7 @@ function ilove_pdf_content_page_statistics() {
                         <script type="text/javascript">
                         document.onreadystatechange = function(){
                             if(document.readyState === 'complete'){
-                                window.exportedWatermarkMultiPDF(<?php echo json_encode( $_POST['array_ids'] ); ?>);
+                                window.exportedWatermarkMultiPDF(<?php echo json_encode( wp_unslash( $_POST['array_ids'] ) ); ?>);
                             }
                         }
                         </script>
@@ -280,7 +280,7 @@ function ilove_pdf_content_page_statistics() {
                                     <p>Stamp all non stamped PDF in your library at once.</p>
                                     <?php $files = ilove_pdf_initialize_list_watermark_pdf(); ?>
                                     <?php
-                                        $paged            = ( $_GET['paged'] ) ? $_GET['paged'] : 1;
+                                        $paged            = isset( $_GET['paged'] ) ? sanitize_url( wp_unslash( $_GET['paged'] ) ) : 1;
                                         $query_files_args = array(
                                             'post_type'   => 'attachment',
                                             'post_status' => 'inherit',
@@ -339,7 +339,7 @@ function ilove_pdf_content_page_statistics() {
                                                 array(
 													'base' => 'upload.php%_%',
 													'format' => '?paged=%#%',
-													'current' => max( 1, isset( $_GET['paged'] ) ? $_GET['paged'] : 1 ),
+													'current' => max( 1, isset( $_GET['paged'] ) ? sanitize_url( wp_unslash( $_GET['paged'] ) ) : 1 ),
 													'total' => $query_files->max_num_pages,
                                                 )
                                             )

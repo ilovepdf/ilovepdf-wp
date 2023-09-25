@@ -23,8 +23,8 @@ function ilove_pdf_register_action() {
                 array(
 					'body' => array(
 						'name'         => sanitize_text_field( wp_unslash( $_POST['ilove_pdf_account_name'] ) ),
-						'email'        => sanitize_email( $_POST['ilove_pdf_account_email'] ),
-						'new_password' => sanitize_text_field( $_POST['ilove_pdf_account_password'] ),
+						'email'        => sanitize_email( wp_unslash( $_POST['ilove_pdf_account_email'] ) ),
+						'new_password' => esc_attr( $_POST['ilove_pdf_account_password'] ), // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized,WordPress.Security.ValidatedSanitizedInput.MissingUnslash,
 						'free_files'   => 0,
 						'wordpress_id' => get_option( 'ilovepdf_wordpress_id' ),
 					),
@@ -35,9 +35,9 @@ function ilove_pdf_register_action() {
                 ILOVE_PDF_REGISTER_URL,
                 array(
 					'body' => array(
-						'name'         => sanitize_text_field( $_POST['ilove_pdf_account_name'] ),
-						'email'        => sanitize_email( $_POST['ilove_pdf_account_email'] ),
-						'new_password' => sanitize_text_field( $_POST['ilove_pdf_account_password'] ),
+						'name'         => sanitize_text_field( wp_unslash( $_POST['ilove_pdf_account_name'] ) ),
+						'email'        => sanitize_email( wp_unslash( $_POST['ilove_pdf_account_email'] ) ),
+						'new_password' => esc_attr( $_POST['ilove_pdf_account_password'] ), // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized,WordPress.Security.ValidatedSanitizedInput.MissingUnslash,
 						'wordpress_id' => get_option( 'ilovepdf_wordpress_id' ),
 					),
                 )
@@ -64,13 +64,13 @@ add_action( 'admin_post_ilovepdf_register', 'ilove_pdf_register_action' );
  * @since    1.0.0
  */
 function ilove_pdf_login_action() {
-    if ( isset( $_POST['action'] ) && 'ilovepdf_login' === $_POST['action'] && wp_verify_nonce( $_POST['nonce_ilove_pdf_login'], 'admin-post' ) ) {
+    if ( isset( $_POST['action'] ) && 'ilovepdf_login' === $_POST['action'] && isset( $_POST['nonce_ilove_pdf_login'] ) && wp_verify_nonce( sanitize_key( $_POST['nonce_ilove_pdf_login'] ), 'admin-post' ) && isset( $_POST['ilove_pdf_account_email'] ) && isset( $_POST['ilove_pdf_account_password'] ) ) {
         $response = wp_remote_post(
             ILOVE_PDF_LOGIN_URL,
             array(
 				'body' => array(
-					'email'        => sanitize_email( $_POST['ilove_pdf_account_email'] ),
-					'password'     => sanitize_text_field( $_POST['ilove_pdf_account_password'] ),
+					'email'        => sanitize_email( wp_unslash( $_POST['ilove_pdf_account_email'] ) ),
+					'password'     => esc_attr( $_POST['ilove_pdf_account_password'] ), // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized,WordPress.Security.ValidatedSanitizedInput.MissingUnslash
 					'wordpress_id' => get_option( 'ilovepdf_wordpress_id' ),
 				),
             )
@@ -114,10 +114,10 @@ add_action( 'admin_post_ilovepdf_logout', 'ilove_pdf_logout_action' );
  * @since    1.0.0
  */
 function ilove_pdf_change_project_action() {
-    if ( isset( $_GET['action'] ) && 'ilovepdf_change_project' === $_GET['action'] && isset( $_POST['nonce_ilove_pdf_change_project'] ) && wp_verify_nonce( sanitize_key( $_POST['nonce_ilove_pdf_change_project'] ), 'admin-post' ) ) {
+    if ( isset( $_GET['action'] ) && 'ilovepdf_change_project' === $_GET['action'] && isset( $_POST['nonce_ilove_pdf_change_project'] ) && wp_verify_nonce( sanitize_key( $_POST['nonce_ilove_pdf_change_project'] ), 'admin-post' ) && isset( $_POST['ilovepdf_select_project'] ) ) {
         $stats = ilove_pdf_get_statistics();
-        update_option( 'ilovepdf_user_private_key', $stats['projects'][ sanitize_text_field( $_POST['ilovepdf_select_project'] ) ]['secret_key'] );
-        update_option( 'ilovepdf_user_public_key', $stats['projects'][ sanitize_text_field( $_POST['ilovepdf_select_project'] ) ]['public_key'] );
+        update_option( 'ilovepdf_user_private_key', $stats['projects'][ sanitize_text_field( wp_unslash( $_POST['ilovepdf_select_project'] ) ) ]['secret_key'] );
+        update_option( 'ilovepdf_user_public_key', $stats['projects'][ sanitize_text_field( wp_unslash( $_POST['ilovepdf_select_project'] ) ) ]['public_key'] );
     }
 
     wp_safe_redirect( wp_get_referer() );

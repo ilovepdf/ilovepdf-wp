@@ -136,7 +136,7 @@ function ilove_pdf_watermark_auto_callback( $args ) {
  */
 function ilove_pdf_initialize_options_format_watermark() {
 
-    if ( ! empty( $_SERVER['PHP_SELF'] ) && 'options-general.php' === basename( $_SERVER['PHP_SELF'] ) ) {
+    if ( ! empty( $_SERVER['PHP_SELF'] ) && 'options-general.php' === basename( sanitize_url( wp_unslash( $_SERVER['PHP_SELF'] ) ) ) ) {
 		wp_enqueue_media(); }
 
     // Add the color picker css file
