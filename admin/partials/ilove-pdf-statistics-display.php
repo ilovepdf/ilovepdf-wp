@@ -4,15 +4,15 @@
  */
 function ilove_pdf_content_page_statistics() {
     if ( isset( $_POST['file'] ) ) {
-        if ( isset( $_GET['tab'] ) && strcmp( sanitize_text_field( wp_unslash( $_GET['tab'] ) ), 'compress_statistic' ) === 0 ) {
+        if ( isset( $_GET['tab'] ) && strcmp( sanitize_text_field( wp_unslash( $_GET['tab'] ) ), 'compress_statistic' ) === 0 ) { //phpcs:ignore WordPress.Security.NonceVerification.Recommended
             ilove_pdf_compress_pdf( sanitize_text_field( wp_unslash( $_POST['file'] ) ) );
-        } elseif ( isset( $_GET['tab'] ) && strcmp( sanitize_text_field( wp_unslash( $_GET['tab'] ) ), 'watermark_statistic' ) === 0 ) {
+        } elseif ( isset( $_GET['tab'] ) && strcmp( sanitize_text_field( wp_unslash( $_GET['tab'] ) ), 'watermark_statistic' ) === 0 ) { //phpcs:ignore WordPress.Security.NonceVerification.Recommended
             ilove_pdf_watermark_pdf( sanitize_text_field( wp_unslash( $_POST['file'] ) ) );
         }
     } elseif ( isset( $_POST['multi'] ) ) {
-        if ( isset( $_GET['tab'] ) && strcmp( sanitize_text_field( wp_unslash( $_GET['tab'] ) ), 'compress_statistic' ) === 0 ) {
+        if ( isset( $_GET['tab'] ) && strcmp( sanitize_text_field( wp_unslash( $_GET['tab'] ) ), 'compress_statistic' ) === 0 ) { //phpcs:ignore WordPress.Security.NonceVerification.Recommended
             ilove_pdf_compress_pdf( null );
-        } elseif ( isset( $_GET['tab'] ) && strcmp( sanitize_text_field( wp_unslash( $_GET['tab'] ) ), 'watermark_statistic' ) === 0 ) {
+        } elseif ( isset( $_GET['tab'] ) && strcmp( sanitize_text_field( wp_unslash( $_GET['tab'] ) ), 'watermark_statistic' ) === 0 ) { //phpcs:ignore WordPress.Security.NonceVerification.Recommended
             ilove_pdf_watermark_pdf( null );
         }
     }
@@ -25,7 +25,7 @@ function ilove_pdf_content_page_statistics() {
         <h2 class="plugin-logo-full"><img src="<?php echo esc_url( $logo_svg ); ?>" alt="logo ilovepdf" /></h2>
         <?php if ( get_option( 'ilovepdf_user_id' ) ) : ?>         
             <?php
-                $active_tab = isset( $_GET['tab'] ) ? sanitize_text_field( wp_unslash( $_GET['tab'] ) ) : 'statistic_statistic';
+                $active_tab = isset( $_GET['tab'] ) ? sanitize_text_field( wp_unslash( $_GET['tab'] ) ) : 'statistic_statistic'; //phpcs:ignore WordPress.Security.NonceVerification.Recommended
             ?>
              
             <h2 class="nav-tab-wrapper">
@@ -144,7 +144,7 @@ function ilove_pdf_content_page_statistics() {
                                     <p>Compress all non compressed PDF in your library at once.</p>
                                     <?php $files = ilove_pdf_initialize_list_compress_pdf(); ?>
                                     <?php
-                                        $paged            = isset( $_GET['paged'] ) ? sanitize_url( wp_unslash( $_GET['paged'] ) ) : 1;
+                                        $paged            = isset( $_GET['paged'] ) ? sanitize_url( wp_unslash( $_GET['paged'] ) ) : 1; //phpcs:ignore WordPress.Security.NonceVerification.Recommended
                                         $query_files_args = array(
                                             'post_type'   => 'attachment',
                                             'post_status' => 'inherit',
@@ -214,7 +214,7 @@ function ilove_pdf_content_page_statistics() {
                                                 array(
 													'base' => 'upload.php%_%',
 													'format' => '?paged=%#%',
-													'current' => max( 1, isset( $_GET['paged'] ) ? sanitize_url( wp_unslash( $_GET['paged'] ) ) : 1 ),
+													'current' => max( 1, isset( $_GET['paged'] ) ? sanitize_url( wp_unslash( $_GET['paged'] ) ) : 1 ), //phpcs:ignore WordPress.Security.NonceVerification.Recommended
 													'total' => $query_files->max_num_pages,
                                                 )
                                             )
@@ -280,7 +280,7 @@ function ilove_pdf_content_page_statistics() {
                                     <p>Stamp all non stamped PDF in your library at once.</p>
                                     <?php $files = ilove_pdf_initialize_list_watermark_pdf(); ?>
                                     <?php
-                                        $paged            = isset( $_GET['paged'] ) ? sanitize_url( wp_unslash( $_GET['paged'] ) ) : 1;
+                                        $paged            = isset( $_GET['paged'] ) ? sanitize_url( wp_unslash( $_GET['paged'] ) ) : 1; //phpcs:ignore WordPress.Security.NonceVerification.Recommended
                                         $query_files_args = array(
                                             'post_type'   => 'attachment',
                                             'post_status' => 'inherit',
@@ -339,7 +339,7 @@ function ilove_pdf_content_page_statistics() {
                                                 array(
 													'base' => 'upload.php%_%',
 													'format' => '?paged=%#%',
-													'current' => max( 1, isset( $_GET['paged'] ) ? sanitize_url( wp_unslash( $_GET['paged'] ) ) : 1 ),
+													'current' => max( 1, isset( $_GET['paged'] ) ? sanitize_url( wp_unslash( $_GET['paged'] ) ) : 1 ), //phpcs:ignore WordPress.Security.NonceVerification.Recommended
 													'total' => $query_files->max_num_pages,
                                                 )
                                             )
