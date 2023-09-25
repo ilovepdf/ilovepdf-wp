@@ -224,13 +224,13 @@ function ilove_pdf_handle_file_upload_compress_watermark( $attachment_id ) {
 
             if ( get_user_option( 'media_library_mode', get_current_user_id() ) === 'list' && ! wp_doing_ajax() ) {
 
-	            echo '<img class="pinkynail" src="' . includes_url() . '/images/media/document.png" alt="">';
-	            echo '<span class="title custom-title">' . get_the_title( $attachment_id ) . '</span><span class="pdf-id">ID: ';
+	            echo '<img class="pinkynail" src="' . esc_url( includes_url() ) . '/images/media/document.png" alt="">';
+	            echo '<span class="title custom-title">' . esc_html( get_the_title( $attachment_id ) ) . '</span><span class="pdf-id">ID: ';
 
-	            ?><script type='text/javascript' id="my-script-<?php echo $attachment_id; ?>">
+	            ?><script type='text/javascript' id="my-script-<?php echo esc_html( $attachment_id ); ?>">
 	                jQuery( function( $ ) {
-	                    var response_compress = '<?php echo $html_compress; ?>';
-	                    var currentElem = $('#my-script-<?php echo $attachment_id; ?>');
+	                    var response_compress = '<?php echo wp_kses_post( $html_compress ); ?>';
+	                    var currentElem = $('#my-script-<?php echo esc_html( $attachment_id ); ?>');
 	                    var parentTag = currentElem.parent();
 	                    var parentDiv = parentTag.parent();
 	                    parentDiv.find('.progress').find('.percent').html('Compressing...');
@@ -241,7 +241,7 @@ function ilove_pdf_handle_file_upload_compress_watermark( $attachment_id ) {
 	                            parentDiv.find('.progress').find('.percent').css('width','600px');
 	                            parentDiv.find('.progress').find('.bar').css({'width':'600px','background-color':'#a00'});
 	                        } else {
-	                        	var response_watermark = '<?php echo $html_watermark; ?>';
+	                        	var response_watermark = '<?php echo wp_kses_post( $html_watermark ); ?>';
 	                        	parentDiv.find('.progress').find('.percent').html('Applying Watermark...');
 			                    window.setTimeout(function(){
 			                        if (response_watermark !==  '1') {

@@ -75,7 +75,7 @@ add_action( 'admin_init', 'ilove_pdf_initialize_options_compress' );
  * @since    1.0.0
  */
 function ilove_pdf_compress_options_callback() {
-    echo '<h3>' . __( 'Configure your Compress PDF settings.', 'ilovepdf' ) . '</h3>';
+    echo '<h3>' . esc_html( __( 'Configure your Compress PDF settings.', 'ilovepdf' ) ) . '</h3>';
 }
 
 /**

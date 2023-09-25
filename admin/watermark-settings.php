@@ -74,7 +74,7 @@ add_action( 'admin_init', 'ilove_pdf_initialize_options_watermark' );
  * @since    1.0.0
  */
 function ilove_pdf_watermark_options_callback() {
-    echo '<h3>' . __( 'Configure your Watermark PDF settings.', 'ilovepdf' ) . '</h3>';
+    echo '<h3>' . esc_html( __( 'Configure your Watermark PDF settings.', 'ilovepdf' ) ) . '</h3>';
 }
 
 /**
@@ -86,10 +86,14 @@ function ilove_pdf_watermark_options_callback() {
 function ilove_pdf_watermark_active_callback( $args ) {
 
     $options = get_option( 'ilove_pdf_display_settings_watermark' );
-    $html    = '<input type="checkbox" id="ilove_pdf_watermark_active" name="ilove_pdf_display_settings_watermark[ilove_pdf_watermark_active]" value="1"' . ( isset( $options['ilove_pdf_watermark_active'] ) ? checked( 1, $options['ilove_pdf_watermark_active'], false ) : '' ) . '">';
-    $html   .= '<label for="ilove_pdf_watermark_active"> ' . $args[0] . '</label>';
+    $html    = sprintf(
+        '<input type="checkbox" id="ilove_pdf_watermark_active" name="ilove_pdf_display_settings_watermark[ilove_pdf_watermark_active]" value="%s" %s><label for="ilove_pdf_watermark_active">%s</label>',
+        '1',
+        checked( 1, $options['ilove_pdf_watermark_active'], false ),
+        $args[0]
+    );
 
-    echo $html;
+    echo wp_kses( $html, ilove_pdf_expanded_alowed_tags() );
 }
 
 /**
@@ -300,7 +304,7 @@ add_action( 'admin_init', 'ilove_pdf_initialize_options_format_watermark' );
  * @since    1.0.0
  */
 function ilove_pdf_format_watermark_options_callback() {
-    echo '<h3>' . __( 'Configure your Watermark format.', 'ilovepdf' ) . '</h3>';
+    echo '<h3>' . esc_html( __( 'Configure your Watermark format.', 'ilovepdf' ) ) . '</h3>';
 }
 
 /**
@@ -521,7 +525,7 @@ function ilove_pdf_media_selector_print_scripts() {
             // Uploading files
             var file_frame;
             var wp_media_post_id = wp.media.model.settings.post.id; // Store the old id
-            var set_to_post_id = <?php echo $my_saved_attachment_post_id; ?>; // Set this
+            var set_to_post_id = <?php echo esc_attr( $my_saved_attachment_post_id ); ?>; // Set this
             jQuery('#upload_image_button').on('click', function( event ){
                 event.preventDefault();
                 // If the media frame already exists, reopen it.
@@ -537,9 +541,9 @@ function ilove_pdf_media_selector_print_scripts() {
                 }
                 // Create the media frame.
                 file_frame = wp.media.frames.file_frame = wp.media({
-                    title: '<?php echo __( 'Select a image to upload', 'ilovepdf' ); ?>',
+                    title: '<?php echo esc_html( __( 'Select a image to upload', 'ilovepdf' ) ); ?>',
                     button: {
-                        text: '<?php echo __( 'Use this image', 'ilovepdf' ); ?>',
+                        text: '<?php echo esc_html( __( 'Use this image', 'ilovepdf' ) ); ?>',
                     },
                     multiple: false // Set to true to allow multiple files to be selected
                 });

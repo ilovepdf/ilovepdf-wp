@@ -26,12 +26,15 @@
  * Domain Path:       /languages
  */
 
+require __DIR__ . '/includes/utility-functions.php';
 require __DIR__ . '/admin/ilove-pdf-admin.php';
 
 // If this file is called directly, abort.
 if ( ! defined( 'WPINC' ) ) {
 	die;
 }
+
+define( 'ILOVE_PDF_ASSETS_PLUGIN_PATH', plugin_dir_url( __FILE__ ) );
 
 /**
  * The code that runs during plugin activation.

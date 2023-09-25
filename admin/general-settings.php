@@ -143,6 +143,6 @@ function ilove_pdf_popup_buymore_action() {
                         </g>
                         <polygon fill="#FFFFFF" points="93.946,33.938 93.946,6.254 121.63,33.938  "></polygon>
                     </g>
-                    </svg><div><a href="https://developer.ilovepdf.com/pricing" target="_blank" class="button button-primary">' . __( 'Accept', 'ilovepdf' ) . '</a> <a href="#" onClick="tb_remove();"  class="button button-primary">' . __( 'Cancel', 'ilovepdf' ) . '</a></div></div></div>';
+                    </svg><div><a href="https://developer.ilovepdf.com/pricing" target="_blank" class="button button-primary">' . esc_html( __( 'Accept', 'ilovepdf' ) ) . '</a> <a href="#" onClick="tb_remove();"  class="button button-primary">' . esc_html( __( 'Cancel', 'ilovepdf' ) ) . '</a></div></div></div>';
 }
 add_action( 'admin_footer', 'ilove_pdf_popup_buymore_action' );

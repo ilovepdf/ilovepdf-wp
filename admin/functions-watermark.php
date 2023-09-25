@@ -250,14 +250,14 @@ function ilove_pdf_handle_file_upload_watermark( $attachment_id ) {
 
             if ( ! ilove_pdf_is_file_compressed( $attachment_id ) && get_user_option( 'media_library_mode', get_current_user_id() ) === 'list' && ! wp_doing_ajax() ) {
 
-                echo '<img class="pinkynail" src="' . includes_url() . '/images/media/document.png" alt="">';
-                echo '<span class="title custom-title">' . get_the_title( $attachment_id ) . '</span><span class="pdf-id">ID: ';
+                echo '<img class="pinkynail" src="' . esc_url( includes_url() ) . '/images/media/document.png" alt="">';
+                echo '<span class="title custom-title">' . esc_html( get_the_title( $attachment_id ) ) . '</span><span class="pdf-id">ID: ';
 
-                ?><script type='text/javascript' id="my-script-<?php echo $attachment_id; ?>">
+                ?><script type='text/javascript' id="my-script-<?php echo esc_html( $attachment_id ); ?>">
                     jQuery( function( $ ) {                        
                         
                         var response = '<?php echo $html; ?>';
-                        var currentElem = $('#my-script-<?php echo $attachment_id; ?>');
+                        var currentElem = $('#my-script-<?php echo esc_html( $attachment_id ); ?>');
                         var parentTag = currentElem.parent();
                         var parentDiv = parentTag.parent();
                         parentDiv.find('.progress').find('.percent').html('Applying Watermark...');

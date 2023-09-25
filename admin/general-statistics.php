@@ -258,27 +258,27 @@ add_filter( 'handle_bulk_actions-upload', 'ilove_pdf_compress_bulk_action_handle
 function ilove_pdf_bulk_action_admin_notice() {
 	if ( ! empty( $_REQUEST['ilovepdf_notification'] ) ) {
 		if ( 200 === $_REQUEST['ilovepdf_notification'] ) {
-			printf( '<div id="message" class="updated fade">' . __( 'Process complete!', 'ilovepdf' ) . '</div>' );
+			printf( '<div id="message" class="updated fade">' . esc_html( __( 'Process complete!', 'ilovepdf' ) ) . '</div>' );
 		}
 
 		if ( 'error_start' === $_REQUEST['ilovepdf_notification'] ) {
-			printf( '<div id="message" class="error fade">' . __( 'An error occured on start.', 'ilovepdf' ) . '</div>' );
+			printf( '<div id="message" class="error fade">' . esc_html( __( 'An error occured on start.', 'ilovepdf' ) ) . '</div>' );
 		}
 
 		if ( 'error_auth' === $_REQUEST['ilovepdf_notification'] ) {
-			printf( '<div id="message" class="error fade">' . __( 'An error occured on auth.', 'ilovepdf' ) . '</div>' );
+			printf( '<div id="message" class="error fade">' . esc_html( __( 'An error occured on auth.', 'ilovepdf' ) ) . '</div>' );
 		}
 
 		if ( 'error_upload' === $_REQUEST['ilovepdf_notification'] ) {
-			printf( '<div id="message" class="error fade">' . __( 'An error occured on upload.', 'ilovepdf' ) . '</div>' );
+			printf( '<div id="message" class="error fade">' . esc_html( __( 'An error occured on upload.', 'ilovepdf' ) ) . '</div>' );
 		}
 
 		if ( 'error_proccess' === $_REQUEST['ilovepdf_notification'] ) {
-			printf( '<div id="message" class="error fade">' . __( 'An error occured on process.', 'ilovepdf' ) . '</div>' );
+			printf( '<div id="message" class="error fade">' . esc_html( __( 'An error occured on process.', 'ilovepdf' ) ) . '</div>' );
 		}
 
 		if ( 'error_occured' === $_REQUEST['ilovepdf_notification'] ) {
-			printf( '<div id="message" class="error fade">' . __( 'An error occured.', 'ilovepdf' ) . '</div>' );
+			printf( '<div id="message" class="error fade">' . esc_html( __( 'An error occured.', 'ilovepdf' ) ) . '</div>' );
 		}
 	}
 }
