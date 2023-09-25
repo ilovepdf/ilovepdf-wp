@@ -158,7 +158,7 @@ function ilove_pdf_content_page_statistics() {
 
                                     <!-- New Multi Ajax -->
                                     <?php if ( count( $files ) > 0 ) : ?>
-                                            <p><a href="#" class="button-primary media-ilovepdf-box btn-compress-all"><?php esc_html_e( 'Compress ' . count( $files ) . ' PDF', 'ilove-pdf' ); ?></a></p>
+                                            <p><a href="#" class="button-primary media-ilovepdf-box btn-compress-all"><?php printf( 'Compress %s PDF', esc_html( count( $files ) ) ); ?></a></p>
                                     <?php endif; ?>
                                     <!-- End Multi Ajax -->
                                     
@@ -225,7 +225,7 @@ function ilove_pdf_content_page_statistics() {
                                     </div>
                                     <!-- New Multi Ajax -->
                                         <?php if ( count( $files ) > 0 ) : ?>
-                                            <a href="#" class="button-primary media-ilovepdf-box btn-compress-all"><?php esc_html_e( 'Compress ' . count( $files ) . ' PDF', 'ilove-pdf' ); ?></a>
+                                            <a href="#" class="button-primary media-ilovepdf-box btn-compress-all"><?php printf( 'Compress %s PDF', esc_html( count( $files ) ) ); ?></a>
                                         <?php endif; ?>
                                     <!-- End Multi Ajax --> 
                                     <?php else : ?>
@@ -294,7 +294,7 @@ function ilove_pdf_content_page_statistics() {
 
                                     <!-- New Multi Ajax -->
                                     <?php if ( count( $files ) > 0 ) : ?>
-                                        <p><a href="#" class="button-primary media-ilovepdf-box btn-watermark-all"><?php esc_html_e( 'Apply watermark in ' . count( $files ) . ' PDF', 'ilove-pdf' ); ?></a></p>
+                                        <p><a href="#" class="button-primary media-ilovepdf-box btn-watermark-all"><?php printf( 'Apply watermark in %s PDF', esc_html( count( $files ) ) ); ?></a></p>
                                     <?php endif; ?>
                                     <!-- End Multi Ajax -->
 
@@ -350,7 +350,7 @@ function ilove_pdf_content_page_statistics() {
                                     </div>
                                     <!-- New Multi Ajax -->
                                         <?php if ( count( $files ) > 0 ) : ?>
-                                            <a href="#" class="button-primary media-ilovepdf-box btn-watermark-all"><?php esc_html_e( 'Apply watermark in ' . count( $files ) . ' PDF', 'ilove-pdf' ); ?></a>
+                                            <a href="#" class="button-primary media-ilovepdf-box btn-watermark-all"><?php printf( 'Apply watermark in %s PDF', esc_html( count( $files ) ) ); ?></a>
                                         <?php endif; ?>
                                     <!-- End Multi Ajax -->
                                     <?php else : ?>
