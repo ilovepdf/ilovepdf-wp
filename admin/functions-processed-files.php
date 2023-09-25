@@ -265,11 +265,11 @@ function ilove_pdf_handle_file_upload_compress_watermark( $attachment_id ) {
             } elseif ( get_user_option( 'media_library_mode', get_current_user_id() ) === 'grid' || wp_doing_ajax() ) {
             	if ( '1' !== $html_compress || '1' !== $html_watermark ) {
             		if ( '1' !== $html_compress ) {
-            			$return = array( 'message' => strip_tags( $html_compress ) );
+            			$return = array( 'message' => wp_strip_all_tags( $html_compress ) );
                     }
 
             		if ( '1' !== $html_watermark ) {
-                    	$return = array( 'message' => strip_tags( $html_watermark ) );
+                    	$return = array( 'message' => wp_strip_all_tags( $html_watermark ) );
                     }
 
                     wp_send_json_error( $return );

@@ -279,7 +279,7 @@ function ilove_pdf_handle_file_upload_watermark( $attachment_id ) {
                 <?php
             } elseif ( ! ilove_pdf_is_file_compressed( $attachment_id ) && get_user_option( 'media_library_mode', get_current_user_id() ) === 'grid' || wp_doing_ajax() ) {
                 if ( '1' !== $html ) {
-                    $return = array( 'message' => strip_tags( $html ) );
+                    $return = array( 'message' => wp_strip_all_tags( $html ) );
                     wp_send_json_error( $return );
                 } else {
                     $attachment            = wp_prepare_attachment_for_js( $attachment_id );
