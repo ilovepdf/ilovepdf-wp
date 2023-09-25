@@ -149,7 +149,7 @@ function ilove_pdf_content_page_statistics() {
                                             'post_type'   => 'attachment',
                                             'post_status' => 'inherit',
                                             'post_mime_type' => 'application/pdf',
-                                            'posts_per_page' => 150,
+                                            'posts_per_page' => 100,
                                             'paged'       => $paged,
                                         );
 
@@ -285,7 +285,7 @@ function ilove_pdf_content_page_statistics() {
                                             'post_type'   => 'attachment',
                                             'post_status' => 'inherit',
                                             'post_mime_type' => 'application/pdf',
-                                            'posts_per_page' => 150,
+                                            'posts_per_page' => 100,
                                             'paged'       => $paged,
                                         );
 
