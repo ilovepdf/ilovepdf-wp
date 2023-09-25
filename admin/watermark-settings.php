@@ -29,18 +29,18 @@ function ilove_pdf_initialize_options_watermark() {
 
     add_settings_field(
         'ilove_pdf_watermark_active',
-        __( 'Enable Watermark PDF', 'ilovepdf' ),
+        __( 'Enable Watermark PDF', 'ilove-pdf' ),
         'ilove_pdf_watermark_active_callback',
         'ilove_pdf_display_settings_watermark',
         'watermark_settings_section',
         array(
-            __( 'Activate this setting for active/inactive Watermark on PDF files.', 'ilovepdf' ),
+            __( 'Activate this setting for active/inactive Watermark on PDF files.', 'ilove-pdf' ),
         )
     );
 
     add_settings_field(
         'ilove_pdf_watermark_backup',
-        __( 'Backup Original', 'ilovepdf' ),
+        __( 'Backup Original', 'ilove-pdf' ),
         'ilove_pdf_watermark_backup_callback',
         'ilove_pdf_display_settings_watermark',
         'watermark_settings_section',
@@ -52,12 +52,12 @@ function ilove_pdf_initialize_options_watermark() {
 
     add_settings_field(
         'ilove_pdf_watermark_auto',
-        __( 'Enable Auto Watermark', 'ilovepdf' ),
+        __( 'Enable Auto Watermark', 'ilove-pdf' ),
         'ilove_pdf_watermark_auto_callback',
         'ilove_pdf_display_settings_watermark',
         'watermark_settings_section',
         array(
-            __( 'Activate this setting for Auto Watermark on new PDF uploads.', 'ilovepdf' ),
+            __( 'Activate this setting for Auto Watermark on new PDF uploads.', 'ilove-pdf' ),
         )
     );
 
@@ -74,7 +74,7 @@ add_action( 'admin_init', 'ilove_pdf_initialize_options_watermark' );
  * @since    1.0.0
  */
 function ilove_pdf_watermark_options_callback() {
-    echo '<h3>' . esc_html( __( 'Configure your Watermark PDF settings.', 'ilovepdf' ) ) . '</h3>';
+    echo '<h3>' . esc_html( __( 'Configure your Watermark PDF settings.', 'ilove-pdf' ) ) . '</h3>';
 }
 
 /**
@@ -159,7 +159,7 @@ function ilove_pdf_initialize_options_format_watermark() {
 
     add_settings_field(
         'ilove_pdf_format_watermark_mode',
-        __( 'Watermark mode', 'ilovepdf' ),
+        __( 'Watermark mode', 'ilove-pdf' ),
         'ilove_pdf_format_watermark_mode_callback',
         'ilove_pdf_display_settings_format_watermark',
         'format_watermark_settings_section_mode',
@@ -171,34 +171,34 @@ function ilove_pdf_initialize_options_format_watermark() {
 
     add_settings_field(
         'ilove_pdf_format_watermark_text',
-        __( 'Watermark Text', 'ilovepdf' ),
+        __( 'Watermark Text', 'ilove-pdf' ),
         'ilove_pdf_format_watermark_text_callback',
         'ilove_pdf_display_settings_format_watermark',
         'format_watermark_settings_section_text',
         array(
-            __( 'Watermark text.', 'ilovepdf' ),
+            __( 'Watermark text.', 'ilove-pdf' ),
         )
     );
 
     add_settings_field(
         'ilove_pdf_format_watermark_text_size',
-        __( 'Watermark Text Size', 'ilovepdf' ),
+        __( 'Watermark Text Size', 'ilove-pdf' ),
         'ilove_pdf_format_watermark_text_size_callback',
         'ilove_pdf_display_settings_format_watermark',
         'format_watermark_settings_section_size',
         array(
-            __( 'Indicate text size in pixels. From 5 to 80.', 'ilovepdf' ),
+            __( 'Indicate text size in pixels. From 5 to 80.', 'ilove-pdf' ),
         )
     );
 
     add_settings_field(
         'ilove_pdf_format_watermark_font_family',
-        __( 'Watermark Font Family', 'ilovepdf' ),
+        __( 'Watermark Font Family', 'ilove-pdf' ),
         'ilove_pdf_format_watermark_font_family_callback',
         'ilove_pdf_display_settings_format_watermark',
         'format_watermark_settings_section_font_family',
         array(
-            __( 'Select Watermark font Family.', 'ilovepdf' ),
+            __( 'Select Watermark font Family.', 'ilove-pdf' ),
             'Verdana',
             'Courier',
         )
@@ -206,7 +206,7 @@ function ilove_pdf_initialize_options_format_watermark() {
 
     add_settings_field(
         'ilove_pdf_format_watermark_text_color',
-        __( 'Watermark Text Color', 'ilovepdf' ),
+        __( 'Watermark Text Color', 'ilove-pdf' ),
         'ilove_pdf_format_watermark_text_color_callback',
         'ilove_pdf_display_settings_format_watermark',
         'format_watermark_settings_section_text_color'
@@ -214,7 +214,7 @@ function ilove_pdf_initialize_options_format_watermark() {
 
     add_settings_field(
         'ilove_pdf_format_watermark_image',
-        __( 'Watermark image', 'ilovepdf' ),
+        __( 'Watermark image', 'ilove-pdf' ),
         'ilove_pdf_format_watermark_image_callback',
         'ilove_pdf_display_settings_format_watermark',
         'format_watermark_settings_section_image'
@@ -222,7 +222,7 @@ function ilove_pdf_initialize_options_format_watermark() {
 
     add_settings_field(
         'ilove_pdf_format_watermark_vertical',
-        __( 'Watermark Vertical position', 'ilovepdf' ),
+        __( 'Watermark Vertical position', 'ilove-pdf' ),
         'ilove_pdf_format_watermark_vertical_callback',
         'ilove_pdf_display_settings_format_watermark',
         'format_watermark_settings_section_vertical',
@@ -235,7 +235,7 @@ function ilove_pdf_initialize_options_format_watermark() {
 
     add_settings_field(
         'ilove_pdf_format_watermark_horizontal',
-        __( 'Watermark Horizontal position', 'ilovepdf' ),
+        __( 'Watermark Horizontal position', 'ilove-pdf' ),
         'ilove_pdf_format_watermark_horizontal_callback',
         'ilove_pdf_display_settings_format_watermark',
         'format_watermark_settings_section_horizontal',
@@ -248,29 +248,29 @@ function ilove_pdf_initialize_options_format_watermark() {
 
     add_settings_field(
         'ilove_pdf_format_watermark_opacity',
-        __( 'Watermark Opacity', 'ilovepdf' ),
+        __( 'Watermark Opacity', 'ilove-pdf' ),
         'ilove_pdf_format_watermark_opacity_callback',
         'ilove_pdf_display_settings_format_watermark',
         'format_watermark_settings_section_opacity',
         array(
-            __( 'From 0 to 100.', 'ilovepdf' ),
+            __( 'From 0 to 100.', 'ilove-pdf' ),
         )
     );
 
     add_settings_field(
         'ilove_pdf_format_watermark_rotation',
-        __( 'Watermark Rotation', 'ilovepdf' ),
+        __( 'Watermark Rotation', 'ilove-pdf' ),
         'ilove_pdf_format_watermark_rotation_callback',
         'ilove_pdf_display_settings_format_watermark',
         'format_watermark_settings_section_rotation',
         array(
-            __( 'From 0 to 360.', 'ilovepdf' ),
+            __( 'From 0 to 360.', 'ilove-pdf' ),
         )
     );
 
     add_settings_field(
         'ilove_pdf_format_watermark_layer',
-        __( 'Watermark layer depth', 'ilovepdf' ),
+        __( 'Watermark layer depth', 'ilove-pdf' ),
         'ilove_pdf_format_watermark_layer_callback',
         'ilove_pdf_display_settings_format_watermark',
         'format_watermark_settings_section_layer',
@@ -282,12 +282,12 @@ function ilove_pdf_initialize_options_format_watermark() {
 
     add_settings_field(
         'ilove_pdf_format_watermark_mosaic',
-        __( 'Enable Mosaic Watermark', 'ilovepdf' ),
+        __( 'Enable Mosaic Watermark', 'ilove-pdf' ),
         'ilove_pdf_format_watermark_mosaic_callback',
         'ilove_pdf_display_settings_format_watermark',
         'format_watermark_settings_section_mosaic',
         array(
-            __( 'Activate this setting for enable Watermark Mosaic.', 'ilovepdf' ),
+            __( 'Activate this setting for enable Watermark Mosaic.', 'ilove-pdf' ),
         )
     );
 
@@ -304,7 +304,7 @@ add_action( 'admin_init', 'ilove_pdf_initialize_options_format_watermark' );
  * @since    1.0.0
  */
 function ilove_pdf_format_watermark_options_callback() {
-    echo '<h3>' . esc_html( __( 'Configure your Watermark format.', 'ilovepdf' ) ) . '</h3>';
+    echo '<h3>' . esc_html( __( 'Configure your Watermark format.', 'ilove-pdf' ) ) . '</h3>';
 }
 
 /**
@@ -505,9 +505,9 @@ function ilove_pdf_format_watermark_image_callback( $args ) {
 	$html  = '<div class="image-preview-wrapper">
                 ' . $image . '
             </div>
-            <input id="upload_image_button" type="button" class="button" value="' . __( 'Upload image', 'ilovepdf' ) . '" />
+            <input id="upload_image_button" type="button" class="button" value="' . __( 'Upload image', 'ilove-pdf' ) . '" />
             <input type="hidden" name="ilove_pdf_display_settings_format_watermark[ilove_pdf_format_watermark_image]" id="ilove_pdf_format_watermark_image" value="' . ( isset( $options['ilove_pdf_format_watermark_image'] ) ? $options['ilove_pdf_format_watermark_image'] : '' ) . '">
-            <input type="submit" name="submit_image_selector" value="' . __( 'Save', 'ilovepdf' ) . '" class="button-primary">';
+            <input type="submit" name="submit_image_selector" value="' . __( 'Save', 'ilove-pdf' ) . '" class="button-primary">';
 
     echo $html;
 }
@@ -541,9 +541,9 @@ function ilove_pdf_media_selector_print_scripts() {
                 }
                 // Create the media frame.
                 file_frame = wp.media.frames.file_frame = wp.media({
-                    title: '<?php echo esc_html( __( 'Select a image to upload', 'ilovepdf' ) ); ?>',
+                    title: '<?php echo esc_html( __( 'Select a image to upload', 'ilove-pdf' ) ); ?>',
                     button: {
-                        text: '<?php echo esc_html( __( 'Use this image', 'ilovepdf' ) ); ?>',
+                        text: '<?php echo esc_html( __( 'Use this image', 'ilove-pdf' ) ); ?>',
                     },
                     multiple: false // Set to true to allow multiple files to be selected
                 });

@@ -33,7 +33,7 @@ class Ilove_Pdf_I18n {
 	public function load_plugin_textdomain() {
 
 		load_plugin_textdomain(
-			'ilovepdf',
+			'ilove-pdf',
 			false,
 			dirname( dirname( plugin_basename( __FILE__ ) ) ) . '/languages/'
 		);

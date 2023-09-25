@@ -10,8 +10,7 @@
         <rule ref="WordPress.WP.I18n">
             <properties>
                 <property name="text_domain" type="array">
-                    <element value="ilovepdf"/>
-                    <element value="tgmpa"/>
+                    <element value="ilove-pdf"/>
                 </property>
             </properties>
         </rule>
@@ -19,7 +18,6 @@
             <properties>
                 <property name="prefixes" type="array">
                     <element value="ilove_pdf"/>
-                    <element value="tgmpa"/>
                 </property>
 
             </properties>

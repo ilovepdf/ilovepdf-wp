@@ -24,7 +24,7 @@ function ilove_pdf_compress_pdf( $id_file, $auto = false, $bulk = false ) {
     $html    = true;
     if ( ! isset( $options['ilove_pdf_compress_active'] ) || intval( $options['ilove_pdf_compress_active'] ) !== 1 ) {
         $html  = '<div class="settings-error notice is-dismissible error">';
-        $html .= '<p>' . __( 'Enable Compress PDF option on Settings -> iLovePDF -> Compress PDF', 'ilovepdf' ) . '</p>';
+        $html .= '<p>' . __( 'Enable Compress PDF option on Settings -> iLovePDF -> Compress PDF', 'ilove-pdf' ) . '</p>';
         $html .= '</div>';
     } else {
         try {
@@ -90,7 +90,7 @@ function ilove_pdf_compress_pdf( $id_file, $auto = false, $bulk = false ) {
 
             if ( ! $auto ) {
                 $html  = '<div class="settings-error notice is-dismissible updated">';
-                $html .= '<p>' . __( 'PDF file saved!', 'ilovepdf' ) . '</p>';
+                $html .= '<p>' . __( 'PDF file saved!', 'ilove-pdf' ) . '</p>';
                 $html .= '</div>';
             }
 
@@ -100,14 +100,14 @@ function ilove_pdf_compress_pdf( $id_file, $auto = false, $bulk = false ) {
 		} catch ( \Ilovepdf\Exceptions\StartException $e ) {
 
             $html  = '<div class="settings-error notice is-dismissible error">';
-            $html .= '<p>' . __( 'An error occured on start: ', 'ilovepdf' ) . $e->getMessage() . '</p>';
+            $html .= '<p>' . __( 'An error occured on start: ', 'ilove-pdf' ) . $e->getMessage() . '</p>';
             $html .= '</div>';
             if ( $bulk ) {
                 $html = 'error_start';
 			}
 
             if ( $auto ) {
-                $html = '<p>' . __( 'An error occured on start: ', 'ilovepdf' ) . $e->getMessage() . '</p>';
+                $html = '<p>' . __( 'An error occured on start: ', 'ilove-pdf' ) . $e->getMessage() . '</p>';
 			}
 
             // Authentication errors
@@ -127,53 +127,53 @@ function ilove_pdf_compress_pdf( $id_file, $auto = false, $bulk = false ) {
         } catch ( \Ilovepdf\Exceptions\UploadException $e ) {
 
             $html  = '<div class="settings-error notice is-dismissible error">';
-            $html .= '<p>' . __( 'An error occured on upload: ', 'ilovepdf' ) . $e->getMessage() . '</p>';
+            $html .= '<p>' . __( 'An error occured on upload: ', 'ilove-pdf' ) . $e->getMessage() . '</p>';
             $html .= '</div>';
             if ( $bulk ) {
                 $html = 'error_upload';
             }
 
             if ( $auto ) {
-                $html = '<p>' . __( 'An error occured on upload: ', 'ilovepdf' ) . $e->getMessage() . '</p>';
+                $html = '<p>' . __( 'An error occured on upload: ', 'ilove-pdf' ) . $e->getMessage() . '</p>';
             }
             // Processing files errors
         } catch ( \Ilovepdf\Exceptions\ProcessException $e ) {
 
             $html  = '<div class="settings-error notice is-dismissible error">';
-            $html .= '<p>' . __( 'An error occured on process: ', 'ilovepdf' ) . $e->getMessage() . '</p>';
+            $html .= '<p>' . __( 'An error occured on process: ', 'ilove-pdf' ) . $e->getMessage() . '</p>';
             $html .= '</div>';
             if ( $bulk ) {
                 $html = 'error_proccess';
             }
 
             if ( $auto ) {
-                $html = '<p>' . __( 'An error occured on process: ', 'ilovepdf' ) . $e->getMessage() . '</p>';
+                $html = '<p>' . __( 'An error occured on process: ', 'ilove-pdf' ) . $e->getMessage() . '</p>';
             }
             // Downloading files errors
         } catch ( \Ilovepdf\Exceptions\DownloadException $e ) {
 
             $html  = '<div class="settings-error notice is-dismissible error">';
-            $html .= '<p>' . __( 'An error occured on process: ', 'ilovepdf' ) . $e->getMessage() . '</p>';
+            $html .= '<p>' . __( 'An error occured on process: ', 'ilove-pdf' ) . $e->getMessage() . '</p>';
             $html .= '</div>';
             if ( $bulk ) {
                 $html = 'error_proccess';
             }
 
             if ( $auto ) {
-                $html = '<p>' . __( 'An error occured on process: ', 'ilovepdf' ) . $e->getMessage() . '</p>';
+                $html = '<p>' . __( 'An error occured on process: ', 'ilove-pdf' ) . $e->getMessage() . '</p>';
             }
             // Other errors (as connexion errors and other)
         } catch ( \Exception $e ) {
 
             $html  = '<div class="settings-error notice is-dismissible error">';
-            $html .= '<p>' . __( 'An error occured: ', 'ilovepdf' ) . $e->getMessage() . '</p>';
+            $html .= '<p>' . __( 'An error occured: ', 'ilove-pdf' ) . $e->getMessage() . '</p>';
             $html .= '</div>';
             if ( $bulk ) {
                 $html = 'error_occured';
             }
 
             if ( $auto ) {
-                $html = '<p>' . __( 'An error occured: ', 'ilovepdf' ) . $e->getMessage() . '</p>';
+                $html = '<p>' . __( 'An error occured: ', 'ilove-pdf' ) . $e->getMessage() . '</p>';
             }
         }
 	}

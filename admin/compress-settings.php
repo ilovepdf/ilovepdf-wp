@@ -29,36 +29,36 @@ function ilove_pdf_initialize_options_compress() {
 
     add_settings_field(
         'ilove_pdf_compress_active',
-        __( 'Enable Compress PDF', 'ilovepdf' ),
+        __( 'Enable Compress PDF', 'ilove-pdf' ),
         'ilove_pdf_compress_active_callback',
         'ilove_pdf_display_settings_compress',
         'compress_settings_section',
         array(
-            __( 'Activate this setting for active/inactive Compress PDF.', 'ilovepdf' ),
+            __( 'Activate this setting for active/inactive Compress PDF.', 'ilove-pdf' ),
         )
     );
 
     add_settings_field(
         'ilove_pdf_compress_quality',
-        __( 'PDF Quality', 'ilovepdf' ),
+        __( 'PDF Quality', 'ilove-pdf' ),
         'ilove_pdf_compress_quality_callback',
         'ilove_pdf_display_settings_compress',
         'compress_settings_section',
         array(
-            __( 'Low', 'ilovepdf' ),
-            __( 'Recommended', 'ilovepdf' ),
-            __( 'Extreme', 'ilovepdf' ),
+            __( 'Low', 'ilove-pdf' ),
+            __( 'Recommended', 'ilove-pdf' ),
+            __( 'Extreme', 'ilove-pdf' ),
         )
     );
 
     add_settings_field(
         'ilove_pdf_compress_autocompress_new',
-        __( 'Enable Autocompress PDF', 'ilovepdf' ),
+        __( 'Enable Autocompress PDF', 'ilove-pdf' ),
         'ilove_pdf_compress_autocompress_new_callback',
         'ilove_pdf_display_settings_compress',
         'compress_settings_section',
         array(
-            __( 'Activate this setting for Autocompress new PDF uploads.', 'ilovepdf' ),
+            __( 'Activate this setting for Autocompress new PDF uploads.', 'ilove-pdf' ),
         )
     );
 
@@ -75,7 +75,7 @@ add_action( 'admin_init', 'ilove_pdf_initialize_options_compress' );
  * @since    1.0.0
  */
 function ilove_pdf_compress_options_callback() {
-    echo '<h3>' . esc_html( __( 'Configure your Compress PDF settings.', 'ilovepdf' ) ) . '</h3>';
+    echo '<h3>' . esc_html( __( 'Configure your Compress PDF settings.', 'ilove-pdf' ) ) . '</h3>';
 }
 
 /**
@@ -103,13 +103,13 @@ function ilove_pdf_compress_quality_callback( $args ) {
 
     $options = get_option( 'ilove_pdf_display_settings_compress' );
     $html    = '<input type="radio" id="ilove_pdf_compress_quality" name="ilove_pdf_display_settings_compress[ilove_pdf_compress_quality]" value="0"' . ( isset( $options['ilove_pdf_compress_quality'] ) ? checked( 0, $options['ilove_pdf_compress_quality'], false ) : '' ) . '">';
-    $html   .= '<label for="ilove_pdf_compress_active"> ' . $args[0] . ' (' . __( 'High quality, less compression', 'ilovepdf' ) . ')</label><br /><br />';
+    $html   .= '<label for="ilove_pdf_compress_active"> ' . $args[0] . ' (' . __( 'High quality, less compression', 'ilove-pdf' ) . ')</label><br /><br />';
 
     $html .= '<input type="radio" id="ilove_pdf_compress_quality" name="ilove_pdf_display_settings_compress[ilove_pdf_compress_quality]" value="1"' . ( isset( $options['ilove_pdf_compress_quality'] ) ? checked( 1, $options['ilove_pdf_compress_quality'], false ) : 'checked="checked"' ) . '">';
-    $html .= '<label for="ilove_pdf_compress_active"> ' . $args[1] . ' (' . __( 'Good quality, good compression', 'ilovepdf' ) . ')</label><br /><br />';
+    $html .= '<label for="ilove_pdf_compress_active"> ' . $args[1] . ' (' . __( 'Good quality, good compression', 'ilove-pdf' ) . ')</label><br /><br />';
 
     $html .= '<input type="radio" id="ilove_pdf_compress_quality" name="ilove_pdf_display_settings_compress[ilove_pdf_compress_quality]" value="2"' . ( isset( $options['ilove_pdf_compress_quality'] ) ? checked( 2, $options['ilove_pdf_compress_quality'], false ) : '' ) . '">';
-    $html .= '<label for="ilove_pdf_compress_active"> ' . $args[2] . ' (' . __( 'Less quality, high compression', 'ilovepdf' ) . ')</label>';
+    $html .= '<label for="ilove_pdf_compress_active"> ' . $args[2] . ' (' . __( 'Less quality, high compression', 'ilove-pdf' ) . ')</label>';
 
     echo $html;
 }
