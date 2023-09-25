@@ -256,6 +256,7 @@ add_filter( 'handle_bulk_actions-upload', 'ilove_pdf_compress_bulk_action_handle
  * @since    1.0.0
  */
 function ilove_pdf_bulk_action_admin_notice() {
+    // phpcs:disable
 	if ( ! empty( $_REQUEST['ilovepdf_notification'] ) ) {
 		if ( 200 === $_REQUEST['ilovepdf_notification'] ) {
 			printf( '<div id="message" class="updated fade">' . esc_html( __( 'Process complete!', 'ilovepdf' ) ) . '</div>' );
@@ -281,6 +282,7 @@ function ilove_pdf_bulk_action_admin_notice() {
 			printf( '<div id="message" class="error fade">' . esc_html( __( 'An error occured.', 'ilovepdf' ) ) . '</div>' );
 		}
 	}
+    // phpcs:enable
 }
 add_action( 'admin_notices', 'ilove_pdf_bulk_action_admin_notice' );
 
