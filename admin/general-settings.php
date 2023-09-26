@@ -15,42 +15,50 @@
  * @since    1.0.0
  */
 function ilove_pdf_register_action() {
+
+    $response = array();
+
     if ( isset( $_POST['action'] ) && 'ilovepdf_register' === $_POST['action'] && isset( $_POST['nonce_ilove_pdf_register'] ) && wp_verify_nonce( sanitize_key( $_POST['nonce_ilove_pdf_register'] ), 'admin-post' ) ) {
 
-        if ( get_option( 'ilovepdf_user_register_times' ) !== null ) {
-            $response = wp_remote_post(
-                ILOVE_PDF_REGISTER_URL,
-                array(
-					'body' => array(
-						'name'         => sanitize_text_field( wp_unslash( $_POST['ilove_pdf_account_name'] ) ),
-						'email'        => sanitize_email( wp_unslash( $_POST['ilove_pdf_account_email'] ) ),
-						'new_password' => esc_attr( $_POST['ilove_pdf_account_password'] ), // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized,WordPress.Security.ValidatedSanitizedInput.MissingUnslash,
-						'free_files'   => 0,
-						'wordpress_id' => get_option( 'ilovepdf_wordpress_id' ),
-					),
-                )
-            );
+        if ( isset( $_POST['ilove_pdf_account_name'] ) && isset( $_POST['ilove_pdf_account_email'] ) && isset( $_POST['ilove_pdf_account_password'] ) ) {
+
+            if ( get_option( 'ilovepdf_user_register_times' ) !== null ) {
+                $response = wp_remote_post(
+                    ILOVE_PDF_REGISTER_URL,
+                    array(
+                        'body' => array(
+                            'name'         => sanitize_text_field( wp_unslash( $_POST['ilove_pdf_account_name'] ) ),
+                            'email'        => sanitize_email( wp_unslash( $_POST['ilove_pdf_account_email'] ) ),
+                            'new_password' => esc_attr( $_POST['ilove_pdf_account_password'] ), // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized,WordPress.Security.ValidatedSanitizedInput.MissingUnslash,
+                            'free_files'   => 0,
+                            'wordpress_id' => get_option( 'ilovepdf_wordpress_id' ),
+                        ),
+                    )
+                );
+            } else {
+                $response = wp_remote_post(
+                    ILOVE_PDF_REGISTER_URL,
+                    array(
+                        'body' => array(
+                            'name'         => sanitize_text_field( wp_unslash( $_POST['ilove_pdf_account_name'] ) ),
+                            'email'        => sanitize_email( wp_unslash( $_POST['ilove_pdf_account_email'] ) ),
+                            'new_password' => esc_attr( $_POST['ilove_pdf_account_password'] ), // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized,WordPress.Security.ValidatedSanitizedInput.MissingUnslash,
+                            'wordpress_id' => get_option( 'ilovepdf_wordpress_id' ),
+                        ),
+                    )
+                );
+            }
+            if ( isset( $response['response']['code'] ) && 200 === $response['response']['code'] ) {
+                $user = json_decode( $response['body'], true );
+                add_option( 'ilovepdf_user_token', $user['token'] );
+                add_option( 'ilovepdf_user_email', $user['email'] );
+                add_option( 'ilovepdf_user_private_key', $user['projects'][0]['secret_key'] );
+                add_option( 'ilovepdf_user_public_key', $user['projects'][0]['public_key'] );
+                add_option( 'ilovepdf_user_id', $user['id'] );
+                add_option( 'ilovepdf_user_register_times', 1 );
+            }
         } else {
-            $response = wp_remote_post(
-                ILOVE_PDF_REGISTER_URL,
-                array(
-					'body' => array(
-						'name'         => sanitize_text_field( wp_unslash( $_POST['ilove_pdf_account_name'] ) ),
-						'email'        => sanitize_email( wp_unslash( $_POST['ilove_pdf_account_email'] ) ),
-						'new_password' => esc_attr( $_POST['ilove_pdf_account_password'] ), // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized,WordPress.Security.ValidatedSanitizedInput.MissingUnslash,
-						'wordpress_id' => get_option( 'ilovepdf_wordpress_id' ),
-					),
-                )
-            );
-        }
-        if ( isset( $response['response']['code'] ) && 200 === $response['response']['code'] ) {
-            $user = json_decode( $response['body'], true );
-            add_option( 'ilovepdf_user_token', $user['token'] );
-            add_option( 'ilovepdf_user_email', $user['email'] );
-            add_option( 'ilovepdf_user_private_key', $user['projects'][0]['secret_key'] );
-            add_option( 'ilovepdf_user_public_key', $user['projects'][0]['public_key'] );
-            add_option( 'ilovepdf_user_id', $user['id'] );
-            add_option( 'ilovepdf_user_register_times', 1 );
+            $response['response']['code'] = 400;
         }
     }
 
