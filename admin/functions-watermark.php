@@ -256,7 +256,7 @@ function ilove_pdf_handle_file_upload_watermark( $attachment_id ) {
                 ?><script type='text/javascript' id="my-script-<?php echo esc_html( $attachment_id ); ?>">
                     jQuery( function( $ ) {                        
                         
-                        var response = '<?php echo $html; ?>';
+                        var response = '<?php echo wp_kses( $html, 'ilove_pdf_expanded_alowed_tags' ); ?>';
                         var currentElem = $('#my-script-<?php echo esc_html( $attachment_id ); ?>');
                         var parentTag = currentElem.parent();
                         var parentDiv = parentTag.parent();

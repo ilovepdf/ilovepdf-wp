@@ -79,7 +79,7 @@ function ilove_pdf_compress_options_callback() {
 }
 
 /**
- * Active Callback.
+ * Active Compress PDF Callback.
  *
  * @since    1.0.0
  * @param    array $args    Arguments options.
@@ -87,14 +87,17 @@ function ilove_pdf_compress_options_callback() {
 function ilove_pdf_compress_active_callback( $args ) {
 
     $options = get_option( 'ilove_pdf_display_settings_compress' );
-    $html    = '<input type="checkbox" id="ilove_pdf_compress_active" name="ilove_pdf_display_settings_compress[ilove_pdf_compress_active]" value="1"' . ( isset( $options['ilove_pdf_compress_active'] ) ? checked( 1, $options['ilove_pdf_compress_active'], false ) : '' ) . '">';
-    $html   .= '<label for="ilove_pdf_compress_active"> ' . $args[0] . '</label>';
+    $html    = sprintf(
+        '<input type="checkbox" id="ilove_pdf_compress_active" name="ilove_pdf_display_settings_compress[ilove_pdf_compress_active]" value="1" %s /><label for="ilove_pdf_compress_active"> %s</label>',
+        isset( $options['ilove_pdf_compress_active'] ) ? checked( 1, $options['ilove_pdf_compress_active'], false ) : '',
+        $args[0]
+    );
 
-    echo $html;
+    echo wp_kses( $html, ilove_pdf_expanded_alowed_tags() );
 }
 
 /**
- * Quality Callback.
+ * Compress Quality Callback.
  *
  * @since    1.0.0
  * @param    array $args    Arguments options.
@@ -102,16 +105,19 @@ function ilove_pdf_compress_active_callback( $args ) {
 function ilove_pdf_compress_quality_callback( $args ) {
 
     $options = get_option( 'ilove_pdf_display_settings_compress' );
-    $html    = '<input type="radio" id="ilove_pdf_compress_quality" name="ilove_pdf_display_settings_compress[ilove_pdf_compress_quality]" value="0"' . ( isset( $options['ilove_pdf_compress_quality'] ) ? checked( 0, $options['ilove_pdf_compress_quality'], false ) : '' ) . '">';
-    $html   .= '<label for="ilove_pdf_compress_active"> ' . $args[0] . ' (' . __( 'High quality, less compression', 'ilove-pdf' ) . ')</label><br /><br />';
+    $html    = sprintf(
+        '<input type="radio" id="ilove_pdf_compress_quality" name="ilove_pdf_display_settings_compress[ilove_pdf_compress_quality]" value="0" %s /><label for="ilove_pdf_compress_quality"> %s</label><br>
+        <input type="radio" id="ilove_pdf_compress_quality" name="ilove_pdf_display_settings_compress[ilove_pdf_compress_quality]" value="1" %s /><label for="ilove_pdf_compress_quality"> %s</label><br>
+        <input type="radio" id="ilove_pdf_compress_quality" name="ilove_pdf_display_settings_compress[ilove_pdf_compress_quality]" value="2" %s /><label for="ilove_pdf_compress_quality"> %s</label>',
+        isset( $options['ilove_pdf_compress_quality'] ) ? checked( 0, $options['ilove_pdf_compress_quality'], false ) : '',
+        $args[0] . ' (' . __( 'High quality, less compression', 'ilove-pdf' ) . ')',
+        isset( $options['ilove_pdf_compress_quality'] ) ? checked( 1, $options['ilove_pdf_compress_quality'], false ) : '',
+        $args[1] . ' (' . __( 'Good quality, good compression', 'ilove-pdf' ) . ')',
+        isset( $options['ilove_pdf_compress_quality'] ) ? checked( 2, $options['ilove_pdf_compress_quality'], false ) : '',
+        $args[2] . ' (' . __( 'Less quality, high compression', 'ilove-pdf' ) . ')',
+    );
 
-    $html .= '<input type="radio" id="ilove_pdf_compress_quality" name="ilove_pdf_display_settings_compress[ilove_pdf_compress_quality]" value="1"' . ( isset( $options['ilove_pdf_compress_quality'] ) ? checked( 1, $options['ilove_pdf_compress_quality'], false ) : 'checked="checked"' ) . '">';
-    $html .= '<label for="ilove_pdf_compress_active"> ' . $args[1] . ' (' . __( 'Good quality, good compression', 'ilove-pdf' ) . ')</label><br /><br />';
-
-    $html .= '<input type="radio" id="ilove_pdf_compress_quality" name="ilove_pdf_display_settings_compress[ilove_pdf_compress_quality]" value="2"' . ( isset( $options['ilove_pdf_compress_quality'] ) ? checked( 2, $options['ilove_pdf_compress_quality'], false ) : '' ) . '">';
-    $html .= '<label for="ilove_pdf_compress_active"> ' . $args[2] . ' (' . __( 'Less quality, high compression', 'ilove-pdf' ) . ')</label>';
-
-    echo $html;
+    echo wp_kses( $html, ilove_pdf_expanded_alowed_tags() );
 }
 
 /**
@@ -123,8 +129,11 @@ function ilove_pdf_compress_quality_callback( $args ) {
 function ilove_pdf_compress_autocompress_new_callback( $args ) {
 
     $options = get_option( 'ilove_pdf_display_settings_compress' );
-    $html    = '<input type="checkbox" id="ilove_pdf_compress_autocompress_new" name="ilove_pdf_display_settings_compress[ilove_pdf_compress_autocompress_new]" value="1"' . ( isset( $options['ilove_pdf_compress_autocompress_new'] ) ? checked( 1, $options['ilove_pdf_compress_autocompress_new'], false ) : '' ) . '">';
-    $html   .= '<label for="ilove_pdf_compress_autocompress_new"> ' . $args[0] . '</label>';
+    $html    = sprintf(
+        '<input type="checkbox" id="ilove_pdf_compress_autocompress_new" name="ilove_pdf_display_settings_compress[ilove_pdf_compress_autocompress_new]" value="1" %s /><label for="ilove_pdf_compress_autocompress_new"> %s</label>',
+        isset( $options['ilove_pdf_compress_autocompress_new'] ) ? checked( 1, $options['ilove_pdf_compress_autocompress_new'], false ) : '',
+        $args[0]
+    );
 
-    echo $html;
+    echo wp_kses( $html, ilove_pdf_expanded_alowed_tags() );
 }

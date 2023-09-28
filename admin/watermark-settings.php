@@ -78,7 +78,7 @@ function ilove_pdf_watermark_options_callback() {
 }
 
 /**
- * Active Callback.
+ * Active Watermark Callback.
  *
  * @since    1.0.0
  * @param    array $args    Arguments options.
@@ -97,7 +97,7 @@ function ilove_pdf_watermark_active_callback( $args ) {
 }
 
 /**
- * Backup Callback.
+ * Backup Original File Callback.
  *
  * @since    1.0.0
  * @param    array $args    Arguments options.
@@ -105,17 +105,20 @@ function ilove_pdf_watermark_active_callback( $args ) {
 function ilove_pdf_watermark_backup_callback( $args ) {
 
     $options = get_option( 'ilove_pdf_display_settings_watermark' );
-    $html    = '<input type="radio" id="ilove_pdf_watermark_backup" name="ilove_pdf_display_settings_watermark[ilove_pdf_watermark_backup]" value="0"' . ( isset( $options['ilove_pdf_watermark_backup'] ) ? checked( 0, $options['ilove_pdf_watermark_backup'], false ) : '' ) . '">';
-    $html   .= '<label for="ilove_pdf_watermark_backup"> ' . $args[0] . '</label>&nbsp;';
+    $html    = sprintf(
+        '<input type="radio" id="ilove_pdf_watermark_backup" name="ilove_pdf_display_settings_watermark[ilove_pdf_watermark_backup]" value="0" %s><label for="ilove_pdf_watermark_backup">%s</label>&nbsp;
+        <input type="radio" id="ilove_pdf_watermark_backup" name="ilove_pdf_display_settings_watermark[ilove_pdf_watermark_backup]" value="1" %s><label for="ilove_pdf_watermark_backup">%s</label>',
+        checked( 0, $options['ilove_pdf_watermark_backup'], false ),
+        $args[0],
+        checked( 1, $options['ilove_pdf_watermark_backup'], false ),
+        $args[1]
+    );
 
-    $html .= '<input type="radio" id="ilove_pdf_watermark_backup" name="ilove_pdf_display_settings_watermark[ilove_pdf_watermark_backup]" value="1"' . ( isset( $options['ilove_pdf_watermark_backup'] ) ? checked( 1, $options['ilove_pdf_watermark_backup'], false ) : '' ) . '">';
-    $html .= '<label for="ilove_pdf_watermark_backup"> ' . $args[1] . '</label>';
-
-    echo $html;
+    echo wp_kses( $html, ilove_pdf_expanded_alowed_tags() );
 }
 
 /**
- * Auto Callback.
+ * Enable Auto Watermark Callback.
  *
  * @since    1.0.0
  * @param    array $args    Arguments options.
@@ -123,10 +126,13 @@ function ilove_pdf_watermark_backup_callback( $args ) {
 function ilove_pdf_watermark_auto_callback( $args ) {
 
     $options = get_option( 'ilove_pdf_display_settings_watermark' );
-    $html    = '<input type="checkbox" id="ilove_pdf_watermark_auto" name="ilove_pdf_display_settings_watermark[ilove_pdf_watermark_auto]" value="1"' . ( isset( $options['ilove_pdf_watermark_auto'] ) ? checked( 1, $options['ilove_pdf_watermark_auto'], false ) : '' ) . '">';
-    $html   .= '<label for="ilove_pdf_watermark_auto"> ' . $args[0] . '</label>';
+    $html    = sprintf(
+        '<input type="checkbox" id="ilove_pdf_watermark_auto" name="ilove_pdf_display_settings_watermark[ilove_pdf_watermark_auto]" value="1" %s><label for="ilove_pdf_watermark_auto">%s</label>',
+        isset( $options['ilove_pdf_watermark_auto'] ) ? checked( 1, $options['ilove_pdf_watermark_auto'], false ) : '',
+        $args[0]
+    );
 
-    echo $html;
+    echo wp_kses( $html, ilove_pdf_expanded_alowed_tags() );
 }
 
 /**
@@ -308,7 +314,7 @@ function ilove_pdf_format_watermark_options_callback() {
 }
 
 /**
- * Watermark Text Callback.
+ * Watermark Content Text Callback (Mode Text).
  *
  * @since    1.0.0
  * @param    array $args    Arguments options.
@@ -316,14 +322,17 @@ function ilove_pdf_format_watermark_options_callback() {
 function ilove_pdf_format_watermark_text_callback( $args ) {
 
     $options = get_option( 'ilove_pdf_display_settings_format_watermark' );
-    $html    = '<input type="text" id="ilove_pdf_format_watermark_text" name="ilove_pdf_display_settings_format_watermark[ilove_pdf_format_watermark_text]" value="' . ( isset( $options['ilove_pdf_format_watermark_text'] ) ? $options['ilove_pdf_format_watermark_text'] : get_bloginfo() ) . '">';
-    $html   .= '<label for="ilove_pdf_format_watermark_text"> ' . $args[0] . '</label>';
+    $html    = sprintf(
+        '<input type="text" id="ilove_pdf_format_watermark_text" name="ilove_pdf_display_settings_format_watermark[ilove_pdf_format_watermark_text]" value="%s"><label for="ilove_pdf_format_watermark_text">%s</label>',
+        isset( $options['ilove_pdf_format_watermark_text'] ) ? $options['ilove_pdf_format_watermark_text'] : get_bloginfo(),
+        $args[0]
+    );
 
-    echo $html;
+    echo wp_kses( $html, ilove_pdf_expanded_alowed_tags() );
 }
 
 /**
- * Watermark Text Size Callback.
+ * Watermark Text Size Callback (Mode Text).
  *
  * @since    1.0.0
  * @param    array $args    Arguments options.
@@ -331,14 +340,17 @@ function ilove_pdf_format_watermark_text_callback( $args ) {
 function ilove_pdf_format_watermark_text_size_callback( $args ) {
 
     $options = get_option( 'ilove_pdf_display_settings_format_watermark' );
-    $html    = '<input type="number" id="ilove_pdf_format_watermark_text_size" name="ilove_pdf_display_settings_format_watermark[ilove_pdf_format_watermark_text_size]" min="5" max="80" value="' . ( isset( $options['ilove_pdf_format_watermark_text_size'] ) ? $options['ilove_pdf_format_watermark_text_size'] : '' ) . '">';
-    $html   .= '<label for="ilove_pdf_format_watermark_text_size"> ' . $args[0] . '</label><br /><br />';
+    $html    = sprintf(
+        '<input type="number" id="ilove_pdf_format_watermark_text_size" name="ilove_pdf_display_settings_format_watermark[ilove_pdf_format_watermark_text_size]" min="5" max="80" value="%d"><label for="ilove_pdf_format_watermark_text_size">%s</label>',
+        isset( $options['ilove_pdf_format_watermark_text_size'] ) ? $options['ilove_pdf_format_watermark_text_size'] : 18,
+        $args[0]
+    );
 
-    echo $html;
+    echo wp_kses( $html, ilove_pdf_expanded_alowed_tags() );
 }
 
 /**
- * Watermark Font Family Callback.
+ * Watermark Font Family Callback (Mode Text).
  *
  * @since    1.0.0
  * @param    array $args    Arguments options.
@@ -346,31 +358,39 @@ function ilove_pdf_format_watermark_text_size_callback( $args ) {
 function ilove_pdf_format_watermark_font_family_callback( $args ) {
 
     $options = get_option( 'ilove_pdf_display_settings_format_watermark' );
-    $html    = '<select id="ilove_pdf_format_watermark_font_family" name="ilove_pdf_display_settings_format_watermark[ilove_pdf_format_watermark_font_family]">
-                <option value="' . $args[1] . '" ' . ( isset( $options['ilove_pdf_format_watermark_font_family'] ) ? selected( $args[1], $options['ilove_pdf_format_watermark_font_family'], false ) : '' ) . '>Verdana</option>
-                <option value="' . $args[2] . '" ' . ( isset( $options['ilove_pdf_format_watermark_font_family'] ) ? selected( $args[2], $options['ilove_pdf_format_watermark_font_family'], false ) : '' ) . '>Courier</option>
-            </select>';
-    $html   .= '<label for="ilove_pdf_format_watermark_font_family"> ' . $args[0] . '</label>';
+    $html    = sprintf(
+        '<select id="ilove_pdf_format_watermark_font_family" name="ilove_pdf_display_settings_format_watermark[ilove_pdf_format_watermark_font_family]">
+        <option value="%s" %s>Verdana</option>
+        <option value="%s" %s>Courier</option></select>
+        <label for="ilove_pdf_format_watermark_font_family"> %s</label>',
+        $args[1],
+        isset( $options['ilove_pdf_format_watermark_font_family'] ) ? selected( $args[1], $options['ilove_pdf_format_watermark_font_family'], false ) : '',
+        $args[2],
+        isset( $options['ilove_pdf_format_watermark_font_family'] ) ? selected( $args[2], $options['ilove_pdf_format_watermark_font_family'], false ) : '',
+        $args[0]
+    );
 
-    echo $html;
+    echo wp_kses( $html, ilove_pdf_expanded_alowed_tags() );
 }
 
 /**
- * Watermark Text Color Callback.
+ * Watermark Text Color Callback (Mode Text).
  *
  * @since    1.0.0
- * @param    array $args    Arguments options.
  */
-function ilove_pdf_format_watermark_text_color_callback( $args ) {
+function ilove_pdf_format_watermark_text_color_callback() {
 
     $options = get_option( 'ilove_pdf_display_settings_format_watermark' );
-    $html    = '<input type="text" class="color-field" id="ilove_pdf_format_watermark_text_color" name="ilove_pdf_display_settings_format_watermark[ilove_pdf_format_watermark_text_color]" value="' . ( isset( $options['ilove_pdf_format_watermark_text_color'] ) ? $options['ilove_pdf_format_watermark_text_color'] : '' ) . '">';
+    $html    = sprintf(
+        '<input type="text" class="color-field" id="ilove_pdf_format_watermark_text_color" name="ilove_pdf_display_settings_format_watermark[ilove_pdf_format_watermark_text_color]" value="%s">',
+        isset( $options['ilove_pdf_format_watermark_text_color'] ) ? $options['ilove_pdf_format_watermark_text_color'] : ''
+    );
 
-    echo $html;
+    echo wp_kses( $html, ilove_pdf_expanded_alowed_tags() );
 }
 
 /**
- * Watermark Vertical Callback.
+ * Watermark Vertical Position Callback.
  *
  * @since    1.0.0
  * @param    array $args    Arguments options.
@@ -378,20 +398,23 @@ function ilove_pdf_format_watermark_text_color_callback( $args ) {
 function ilove_pdf_format_watermark_vertical_callback( $args ) {
 
     $options = get_option( 'ilove_pdf_display_settings_format_watermark' );
-    $html    = '<input type="radio" id="ilove_pdf_format_watermark_vertical" name="ilove_pdf_display_settings_format_watermark[ilove_pdf_format_watermark_vertical]" value="0"' . ( isset( $options['ilove_pdf_format_watermark_vertical'] ) ? checked( 0, $options['ilove_pdf_format_watermark_vertical'], false ) : '' ) . '">';
-    $html   .= '<label for="ilove_pdf_format_watermark_vertical"> ' . $args[0] . '</label><br /><br />';
+    $html    = sprintf(
+        '<input type="radio" id="ilove_pdf_format_watermark_vertical" name="ilove_pdf_display_settings_format_watermark[ilove_pdf_format_watermark_vertical]" value="0" %s><label for="ilove_pdf_format_watermark_vertical"> %s</label><br/>
+        <input type="radio" id="ilove_pdf_format_watermark_vertical" name="ilove_pdf_display_settings_format_watermark[ilove_pdf_format_watermark_vertical]" value="1" %s><label for="ilove_pdf_format_watermark_vertical"> %s</label><br/>
+        <input type="radio" id="ilove_pdf_format_watermark_vertical" name="ilove_pdf_display_settings_format_watermark[ilove_pdf_format_watermark_vertical]" value="2" %s><label for="ilove_pdf_format_watermark_vertical"> %s</label>',
+        isset( $options['ilove_pdf_format_watermark_vertical'] ) ? checked( 0, $options['ilove_pdf_format_watermark_vertical'], false ) : '',
+        $args[0],
+        isset( $options['ilove_pdf_format_watermark_vertical'] ) ? checked( 1, $options['ilove_pdf_format_watermark_vertical'], false ) : '',
+        $args[1],
+        isset( $options['ilove_pdf_format_watermark_vertical'] ) ? checked( 2, $options['ilove_pdf_format_watermark_vertical'], false ) : '',
+        $args[2]
+    );
 
-    $html .= '<input type="radio" id="ilove_pdf_format_watermark_vertical" name="ilove_pdf_display_settings_format_watermark[ilove_pdf_format_watermark_vertical]" value="1"' . ( isset( $options['ilove_pdf_format_watermark_vertical'] ) ? checked( 1, $options['ilove_pdf_format_watermark_vertical'], false ) : '' ) . '">';
-    $html .= '<label for="ilove_pdf_format_watermark_vertical"> ' . $args[1] . '</label><br /><br />';
-
-    $html .= '<input type="radio" id="ilove_pdf_format_watermark_vertical" name="ilove_pdf_display_settings_format_watermark[ilove_pdf_format_watermark_vertical]" value="2"' . ( isset( $options['ilove_pdf_format_watermark_vertical'] ) ? checked( 2, $options['ilove_pdf_format_watermark_vertical'], false ) : '' ) . '">';
-    $html .= '<label for="ilove_pdf_format_watermark_vertical"> ' . $args[2] . '</label><br /><br />';
-
-    echo $html;
+    echo wp_kses( $html, ilove_pdf_expanded_alowed_tags() );
 }
 
 /**
- * Watermark Horizontal Callback.
+ * Watermark Horizontal Position Callback.
  *
  * @since    1.0.0
  * @param    array $args    Arguments options.
@@ -399,20 +422,23 @@ function ilove_pdf_format_watermark_vertical_callback( $args ) {
 function ilove_pdf_format_watermark_horizontal_callback( $args ) {
 
     $options = get_option( 'ilove_pdf_display_settings_format_watermark' );
-    $html    = '<input type="radio" id="ilove_pdf_format_watermark_horizontal" name="ilove_pdf_display_settings_format_watermark[ilove_pdf_format_watermark_horizontal]" value="0"' . ( isset( $options['ilove_pdf_format_watermark_horizontal'] ) ? checked( 0, $options['ilove_pdf_format_watermark_horizontal'], false ) : '' ) . '">';
-    $html   .= '<label for="ilove_pdf_format_watermark_horizontal"> ' . $args[0] . '</label><br /><br />';
+    $html    = sprintf(
+        '<input type="radio" id="ilove_pdf_format_watermark_horizontal" name="ilove_pdf_display_settings_format_watermark[ilove_pdf_format_watermark_horizontal]" value="0" %s><label for="ilove_pdf_format_watermark_horizontal"> %s</label><br/>
+        <input type="radio" id="ilove_pdf_format_watermark_horizontal" name="ilove_pdf_display_settings_format_watermark[ilove_pdf_format_watermark_horizontal]" value="1" %s><label for="ilove_pdf_format_watermark_horizontal"> %s</label><br/>
+        <input type="radio" id="ilove_pdf_format_watermark_horizontal" name="ilove_pdf_display_settings_format_watermark[ilove_pdf_format_watermark_horizontal]" value="2" %s><label for="ilove_pdf_format_watermark_horizontal"> %s</label>',
+        isset( $options['ilove_pdf_format_watermark_horizontal'] ) ? checked( 0, $options['ilove_pdf_format_watermark_horizontal'], false ) : '',
+        $args[0],
+        isset( $options['ilove_pdf_format_watermark_horizontal'] ) ? checked( 1, $options['ilove_pdf_format_watermark_horizontal'], false ) : '',
+        $args[1],
+        isset( $options['ilove_pdf_format_watermark_horizontal'] ) ? checked( 2, $options['ilove_pdf_format_watermark_horizontal'], false ) : '',
+        $args[2]
+    );
 
-    $html .= '<input type="radio" id="ilove_pdf_format_watermark_horizontal" name="ilove_pdf_display_settings_format_watermark[ilove_pdf_format_watermark_horizontal]" value="1"' . ( isset( $options['ilove_pdf_format_watermark_horizontal'] ) ? checked( 1, $options['ilove_pdf_format_watermark_horizontal'], false ) : '' ) . '">';
-    $html .= '<label for="ilove_pdf_format_watermark_horizontal"> ' . $args[1] . '</label><br /><br />';
-
-    $html .= '<input type="radio" id="ilove_pdf_format_watermark_horizontal" name="ilove_pdf_display_settings_format_watermark[ilove_pdf_format_watermark_horizontal]" value="2"' . ( isset( $options['ilove_pdf_format_watermark_horizontal'] ) ? checked( 2, $options['ilove_pdf_format_watermark_horizontal'], false ) : '' ) . '">';
-    $html .= '<label for="ilove_pdf_format_watermark_horizontal"> ' . $args[2] . '</label><br /><br />';
-
-    echo $html;
+    echo wp_kses( $html, ilove_pdf_expanded_alowed_tags() );
 }
 
 /**
- * Watermark Opacity Callback.
+ * Watermark Opacity Callback (Mode Image).
  *
  * @since    1.0.0
  * @param    array $args    Arguments options.
@@ -420,14 +446,17 @@ function ilove_pdf_format_watermark_horizontal_callback( $args ) {
 function ilove_pdf_format_watermark_opacity_callback( $args ) {
 
     $options = get_option( 'ilove_pdf_display_settings_format_watermark' );
-    $html    = '<input type="number" id="ilove_pdf_format_watermark_opacity" name="ilove_pdf_display_settings_format_watermark[ilove_pdf_format_watermark_opacity]" min="0" max="100" value="' . ( isset( $options['ilove_pdf_format_watermark_opacity'] ) ? $options['ilove_pdf_format_watermark_opacity'] : '' ) . '">';
-    $html   .= '<label for="ilove_pdf_format_watermark_opacity"> ' . $args[0] . '</label><br /><br />';
+    $html    = sprintf(
+        '<input type="number" id="ilove_pdf_format_watermark_opacity" name="ilove_pdf_display_settings_format_watermark[ilove_pdf_format_watermark_opacity]" min="0" max="100" value="%s"><label for="ilove_pdf_format_watermark_opacity"> %s</label>',
+        isset( $options['ilove_pdf_format_watermark_opacity'] ) ? $options['ilove_pdf_format_watermark_opacity'] : '',
+        $args[0]
+    );
 
-    echo $html;
+    echo wp_kses( $html, ilove_pdf_expanded_alowed_tags() );
 }
 
 /**
- * Watermark Rotation Callback.
+ * Watermark Rotation Callback (Mode Image).
  *
  * @since    1.0.0
  * @param    array $args    Arguments options.
@@ -435,14 +464,17 @@ function ilove_pdf_format_watermark_opacity_callback( $args ) {
 function ilove_pdf_format_watermark_rotation_callback( $args ) {
 
     $options = get_option( 'ilove_pdf_display_settings_format_watermark' );
-    $html    = '<input type="number" id="ilove_pdf_format_watermark_rotation" name="ilove_pdf_display_settings_format_watermark[ilove_pdf_format_watermark_rotation]" min="0" max="360" value="' . ( isset( $options['ilove_pdf_format_watermark_rotation'] ) ? $options['ilove_pdf_format_watermark_rotation'] : '' ) . '">';
-    $html   .= '<label for="ilove_pdf_format_watermark_rotation"> ' . $args[0] . '</label><br /><br />';
+    $html    = sprintf(
+        '<input type="number" id="ilove_pdf_format_watermark_rotation" name="ilove_pdf_display_settings_format_watermark[ilove_pdf_format_watermark_rotation]" min="0" max="360" value="%s"><label for="ilove_pdf_format_watermark_rotation"> %s</label>',
+        isset( $options['ilove_pdf_format_watermark_rotation'] ) ? $options['ilove_pdf_format_watermark_rotation'] : '',
+        $args[0]
+    );
 
-    echo $html;
+    echo wp_kses( $html, ilove_pdf_expanded_alowed_tags() );
 }
 
 /**
- * Watermark Layer Callback.
+ * Watermark Layer Depth Callback (Mode Image).
  *
  * @since    1.0.0
  * @param    array $args    Arguments options.
@@ -450,17 +482,20 @@ function ilove_pdf_format_watermark_rotation_callback( $args ) {
 function ilove_pdf_format_watermark_layer_callback( $args ) {
 
     $options = get_option( 'ilove_pdf_display_settings_format_watermark' );
-    $html    = '<input type="radio" id="ilove_pdf_format_watermark_layer" name="ilove_pdf_display_settings_format_watermark[ilove_pdf_format_watermark_layer]" value="0"' . ( isset( $options['ilove_pdf_format_watermark_layer'] ) ? checked( 0, $options['ilove_pdf_format_watermark_layer'], false ) : '' ) . '">';
-    $html   .= '<label for="ilove_pdf_format_watermark_layer"> ' . $args[0] . '</label>&nbsp;';
+    $html    = sprintf(
+        '<input type="radio" id="ilove_pdf_format_watermark_layer" name="ilove_pdf_display_settings_format_watermark[ilove_pdf_format_watermark_layer]" value="0" %s><label for="ilove_pdf_format_watermark_layer"> %s </label> 
+        <input type="radio" id="ilove_pdf_format_watermark_layer" name="ilove_pdf_display_settings_format_watermark[ilove_pdf_format_watermark_layer]" value="1" %s><label for="ilove_pdf_format_watermark_layer"> %s</label>',
+        isset( $options['ilove_pdf_format_watermark_layer'] ) ? checked( 0, $options['ilove_pdf_format_watermark_layer'], false ) : '',
+        $args[0],
+        isset( $options['ilove_pdf_format_watermark_layer'] ) ? checked( 1, $options['ilove_pdf_format_watermark_layer'], false ) : '',
+        $args[1]
+    );
 
-    $html .= '<input type="radio" id="ilove_pdf_format_watermark_layer" name="ilove_pdf_display_settings_format_watermark[ilove_pdf_format_watermark_layer]" value="1"' . ( isset( $options['ilove_pdf_format_watermark_layer'] ) ? checked( 1, $options['ilove_pdf_format_watermark_layer'], false ) : '' ) . '">';
-    $html .= '<label for="ilove_pdf_format_watermark_layer"> ' . $args[1] . '</label>';
-
-    echo $html;
+    echo wp_kses( $html, ilove_pdf_expanded_alowed_tags() );
 }
 
 /**
- * Watermark Mosaic Callback.
+ * Watermark Mosaic Callback (Mode Image).
  *
  * @since    1.0.0
  * @param    array $args    Arguments options.
@@ -468,14 +503,17 @@ function ilove_pdf_format_watermark_layer_callback( $args ) {
 function ilove_pdf_format_watermark_mosaic_callback( $args ) {
 
     $options = get_option( 'ilove_pdf_display_settings_format_watermark' );
-    $html    = '<input type="checkbox" id="ilove_pdf_format_watermark_mosaic" name="ilove_pdf_display_settings_format_watermark[ilove_pdf_format_watermark_mosaic]" value="1"' . ( isset( $options['ilove_pdf_format_watermark_mosaic'] ) ? checked( 1, $options['ilove_pdf_format_watermark_mosaic'], false ) : '' ) . '">';
-    $html   .= '<label for="ilove_pdf_format_watermark_mosaic"> ' . $args[0] . '</label>';
+    $html    = sprintf(
+        '<input type="checkbox" id="ilove_pdf_format_watermark_mosaic" name="ilove_pdf_display_settings_format_watermark[ilove_pdf_format_watermark_mosaic]" value="1" %s><label for="ilove_pdf_format_watermark_mosaic"> %s</label>',
+        isset( $options['ilove_pdf_format_watermark_mosaic'] ) ? checked( 1, $options['ilove_pdf_format_watermark_mosaic'], false ) : '',
+        $args[0]
+    );
 
-    echo $html;
+    echo wp_kses( $html, ilove_pdf_expanded_alowed_tags() );
 }
 
 /**
- * Watermark Mode Callback.
+ * Watermark Select Mode Callback.
  *
  * @since    1.0.0
  * @param    array $args    Arguments options.
@@ -483,33 +521,40 @@ function ilove_pdf_format_watermark_mosaic_callback( $args ) {
 function ilove_pdf_format_watermark_mode_callback( $args ) {
 
     $options = get_option( 'ilove_pdf_display_settings_format_watermark' );
-    $html    = '<input type="radio" id="ilove_pdf_format_watermark_mode" name="ilove_pdf_display_settings_format_watermark[ilove_pdf_format_watermark_mode]" value="0"' . ( isset( $options['ilove_pdf_format_watermark_mode'] ) ? checked( 0, $options['ilove_pdf_format_watermark_mode'], false ) : 'checked="checked"' ) . '">';
-    $html   .= '<label for="ilove_pdf_format_watermark_mode"> ' . $args[0] . '</label>&nbsp;';
+    $html    = sprintf(
+        '<input type="radio" id="ilove_pdf_format_watermark_mode" name="ilove_pdf_display_settings_format_watermark[ilove_pdf_format_watermark_mode]" value="0" %s><label for="ilove_pdf_format_watermark_mode"> %s</label> 
+        <input type="radio" id="ilove_pdf_format_watermark_mode" name="ilove_pdf_display_settings_format_watermark[ilove_pdf_format_watermark_mode]" value="1" %s><label for="ilove_pdf_format_watermark_mode"> %s</label>',
+        isset( $options['ilove_pdf_format_watermark_mode'] ) ? checked( 0, $options['ilove_pdf_format_watermark_mode'], false ) : 'checked="checked"',
+        $args[0],
+        isset( $options['ilove_pdf_format_watermark_mode'] ) ? checked( 1, $options['ilove_pdf_format_watermark_mode'], false ) : '',
+        $args[1]
+    );
 
-    $html .= '<input type="radio" id="ilove_pdf_format_watermark_mode" name="ilove_pdf_display_settings_format_watermark[ilove_pdf_format_watermark_mode]" value="1"' . ( isset( $options['ilove_pdf_format_watermark_mode'] ) ? checked( 1, $options['ilove_pdf_format_watermark_mode'], false ) : '' ) . '">';
-    $html .= '<label for="ilove_pdf_format_watermark_mode"> ' . $args[1] . '</label>';
-
-    echo $html;
+    echo wp_kses( $html, ilove_pdf_expanded_alowed_tags() );
 }
 
 /**
- * Watermark Image Callback.
+ * Watermark Upload Image Callback (Mode Image).
  *
  * @since    1.0.0
- * @param    array $args    Arguments options.
  */
-function ilove_pdf_format_watermark_image_callback( $args ) {
+function ilove_pdf_format_watermark_image_callback() {
     $options = get_option( 'ilove_pdf_display_settings_format_watermark' );
 
 	$image = isset( $options['ilove_pdf_format_watermark_image'] ) ? '<img id="image-preview" src="' . wp_get_attachment_url( $options['ilove_pdf_format_watermark_image'] ) . '" height="100">' : '<img id="image-preview" height="100" style="max-width: 100px">';
-	$html  = '<div class="image-preview-wrapper">
-                ' . $image . '
-            </div>
-            <input id="upload_image_button" type="button" class="button" value="' . __( 'Upload image', 'ilove-pdf' ) . '" />
-            <input type="hidden" name="ilove_pdf_display_settings_format_watermark[ilove_pdf_format_watermark_image]" id="ilove_pdf_format_watermark_image" value="' . ( isset( $options['ilove_pdf_format_watermark_image'] ) ? $options['ilove_pdf_format_watermark_image'] : '' ) . '">
-            <input type="submit" name="submit_image_selector" value="' . __( 'Save', 'ilove-pdf' ) . '" class="button-primary">';
 
-    echo $html;
+    $html = sprintf(
+        '<div class="image-preview-wrapper">%s</div>
+        <input id="upload_image_button" type="button" class="button" value="%s" />
+        <input type="hidden" name="ilove_pdf_display_settings_format_watermark[ilove_pdf_format_watermark_image]" id="ilove_pdf_format_watermark_image" value="%s" /> 
+        <input class="button-primary" type="submit" name="submit_image_selector" value="%s" />',
+        $image,
+        __( 'Upload image', 'ilove-pdf' ),
+        isset( $options['ilove_pdf_format_watermark_image'] ) ? $options['ilove_pdf_format_watermark_image'] : '',
+        __( 'Save', 'ilove-pdf' )
+    );
+
+    echo wp_kses( $html, ilove_pdf_expanded_alowed_tags() );
 }
 
 /**
@@ -520,7 +565,7 @@ function ilove_pdf_format_watermark_image_callback( $args ) {
 function ilove_pdf_media_selector_print_scripts() {
     $options                     = get_option( 'ilove_pdf_display_settings_format_watermark' );
     $my_saved_attachment_post_id = isset( $options['ilove_pdf_format_watermark_image'] ) && '' !== $options['ilove_pdf_format_watermark_image'] ? $options['ilove_pdf_format_watermark_image'] : 0;
-    ?><script type='text/javascript'>
+    ?> <script type='text/javascript'>
         jQuery( document ).ready( function( $ ) {
             // Uploading files
             var file_frame;

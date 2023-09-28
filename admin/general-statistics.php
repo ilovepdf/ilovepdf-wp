@@ -21,7 +21,7 @@ function ilove_pdf_compress_media_column( $cols ) {
 }
 
 /**
- * Compress Display Button.
+ * Compress and Watermark Display Button on Library Page.
  *
  * @since    1.0.0
  * @param    string $column_name    Column Name.
@@ -57,9 +57,9 @@ function ilove_pdf_compress_button_value( $column_name, $id ) {
             $options = get_option( 'ilove_pdf_display_settings_watermark' );
 
             if ( $options['ilove_pdf_watermark_backup'] && get_post_meta( $id, '_wp_attached_file_backup', true ) ) {
-                $html .= '<i class="fa fa-check" aria-hidden="true"></i> ' . __( 'Stamped', 'ilove-pdf' ) . ' <a class="btn-restore" href="' . admin_url( 'admin-post.php' ) . '?action=ilovepdf_restore&id=' . $id . '&nonce_ilove_pdf_restore_watermark=' . wp_create_nonce( 'admin-post' ) . '"><br />(' . __( 'Restore original file', 'ilove-pdf' ) . ') </a>';
+                $html .= '<i class="fa fa-check t" aria-hidden="true"></i> ' . __( 'Stamped', 'ilove-pdf' ) . ' <a class="btn-restore" href="' . admin_url( 'admin-post.php' ) . '?action=ilovepdf_restore&id=' . $id . '&nonce_ilove_pdf_restore_watermark=' . wp_create_nonce( 'admin-post' ) . '"><br />(' . __( 'Restore original file', 'ilove-pdf' ) . ') </a>';
             } else {
-                $html .= '<i class="fa fa-check" aria-hidden="true"></i> ' . __( 'Stamped', 'ilove-pdf' );
+                $html .= '<i class="fa fa-check t" aria-hidden="true"></i> ' . __( 'Stamped', 'ilove-pdf' );
             }
         }
 
@@ -72,7 +72,7 @@ function ilove_pdf_compress_button_value( $column_name, $id ) {
 		$html = '';
 	}
 
-    echo $html;
+    echo wp_kses( $html, wp_kses_allowed_html( 'post' ) );
 }
 
 /**
@@ -141,7 +141,8 @@ function ilove_pdf_initialize_list_watermark_pdf() {
 }
 
 /**
- * Custom Meta Box Callback.
+ * Custom Meta Box Callback on Media Single Edit Post.
+ * Show compress and watermark buttons.
  *
  * @since    1.0.0
  * @param    object $file_object   File Object.
@@ -189,7 +190,7 @@ function ilove_pdf_custom_meta_box( $file_object ) {
         }
     }
 
-    echo $html;
+    echo wp_kses( $html, wp_kses_allowed_html( 'post' ) );
 }
 
 /**
@@ -246,7 +247,7 @@ function ilove_pdf_compress_bulk_action_handler( $redirect_to, $doaction, $post_
 		$redirect_to .= '</form><script type="text/javascript">document.getElementById("bulkActionsForm").submit();</script>';
 	}
 
-	echo $redirect_to;
+    echo wp_kses( $redirect_to, ilove_pdf_expanded_alowed_tags() );
 }
 add_filter( 'handle_bulk_actions-upload', 'ilove_pdf_compress_bulk_action_handler', 10, 3 );
 

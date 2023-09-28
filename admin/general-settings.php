@@ -72,13 +72,14 @@ add_action( 'admin_post_ilovepdf_register', 'ilove_pdf_register_action' );
  * @since    1.0.0
  */
 function ilove_pdf_login_action() {
+
     if ( isset( $_POST['action'] ) && 'ilovepdf_login' === $_POST['action'] && isset( $_POST['nonce_ilove_pdf_login'] ) && wp_verify_nonce( sanitize_key( $_POST['nonce_ilove_pdf_login'] ), 'admin-post' ) && isset( $_POST['ilove_pdf_account_email'] ) && isset( $_POST['ilove_pdf_account_password'] ) ) {
         $response = wp_remote_post(
             ILOVE_PDF_LOGIN_URL,
             array(
 				'body' => array(
 					'email'        => sanitize_email( wp_unslash( $_POST['ilove_pdf_account_email'] ) ),
-					'password'     => esc_attr( $_POST['ilove_pdf_account_password'] ), // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized,WordPress.Security.ValidatedSanitizedInput.MissingUnslash
+					'password'     => $_POST['ilove_pdf_account_password'], // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized,WordPress.Security.ValidatedSanitizedInput.MissingUnslash
 					'wordpress_id' => get_option( 'ilovepdf_wordpress_id' ),
 				),
             )
