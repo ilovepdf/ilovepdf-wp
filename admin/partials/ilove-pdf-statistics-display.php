@@ -89,7 +89,7 @@ function ilove_pdf_content_page_statistics() {
                         <script type="text/javascript">
                         document.onreadystatechange = function(){
                             if(document.readyState === 'complete'){
-                                window.exportedCompressMultiPDF(<?php echo wp_json_encode( wp_unslash( $_POST['array_ids'] ) ); ?>);
+                                window.exportedCompressMultiPDF(<?php echo wp_json_encode( wp_unslash( ilove_pdf_array_sanitize_text_field( $_POST['array_ids'] ) ) );//phpcs:ignore WordPress.Security.ValidatedSanitizedInput ?>);
                             }
                         }
                         </script>
@@ -243,7 +243,7 @@ function ilove_pdf_content_page_statistics() {
                         <script type="text/javascript">
                         document.onreadystatechange = function(){
                             if(document.readyState === 'complete'){
-                                window.exportedWatermarkMultiPDF(<?php echo wp_json_encode( wp_unslash( $_POST['array_ids'] ) ); ?>);
+                                window.exportedWatermarkMultiPDF(<?php echo wp_json_encode( wp_unslash( ilove_pdf_array_sanitize_text_field( $_POST['array_ids'] ) ) );//phpcs:ignore WordPress.Security.ValidatedSanitizedInput ?>);
                             }
                         }
                         </script>

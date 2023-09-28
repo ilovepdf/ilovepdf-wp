@@ -60,8 +60,22 @@ function ilove_pdf_expanded_alowed_tags() {
 		'types' => array(),
 	);
 
-	// script - input
+	// script
 	$my_allowed['script'] = array();
 
 	return $my_allowed;
+}
+
+/**
+ * Recursive sanitation for an array
+ *
+ * @param Array $data_array  Array to sanitize.
+ */
+function ilove_pdf_array_sanitize_text_field( $data_array ) {
+
+    foreach ( $data_array as $value ) {
+		$value = sanitize_text_field( $value );
+    }
+
+    return $data_array;
 }
