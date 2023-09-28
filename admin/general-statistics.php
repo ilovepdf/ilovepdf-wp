@@ -231,7 +231,9 @@ function ilove_pdf_compress_bulk_action_handler( $redirect_to, $doaction, $post_
 
 	if ( 'compress' === $doaction ) {
 
-		$redirect_to = '<form id="bulkActionsForm" name="compress_bulk_actions" action="?page=ilove-pdf-content-statistics&tab=compress_statistic" method="post">';
+		$redirect_to  = '<form id="bulkActionsForm" name="compress_bulk_actions" action="?page=ilove-pdf-content-statistics&tab=compress_statistic" method="post">';
+        $redirect_to .= '<input type="hidden" name="nonce_ilove_pdf_bulk_actions" value="' . wp_create_nonce() . '">';
+
 		foreach ( $post_ids as $post_id ) {
 			$redirect_to .= '<input type="hidden" name="array_ids[]" value="' . $post_id . '">';
 		}
@@ -240,7 +242,9 @@ function ilove_pdf_compress_bulk_action_handler( $redirect_to, $doaction, $post_
 
 	} elseif ( 'watermark' === $doaction ) {
 
-		$redirect_to = '<form id="bulkActionsForm" name="watermark_bulk_actions" action="?page=ilove-pdf-content-statistics&tab=watermark_statistic" method="post">';
+		$redirect_to  = '<form id="bulkActionsForm" name="watermark_bulk_actions" action="?page=ilove-pdf-content-statistics&tab=watermark_statistic" method="post">';
+        $redirect_to .= '<input type="hidden" name="nonce_ilove_pdf_bulk_actions" value="' . wp_create_nonce() . '">';
+
 		foreach ( $post_ids as $post_id ) {
 			$redirect_to .= '<input type="hidden" name="array_ids[]" value="' . $post_id . '">';
 		}

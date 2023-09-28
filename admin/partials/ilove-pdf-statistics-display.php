@@ -3,6 +3,7 @@
  * Function that shows the statistics page.
  */
 function ilove_pdf_content_page_statistics() {
+
     if ( isset( $_POST['file'] ) ) {
         if ( isset( $_GET['tab'] ) && strcmp( sanitize_text_field( wp_unslash( $_GET['tab'] ) ), 'compress_statistic' ) === 0 ) { //phpcs:ignore WordPress.Security.NonceVerification.Recommended
             ilove_pdf_compress_pdf( sanitize_text_field( wp_unslash( $_POST['file'] ) ) );
@@ -84,7 +85,8 @@ function ilove_pdf_content_page_statistics() {
 
      			<?php elseif ( 'compress_statistic' === $active_tab ) : ?>
                     <?php
-                    if ( isset( $_POST['array_ids'] ) ) {
+                    if ( isset( $_POST['array_ids'] ) && isset( $_POST['nonce_ilove_pdf_bulk_actions'] ) && wp_verify_nonce( sanitize_key( $_POST['nonce_ilove_pdf_bulk_actions'] ) ) ) {
+
                         ?>
                         <script type="text/javascript">
                         document.onreadystatechange = function(){
@@ -238,7 +240,7 @@ function ilove_pdf_content_page_statistics() {
                     </div>
      			<?php elseif ( 'watermark_statistic' === $active_tab ) : ?>
                     <?php
-                    if ( isset( $_POST['array_ids'] ) ) {
+                    if ( isset( $_POST['array_ids'] ) && isset( $_POST['nonce_ilove_pdf_bulk_actions'] ) && wp_verify_nonce( sanitize_key( $_POST['nonce_ilove_pdf_bulk_actions'] ) ) ) {
                         ?>
                         <script type="text/javascript">
                         document.onreadystatechange = function(){
