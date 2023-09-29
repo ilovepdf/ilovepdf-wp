@@ -20,8 +20,9 @@ use Ilovepdf\CompressTask;
  * @param    boolean  $bulk    Bulk compress.
  */
 function ilove_pdf_compress_pdf( $id_file, $auto = false, $bulk = false ) {
-    $options = get_option( 'ilove_pdf_display_settings_compress' );
-    $html    = true;
+    $options           = get_option( 'ilove_pdf_display_settings_compress' );
+    $compression_level = 'recommended';
+    $html              = true;
     if ( ! isset( $options['ilove_pdf_compress_active'] ) || intval( $options['ilove_pdf_compress_active'] ) !== 1 ) {
         $html  = '<div class="settings-error notice is-dismissible error">';
         $html .= '<p>' . __( 'Enable Compress PDF option on Settings -> iLovePDF -> Compress PDF', 'ilove-pdf' ) . '</p>';
@@ -57,8 +58,6 @@ function ilove_pdf_compress_pdf( $id_file, $auto = false, $bulk = false ) {
                         $compression_level = 'extreme';
                         break;
                 }
-            } else {
-                $compression_level = 'recommended';
             }
 
             // Set your tool options
@@ -244,6 +243,9 @@ add_filter( 'add_attachment', 'ilove_pdf_handle_file_upload_compress', 8 );
  * @since    1.0.0
  */
 function ilove_pdf_compress_action() {
+
+    $html = '';
+
     if ( isset( $_GET['action'] ) && 'ilovepdf_compress' === $_GET['action'] && isset( $_GET['nonce_ilove_pdf_compress'] ) && wp_verify_nonce( sanitize_key( $_GET['nonce_ilove_pdf_compress'] ), 'admin-post' ) && isset( $_GET['id'] ) && intval( $_GET['id'] ) ) {
         $id   = intval( $_GET['id'] );
         $html = ilove_pdf_compress_pdf( $id, true );

@@ -148,13 +148,15 @@ function ilove_pdf_initialize_list_watermark_pdf() {
  * @param    object $file_object   File Object.
  */
 function ilove_pdf_custom_meta_box( $file_object ) {
+
+    $html = '';
+
     if ( get_option( 'ilovepdf_user_id' ) ) {
         wp_nonce_field( basename( __FILE__ ), 'meta-box-nonce' );
 
         $filetype = wp_check_filetype( basename( get_attached_file( $file_object->ID ) ) );
         if ( strcasecmp( $filetype['ext'], 'pdf' ) === 0 ) {
             $restore = false;
-            $html    = '';
 
             if ( get_post_meta( $file_object->ID, '_wp_attached_original_size' ) ) {
                 $html .= '<span>' . __( 'Original size: ', 'ilove-pdf' ) . '<strong>' . size_format( get_post_meta( $file_object->ID, '_wp_attached_original_size', true ), 2 ) . '</strong></span><br /><br />';
@@ -185,8 +187,6 @@ function ilove_pdf_custom_meta_box( $file_object ) {
             $html .= '<span class="error pdf-status">' . __( 'Error', 'ilove-pdf' ) . '</span>';
             $html .= '<span class="success pdf-status">' . __( 'Completed', 'ilove-pdf' ) . '</span>';
 
-        } else {
-            $html = '';
         }
     }
 

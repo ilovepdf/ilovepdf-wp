@@ -298,6 +298,9 @@ add_filter( 'add_attachment', 'ilove_pdf_handle_file_upload_watermark', 9 );
  * @since    1.0.0
  */
 function ilove_pdf_watermark_action() {
+
+    $html = '';
+
     if ( isset( $_GET['action'] ) && 'ilovepdf_watermark' === $_GET['action'] && isset( $_GET['nonce_ilove_pdf_watermark'] ) && wp_verify_nonce( sanitize_key( $_GET['nonce_ilove_pdf_watermark'] ), 'admin-post' ) && isset( $_GET['id'] ) && intval( $_GET['id'] ) ) {
         $id   = intval( $_GET['id'] );
         $html = ilove_pdf_watermark_pdf( intval( $_GET['id'] ), true );

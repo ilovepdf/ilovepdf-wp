@@ -73,7 +73,9 @@ add_action( 'admin_post_ilovepdf_register', 'ilove_pdf_register_action' );
  */
 function ilove_pdf_login_action() {
 
-    if ( isset( $_POST['action'] ) && 'ilovepdf_login' === $_POST['action'] && isset( $_POST['nonce_ilove_pdf_login'] ) && wp_verify_nonce( sanitize_key( $_POST['nonce_ilove_pdf_login'] ), 'admin-post' ) && isset( $_POST['ilove_pdf_account_email'] ) && isset( $_POST['ilove_pdf_account_password'] ) ) {
+    $response = 400;
+
+    if ( isset( $_POST['action'] ) && 'ilovepdf_login' === $_POST['action'] && isset( $_POST['nonce_ilove_pdf_login'] ) && wp_verify_nonce( sanitize_key( $_POST['nonce_ilove_pdf_login'] ), 'admin-post' ) && ( isset( $_POST['ilove_pdf_account_email'] ) && ! empty( $_POST['ilove_pdf_account_email'] ) ) && ( isset( $_POST['ilove_pdf_account_password'] ) && ! empty( $_POST['ilove_pdf_account_password'] ) ) ) {
         $response = wp_remote_post(
             ILOVE_PDF_LOGIN_URL,
             array(
@@ -93,9 +95,11 @@ function ilove_pdf_login_action() {
             add_option( 'ilovepdf_user_public_key', $user['projects'][0]['public_key'] );
             add_option( 'ilovepdf_user_id', $user['id'] );
         }
+
+        wp_safe_redirect( wp_get_referer() . '&response_code=' . $response['response']['code'] . '&nonce_ilove_pdf_response=' . wp_create_nonce() );
     }
 
-    wp_safe_redirect( wp_get_referer() . '&response_code=' . $response['response']['code'] . '&nonce_ilove_pdf_response=' . wp_create_nonce() );
+    wp_safe_redirect( wp_get_referer() . '&response_code=' . $response . '&nonce_ilove_pdf_response=' . wp_create_nonce() );
 }
 add_action( 'admin_post_ilovepdf_login', 'ilove_pdf_login_action' );
 
