@@ -1,10 +1,10 @@
 <?php
 /**
- * Función que pinta la página de configuración
+ * Function showing configuration page
  */
 function ilove_pdf_content_page_setting() {
 
-    $logo_svg = ILOVE_PDF_ASSETS_PLUGIN_PATH . 'assets/img/logo_ilovepdf.svg';
+    $logo_svg = ILOVE_PDF_ASSETS_PLUGIN_PATH . 'assets/img/logo_ilovepdf.svg'; // @phpstan-ignore-line
 
 	?>
 	<div class="wrap">
