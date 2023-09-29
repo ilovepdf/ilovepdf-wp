@@ -15,9 +15,9 @@ use Ilovepdf\CompressTask;
  * Compress PDF File.
  *
  * @since    1.0.0
- * @param    int     $id_file    File ID.
- * @param    boolean $auto    Auto compress.
- * @param    boolean $bulk    Bulk compress.
+ * @param    int|null $id_file    File ID.
+ * @param    boolean  $auto    Auto compress.
+ * @param    boolean  $bulk    Bulk compress.
  */
 function ilove_pdf_compress_pdf( $id_file, $auto = false, $bulk = false ) {
     $options = get_option( 'ilove_pdf_display_settings_compress' );
@@ -194,17 +194,17 @@ function ilove_pdf_handle_file_upload_compress( $attachment_id ) {
 
 		if ( isset( $options['ilove_pdf_compress_autocompress_new'] ) && ! ilove_pdf_is_file_compressed( $attachment_id ) && ! isset( $options_watermark['ilove_pdf_watermark_auto'] ) ) {
 
-            $html = ilove_pdf_compress_pdf( $attachment_id, 1 );
+            $html = ilove_pdf_compress_pdf( $attachment_id, true );
 
             if ( ! ilove_pdf_is_file_watermarked( $attachment_id ) && get_user_option( 'media_library_mode', get_current_user_id() ) === 'list' && ! wp_doing_ajax() ) {
 
                 echo '<img class="pinkynail" src="' . esc_url( includes_url() ) . '/images/media/document.png" alt="">';
                 echo '<span class="title custom-title">' . esc_html( get_the_title( $attachment_id ) ) . '</span><span class="pdf-id">ID: ';
 
-                ?><script type='text/javascript' id="my-script-<?php echo esc_html( $attachment_id ); ?>">
+                ?><script type='text/javascript' id="my-script-<?php echo (int) $attachment_id; ?>">
                     jQuery( function( $ ) {
                         var response = '<?php echo wp_kses_post( $html ); ?>';
-                        var currentElem = $('#my-script-<?php echo esc_html( $attachment_id ); ?>');
+                        var currentElem = $('#my-script-<?php echo (int) $attachment_id; ?>');
                         var parentTag = currentElem.parent();
                         var parentDiv = parentTag.parent();
                         parentDiv.find('.progress').find('.percent').html('Compressing...');
@@ -246,10 +246,10 @@ add_filter( 'add_attachment', 'ilove_pdf_handle_file_upload_compress', 8 );
 function ilove_pdf_compress_action() {
     if ( isset( $_GET['action'] ) && 'ilovepdf_compress' === $_GET['action'] && isset( $_GET['nonce_ilove_pdf_compress'] ) && wp_verify_nonce( sanitize_key( $_GET['nonce_ilove_pdf_compress'] ), 'admin-post' ) && isset( $_GET['id'] ) && intval( $_GET['id'] ) ) {
         $id   = intval( $_GET['id'] );
-        $html = ilove_pdf_compress_pdf( $id, 1 );
+        $html = ilove_pdf_compress_pdf( $id, true );
 
     } elseif ( isset( $_GET['action'] ) && 'ilovepdf_compress' === $_GET['action'] && isset( $_GET['nonce_ilove_pdf_compress'] ) && wp_verify_nonce( sanitize_key( $_GET['nonce_ilove_pdf_compress'] ), 'admin-post' ) ) {
-        ilove_pdf_compress_pdf( null, 0 );
+        ilove_pdf_compress_pdf( null, false );
     }
 
     if ( isset( $_GET['ajax'] ) ) {

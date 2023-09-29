@@ -159,8 +159,7 @@ function ilove_pdf_initialize_options_format_watermark() {
         'format_watermark_settings_section',
         '',
         'ilove_pdf_format_watermark_options_callback',
-        'ilove_pdf_display_settings_format_watermark',
-        'format_watermark_settings_section'
+        'ilove_pdf_display_settings_format_watermark'
     );
 
     add_settings_field(

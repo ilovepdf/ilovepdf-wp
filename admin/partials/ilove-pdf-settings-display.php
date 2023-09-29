@@ -61,7 +61,7 @@ function ilove_pdf_content_page_setting() {
                                     <select name="ilovepdf_select_project">
                                     <?php $total_projects = 0; ?>
                                     <?php foreach ( $stats['projects'] as $project ) : ?>
-                                        <option value="<?php echo esc_html( $total_projects ); ?>" <?php echo esc_attr( ( get_option( 'ilovepdf_user_public_key' ) === $project['public_key'] ? 'selected' : '' ) ); ?>><?php echo esc_html( $project['name'] ); ?></option>
+                                        <option value="<?php echo (int) $total_projects; ?>" <?php echo esc_attr( ( get_option( 'ilovepdf_user_public_key' ) === $project['public_key'] ? 'selected' : '' ) ); ?>><?php echo esc_html( $project['name'] ); ?></option>
                                         <?php ++$total_projects; ?>
                                     <?php endforeach; ?>
                                     </select>
@@ -87,7 +87,7 @@ function ilove_pdf_content_page_setting() {
                                                     $paid_files = ( $stats['files_used'] < $stats['free_files_limit'] ) ? 0 : $stats['files_used'] - $stats['free_files_limit'];
                                                 ?>
                                                 <div class="progress__total__percent" style="width: <?php echo esc_html( ilove_pdf_get_percentage( $paid_files, $stats['subscription_files_limit'] ) ); ?>%;"></div>
-                                                <div class="progress__total_text"><?php echo esc_html( $paid_files ); ?> / <?php echo esc_html( $stats['subscription_files_limit'] ); ?> <?php echo wp_kses( ( 'yearly' === $stats['subscription']['period'] ) ? __( 'processed files this month. <strong>Yearly</strong> subscription.', 'ilove-pdf' ) : __( 'processed files this month. <strong>Monthly</strong> subscription.', 'ilove-pdf' ), 'ilove_pdf_expanded_alowed_tags' ); ?></div>
+                                                <div class="progress__total_text"><?php echo (int) $paid_files; ?> / <?php echo (int) $stats['subscription_files_limit']; ?> <?php echo wp_kses( ( 'yearly' === $stats['subscription']['period'] ) ? __( 'processed files this month. <strong>Yearly</strong> subscription.', 'ilove-pdf' ) : __( 'processed files this month. <strong>Monthly</strong> subscription.', 'ilove-pdf' ), 'ilove_pdf_expanded_alowed_tags' ); ?></div>
                                             </div>
                                         </div>
                                     <?php endif; ?>
@@ -179,7 +179,7 @@ function ilove_pdf_content_page_setting() {
                     <form method="post" name="ilove_pdf_form_watermark_format" action="options.php">
                         <div class="">
                             <?php settings_fields( 'ilove_pdf_display_settings_format_watermark' ); ?>
-                            <?php do_settings_sections( 'ilove_pdf_display_settings_format_watermark', 'format_watermark_settings_section' ); ?>
+                            <?php do_settings_sections( 'ilove_pdf_display_settings_format_watermark' ); ?>
                             <table class="form-table">
                                 <tr><?php do_settings_fields( 'ilove_pdf_display_settings_format_watermark', 'format_watermark_settings_section_vertical' ); ?></tr>
                                 <tr><?php do_settings_fields( 'ilove_pdf_display_settings_format_watermark', 'format_watermark_settings_section_horizontal' ); ?></tr>

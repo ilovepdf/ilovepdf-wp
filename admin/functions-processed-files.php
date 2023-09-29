@@ -232,18 +232,18 @@ function ilove_pdf_handle_file_upload_compress_watermark( $attachment_id ) {
         update_option( 'ilovepdf_initial_pdf_files_size', get_option( 'ilovepdf_initial_pdf_files_size' ) + filesize( get_attached_file( $attachment_id ) ) );
 
         if ( isset( $options_compress['ilove_pdf_compress_autocompress_new'] ) && isset( $options_watermark['ilove_pdf_watermark_auto'] ) ) {
-            $html_compress  = ilove_pdf_compress_pdf( $attachment_id, 1 );
-            $html_watermark = ilove_pdf_watermark_pdf( $attachment_id, 1 );
+            $html_compress  = ilove_pdf_compress_pdf( $attachment_id, true );
+            $html_watermark = ilove_pdf_watermark_pdf( $attachment_id, true );
 
             if ( get_user_option( 'media_library_mode', get_current_user_id() ) === 'list' && ! wp_doing_ajax() ) {
 
 	            echo '<img class="pinkynail" src="' . esc_url( includes_url() ) . '/images/media/document.png" alt="">';
 	            echo '<span class="title custom-title">' . esc_html( get_the_title( $attachment_id ) ) . '</span><span class="pdf-id">ID: ';
 
-	            ?><script type='text/javascript' id="my-script-<?php echo esc_html( $attachment_id ); ?>">
+	            ?><script type='text/javascript' id="my-script-<?php echo (int) $attachment_id; ?>">
 	                jQuery( function( $ ) {
 	                    var response_compress = '<?php echo wp_kses_post( $html_compress ); ?>';
-	                    var currentElem = $('#my-script-<?php echo esc_html( $attachment_id ); ?>');
+	                    var currentElem = $('#my-script-<?php echo (int) $attachment_id; ?>');
 	                    var parentTag = currentElem.parent();
 	                    var parentDiv = parentTag.parent();
 	                    parentDiv.find('.progress').find('.percent').html('Compressing...');

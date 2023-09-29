@@ -6,9 +6,9 @@ function ilove_pdf_content_page_statistics() {
 
     if ( isset( $_POST['file'] ) ) {
         if ( isset( $_GET['tab'] ) && strcmp( sanitize_text_field( wp_unslash( $_GET['tab'] ) ), 'compress_statistic' ) === 0 ) { //phpcs:ignore WordPress.Security.NonceVerification.Recommended
-            ilove_pdf_compress_pdf( sanitize_text_field( wp_unslash( $_POST['file'] ) ) );
+            ilove_pdf_compress_pdf( (int) sanitize_text_field( wp_unslash( $_POST['file'] ) ) );
         } elseif ( isset( $_GET['tab'] ) && strcmp( sanitize_text_field( wp_unslash( $_GET['tab'] ) ), 'watermark_statistic' ) === 0 ) { //phpcs:ignore WordPress.Security.NonceVerification.Recommended
-            ilove_pdf_watermark_pdf( sanitize_text_field( wp_unslash( $_POST['file'] ) ) );
+            ilove_pdf_watermark_pdf( (int) sanitize_text_field( wp_unslash( $_POST['file'] ) ) );
         }
     } elseif ( isset( $_POST['multi'] ) ) {
         if ( isset( $_GET['tab'] ) && strcmp( sanitize_text_field( wp_unslash( $_GET['tab'] ) ), 'compress_statistic' ) === 0 ) { //phpcs:ignore WordPress.Security.NonceVerification.Recommended
@@ -57,7 +57,7 @@ function ilove_pdf_content_page_statistics() {
                                                     $paid_files = ( $stats['files_used'] < $stats['free_files_limit'] ) ? 0 : $stats['files_used'] - $stats['free_files_limit'];
                                                 ?>
                                                 <div class="progress__total__percent" style="width: <?php echo esc_html( ilove_pdf_get_percentage( $paid_files, $stats['subscription_files_limit'] ) ); ?>%;"></div>
-                                                <div class="progress__total_text"><?php echo esc_html( $paid_files ); ?> / <?php echo esc_html( $stats['subscription_files_limit'] ); ?> <?php echo wp_kses( ( 'yearly' === $stats['subscription']['period'] ) ? __( 'processed files this month. <strong>Yearly</strong> subscription.', 'ilove-pdf' ) : __( 'processed files this month. <strong>Monthly</strong> subscription.', 'ilove-pdf' ), 'ilove_pdf_expanded_alowed_tags' ); ?></div>
+                                                <div class="progress__total_text"><?php echo (int) $paid_files; ?> / <?php echo (int) $stats['subscription_files_limit']; ?> <?php echo wp_kses( ( 'yearly' === $stats['subscription']['period'] ) ? __( 'processed files this month. <strong>Yearly</strong> subscription.', 'ilove-pdf' ) : __( 'processed files this month. <strong>Monthly</strong> subscription.', 'ilove-pdf' ), 'ilove_pdf_expanded_alowed_tags' ); ?></div>
                                             </div>
                                         </div>
                                     <?php endif; ?>
@@ -160,7 +160,7 @@ function ilove_pdf_content_page_statistics() {
 
                                     <!-- New Multi Ajax -->
                                     <?php if ( count( $files ) > 0 ) : ?>
-                                            <p><a href="#" class="button-primary media-ilovepdf-box btn-compress-all"><?php printf( 'Compress %s PDF', esc_html( count( $files ) ) ); ?></a></p>
+                                            <p><a href="#" class="button-primary media-ilovepdf-box btn-compress-all"><?php printf( 'Compress %s PDF', (int) count( $files ) ); ?></a></p>
                                     <?php endif; ?>
                                     <!-- End Multi Ajax -->
                                     
@@ -179,7 +179,7 @@ function ilove_pdf_content_page_statistics() {
                                             while ( $query_files->have_posts() ) :
 												$query_files->the_post();
 												?>
-                                                <tr id="file-row-<?php echo esc_html( get_the_ID() ); ?>">
+                                                <tr id="file-row-<?php echo (int) get_the_ID(); ?>">
                                                     <td><a href="<?php echo esc_url( get_edit_post_link( get_the_ID() ) ); ?>"><?php echo esc_html( get_the_title() ); ?></a></td>
                                                     <?php if ( ! ilove_pdf_is_file_compressed( get_the_ID() ) ) : ?>
                                                         <td><?php echo esc_html( size_format( filesize( get_attached_file( get_the_ID() ) ), 2 ) ); ?></td>
@@ -190,7 +190,7 @@ function ilove_pdf_content_page_statistics() {
                                                     <?php endif; ?>
                                                     <td>
                                                     <?php if ( ! ilove_pdf_is_file_compressed( get_the_ID() ) ) : ?>
-                                                        <a href="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>?action=ilovepdf_compress&id=<?php echo esc_html( get_the_ID() ); ?>&nonce_ilove_pdf_compress=<?php echo esc_html( wp_create_nonce( 'admin-post' ) ); ?>" class="button-primary media-ilovepdf-box btn-compress"><?php esc_html_e( 'Compress', 'ilove-pdf' ); ?></a>
+                                                        <a href="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>?action=ilovepdf_compress&id=<?php echo (int) get_the_ID(); ?>&nonce_ilove_pdf_compress=<?php echo esc_html( wp_create_nonce( 'admin-post' ) ); ?>" class="button-primary media-ilovepdf-box btn-compress"><?php esc_html_e( 'Compress', 'ilove-pdf' ); ?></a>
                                                         <span class="compressing pdf-status"><?php esc_html_e( 'Compressing', 'ilove-pdf' ); ?>...</span>
                                                         <span class="error pdf-status"><?php esc_html_e( 'Error', 'ilove-pdf' ); ?></span>
                                                         <span class="success pdf-status"><?php esc_html_e( 'Completed', 'ilove-pdf' ); ?></span>
@@ -227,7 +227,7 @@ function ilove_pdf_content_page_statistics() {
                                     </div>
                                     <!-- New Multi Ajax -->
                                         <?php if ( count( $files ) > 0 ) : ?>
-                                            <a href="#" class="button-primary media-ilovepdf-box btn-compress-all"><?php printf( 'Compress %s PDF', esc_html( count( $files ) ) ); ?></a>
+                                            <a href="#" class="button-primary media-ilovepdf-box btn-compress-all"><?php printf( 'Compress %s PDF', (int) count( $files ) ); ?></a>
                                         <?php endif; ?>
                                     <!-- End Multi Ajax --> 
                                     <?php else : ?>
@@ -296,7 +296,7 @@ function ilove_pdf_content_page_statistics() {
 
                                     <!-- New Multi Ajax -->
                                     <?php if ( count( $files ) > 0 ) : ?>
-                                        <p><a href="#" class="button-primary media-ilovepdf-box btn-watermark-all"><?php printf( 'Apply watermark in %s PDF', esc_html( count( $files ) ) ); ?></a></p>
+                                        <p><a href="#" class="button-primary media-ilovepdf-box btn-watermark-all"><?php printf( 'Apply watermark in %s PDF', (int) count( $files ) ); ?></a></p>
                                     <?php endif; ?>
                                     <!-- End Multi Ajax -->
 
@@ -315,7 +315,7 @@ function ilove_pdf_content_page_statistics() {
                                             while ( $query_files->have_posts() ) :
 												$query_files->the_post();
 												?>
-                                                <tr id="file-row-<?php echo esc_html( get_the_ID() ); ?>">
+                                                <tr id="file-row-<?php echo (int) get_the_ID(); ?>">
                                                     <td><a href="<?php echo esc_url( get_edit_post_link( get_the_ID() ) ); ?>"><?php echo esc_html( get_the_title() ); ?></a></td>
                                                     <td><?php echo esc_html( size_format( filesize( get_attached_file( get_the_ID() ) ), 2 ) ); ?></td>
                                                     <td>
@@ -352,7 +352,7 @@ function ilove_pdf_content_page_statistics() {
                                     </div>
                                     <!-- New Multi Ajax -->
                                         <?php if ( count( $files ) > 0 ) : ?>
-                                            <a href="#" class="button-primary media-ilovepdf-box btn-watermark-all"><?php printf( 'Apply watermark in %s PDF', esc_html( count( $files ) ) ); ?></a>
+                                            <a href="#" class="button-primary media-ilovepdf-box btn-watermark-all"><?php printf( 'Apply watermark in %s PDF', (int) count( $files ) ); ?></a>
                                         <?php endif; ?>
                                     <!-- End Multi Ajax -->
                                     <?php else : ?>
