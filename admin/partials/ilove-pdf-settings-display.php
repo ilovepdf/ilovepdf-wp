@@ -5,6 +5,7 @@
 function ilove_pdf_content_page_setting() {
 
     $logo_svg = ILOVE_PDF_ASSETS_PLUGIN_PATH . 'assets/img/logo_ilovepdf.svg'; // @phpstan-ignore-line
+    $options  = get_option( 'ilove_pdf_display_settings_watermark' );
 
 	?>
 	<div class="wrap">
@@ -175,6 +176,8 @@ function ilove_pdf_content_page_setting() {
                         <?php submit_button(); ?>
                     </form>
                 </div>
+
+                <?php if ( isset( $options['ilove_pdf_watermark_active'] ) ) : ?>
                 <div class="panel">
                     <form method="post" name="ilove_pdf_form_watermark_format" action="options.php">
                         <div class="">
@@ -187,9 +190,9 @@ function ilove_pdf_content_page_setting() {
                             </table>
                             <?php
                                 $options     = get_option( 'ilove_pdf_display_settings_format_watermark' );
-                                $div_display = ( isset( $options['ilove_pdf_format_watermark_mode'] ) ? $options['ilove_pdf_format_watermark_mode'] : '0' );
+                                $div_display = ( isset( $options['ilove_pdf_format_watermark_mode'] ) ? $options['ilove_pdf_format_watermark_mode'] : 0 );
                             ?>
-                            <div class="watermark-mode" id="div-mode0" style="<?php echo ( 0 === $div_display ? '' : 'display: none' ); ?>">
+                            <div class="watermark-mode" id="div-mode0" style="<?php echo ( 0 === (int) $div_display ? '' : 'display: none' ); ?>">
                                 <table class="form-table">
                                     <tr><?php do_settings_fields( 'ilove_pdf_display_settings_format_watermark', 'format_watermark_settings_section_text' ); ?></tr>
                                     <tr><?php do_settings_fields( 'ilove_pdf_display_settings_format_watermark', 'format_watermark_settings_section_size' ); ?></tr>
@@ -197,7 +200,7 @@ function ilove_pdf_content_page_setting() {
                                     <tr><?php do_settings_fields( 'ilove_pdf_display_settings_format_watermark', 'format_watermark_settings_section_text_color' ); ?></tr>
                                 </table>
                             </div>
-                            <div class="watermark-mode" id="div-mode1" style="<?php echo ( 1 === $div_display ? '' : 'display: none' ); ?>">
+                            <div class="watermark-mode" id="div-mode1" style="<?php echo ( 1 === (int) $div_display ? '' : 'display: none' ); ?>">
                                 <table class="form-table">
                                     <tr><?php do_settings_fields( 'ilove_pdf_display_settings_format_watermark', 'format_watermark_settings_section_image' ); ?></tr>
                                     <tr><?php do_settings_fields( 'ilove_pdf_display_settings_format_watermark', 'format_watermark_settings_section_opacity' ); ?></tr>
@@ -210,6 +213,7 @@ function ilove_pdf_content_page_setting() {
                         </div>
                     </form>
                 </div>
+                <?php endif; ?>
             </div>
  			<?php endif; ?>
 
