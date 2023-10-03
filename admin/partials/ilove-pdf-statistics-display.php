@@ -146,7 +146,7 @@ function ilove_pdf_content_page_statistics() {
                                     <p>Compress all non compressed PDF in your library at once.</p>
                                     <?php $files = ilove_pdf_initialize_list_compress_pdf(); ?>
                                     <?php
-                                        $paged            = isset( $_GET['paged'] ) ? sanitize_url( wp_unslash( $_GET['paged'] ) ) : 1; //phpcs:ignore WordPress.Security.NonceVerification.Recommended
+                                        $paged            = isset( $_GET['paged'] ) ? (int) $_GET['paged'] : 1; //phpcs:ignore WordPress.Security.NonceVerification.Recommended
                                         $query_files_args = array(
                                             'post_type'   => 'attachment',
                                             'post_status' => 'inherit',
@@ -211,16 +211,14 @@ function ilove_pdf_content_page_statistics() {
                                             <span class="displaying-num"><?php echo count( $files ); ?> <?php esc_html_e( 'PDFs non compressed', 'ilove-pdf' ); ?></span>
                                         <?php endif; ?>
                                         <?php
-                                        echo wp_kses_post(
-                                            paginate_links(
-                                                array(
-													'base' => 'upload.php%_%',
-													'format' => '?paged=%#%',
-													'current' => max( 1, isset( $_GET['paged'] ) ? sanitize_url( wp_unslash( $_GET['paged'] ) ) : 1 ), //phpcs:ignore WordPress.Security.NonceVerification.Recommended
-													'total' => $query_files->max_num_pages,
-                                                )
-                                            )
+                                        $args_paginate_links = array(
+                                            'base'    => 'upload.php%_%',
+                                            'format'  => '?paged=%#%',
+                                            'current' => max( 1, isset( $_GET['paged'] ) ? (int) $_GET['paged'] : 1 ), //phpcs:ignore WordPress.Security.NonceVerification.Recommended
+                                            'total'   => $query_files->max_num_pages,
                                         );
+
+                                        echo ! empty( paginate_links( $args_paginate_links ) ) ? wp_kses_post( paginate_links( $args_paginate_links ) ) : '';
 										?>
                                         </div>
                                         <br class="clear">
@@ -282,7 +280,7 @@ function ilove_pdf_content_page_statistics() {
                                     <p>Stamp all non stamped PDF in your library at once.</p>
                                     <?php $files = ilove_pdf_initialize_list_watermark_pdf(); ?>
                                     <?php
-                                        $paged            = isset( $_GET['paged'] ) ? sanitize_url( wp_unslash( $_GET['paged'] ) ) : 1; //phpcs:ignore WordPress.Security.NonceVerification.Recommended
+                                        $paged            = isset( $_GET['paged'] ) ? (int) $_GET['paged'] : 1; //phpcs:ignore WordPress.Security.NonceVerification.Recommended
                                         $query_files_args = array(
                                             'post_type'   => 'attachment',
                                             'post_status' => 'inherit',
@@ -336,17 +334,16 @@ function ilove_pdf_content_page_statistics() {
                                             <span class="displaying-num"><?php echo count( $files ); ?> <?php esc_html_e( 'PDFs without watermark', 'ilove-pdf' ); ?></span>
                                         <?php endif; ?>
                                         <?php
-                                        echo wp_kses_post(
-                                            paginate_links(
-                                                array(
-													'base' => 'upload.php%_%',
-													'format' => '?paged=%#%',
-													'current' => max( 1, isset( $_GET['paged'] ) ? sanitize_url( wp_unslash( $_GET['paged'] ) ) : 1 ), //phpcs:ignore WordPress.Security.NonceVerification.Recommended
-													'total' => $query_files->max_num_pages,
-                                                )
-                                            )
+                                        $args_paginate_links = array(
+                                            'base'    => 'upload.php%_%',
+                                            'format'  => '?paged=%#%',
+                                            'current' => max( 1, isset( $_GET['paged'] ) ? (int) $_GET['paged'] : 1 ), //phpcs:ignore WordPress.Security.NonceVerification.Recommended
+                                            'total'   => $query_files->max_num_pages,
                                         );
+
+                                        echo ! empty( paginate_links( $args_paginate_links ) ) ? wp_kses_post( paginate_links( $args_paginate_links ) ) : '';
 										?>
+
                                         </div>
                                         <br class="clear">
                                     </div>
