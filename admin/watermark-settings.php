@@ -568,11 +568,8 @@ function ilove_pdf_media_selector_print_scripts() {
         jQuery( document ).ready( function( $ ) {
             // Uploading files
             var file_frame;
-            console.log('file_frame: ', file_frame);
             var wp_media_post_id = wp.media.model.settings.post.id; // Store the old id
-            console.log('wp_media_post_id: ', wp_media_post_id);
             var set_to_post_id = <?php echo (int) $my_saved_attachment_post_id; ?>; // Set this
-            console.log('set_to_post_id: ', wp.media.model.settings.post.id);
             jQuery('#upload_image_button').on('click', function( event ){
                 event.preventDefault();
                 // If the media frame already exists, reopen it.
