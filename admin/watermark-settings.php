@@ -540,7 +540,7 @@ function ilove_pdf_format_watermark_mode_callback( $args ) {
 function ilove_pdf_format_watermark_image_callback() {
     $options = get_option( 'ilove_pdf_display_settings_format_watermark' );
 
-	$image = isset( $options['ilove_pdf_format_watermark_image'] ) ? '<img id="image-preview" src="' . wp_get_attachment_url( $options['ilove_pdf_format_watermark_image'] ) . '" height="100">' : '<img id="image-preview" height="100" style="max-width: 100px">';
+	$image = ( isset( $options['ilove_pdf_format_watermark_image'] ) && ! empty( $options['ilove_pdf_format_watermark_image'] ) ) ? '<img id="image-preview image-user-select" src="' . wp_get_attachment_url( $options['ilove_pdf_format_watermark_image'] ) . '" height="100">' : '<img id="image-preview" height="100" style="max-width: 100px">';
 
     $html = sprintf(
         '<div class="image-preview-wrapper">%s</div>
@@ -549,7 +549,7 @@ function ilove_pdf_format_watermark_image_callback() {
         <input class="button-primary" type="submit" name="submit_image_selector" value="%s" />',
         $image,
         __( 'Upload image', 'ilove-pdf' ),
-        isset( $options['ilove_pdf_format_watermark_image'] ) ? $options['ilove_pdf_format_watermark_image'] : '',
+        ( isset( $options['ilove_pdf_format_watermark_image'] ) && ! empty( $options['ilove_pdf_format_watermark_image'] ) ) ? $options['ilove_pdf_format_watermark_image'] : '',
         __( 'Save', 'ilove-pdf' )
     );
 
@@ -568,8 +568,11 @@ function ilove_pdf_media_selector_print_scripts() {
         jQuery( document ).ready( function( $ ) {
             // Uploading files
             var file_frame;
+            console.log('file_frame: ', file_frame);
             var wp_media_post_id = wp.media.model.settings.post.id; // Store the old id
-            var set_to_post_id = <?php echo esc_attr( $my_saved_attachment_post_id ); ?>; // Set this
+            console.log('wp_media_post_id: ', wp_media_post_id);
+            var set_to_post_id = <?php echo (int) $my_saved_attachment_post_id; ?>; // Set this
+            console.log('set_to_post_id: ', wp.media.model.settings.post.id);
             jQuery('#upload_image_button').on('click', function( event ){
                 event.preventDefault();
                 // If the media frame already exists, reopen it.
@@ -586,6 +589,9 @@ function ilove_pdf_media_selector_print_scripts() {
                 // Create the media frame.
                 file_frame = wp.media.frames.file_frame = wp.media({
                     title: '<?php echo esc_html( __( 'Select a image to upload', 'ilove-pdf' ) ); ?>',
+                    library : {
+                        type : 'image'
+                    },
                     button: {
                         text: '<?php echo esc_html( __( 'Use this image', 'ilove-pdf' ) ); ?>',
                     },
