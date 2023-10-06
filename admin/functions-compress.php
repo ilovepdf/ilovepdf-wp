@@ -259,7 +259,7 @@ function ilove_pdf_compress_action() {
 
         if ( isset( $id ) ) {
             $original_current_file_size = get_post_meta( $id, '_wp_attached_original_size', true );
-            $compress_file_size         = get_post_meta( $id, '_wp_attached_compress_size', true );
+            $compress_file_size         = get_post_meta( $id, '_wp_attached_compress_size', true ) ?: 0;
             $return['percent']          = ilove_pdf_get_percentage_compress( $original_current_file_size, $original_current_file_size - $compress_file_size );
             $return['compress_size']    = size_format( $compress_file_size, 2 );
         }
