@@ -53,9 +53,9 @@ function ilove_pdf_watermark_pdf( $id_file, $auto = false, $bulk = false ) {
                     // set mode to text
                     $my_task->setMode( 'image' );
 
-                    if ( isset( $options['ilove_pdf_format_watermark_image'] ) ) {
+                    if ( isset( $options['ilove_pdf_format_watermark_image'] ) && ! empty( $options['ilove_pdf_format_watermark_image'] ) ) {
                         $image = $my_task->addFile( get_attached_file( $options['ilove_pdf_format_watermark_image'] ) );
-                        $my_task->setImage( $image->getServerFilename() ); // @phpstan-ignore-line
+                        $my_task->setImage( $image->getServerFilename() ); //@phpstan-ignore-line
                     }
 
                     if ( isset( $options['ilove_pdf_format_watermark_opacity'] ) ) {
@@ -78,7 +78,7 @@ function ilove_pdf_watermark_pdf( $id_file, $auto = false, $bulk = false ) {
                     break;
 
                 case 0:
-                default:
+                // default:
                     // set mode to text
                     $my_task->setMode( 'text' );
 
