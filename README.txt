@@ -1,9 +1,9 @@
 === iLovePDF WP ===
 Contributors: iLovePDF
 Tags: pdf, api, watermark, compress, optimize, bulk, compress pdf, stamp pdf
-Requires at least: 4.6
+Requires at least: 4.7
 Tested up to: 5.8.2
-Stable tag: 1.2.3
+Stable tag: 1.2.4
 Requires PHP: 7.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -87,3 +87,41 @@ We will send you an email before limit is reached. When limit is reached, no mor
 = 1.2.3 =
 * match version and tag.
 * update readme
+
+= 1.2.4 =
+Added
+* Formatting files according to php/wordpress standards
+* WP Requires at least 4.7
+* added prefix to functions and const
+* code documentation
+* version number to enqueue styles
+
+Changed
+* update readme
+* Change function dirname() to __DIR__ const
+* loose comparisons
+* conditional structure
+* variables name to snake_case
+* Capabilities should be used instead of roles
+* remove comments
+* json_encode changed to wp_json_encode
+* strip_tags changed to wp_strip_all_tags
+* Limit posts_per_page
+* output literal string
+* function rename() to WP_Filesystem
+
+
+Fixed
+* name assignment changed
+* Rename Class Name Ilove_Pdf_i18n to Ilove_Pdf_I18n
+* nonce verification
+* rename files without hyphens
+* escaped data outputs
+* Sanitize data
+* text domain mismatch
+* changed name of parameter $object to $file_object
+* add version to js fiel enqueue
+* data types in parameters
+* variables not defined
+* check if watermark image is empty
+* set value default if compress size is null|empty

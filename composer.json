@@ -11,10 +11,18 @@
     },
     "scripts": {
         "post-install-cmd": [
-            "@stan"
+            "@stan",
+            "@phpcs",
+            "@phpcbf"
         ],
         "stan": [
-            "vendor/bin/phpstan analyse --memory-limit=-1"
+            "vendor/bin/phpstan analyse --memory-limit=-1 --error-format=table > ../../../phpstan-report.txt"
+        ],
+        "phpcs": [
+            "phpcs -s --ignore=*/vendor/*,*/lib/*,*/.github/* --report-file=../../../condesniffer-report.txt ./"
+        ],
+        "phpcbf": [
+            "phpcbf --ignore=vendor/,lib/,.github/ ./"
         ]
     }
 }

@@ -1,5 +1,4 @@
 <?php
-
 /**
  * The file that defines the core plugin class
  *
@@ -69,12 +68,11 @@ class Ilove_Pdf {
 	public function __construct() {
 
 		$this->plugin_name = 'ilove-pdf';
-		$this->version = 'wp.1.2.0';
+		$this->version     = 'wp.1.2.4';
 
 		$this->load_dependencies();
 		$this->set_locale();
 		$this->define_admin_hooks();
-
 	}
 
 	/**
@@ -99,27 +97,26 @@ class Ilove_Pdf {
 		 * The class responsible for orchestrating the actions and filters of the
 		 * core plugin.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-ilove-pdf-loader.php';
+		require_once plugin_dir_path( __DIR__ ) . 'includes/class-ilove-pdf-loader.php';
 
 		/**
 		 * The class responsible for defining internationalization functionality
 		 * of the plugin.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-ilove-pdf-i18n.php';
+		require_once plugin_dir_path( __DIR__ ) . 'includes/class-ilove-pdf-i18n.php';
 
 		/**
 		 * The class responsible for defining all actions that occur in the admin area.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-ilove-pdf-admin.php';
+		require_once plugin_dir_path( __DIR__ ) . 'admin/class-ilove-pdf-admin.php';
 
 		$this->loader = new Ilove_Pdf_Loader();
-
 	}
 
 	/**
 	 * Define the locale for this plugin for internationalization.
 	 *
-	 * Uses the Ilove_Pdf_i18n class in order to set the domain and to register the hook
+	 * Uses the Ilove_Pdf_I18n class in order to set the domain and to register the hook
 	 * with WordPress.
 	 *
 	 * @since    1.0.0
@@ -127,10 +124,9 @@ class Ilove_Pdf {
 	 */
 	private function set_locale() {
 
-		$plugin_i18n = new Ilove_Pdf_i18n();
+		$plugin_i18n = new Ilove_Pdf_I18n();
 
 		$this->loader->add_action( 'plugins_loaded', $plugin_i18n, 'load_plugin_textdomain' );
-
 	}
 
 	/**
@@ -146,7 +142,6 @@ class Ilove_Pdf {
 
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
-
 	}
 
 	/**
@@ -188,5 +183,4 @@ class Ilove_Pdf {
 	public function get_version() {
 		return $this->version;
 	}
-
 }
