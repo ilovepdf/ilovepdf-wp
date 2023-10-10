@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Define the internationalization functionality
  *
@@ -24,8 +23,7 @@
  * @subpackage Ilove_Pdf/includes
  * @author     ILovePDF <info@ilovepdf.com>
  */
-class Ilove_Pdf_i18n {
-
+class Ilove_Pdf_I18n {
 
 	/**
 	 * Load the plugin text domain for translation.
@@ -35,13 +33,9 @@ class Ilove_Pdf_i18n {
 	public function load_plugin_textdomain() {
 
 		load_plugin_textdomain(
-			'ilovepdf',
+			'ilove-pdf',
 			false,
 			dirname( dirname( plugin_basename( __FILE__ ) ) ) . '/languages/'
 		);
-
 	}
-
-
-
 }
