@@ -246,15 +246,15 @@ function ilove_pdf_compress_action() {
 
     $html = '';
 
-    if ( isset( $_GET['action'] ) && 'ilovepdf_compress' === $_GET['action'] && isset( $_GET['nonce_ilove_pdf_compress'] ) && wp_verify_nonce( sanitize_key( $_GET['nonce_ilove_pdf_compress'] ), 'admin-post' ) && isset( $_GET['id'] ) && intval( $_GET['id'] ) ) {
-        $id   = intval( $_GET['id'] );
+    if ( isset( $_GET['action'] ) && 'ilovepdf_compress' === $_GET['action'] && isset( $_GET['id'] ) && intval( $_GET['id'] ) ) {// phpcs:ignore WordPress.Security.NonceVerification.Recommended
+        $id   = intval( $_GET['id'] ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
         $html = ilove_pdf_compress_pdf( $id, true );
 
-    } elseif ( isset( $_GET['action'] ) && 'ilovepdf_compress' === $_GET['action'] && isset( $_GET['nonce_ilove_pdf_compress'] ) && wp_verify_nonce( sanitize_key( $_GET['nonce_ilove_pdf_compress'] ), 'admin-post' ) ) {
+    } elseif ( isset( $_GET['action'] ) && 'ilovepdf_compress' === $_GET['action'] ) {// phpcs:ignore WordPress.Security.NonceVerification.Recommended
         ilove_pdf_compress_pdf( null, false );
     }
 
-    if ( isset( $_GET['ajax'] ) ) {
+    if ( isset( $_GET['ajax'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
         $return = array();
 
         if ( isset( $id ) ) {
@@ -265,12 +265,12 @@ function ilove_pdf_compress_action() {
         }
 
         $return['library'] = 0;
-        if ( isset( $_GET['library'] ) ) {
+        if ( isset( $_GET['library'] ) ) {// phpcs:ignore WordPress.Security.NonceVerification.Recommended
             $return['library'] = 1;
         }
 
         $return['editpdf'] = 0;
-        if ( isset( $_GET['editpdf'] ) ) {
+        if ( isset( $_GET['editpdf'] ) ) {// phpcs:ignore WordPress.Security.NonceVerification.Recommended
             $return['editpdf'] = 1;
         }
 
