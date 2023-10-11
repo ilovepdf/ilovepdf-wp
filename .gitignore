@@ -1,7 +1,6 @@
 # Node/composer artifact files
 node_modules/
 vendor/
-dist/
 composer.lock
 package-lock.json
 
@@ -16,10 +15,6 @@ package-lock.json
 
 # Package files
 *.jar
-
-# Maven
-target/
-dist/
 
 # JetBrains IDE
 .idea/

@@ -19,7 +19,6 @@
                 <property name="prefixes" type="array">
                     <element value="ilove_pdf"/>
                 </property>
-
             </properties>
         </rule>
         <rule ref="WordPress"></rule>
@@ -32,6 +31,5 @@
         <rule ref="Generic.Commenting.DocComment.MissingShort">
             <severity>0</severity>
         </rule>
-        <config name="minimum_wp_version" value="4.7"/>
-        <!-- <rule ref="Squiz.Commenting.DocCommentAlignment"></rule> -->
+        <config name="minimum_wp_version" value="5.3"/>
 </ruleset>

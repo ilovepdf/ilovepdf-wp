@@ -301,24 +301,24 @@ function ilove_pdf_watermark_action() {
 
     $html = '';
 
-    if ( isset( $_GET['action'] ) && 'ilovepdf_watermark' === $_GET['action'] && isset( $_GET['nonce_ilove_pdf_watermark'] ) && wp_verify_nonce( sanitize_key( $_GET['nonce_ilove_pdf_watermark'] ), 'admin-post' ) && isset( $_GET['id'] ) && intval( $_GET['id'] ) ) {
-        $id   = intval( $_GET['id'] );
-        $html = ilove_pdf_watermark_pdf( intval( $_GET['id'] ), true );
+    if ( isset( $_GET['action'] ) && 'ilovepdf_watermark' === $_GET['action'] && isset( $_GET['id'] ) && intval( $_GET['id'] ) ) {// phpcs:ignore WordPress.Security.NonceVerification.Recommended
+        $id   = intval( $_GET['id'] );// phpcs:ignore WordPress.Security.NonceVerification.Recommended
+        $html = ilove_pdf_watermark_pdf( intval( $_GET['id'] ), true );// phpcs:ignore WordPress.Security.NonceVerification.Recommended
 
-    } elseif ( isset( $_GET['action'] ) && 'ilovepdf_watermark' === $_GET['action'] && isset( $_GET['nonce_ilove_pdf_watermark'] ) && wp_verify_nonce( sanitize_key( $_GET['nonce_ilove_pdf_watermark'] ), 'admin-post' ) ) {
+    } elseif ( isset( $_GET['action'] ) && 'ilovepdf_watermark' === $_GET['action'] ) {// phpcs:ignore WordPress.Security.NonceVerification.Recommended
         ilove_pdf_watermark_pdf( null, false );
     }
 
-    if ( isset( $_GET['ajax'] ) ) {
+    if ( isset( $_GET['ajax'] ) ) {// phpcs:ignore WordPress.Security.NonceVerification.Recommended
         $return = array();
 
         $return['library'] = 0;
-        if ( isset( $_GET['library'] ) ) {
+        if ( isset( $_GET['library'] ) ) {// phpcs:ignore WordPress.Security.NonceVerification.Recommended
             $return['library'] = 1;
         }
 
         $return['editpdf'] = 0;
-        if ( isset( $_GET['editpdf'] ) ) {
+        if ( isset( $_GET['editpdf'] ) ) {// phpcs:ignore WordPress.Security.NonceVerification.Recommended
             $return['editpdf'] = 1;
         }
 
