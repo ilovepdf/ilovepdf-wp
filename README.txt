@@ -81,6 +81,7 @@ We will send you an email before limit is reached. When limit is reached, no mor
 = 2.0.0 =
 Changed
 * Minimum Support WP Version to 5.3
+* Minimum Support PHP to 7.4
 * remove public folder, not used.
 
 Fixed
