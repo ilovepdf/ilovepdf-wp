@@ -190,7 +190,7 @@ function ilove_pdf_content_page_statistics() {
                                                     <?php endif; ?>
                                                     <td>
                                                     <?php if ( ! ilove_pdf_is_file_compressed( get_the_ID() ) ) : ?>
-                                                        <a href="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>?action=ilovepdf_compress&id=<?php echo (int) get_the_ID(); ?>&nonce_ilove_pdf_compress=<?php echo esc_html( wp_create_nonce( 'admin-post' ) ); ?>" class="button-primary media-ilovepdf-box btn-compress"><?php esc_html_e( 'Compress', 'ilove-pdf' ); ?></a>
+                                                        <a href="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>?action=ilovepdf_compress&id=<?php echo (int) get_the_ID(); ?>" class="button-primary media-ilovepdf-box btn-compress"><?php esc_html_e( 'Compress', 'ilove-pdf' ); ?></a>
                                                         <span class="compressing pdf-status"><?php esc_html_e( 'Compressing', 'ilove-pdf' ); ?>...</span>
                                                         <span class="error pdf-status"><?php esc_html_e( 'Error', 'ilove-pdf' ); ?></span>
                                                         <span class="success pdf-status"><?php esc_html_e( 'Completed', 'ilove-pdf' ); ?></span>
@@ -318,7 +318,7 @@ function ilove_pdf_content_page_statistics() {
                                                     <td><?php echo esc_html( size_format( filesize( get_attached_file( get_the_ID() ) ), 2 ) ); ?></td>
                                                     <td>
                                                     <?php if ( ! ilove_pdf_is_file_watermarked( get_the_ID() ) ) : ?>
-                                                        <a href="<?php echo esc_url( add_query_arg( 'nonce_ilove_pdf_watermark', wp_create_nonce( 'admin-post' ), admin_url( 'admin-post.php' ) . '?action=ilovepdf_watermark&id=' . get_the_ID() ) ); ?>" class="button-primary media-ilovepdf-box btn-watermark"><?php esc_html_e( 'Apply Watermark', 'ilove-pdf' ); ?></a>
+                                                        <a href="<?php echo esc_url( admin_url( 'admin-post.php?action=ilovepdf_watermark&id=' . get_the_ID() ) ); ?>" class="button-primary media-ilovepdf-box btn-watermark"><?php esc_html_e( 'Apply Watermark', 'ilove-pdf' ); ?></a>
                                                         <span class="applying-watermark pdf-status"><?php esc_html_e( 'Applying Watermark', 'ilove-pdf' ); ?>...</span>
                                                         <span class="error pdf-status"><?php esc_html_e( 'Error', 'ilove-pdf' ); ?></span>
                                                         <span class="success pdf-status"><?php esc_html_e( 'Completed', 'ilove-pdf' ); ?></span>
