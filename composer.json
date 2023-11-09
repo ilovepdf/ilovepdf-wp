@@ -27,10 +27,10 @@
             "@phpcbf"
         ],
         "stan": [
-            "vendor/bin/phpstan analyse --memory-limit=-1 --error-format=table > ../../../phpstan-report.txt"
+            "vendor/bin/phpstan analyse --memory-limit=-1 --error-format=table > ../../../phpstan-report-ilovepdf.txt"
         ],
         "phpcs": [
-            "phpcs -s --ignore=*/vendor/*,*/lib/*,*/.github/* --report-file=../../../condesniffer-report.txt ./"
+            "phpcs -s --ignore=*/vendor/*,*/lib/*,*/.github/* --report-file=../../../condesniffer-report-ilovepdf.txt ./"
         ],
         "phpcbf": [
             "phpcbf --ignore=vendor/,lib/,.github/ ./"
