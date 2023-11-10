@@ -186,40 +186,6 @@ function ilove_pdf_handle_delete_file( $attachment_id ) {
 add_filter( 'delete_attachment', 'ilove_pdf_handle_delete_file' );
 
 /**
- * File Upload Duplicate.
- *
- * @since    1.0.0
- * @param    int $attachment_id    File ID.
- */
-function ilove_pdf_handle_file_upload_duplicate( $attachment_id ) {
-    if ( get_post_mime_type( $attachment_id ) === 'application/pdf' ) {
-
-		if ( ! function_exists( 'WP_Filesystem' ) ) {
-			require_once ABSPATH . '/wp-admin/includes/file.php';
-		}
-
-		// Init WP_Filesystem
-		if ( WP_Filesystem() ) {
-			$post = get_post( $attachment_id );
-			$file = get_attached_file( $attachment_id );
-			$path = pathinfo( $file );
-
-			$newfile = $path['dirname'] . '/' . $post->post_name . '.' . $path['extension'];
-
-			// Use WP_Filesystem::move() to change file name
-			global $wp_filesystem;
-
-			if ( $wp_filesystem->move( $file, $newfile ) ) {
-				update_attached_file( $attachment_id, $newfile );
-			} else {
-				echo 'The file name could not be changed.';
-			}
-		}
-    }
-}
-add_filter( 'add_attachment', 'ilove_pdf_handle_file_upload_duplicate' );
-
-/**
  * File Upload Compress Watermark.
  *
  * @since    1.0.0
