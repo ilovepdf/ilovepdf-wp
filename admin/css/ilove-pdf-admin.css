@@ -101,12 +101,9 @@ div.panel-margin-left {margin-left: 15px !important}
 }
 
 div.row-library{
-    width: 280px;
-}
-
-div.row-child-library{
-    width: 48%;
-    float: left;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
 }
 
 .multi-process{
