@@ -1,9 +1,13 @@
-=== iLovePDF WP ===
+=== PDF Compressor & Watermark - iLovePDF ===
+Plugin Name: Image Compressor & Optimizer - iLovePDF
+Version: 2.0.1
+Author: iLovePDF
+Author URI: https://www.ilovepdf.com/
 Contributors: iLovePDF
-Tags: pdf, api, watermark, compress, optimize, bulk, compress pdf, stamp pdf
+Tags: compress, watermark, optimize, performance, pdf optimizer
 Requires at least: 5.3
-Tested up to: 6.3.1
-Stable tag: 2.0.0
+Tested up to: 6.4.1
+Stable tag: 2.0.1
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -77,6 +81,17 @@ We will send you an email before limit is reached. When limit is reached, no mor
 4. PDF actions
 
 == Changelog ==
+
+== 2.0.1 ==
+Changed
+* Remove Function Upload duplicate. Caused an error loading pdf files.
+
+Added
+* Support WP 6.4.1
+
+Fixed
+* Fixed a problem with the compress and watermark buttons, they were duplicated.
+* Cannot read property 'model' of undefined.
 
 = 2.0.0 =
 Changed
