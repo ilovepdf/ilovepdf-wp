@@ -566,6 +566,11 @@ function ilove_pdf_media_selector_print_scripts() {
     $my_saved_attachment_post_id = isset( $options['ilove_pdf_format_watermark_image'] ) && '' !== $options['ilove_pdf_format_watermark_image'] ? $options['ilove_pdf_format_watermark_image'] : 0;
     ?> <script type='text/javascript'>
         jQuery( document ).ready( function( $ ) {
+
+            if ( typeof wp === 'undefined' || ! wp.media ) {
+                return;
+            }
+
             // Uploading files
             var file_frame;
             var wp_media_post_id = wp.media.model.settings.post.id; // Store the old id
