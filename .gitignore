@@ -1,8 +1,25 @@
 # Node/composer artifact files
 node_modules/
-vendor/
+vendor/*
+!/vendor/autoload.php
+!/vendor/composer/
+!/vendor/ilovepdf/
+!/vendor/firebase/
+!/vendor/guzzlehttp/
+!/vendor/psr/
+!/vendor/ralouphie/
+!/vendor/symfony/
 composer.lock
 package-lock.json
+/lib/*
+!/lib/autoload.php
+!/lib/composer/
+!/lib/ilovepdf/
+!/lib/firebase/
+!/lib/guzzlehttp/
+!/lib/psr/
+!/lib/ralouphie/
+!/lib/symfony/
 
 # Compiled Java class files
 *.class

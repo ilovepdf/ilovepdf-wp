@@ -6,11 +6,19 @@ jobs:
     steps:
     - name: Checkout Repository
       uses: actions/checkout@v2
+    - name: Check if vendor directory exists and remove it
+      run: |
+        if [ -d "vendor" ]; then
+          echo "Removing existing vendor directory"
+          rm -rf vendor
+        fi
     - name: Setup PHP
       uses: shivammathur/setup-php@v2
       with:
         php-version: 7.4
     - name: Install Composer Dependencies
-      run: composer install
+      run: |
+        composer install
+        composer dump-autoload
     - name: Run PHPStan
       run: vendor/bin/phpstan analyse
