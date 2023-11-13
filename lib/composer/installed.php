@@ -1,9 +1,9 @@
 <?php return array(
     'root' => array(
         'name' => 'ilovepdf/ilovepdf-wp',
-        'pretty_version' => 'dev-develop',
-        'version' => 'dev-develop',
-        'reference' => '9d8de66ad594f0e32e9a2c5c6389dea2f036bc9c',
+        'pretty_version' => 'dev-master',
+        'version' => 'dev-master',
+        'reference' => '8ba2d1243582e89a60b9d9c33a06672243ae579b',
         'type' => 'wordpress-plugin',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -56,9 +56,9 @@
             'dev_requirement' => false,
         ),
         'ilovepdf/ilovepdf-wp' => array(
-            'pretty_version' => 'dev-develop',
-            'version' => 'dev-develop',
-            'reference' => '9d8de66ad594f0e32e9a2c5c6389dea2f036bc9c',
+            'pretty_version' => 'dev-master',
+            'version' => 'dev-master',
+            'reference' => '8ba2d1243582e89a60b9d9c33a06672243ae579b',
             'type' => 'wordpress-plugin',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
