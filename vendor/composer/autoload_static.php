@@ -8,23 +8,15 @@ class ComposerStaticInit0f291dcd9fcfac10a8a3c656a8e8799e
 {
     public static $files = array (
         '7b11c4dc42b3b3023073cb14e519683c' => __DIR__ . '/..' . '/ralouphie/getallheaders/src/getallheaders.php',
-        '9b38cf48e83f5d8f60375221cd213eee' => __DIR__ . '/..' . '/phpstan/phpstan/bootstrap.php',
         '6e3fae29631ef280660b3cdad06f25a8' => __DIR__ . '/..' . '/symfony/deprecation-contracts/function.php',
         '37a3dc5111fe8f707ab4c132ef1dbc62' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/functions_include.php',
-        '0d59ee240a4cd96ddbb4ff164fccea4d' => __DIR__ . '/..' . '/symfony/polyfill-php73/bootstrap.php',
     );
 
     public static $prefixLengthsPsr4 = array (
-        'S' => 
-        array (
-            'SzepeViktor\\PHPStan\\WordPress\\' => 30,
-            'Symfony\\Polyfill\\Php73\\' => 23,
-        ),
         'P' => 
         array (
             'Psr\\Http\\Message\\' => 17,
             'Psr\\Http\\Client\\' => 16,
-            'PHPStan\\ExtensionInstaller\\' => 27,
         ),
         'I' => 
         array (
@@ -45,14 +37,6 @@ class ComposerStaticInit0f291dcd9fcfac10a8a3c656a8e8799e
     );
 
     public static $prefixDirsPsr4 = array (
-        'SzepeViktor\\PHPStan\\WordPress\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/szepeviktor/phpstan-wordpress/src',
-        ),
-        'Symfony\\Polyfill\\Php73\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/symfony/polyfill-php73',
-        ),
         'Psr\\Http\\Message\\' => 
         array (
             0 => __DIR__ . '/..' . '/psr/http-factory/src',
@@ -61,10 +45,6 @@ class ComposerStaticInit0f291dcd9fcfac10a8a3c656a8e8799e
         'Psr\\Http\\Client\\' => 
         array (
             0 => __DIR__ . '/..' . '/psr/http-client/src',
-        ),
-        'PHPStan\\ExtensionInstaller\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/phpstan/extension-installer/src',
         ),
         'Ilovepdf\\' => 
         array (
@@ -98,7 +78,6 @@ class ComposerStaticInit0f291dcd9fcfac10a8a3c656a8e8799e
 
     public static $classMap = array (
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
-        'JsonException' => __DIR__ . '/..' . '/symfony/polyfill-php73/Resources/stubs/JsonException.php',
     );
 
     public static function getInitializer(ClassLoader $loader)
