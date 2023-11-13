@@ -33,15 +33,20 @@ if ( ! defined( 'WPINC' ) ) {
 
 define( 'ILOVE_PDF_ASSETS_PLUGIN_PATH', plugin_dir_url( __FILE__ ) );
 
+require_once plugin_dir_path( __FILE__ ) . '/lib/autoload.php';
+
+use Ilove_Pdf_Includes\Ilove_Pdf;
+use Ilove_Pdf_Includes\Ilove_Pdf_Activator;
+use Ilove_Pdf_Includes\Ilove_Pdf_Deactivator;
+
 require __DIR__ . '/includes/utility-functions.php';
-require __DIR__ . '/admin/ilove-pdf-admin.php';
+require __DIR__ . '/admin/ilove-pdf-admin-page-settings.php';
 
 /**
  * The code that runs during plugin activation.
  * This action is documented in includes/class-ilove-pdf-activator.php
  */
 function ilove_pdf_activate() {
-	require_once plugin_dir_path( __FILE__ ) . 'includes/class-ilove-pdf-activator.php';
 	Ilove_Pdf_Activator::activate();
 }
 register_activation_hook( __FILE__, 'ilove_pdf_activate' );
@@ -51,16 +56,9 @@ register_activation_hook( __FILE__, 'ilove_pdf_activate' );
  * This action is documented in includes/class-ilove-pdf-deactivator.php
  */
 function ilove_pdf_deactivate() {
-	require_once plugin_dir_path( __FILE__ ) . 'includes/class-ilove-pdf-deactivator.php';
 	Ilove_Pdf_Deactivator::deactivate();
 }
 register_deactivation_hook( __FILE__, 'ilove_pdf_deactivate' );
-
-/**
- * The core plugin class that is used to define internationalization,
- * admin-specific hooks, and public-facing site hooks.
- */
-require plugin_dir_path( __FILE__ ) . 'includes/class-ilove-pdf.php';
 
 /**
  * Begins execution of the plugin.
@@ -71,7 +69,6 @@ require plugin_dir_path( __FILE__ ) . 'includes/class-ilove-pdf.php';
  *
  * @since    1.0.0
  */
-require_once plugin_dir_path( __FILE__ ) . 'lib/ilovepdf-php-master/init.php';
 
 define( 'ILOVE_PDF_REGISTER_URL', 'https://api.ilovepdf.com/v1/user' );
 define( 'ILOVE_PDF_LOGIN_URL', 'https://api.ilovepdf.com/v1/user/login' );

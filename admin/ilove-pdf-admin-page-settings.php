@@ -21,16 +21,14 @@ require __DIR__ . '/functions-compress.php';
 require __DIR__ . '/functions-watermark.php';
 require __DIR__ . '/functions-statistics.php';
 
-require_once plugin_dir_path( __DIR__ ) . 'lib/ilovepdf-php-master/init.php';
-
 /**
  * Add Menu Page to Dashboard.
  *
  * @since    1.0.0
  */
 function ilove_pdf_menu() {
-	// Añade una página de menú a WordPress
 
+	// Add page menu to WordPress dashboard
     add_submenu_page(
         'options-general.php',              // Register this submenu with the menu defined above
         'iLovePDF Settings',                // The text to the display in the browser when this menu item is active

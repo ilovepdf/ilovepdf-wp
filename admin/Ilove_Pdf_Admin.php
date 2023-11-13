@@ -9,6 +9,8 @@
  * @subpackage Ilove_Pdf/admin
  */
 
+namespace Ilove_Pdf_Admin;
+
 /**
  * The admin-specific functionality of the plugin.
  *

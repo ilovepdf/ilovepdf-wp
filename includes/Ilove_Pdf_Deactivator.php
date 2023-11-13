@@ -9,6 +9,8 @@
  * @subpackage Ilove_Pdf/includes
  */
 
+namespace Ilove_Pdf_Includes;
+
 /**
  * Fired during plugin deactivation.
  *

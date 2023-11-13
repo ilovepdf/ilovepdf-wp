@@ -12,6 +12,8 @@
  * @subpackage Ilove_Pdf/includes
  */
 
+namespace Ilove_Pdf_Includes;
+
 /**
  * Define the internationalization functionality.
  *

@@ -9,6 +9,8 @@
  * @subpackage Ilove_Pdf/includes
  */
 
+namespace Ilove_Pdf_Includes;
+
 /**
  * Register all actions and filters for the plugin.
  *

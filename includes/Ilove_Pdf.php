@@ -12,6 +12,12 @@
  * @subpackage Ilove_Pdf/includes
  */
 
+namespace Ilove_Pdf_Includes;
+
+use Ilove_Pdf_Admin\Ilove_Pdf_Admin;
+use Ilove_Pdf_Includes\Ilove_Pdf_Loader;
+use Ilove_Pdf_Includes\Ilove_Pdf_I18n;
+
 /**
  * The core plugin class.
  *
@@ -97,18 +103,6 @@ class Ilove_Pdf {
 		 * The class responsible for orchestrating the actions and filters of the
 		 * core plugin.
 		 */
-		require_once plugin_dir_path( __DIR__ ) . 'includes/class-ilove-pdf-loader.php';
-
-		/**
-		 * The class responsible for defining internationalization functionality
-		 * of the plugin.
-		 */
-		require_once plugin_dir_path( __DIR__ ) . 'includes/class-ilove-pdf-i18n.php';
-
-		/**
-		 * The class responsible for defining all actions that occur in the admin area.
-		 */
-		require_once plugin_dir_path( __DIR__ ) . 'admin/class-ilove-pdf-admin.php';
 
 		$this->loader = new Ilove_Pdf_Loader();
 	}

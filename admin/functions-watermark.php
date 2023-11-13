@@ -55,7 +55,7 @@ function ilove_pdf_watermark_pdf( $id_file, $auto = false, $bulk = false ) {
 
                     if ( isset( $options['ilove_pdf_format_watermark_image'] ) && ! empty( $options['ilove_pdf_format_watermark_image'] ) ) {
                         $image = $my_task->addFile( get_attached_file( $options['ilove_pdf_format_watermark_image'] ) );
-                        $my_task->setImage( $image->getServerFilename() ); // @phpstan-ignore-line
+                        $my_task->setImage( $image->getServerFilename() );
                     }
 
                     if ( isset( $options['ilove_pdf_format_watermark_opacity'] ) ) {
