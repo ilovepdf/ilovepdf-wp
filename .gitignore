@@ -3,6 +3,15 @@ node_modules/
 vendor/
 composer.lock
 package-lock.json
+/lib/*
+!/lib/autoload.php
+!/lib/composer/
+!/lib/ilovepdf/
+!/lib/firebase/
+!/lib/guzzlehttp/
+!/lib/psr/
+!/lib/ralouphie/
+!/lib/symfony/
 
 # Compiled Java class files
 *.class
