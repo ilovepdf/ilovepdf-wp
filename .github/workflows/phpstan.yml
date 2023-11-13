@@ -6,6 +6,12 @@ jobs:
     steps:
     - name: Checkout Repository
       uses: actions/checkout@v2
+    - name: Check if vendor directory exists and remove it
+      run: |
+        if [ -d "vendor" ]; then
+          echo "Removing existing vendor directory"
+          rm -rf vendor
+        fi
     - name: Setup PHP
       uses: shivammathur/setup-php@v2
       with:
