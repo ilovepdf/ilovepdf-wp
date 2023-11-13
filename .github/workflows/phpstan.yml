@@ -13,4 +13,4 @@ jobs:
     - name: Install Composer Dependencies
       run: composer install
     - name: Run PHPStan
-      run: vendor/bin/phpstan analyse
+      run: lib/bin/phpstan analyse
