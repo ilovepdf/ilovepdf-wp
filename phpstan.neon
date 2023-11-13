@@ -1,4 +1,6 @@
 parameters:
+	bootstrapFiles:
+		- lib/autoload.php
 	level: 5
 	paths:
 			- ./
