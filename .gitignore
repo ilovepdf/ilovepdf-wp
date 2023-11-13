@@ -1,6 +1,14 @@
 # Node/composer artifact files
 node_modules/
-vendor/
+vendor/*
+!/vendor/autoload.php
+!/vendor/composer/
+!/vendor/ilovepdf/
+!/vendor/firebase/
+!/vendor/guzzlehttp/
+!/vendor/psr/
+!/vendor/ralouphie/
+!/vendor/symfony/
 composer.lock
 package-lock.json
 /lib/*

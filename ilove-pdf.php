@@ -33,7 +33,7 @@ if ( ! defined( 'WPINC' ) ) {
 
 define( 'ILOVE_PDF_ASSETS_PLUGIN_PATH', plugin_dir_url( __FILE__ ) );
 
-require_once plugin_dir_path( __FILE__ ) . '/lib/autoload.php';
+require_once plugin_dir_path( __FILE__ ) . '/vendor/autoload.php';
 
 use Ilove_Pdf_Includes\Ilove_Pdf;
 use Ilove_Pdf_Includes\Ilove_Pdf_Activator;
