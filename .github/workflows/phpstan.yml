@@ -12,5 +12,6 @@ jobs:
         php-version: 7.4
     - name: Install Composer Dependencies
       run: composer install
+      working-directory: lib
     - name: Run PHPStan
       run: lib/bin/phpstan analyse
