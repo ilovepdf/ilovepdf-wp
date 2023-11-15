@@ -3,7 +3,7 @@
         'name' => 'ilovepdf/ilovepdf-wp',
         'pretty_version' => 'dev-develop',
         'version' => 'dev-develop',
-        'reference' => '64930abe34e3e8880150aa46b74fd3b5af97bbac',
+        'reference' => '7a3466a97a1d79fccb3ca1d74be29d2c6eb09eba',
         'type' => 'wordpress-plugin',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -58,7 +58,7 @@
         'ilovepdf/ilovepdf-wp' => array(
             'pretty_version' => 'dev-develop',
             'version' => 'dev-develop',
-            'reference' => '64930abe34e3e8880150aa46b74fd3b5af97bbac',
+            'reference' => '7a3466a97a1d79fccb3ca1d74be29d2c6eb09eba',
             'type' => 'wordpress-plugin',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
