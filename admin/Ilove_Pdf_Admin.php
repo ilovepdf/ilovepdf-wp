@@ -72,9 +72,13 @@ class Ilove_Pdf_Admin {
 		 * between the defined hooks and the functions defined in this
 		 * class.
 		 */
+		global $pagenow;
 
-		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/ilove-pdf-admin.css', array(), $this->version, 'all' );
-		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/grid.css', array(), $this->version, 'all' );
+		if ( ( 'upload.php' === $pagenow || 'options-general.php' === $pagenow || 'media-new.php' === $pagenow || 'post.php' === $pagenow ) && get_current_screen()->post_type !== 'product' ) {
+			wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/ilove-pdf-admin.css', array(), $this->version, 'all' );
+			wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/grid.css', array(), $this->version, 'all' );
+		}
+
 		wp_enqueue_style( 'font-awesome', '//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css', array(), '4.7.0' );
 	}
 
