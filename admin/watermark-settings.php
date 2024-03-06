@@ -145,12 +145,6 @@ function ilove_pdf_initialize_options_format_watermark() {
     if ( ! empty( $_SERVER['PHP_SELF'] ) && 'options-general.php' === basename( sanitize_url( wp_unslash( $_SERVER['PHP_SELF'] ) ) ) ) {
 		wp_enqueue_media(); }
 
-    // Add the color picker css file
-    wp_enqueue_style( 'wp-color-picker' );
-
-    // Include our custom jQuery file with WordPress Color Picker dependency
-    wp_enqueue_script( 'ilove-pdf-admin', plugins_url( 'js/ilove-pdf-admin.js', __FILE__ ), array( 'wp-color-picker' ), '1.0.0', true );
-
     if ( false === get_option( 'ilove_pdf_display_settings_format_watermark' ) ) {
         add_option( 'ilove_pdf_display_settings_format_watermark' );
     }

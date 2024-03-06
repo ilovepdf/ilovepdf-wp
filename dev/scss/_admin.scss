@@ -1,0 +1,200 @@
+#wpfooter {
+  display: none;
+}
+
+.row {
+  margin-top: 20px;
+}
+
+.panel {
+  background-color: #fff;
+  padding: 30px;
+  box-sizing: border-box;
+  margin-bottom: 20px;
+  border: 1px solid #ddd;
+
+  h3 {
+    margin: 0 0 10px 0;
+  }
+
+  .link {
+    display: block;
+    margin: 20px 0;
+  }
+}
+
+.progress {
+  margin-bottom: 10px;
+
+  .progress__text {
+    margin-bottom: 2px;
+  }
+
+  .progress__total {
+    width: 100%;
+    overflow: hidden;
+    border-radius: 2px;
+    height: 30px;
+    background: #ececec;
+    position: relative;
+
+    .progress__total__percent {
+      height: 30px;
+      background: #4db53c;
+      border-radius: 2px;
+    }
+
+    .progress__total_text {
+      position: absolute;
+      top: 0px;
+      left: 0px;
+      bottom: 0px;
+      right: 0px;
+      text-align: center;
+      line-height: 30px;
+      font-style: italic;
+    }
+  }
+}
+
+.status-c100 ul {
+  margin-top: 35px;
+
+  li {
+    font-size: 15px;
+    color: #838383;
+
+    strong {
+      color: #4db53c;
+    }
+  }
+}
+
+.panel h1 {
+  color: #838383;
+
+  strong {
+    color: #4db53c;
+  }
+}
+
+.multi-form {
+  width: 28%;
+  float: left;
+}
+
+.multi-form-watermark {
+  width: 40%;
+}
+
+.no-center {
+  margin-left: 20px !important;
+}
+
+.success, .compress-success, .applied-success {
+  color: #46b450;
+}
+
+.error, .compress-error, .applied-error, .compress-abort, .applied-abort {
+  color: #a00;
+}
+
+.all-compressing, .all-applying-watermark {
+  color: #0085ba;
+}
+
+.pdf-status {
+  display: none;
+}
+
+.custom-title {
+  line-height: 36px;
+}
+
+.pdf-id {
+  margin-left: 10px;
+  display: none;
+}
+
+div.panel-margin-left {
+  margin-left: 15px !important;
+}
+
+.fa-check {
+  color: green !important;
+}
+
+.files-not-found {
+  float: left;
+  color: red;
+  margin-right: 15px;
+}
+
+div.row-library {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.multi-process {
+  text-align: center;
+
+  span {
+    font-size: 18px;
+  }
+
+  .all-compressing, .all-applying-watermark {
+    position: relative;
+    overflow: hidden;
+    border-radius: 20px;
+    height: 30px;
+    background: #c3c3c3;
+  }
+
+  .all-compressing span, .all-applying-watermark span {
+    color: #ffffff;
+    position: relative;
+    z-index: 20;
+    font-size: 14px;
+    display: block;
+    line-height: 30px;
+  }
+
+  .all-compressing .progress-percent, .all-applying-watermark .progress-percent {
+    height: 100%;
+    background-color: #6b94c7;
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-radius: 20px;
+  }
+}
+
+#cancel-compress, #cancel-watermark {
+  display: none;
+  margin-top: 15px;
+}
+
+body #TB_window {
+  border-top: 5px solid red;
+}
+
+.popup_buymore {
+  h3 {
+    font-size: 26px;
+    text-align: center;
+    color: #383838;
+    margin-bottom: 0px;
+  }
+
+  text-align: center;
+
+  p {
+    font-size: 18px;
+    text-align: center;
+    color: #888;
+    font-style: italic;
+    padding: 0px !important;
+    margin-bottom: 0px;
+  }
+}
