@@ -75,8 +75,7 @@ class Ilove_Pdf_Admin {
 		global $pagenow;
 
 		if ( ( 'upload.php' === $pagenow || 'options-general.php' === $pagenow || 'media-new.php' === $pagenow || 'post.php' === $pagenow ) && get_current_screen()->post_type !== 'product' ) {
-			wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/ilove-pdf-admin.css', array(), $this->version, 'all' );
-			wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/grid.css', array(), $this->version, 'all' );
+			wp_enqueue_style( $this->plugin_name, plugins_url( '/assets/css/app.min.css', __DIR__ ), array(), $this->version, 'all' );
 		}
 
 		wp_enqueue_style( 'font-awesome', '//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css', array(), '4.7.0' );
@@ -101,6 +100,10 @@ class Ilove_Pdf_Admin {
 		 * class.
 		 */
 
-		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/ilove-pdf-admin.js', array( 'jquery' ), $this->version, false );
+		// Add the color picker css file
+		wp_enqueue_style( 'wp-color-picker' );
+
+		// Include our custom jQuery file with WordPress Color Picker dependency
+		wp_enqueue_script( 'ilove-pdf-admin', plugins_url( '/assets/js/main.min.js', __DIR__ ), array( 'wp-color-picker' ), '1.0.0', true );
 	}
 }
