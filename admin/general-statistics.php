@@ -331,7 +331,6 @@ function ilove_pdf_be_attachment_field_mode_grid( $form_fields, $post ) {
             $html .= '<span class="applying-watermark pdf-status">' . __( 'Applying Watermark', 'ilove-pdf' ) . '...</span>';
             $html .= '<span class="error pdf-status">' . __( 'Error', 'ilove-pdf' ) . '</span>';
             $html .= '<span class="success pdf-status">' . __( 'Completed', 'ilove-pdf' ) . '</span>';
-            $html .= '<script type="text/javascript" src="' . plugin_dir_url( __FILE__ ) . 'js/ilove-pdf-admin.js?ver=1.0.0"></script>'; //phpcs:ignore WordPress.WP.EnqueuedResources.NonEnqueuedScript
 
             $form_fields['iLovePDF-compress'] = array(
                 'label' => 'iLovePDF',
