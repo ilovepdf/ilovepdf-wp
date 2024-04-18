@@ -402,17 +402,17 @@
         },
         {
             "name": "ilovepdf/ilovepdf-php",
-            "version": "v1.2.3",
-            "version_normalized": "1.2.3.0",
+            "version": "v1.2.4",
+            "version_normalized": "1.2.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ilovepdf/ilovepdf-php.git",
-                "reference": "e0c0d584fd2b65b668f412a8e6e255fe09021a4c"
+                "reference": "23eceed19a94cab2cba224d38846787491e2c7f2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ilovepdf/ilovepdf-php/zipball/e0c0d584fd2b65b668f412a8e6e255fe09021a4c",
-                "reference": "e0c0d584fd2b65b668f412a8e6e255fe09021a4c",
+                "url": "https://api.github.com/repos/ilovepdf/ilovepdf-php/zipball/23eceed19a94cab2cba224d38846787491e2c7f2",
+                "reference": "23eceed19a94cab2cba224d38846787491e2c7f2",
                 "shasum": ""
             },
             "require": {
@@ -425,7 +425,7 @@
                 "phpunit/phpunit": "^9.5",
                 "vimeo/psalm": "^4.21"
             },
-            "time": "2022-10-14T09:46:37+00:00",
+            "time": "2024-04-04T10:59:30+00:00",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -447,23 +447,23 @@
             "homepage": "https://ilovepdf.com/",
             "support": {
                 "issues": "https://github.com/ilovepdf/ilovepdf-php/issues",
-                "source": "https://github.com/ilovepdf/ilovepdf-php/tree/v1.2.3"
+                "source": "https://github.com/ilovepdf/ilovepdf-php/tree/v1.2.4"
             },
             "install-path": "../ilovepdf/ilovepdf-php"
         },
         {
             "name": "php-stubs/wordpress-stubs",
-            "version": "v6.4.3",
-            "version_normalized": "6.4.3.0",
+            "version": "v6.5.2",
+            "version_normalized": "6.5.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-stubs/wordpress-stubs.git",
-                "reference": "6105bdab2f26c0204fe90ecc53d5684754550e8f"
+                "reference": "379f17a90c01498d4c99a0d15aab6e7aa6a2c840"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-stubs/wordpress-stubs/zipball/6105bdab2f26c0204fe90ecc53d5684754550e8f",
-                "reference": "6105bdab2f26c0204fe90ecc53d5684754550e8f",
+                "url": "https://api.github.com/repos/php-stubs/wordpress-stubs/zipball/379f17a90c01498d4c99a0d15aab6e7aa6a2c840",
+                "reference": "379f17a90c01498d4c99a0d15aab6e7aa6a2c840",
                 "shasum": ""
             },
             "require-dev": {
@@ -471,7 +471,7 @@
                 "nikic/php-parser": "^4.13",
                 "php": "^7.4 || ~8.0.0",
                 "php-stubs/generator": "^0.8.3",
-                "phpdocumentor/reflection-docblock": "^5.3",
+                "phpdocumentor/reflection-docblock": "5.3",
                 "phpstan/phpstan": "^1.10.49",
                 "phpunit/phpunit": "^9.5",
                 "szepeviktor/phpcs-psr-12-neutron-hybrid-ruleset": "^0.11"
@@ -481,7 +481,7 @@
                 "symfony/polyfill-php80": "Symfony polyfill backporting some PHP 8.0+ features to lower PHP versions",
                 "szepeviktor/phpstan-wordpress": "WordPress extensions for PHPStan"
             },
-            "time": "2024-02-11T18:56:19+00:00",
+            "time": "2024-04-14T17:30:14+00:00",
             "type": "library",
             "installation-source": "dist",
             "notification-url": "https://packagist.org/downloads/",
@@ -497,7 +497,7 @@
             ],
             "support": {
                 "issues": "https://github.com/php-stubs/wordpress-stubs/issues",
-                "source": "https://github.com/php-stubs/wordpress-stubs/tree/v6.4.3"
+                "source": "https://github.com/php-stubs/wordpress-stubs/tree/v6.5.2"
             },
             "install-path": "../php-stubs/wordpress-stubs"
         },
@@ -550,17 +550,17 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "1.10.59",
-            "version_normalized": "1.10.59.0",
+            "version": "1.10.67",
+            "version_normalized": "1.10.67.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "e607609388d3a6d418a50a49f7940e8086798281"
+                "reference": "16ddbe776f10da6a95ebd25de7c1dbed397dc493"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/e607609388d3a6d418a50a49f7940e8086798281",
-                "reference": "e607609388d3a6d418a50a49f7940e8086798281",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/16ddbe776f10da6a95ebd25de7c1dbed397dc493",
+                "reference": "16ddbe776f10da6a95ebd25de7c1dbed397dc493",
                 "shasum": ""
             },
             "require": {
@@ -569,7 +569,7 @@
             "conflict": {
                 "phpstan/phpstan-shim": "*"
             },
-            "time": "2024-02-20T13:59:13+00:00",
+            "time": "2024-04-16T07:22:02+00:00",
             "bin": [
                 "phpstan",
                 "phpstan.phar"
@@ -605,10 +605,6 @@
                 {
                     "url": "https://github.com/phpstan",
                     "type": "github"
-                },
-                {
-                    "url": "https://tidelift.com/funding/github/packagist/phpstan/phpstan",
-                    "type": "tidelift"
                 }
             ],
             "install-path": "../phpstan/phpstan"
@@ -980,17 +976,17 @@
         },
         {
             "name": "szepeviktor/phpstan-wordpress",
-            "version": "v1.3.3",
-            "version_normalized": "1.3.3.0",
+            "version": "v1.3.4",
+            "version_normalized": "1.3.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/szepeviktor/phpstan-wordpress.git",
-                "reference": "f7ff091331bc00c5688fe4ce0c4d51d06fa61553"
+                "reference": "891d0767855a32c886a439efae090408cc1fa156"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/szepeviktor/phpstan-wordpress/zipball/f7ff091331bc00c5688fe4ce0c4d51d06fa61553",
-                "reference": "f7ff091331bc00c5688fe4ce0c4d51d06fa61553",
+                "url": "https://api.github.com/repos/szepeviktor/phpstan-wordpress/zipball/891d0767855a32c886a439efae090408cc1fa156",
+                "reference": "891d0767855a32c886a439efae090408cc1fa156",
                 "shasum": ""
             },
             "require": {
@@ -1010,7 +1006,7 @@
             "suggest": {
                 "swissspidy/phpstan-no-private": "Detect usage of internal core functions, classes and methods"
             },
-            "time": "2024-02-26T13:55:50+00:00",
+            "time": "2024-03-21T16:32:59+00:00",
             "type": "phpstan-extension",
             "extra": {
                 "phpstan": {
@@ -1039,7 +1035,7 @@
             ],
             "support": {
                 "issues": "https://github.com/szepeviktor/phpstan-wordpress/issues",
-                "source": "https://github.com/szepeviktor/phpstan-wordpress/tree/v1.3.3"
+                "source": "https://github.com/szepeviktor/phpstan-wordpress/tree/v1.3.4"
             },
             "install-path": "../szepeviktor/phpstan-wordpress"
         }
