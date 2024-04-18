@@ -84,6 +84,9 @@ function ilove_pdf_upload_watermark_file( $filename, $attachment_id ) {
 
 	copy( $wp_upload_dir['basedir'] . '/pdf/watermark/' . basename( get_attached_file( $attachment_id ) ), get_attached_file( $attachment_id ) );
 
+	// Regenerate attachment metadata
+	ilove_pdf_regenerate_attachment_data( $attachment_id );
+
 	if ( get_option( 'ilovepdf_watermarked_files' ) || get_option( 'ilovepdf_watermarked_files' ) === '0' ) {
 		$n_watermarked_files = intval( get_option( 'ilovepdf_watermarked_files' ) ) + 1;
 		update_option( 'ilovepdf_watermarked_files', $n_watermarked_files );
@@ -128,6 +131,9 @@ function ilove_pdf_restore_pdf( $attachment_id ) {
 	}
 
 	copy( $wp_upload_dir['basedir'] . '/pdf/backup/' . basename( get_attached_file( $attachment_id ) ), get_attached_file( $attachment_id ) );
+
+	// Regenerate attachment metadata
+	ilove_pdf_regenerate_attachment_data( $attachment_id );
 
 	delete_post_meta( $attachment_id, '_wp_attached_file_backup' );
 	delete_post_meta( $attachment_id, '_compressed_file' );
