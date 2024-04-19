@@ -2,6 +2,9 @@ parameters:
 	level: 5
 	paths:
 			- ./
+	ignoreErrors:
+			- "#Constant ILOVE_PDF_ASSETS_PLUGIN_PATH not found#"
+			- "#Constant ILOVE_PDF_PLUGIN_NAME not found#"
 	excludePaths:
 			analyseAndScan:
 					- vendor
