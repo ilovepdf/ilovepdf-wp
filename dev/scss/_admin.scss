@@ -21,6 +21,18 @@
     display: block;
     margin: 20px 0;
   }
+
+  .ilove_pdf_wrapper_buttons {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    padding: 20px 0 10px 0;
+
+    .submit {
+      padding: 0;
+      margin: 0;
+    }
+  }
 }
 
 .progress {

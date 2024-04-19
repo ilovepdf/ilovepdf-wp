@@ -163,7 +163,11 @@ function ilove_pdf_content_page_setting() {
                     <form method="post" name="ilove_pdf_form_compress" action="options.php">
          				<?php settings_fields( 'ilove_pdf_display_settings_compress' ); ?>
         		        <?php do_settings_sections( 'ilove_pdf_display_settings_compress' ); ?>
-                        <?php submit_button(); ?>
+
+                        <div class="ilove_pdf_wrapper_buttons">
+                            <?php submit_button(); ?>
+                            <a href="<?php echo esc_url( admin_url( 'upload.php?page=ilove-pdf-content-statistics&tab=compress_statistic' ) ); ?>" class="button button-primary"><?php esc_html_e( 'Go to Compress Tool', 'ilove-pdf' ); ?></a>
+                        </div>
                     </form>
                 </div>
             </div>
@@ -173,7 +177,11 @@ function ilove_pdf_content_page_setting() {
                     <form method="post" name="ilove_pdf_form_watermark" action="options.php">
                         <?php settings_fields( 'ilove_pdf_display_settings_watermark' ); ?>
                         <?php do_settings_sections( 'ilove_pdf_display_settings_watermark' ); ?>
-                        <?php submit_button(); ?>
+
+                        <div class="ilove_pdf_wrapper_buttons">
+                            <?php submit_button(); ?>
+                            <a href="<?php echo esc_url( admin_url( 'upload.php?page=ilove-pdf-content-statistics&tab=watermark_statistic' ) ); ?>" class="button button-primary"><?php esc_html_e( 'Go to Watermark Tool', 'ilove-pdf' ); ?></a>
+                        </div>
                     </form>
                 </div>
 
