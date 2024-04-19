@@ -4,7 +4,7 @@
  */
 function ilove_pdf_content_page_setting() {
 
-    $logo_svg = ILOVE_PDF_ASSETS_PLUGIN_PATH . 'assets/img/logo_ilovepdf.svg'; // @phpstan-ignore-line
+    $logo_svg = ILOVE_PDF_ASSETS_PLUGIN_PATH . 'assets/img/logo_ilovepdf.svg';
     $options  = get_option( 'ilove_pdf_display_settings_watermark' );
 
 	?>
