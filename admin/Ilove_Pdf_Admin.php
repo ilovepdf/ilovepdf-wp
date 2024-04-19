@@ -106,4 +106,20 @@ class Ilove_Pdf_Admin {
 		// Include our custom jQuery file with WordPress Color Picker dependency
 		wp_enqueue_script( 'ilove-pdf-admin', plugins_url( '/assets/js/main.min.js', __DIR__ ), array( 'wp-color-picker' ), '1.0.0', true );
 	}
+
+	/**
+	 * Add Link to page settings from Plugins List Page.
+	 *
+	 * @since    2.0.6
+	 *
+	 * @param    array $actions    An array of plugin action links.
+	 */
+	public function add_action_links( $actions ) {
+		$custom_links = array(
+			'<a href="' . admin_url( 'options-general.php?page=ilove-pdf-content-setting' ) . '">Settings</a>',
+		);
+		$actions      = array_merge( $actions, $custom_links );
+
+		return $actions;
+	}
 }
