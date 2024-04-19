@@ -32,6 +32,7 @@ if ( ! defined( 'WPINC' ) ) {
 }
 
 define( 'ILOVE_PDF_ASSETS_PLUGIN_PATH', plugin_dir_url( __FILE__ ) );
+define( 'ILOVE_PDF_PLUGIN_NAME', plugin_basename( __FILE__ ) );
 
 require_once plugin_dir_path( __FILE__ ) . '/vendor/autoload.php';
 
