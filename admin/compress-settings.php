@@ -39,6 +39,18 @@ function ilove_pdf_initialize_options_compress() {
     );
 
     add_settings_field(
+        'ilove_pdf_compress_backup',
+        __( 'Backup Original', 'ilove-pdf' ),
+        'ilove_pdf_compress_backup_callback',
+        'ilove_pdf_display_settings_compress',
+        'compress_settings_section',
+        array(
+            'No',
+            'Yes',
+        )
+    );
+
+    add_settings_field(
         'ilove_pdf_compress_quality',
         __( 'PDF Quality', 'ilove-pdf' ),
         'ilove_pdf_compress_quality_callback',
@@ -133,6 +145,27 @@ function ilove_pdf_compress_autocompress_new_callback( $args ) {
         '<input type="checkbox" id="ilove_pdf_compress_autocompress_new" name="ilove_pdf_display_settings_compress[ilove_pdf_compress_autocompress_new]" value="1" %s /><label for="ilove_pdf_compress_autocompress_new"> %s</label>',
         isset( $options['ilove_pdf_compress_autocompress_new'] ) ? checked( 1, $options['ilove_pdf_compress_autocompress_new'], false ) : '',
         $args[0]
+    );
+
+    echo wp_kses( $html, ilove_pdf_expanded_alowed_tags() );
+}
+
+/**
+ * Backup Original File Callback.
+ *
+ * @since    2.1.0
+ * @param    array $args    Arguments options.
+ */
+function ilove_pdf_compress_backup_callback( $args ) {
+
+    $options = get_option( 'ilove_pdf_display_settings_compress' );
+    $html    = sprintf(
+        '<input type="radio" id="ilove_pdf_compress_backup" name="ilove_pdf_display_settings_compress[ilove_pdf_compress_backup]" value="0" %s><label for="ilove_pdf_compress_backup">%s</label>&nbsp;
+        <input type="radio" id="ilove_pdf_compress_backup" name="ilove_pdf_display_settings_compress[ilove_pdf_compress_backup]" value="1" %s><label for="ilove_pdf_compress_backup">%s</label>',
+        isset( $options['ilove_pdf_compress_backup'] ) ? checked( 0, $options['ilove_pdf_compress_backup'], false ) : '',
+        $args[0],
+        isset( $options['ilove_pdf_compress_backup'] ) ? checked( 1, $options['ilove_pdf_compress_backup'], false ) : 'checked="checked"',
+        $args[1]
     );
 
     echo wp_kses( $html, ilove_pdf_expanded_alowed_tags() );
