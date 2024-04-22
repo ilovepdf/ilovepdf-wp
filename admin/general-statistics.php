@@ -27,7 +27,7 @@ function ilove_pdf_compress_media_column( $cols ) {
  * @param    string $column_name    Column Name.
  * @param    int    $id             File ID.
  */
-function ilove_pdf_compress_button_value( $column_name, $id ) {
+function ilove_pdf_buttons_value( $column_name, $id ) {
     if ( 'ilovepdf-status' === $column_name ) {
         $filetype = wp_check_filetype( basename( get_attached_file( $id ) ) );
         $options  = get_option( 'ilove_pdf_display_settings_watermark' );
@@ -89,7 +89,7 @@ function ilove_pdf_hook_new_media_columns() {
     }
 
     add_filter( 'manage_media_columns', 'ilove_pdf_compress_media_column' );
-    add_action( 'manage_media_custom_column', 'ilove_pdf_compress_button_value', 10, 2 );
+    add_action( 'manage_media_custom_column', 'ilove_pdf_buttons_value', 10, 2 );
 }
 add_action( 'admin_init', 'ilove_pdf_hook_new_media_columns' );
 
