@@ -110,7 +110,7 @@ class Ilove_Pdf_Admin {
 	/**
 	 * Add Link to page settings from Plugins List Page.
 	 *
-	 * @since    2.0.6
+	 * @since    2.1.0
 	 *
 	 * @param    array $actions    An array of plugin action links.
 	 */
