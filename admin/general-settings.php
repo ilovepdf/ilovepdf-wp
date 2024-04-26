@@ -180,7 +180,7 @@ function ilove_pdf_initialize_general_options() {
 
     add_settings_field(
         'ilove_pdf_general_backup',
-        __( 'Backup Original', 'ilove-pdf' ),
+        __( 'Create backup of original files?', 'ilove-pdf' ),
         'ilove_pdf_general_backup_callback',
         'ilove_pdf_display_general_settings',
         'general_settings_section',
@@ -217,7 +217,7 @@ function ilove_pdf_general_backup_callback( $args ) {
     $options = get_option( 'ilove_pdf_display_general_settings' );
     $html    = sprintf(
         '<input type="radio" id="ilove_pdf_general_backup" name="ilove_pdf_display_general_settings[ilove_pdf_general_backup]" value="0" %s><label for="ilove_pdf_general_backup">%s</label>&nbsp;
-        <input type="radio" id="ilove_pdf_general_backup" name="ilove_pdf_display_general_settings[ilove_pdf_general_backup]" value="1" %s><label for="ilove_pdf_general_backup">%s</label>',
+        <input type="radio" id="ilove_pdf_general_backup" name="ilove_pdf_display_general_settings[ilove_pdf_general_backup]" value="1" %s><label for="ilove_pdf_general_backup">%s</label><div><p><small>The backup files can be found on your server:</small></p><p><strong>wp-content/uploads/pdf/backup</strong></p></div>',
         isset( $options['ilove_pdf_general_backup'] ) ? checked( 0, $options['ilove_pdf_general_backup'], false ) : '',
         $args[0],
         isset( $options['ilove_pdf_general_backup'] ) ? checked( 1, $options['ilove_pdf_general_backup'], false ) : 'checked="checked"',
