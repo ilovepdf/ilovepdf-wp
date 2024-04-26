@@ -103,8 +103,12 @@ class Ilove_Pdf_Admin {
 		// Add the color picker css file
 		wp_enqueue_style( 'wp-color-picker' );
 
-		// Include our custom jQuery file with WordPress Color Picker dependency
-		wp_enqueue_script( 'ilove-pdf-admin', plugins_url( '/assets/js/main.min.js', __DIR__ ), array( 'wp-color-picker' ), '1.0.0', true );
+		global $pagenow;
+
+		if ( ( 'upload.php' === $pagenow || 'options-general.php' === $pagenow || 'media-new.php' === $pagenow || 'post.php' === $pagenow ) && get_current_screen()->post_type !== 'product' ) {
+			wp_enqueue_script( 'ilove-pdf-admin', plugins_url( '/assets/js/main.min.js', __DIR__ ), array( 'wp-color-picker', 'sweetalert-ilovepdf' ), '1.0.0', true );
+			wp_enqueue_script( 'sweetalert-ilovepdf', 'https://cdn.jsdelivr.net/npm/sweetalert2@11', array(), '11.10', true );
+		}
 	}
 
 	/**
