@@ -97,9 +97,11 @@ function ilove_pdf_login_action() {
         }
 
         wp_safe_redirect( wp_get_referer() . '&response_code=' . $response['response']['code'] . '&nonce_ilove_pdf_response=' . wp_create_nonce() );
+        exit();
     }
 
     wp_safe_redirect( wp_get_referer() . '&response_code=' . $response . '&nonce_ilove_pdf_response=' . wp_create_nonce() );
+    exit();
 }
 add_action( 'admin_post_ilovepdf_login', 'ilove_pdf_login_action' );
 
