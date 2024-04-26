@@ -53,25 +53,15 @@ function ilove_pdf_content_page_setting() {
                             <?php $stats = ilove_pdf_get_statistics(); ?>
                             <div class="col-md-4">
                                 <div class="panel" style="margin-right: 10px;">
-                                    <h3><?php esc_html_e( 'Account', 'ilove-pdf' ); ?></h3>
-                                    <p><i class="fa fa-check" aria-hidden="true"></i> <?php esc_html_e( 'Logged as', 'ilove-pdf' ); ?><strong> <?php echo esc_html( get_option( 'ilovepdf_user_email' ) ); ?></strong>&nbsp;&nbsp;&nbsp;<a href="<?php echo esc_url( add_query_arg( 'nonce_ilove_pdf_logout', wp_create_nonce( 'admin-post' ), admin_url( 'admin-post.php' ) . '?action=ilovepdf_logout' ) ); ?>" class="button button-primary" style="margin-top: 10px;"><?php esc_html_e( 'Logout', 'ilove-pdf' ); ?></a></p>
-
-                                    <hr style="margin: 30px 0px;" />
-                                    <form action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>?action=ilovepdf_change_project" method="POST">
-                                    <?php wp_nonce_field( 'admin-post', 'nonce_ilove_pdf_change_project' ); ?>
-                                    <select name="ilovepdf_select_project">
-                                    <?php $total_projects = 0; ?>
-                                    <?php foreach ( $stats['projects'] as $project ) : ?>
-                                        <option value="<?php echo (int) $total_projects; ?>" <?php echo esc_attr( ( get_option( 'ilovepdf_user_public_key' ) === $project['public_key'] ? 'selected' : '' ) ); ?>><?php echo esc_html( $project['name'] ); ?></option>
-                                        <?php ++$total_projects; ?>
-                                    <?php endforeach; ?>
-                                    </select>
-                                    <input type="submit" class="button button-primary pull-right" value="<?php esc_html_e( 'Change Project', 'ilove-pdf' ); ?>">
+                                    <form action="options.php" method="POST">
+                                        <?php settings_fields( 'ilove_pdf_display_general_settings' ); ?>
+                                        <?php do_settings_sections( 'ilove_pdf_display_general_settings' ); ?>
+                                        <?php submit_button(); ?>
                                     </form>
                                 </div>
                             </div>
                             <div class="col-md-8">
-                                <div class="panel" style="margin-left: 10px; height: 350px;">
+                                <div class="panel" style="margin-left: 10px;">
                                     <h3><?php esc_html_e( 'Available files to process', 'ilove-pdf' ); ?></h3>
                                     <div class="progress">
                                         <div class="progress__text"><?php esc_html_e( 'Free', 'ilove-pdf' ); ?></div>
@@ -103,7 +93,23 @@ function ilove_pdf_content_page_setting() {
                                     <?php endif; ?>
                                     <a href="https://developer.ilovepdf.com/user/account" target="_blank" class="link"><?php esc_html_e( 'Account info', 'ilove-pdf' ); ?> (<?php echo esc_html( get_option( 'ilovepdf_user_email' ) ); ?>) &raquo;</a>
                                     <a href="https://developer.ilovepdf.com/pricing" target="_blank" class="button button-primary"><?php esc_html_e( 'Buy more files', 'ilove-pdf' ); ?></a>
-                                    <br /><br />
+                                </div>
+                                <div class="panel" style="margin-left: 10px;">
+                                    <h3><?php esc_html_e( 'Account', 'ilove-pdf' ); ?></h3>
+                                    <p><i class="fa fa-check" aria-hidden="true"></i> <?php esc_html_e( 'Logged as', 'ilove-pdf' ); ?><strong> <?php echo esc_html( get_option( 'ilovepdf_user_email' ) ); ?></strong>&nbsp;&nbsp;&nbsp;<a href="<?php echo esc_url( add_query_arg( 'nonce_ilove_pdf_logout', wp_create_nonce( 'admin-post' ), admin_url( 'admin-post.php' ) . '?action=ilovepdf_logout' ) ); ?>" class="button button-primary" style="margin-top: 10px;"><?php esc_html_e( 'Logout', 'ilove-pdf' ); ?></a></p>
+
+                                    <hr style="margin: 30px 0px;" />
+                                    <form action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>?action=ilovepdf_change_project" method="POST">
+                                    <?php wp_nonce_field( 'admin-post', 'nonce_ilove_pdf_change_project' ); ?>
+                                    <select name="ilovepdf_select_project">
+                                    <?php $total_projects = 0; ?>
+                                    <?php foreach ( $stats['projects'] as $project ) : ?>
+                                        <option value="<?php echo (int) $total_projects; ?>" <?php echo esc_attr( ( get_option( 'ilovepdf_user_public_key' ) === $project['public_key'] ? 'selected' : '' ) ); ?>><?php echo esc_html( $project['name'] ); ?></option>
+                                        <?php ++$total_projects; ?>
+                                    <?php endforeach; ?>
+                                    </select>
+                                    <input type="submit" class="button button-primary pull-right" value="<?php esc_html_e( 'Change Project', 'ilove-pdf' ); ?>">
+                                    </form>
                                 </div>
                             </div>
                         <?php else : ?>
