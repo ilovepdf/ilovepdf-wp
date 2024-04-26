@@ -367,7 +367,7 @@ add_action( 'admin_post_ilovepdf_watermark_list', 'ilove_pdf_watermark_list_acti
  * @since    1.0.0
  */
 function ilove_pdf_restore_action() {
-    if ( isset( $_GET['action'] ) && 'ilovepdf_restore' === $_GET['action'] && isset( $_GET['nonce_ilove_pdf_restore_watermark'] ) && wp_verify_nonce( sanitize_key( $_GET['nonce_ilove_pdf_restore_watermark'] ), 'admin-post' ) && isset( $_GET['id'] ) && intval( $_GET['id'] ) ) {
+    if ( isset( $_GET['action'] ) && 'ilovepdf_restore' === $_GET['action'] && isset( $_GET['nonce_ilove_pdf_restore'] ) && wp_verify_nonce( sanitize_key( $_GET['nonce_ilove_pdf_restore'] ), 'admin-post' ) && isset( $_GET['id'] ) && intval( $_GET['id'] ) ) {
         ilove_pdf_restore_pdf( (int) sanitize_text_field( wp_unslash( $_GET['id'] ) ) );
     }
 
