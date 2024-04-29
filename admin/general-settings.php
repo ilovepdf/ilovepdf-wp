@@ -97,9 +97,11 @@ function ilove_pdf_login_action() {
         }
 
         wp_safe_redirect( wp_get_referer() . '&response_code=' . $response['response']['code'] . '&nonce_ilove_pdf_response=' . wp_create_nonce() );
+        exit();
     }
 
     wp_safe_redirect( wp_get_referer() . '&response_code=' . $response . '&nonce_ilove_pdf_response=' . wp_create_nonce() );
+    exit();
 }
 add_action( 'admin_post_ilovepdf_login', 'ilove_pdf_login_action' );
 
@@ -159,3 +161,70 @@ function ilove_pdf_popup_buymore_action() {
                     </svg><div><a href="https://developer.ilovepdf.com/pricing" target="_blank" class="button button-primary">' . esc_html( __( 'Accept', 'ilove-pdf' ) ) . '</a> <a href="#" onClick="tb_remove();"  class="button button-primary">' . esc_html( __( 'Cancel', 'ilove-pdf' ) ) . '</a></div></div></div>';
 }
 add_action( 'admin_footer', 'ilove_pdf_popup_buymore_action' );
+
+/**
+ * Initialize Options for the general admin area.
+ *
+ * @since    2.1.0
+ */
+function ilove_pdf_initialize_general_options() {
+
+    if ( false === get_option( 'ilove_pdf_display_general_settings' ) ) {
+        add_option( 'ilove_pdf_display_general_settings' );
+    }
+
+    add_settings_section(
+        'general_settings_section',
+        '',
+        'ilove_pdf_general_options_callback',
+        'ilove_pdf_display_general_settings'
+    );
+
+    add_settings_field(
+        'ilove_pdf_general_backup',
+        __( 'Create backup of original files?', 'ilove-pdf' ),
+        'ilove_pdf_general_backup_callback',
+        'ilove_pdf_display_general_settings',
+        'general_settings_section',
+        array(
+            'No',
+            'Yes',
+        )
+    );
+
+    register_setting(
+        'ilove_pdf_display_general_settings',
+        'ilove_pdf_display_general_settings'
+    );
+}
+add_action( 'admin_init', 'ilove_pdf_initialize_general_options' );
+
+/**
+ * Options General Callback.
+ *
+ * @since    2.1.0
+ */
+function ilove_pdf_general_options_callback() {
+    echo '<h3>' . esc_html( __( 'Configure your Tools settings.', 'ilove-pdf' ) ) . '</h3>';
+}
+
+/**
+ * Backup Original File Callback.
+ *
+ * @since    2.1.0
+ * @param    array $args    Arguments options.
+ */
+function ilove_pdf_general_backup_callback( $args ) {
+
+    $options = get_option( 'ilove_pdf_display_general_settings' );
+    $html    = sprintf(
+        '<input type="radio" id="ilove_pdf_general_backup" name="ilove_pdf_display_general_settings[ilove_pdf_general_backup]" value="0" %s><label for="ilove_pdf_general_backup">%s</label>&nbsp;
+        <input type="radio" id="ilove_pdf_general_backup" name="ilove_pdf_display_general_settings[ilove_pdf_general_backup]" value="1" %s><label for="ilove_pdf_general_backup">%s</label><div><p><small>The backup files can be found on your server:</small></p><p><strong>wp-content/uploads/pdf/backup</strong></p></div>',
+        isset( $options['ilove_pdf_general_backup'] ) ? checked( 0, $options['ilove_pdf_general_backup'], false ) : '',
+        $args[0],
+        isset( $options['ilove_pdf_general_backup'] ) ? checked( 1, $options['ilove_pdf_general_backup'], false ) : 'checked="checked"',
+        $args[1]
+    );
+
+    echo wp_kses( $html, ilove_pdf_expanded_alowed_tags() );
+}

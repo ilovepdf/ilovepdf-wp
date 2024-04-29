@@ -18,9 +18,12 @@ function ilove_pdf_content_page_statistics() {
         }
     }
 
-    $logo_svg = ILOVE_PDF_ASSETS_PLUGIN_PATH . 'assets/img/logo_ilovepdf.svg'; // @phpstan-ignore-line
+    $logo_svg = ILOVE_PDF_ASSETS_PLUGIN_PATH . 'assets/img/logo_ilovepdf.svg';
 
-	$stats = ilove_pdf_get_statistics();
+	$stats                    = ilove_pdf_get_statistics();
+    $options_general_settings = get_option( 'ilove_pdf_display_general_settings' );
+    $backup_files_is_active   = (int) $options_general_settings['ilove_pdf_general_backup'];
+
 	?>
     <div class="wrap">
         <h2 class="plugin-logo-full"><img src="<?php echo esc_url( $logo_svg ); ?>" alt="logo ilovepdf" /></h2>
@@ -197,7 +200,18 @@ function ilove_pdf_content_page_statistics() {
                                                     <?php else : ?>
                                                             <?php $original_current_file_size = get_post_meta( get_the_ID(), '_wp_attached_original_size', true ); ?>
                                                             <?php $compress_file_size = get_post_meta( get_the_ID(), '_wp_attached_compress_size', true ); ?>
-                                                            <?php echo esc_html( ilove_pdf_get_percentage_compress( $original_current_file_size, $original_current_file_size - $compress_file_size ) . '%' ); ?>                                                 
+                                                            <span style="margin-right: 10px;">
+                                                                <?php echo esc_html( ilove_pdf_get_percentage_compress( $original_current_file_size, $original_current_file_size - $compress_file_size ) . '%' ); ?>
+                                                            </span>
+                                                            <?php if ( $backup_files_is_active ) : ?>
+                                                                <?php if ( get_post_meta( get_the_ID(), '_wp_attached_file_backup', true ) ) : ?>
+                                                                    <a class="btn-restore button-secondary" href="<?php echo esc_url( admin_url( 'admin-post.php' ) . '?action=ilovepdf_restore&id=' . get_the_ID() . '&nonce_ilove_pdf_restore=' . wp_create_nonce( 'admin-post' ) ); ?>"><?php esc_html_e( 'Restore original file', 'ilove-pdf' ); ?></a>
+                                                                    <span class="loading pdf-status"><?php esc_html_e( 'Loading', 'ilove-pdf' ); ?>...</span>
+                                                                    <span class="error pdf-status"><?php esc_html_e( 'Error', 'ilove-pdf' ); ?></span>
+                                                                    <span class="success pdf-status"><?php esc_html_e( 'Completed, please refresh the page.', 'ilove-pdf' ); ?></span>
+                                                                    <div id="dialog"><div class="no-close"></div></div>
+                                                                <?php endif; ?>
+                                                            <?php endif; ?>                                                 
                                                     <?php endif; ?>
                                                     </td>
                                                 </tr>
@@ -322,6 +336,14 @@ function ilove_pdf_content_page_statistics() {
                                                         <span class="applying-watermark pdf-status"><?php esc_html_e( 'Applying Watermark', 'ilove-pdf' ); ?>...</span>
                                                         <span class="error pdf-status"><?php esc_html_e( 'Error', 'ilove-pdf' ); ?></span>
                                                         <span class="success pdf-status"><?php esc_html_e( 'Completed', 'ilove-pdf' ); ?></span>
+                                                    <?php elseif ( $backup_files_is_active ) : ?>
+                                                        <?php if ( get_post_meta( get_the_ID(), '_wp_attached_file_backup', true ) ) : ?>
+                                                            <a class="btn-restore button-secondary" href="<?php echo esc_url( admin_url( 'admin-post.php' ) . '?action=ilovepdf_restore&id=' . get_the_ID() . '&nonce_ilove_pdf_restore=' . wp_create_nonce( 'admin-post' ) ); ?>"><?php esc_html_e( 'Restore original file', 'ilove-pdf' ); ?></a>
+                                                            <span class="loading pdf-status"><?php esc_html_e( 'Loading', 'ilove-pdf' ); ?>...</span>
+                                                            <span class="error pdf-status"><?php esc_html_e( 'Error', 'ilove-pdf' ); ?></span>
+                                                            <span class="success pdf-status"><?php esc_html_e( 'Completed, please refresh the page.', 'ilove-pdf' ); ?></span>
+                                                            <div id="dialog"><div class="no-close"></div></div>
+                                                        <?php endif; ?>
                                                     <?php endif; ?>
                                                     </td>
                                                 </tr>
