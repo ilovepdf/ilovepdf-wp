@@ -202,11 +202,15 @@ function ilove_pdf_custom_meta_box( $file_object ) {
  * Custom Meta Box Register.
  *
  * @since    1.0.0
+ * @param    string  $post_type   Post type..
+ * @param    WP_Post $post   Post object.
  */
-function ilove_pdf_add_custom_meta_box() {
-    add_meta_box( 'demo-meta-box', 'iLovePDF', 'ilove_pdf_custom_meta_box', 'attachment', 'side', 'low', null );
+function ilove_pdf_add_custom_meta_box( $post_type, $post ) {
+    if ( 'application/pdf' === $post->post_mime_type ) {
+        add_meta_box( 'demo-meta-box', 'iLovePDF', 'ilove_pdf_custom_meta_box', 'attachment', 'side', 'low', null );
+    }
 }
-add_action( 'add_meta_boxes', 'ilove_pdf_add_custom_meta_box' );
+add_action( 'add_meta_boxes', 'ilove_pdf_add_custom_meta_box', 10, 2 );
 
 /**
  * Add the custom Bulk Action to the select media menus.
