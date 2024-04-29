@@ -39,18 +39,6 @@ function ilove_pdf_initialize_options_watermark() {
     );
 
     add_settings_field(
-        'ilove_pdf_watermark_backup',
-        __( 'Backup Original', 'ilove-pdf' ),
-        'ilove_pdf_watermark_backup_callback',
-        'ilove_pdf_display_settings_watermark',
-        'watermark_settings_section',
-        array(
-            'No',
-            'Yes',
-        )
-    );
-
-    add_settings_field(
         'ilove_pdf_watermark_auto',
         __( 'Enable Auto Watermark', 'ilove-pdf' ),
         'ilove_pdf_watermark_auto_callback',
@@ -91,27 +79,6 @@ function ilove_pdf_watermark_active_callback( $args ) {
         '1',
         isset( $options['ilove_pdf_watermark_active'] ) ? checked( 1, $options['ilove_pdf_watermark_active'], false ) : '',
         $args[0]
-    );
-
-    echo wp_kses( $html, ilove_pdf_expanded_alowed_tags() );
-}
-
-/**
- * Backup Original File Callback.
- *
- * @since    1.0.0
- * @param    array $args    Arguments options.
- */
-function ilove_pdf_watermark_backup_callback( $args ) {
-
-    $options = get_option( 'ilove_pdf_display_settings_watermark' );
-    $html    = sprintf(
-        '<input type="radio" id="ilove_pdf_watermark_backup" name="ilove_pdf_display_settings_watermark[ilove_pdf_watermark_backup]" value="0" %s><label for="ilove_pdf_watermark_backup">%s</label>&nbsp;
-        <input type="radio" id="ilove_pdf_watermark_backup" name="ilove_pdf_display_settings_watermark[ilove_pdf_watermark_backup]" value="1" %s><label for="ilove_pdf_watermark_backup">%s</label>',
-        isset( $options['ilove_pdf_watermark_backup'] ) ? checked( 0, $options['ilove_pdf_watermark_backup'], false ) : '',
-        $args[0],
-        isset( $options['ilove_pdf_watermark_backup'] ) ? checked( 1, $options['ilove_pdf_watermark_backup'], false ) : 'checked="checked"',
-        $args[1]
     );
 
     echo wp_kses( $html, ilove_pdf_expanded_alowed_tags() );

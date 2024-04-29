@@ -24,9 +24,11 @@ namespace Ilove_Pdf_Includes;
 class Ilove_Pdf_Deactivator {
 
 	/**
-	 * Short Description. (use period)
+	 * Deactivates options related to PDF files when deactivating the plugin.
 	 *
-	 * Long Description.
+	 * This method sets the options 'ilovepdf_initial_pdf_files_size',
+ 	 * 'ilovepdf_compressed_files', and 'ilovepdf_watermarked_files' to 0 to
+ 	 * deactivate functionalities related to PDF files.
 	 *
 	 * @since    1.0.0
 	 */

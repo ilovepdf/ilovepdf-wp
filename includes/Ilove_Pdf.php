@@ -74,7 +74,7 @@ class Ilove_Pdf {
 	public function __construct() {
 
 		$this->plugin_name = 'ilove-pdf';
-		$this->version     = 'wp.2.0.5';
+		$this->version     = 'wp.2.1.0';
 
 		$this->load_dependencies();
 		$this->set_locale();
@@ -136,6 +136,7 @@ class Ilove_Pdf {
 
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
+		$this->loader->add_filter( 'plugin_action_links_' . ILOVE_PDF_PLUGIN_NAME, $plugin_admin, 'add_action_links' );
 	}
 
 	/**

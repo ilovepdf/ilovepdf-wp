@@ -51,12 +51,13 @@ class Ilove_Pdf_Activator {
 
 		$initial_pdf_size = ilove_pdf_get_all_pdf_current_size();
 		add_option( 'ilovepdf_initial_pdf_files_size', $initial_pdf_size );
-		add_option( 'ilove_pdf_display_settings_watermark', array( 'ilove_pdf_watermark_backup' => 1 ) );
+
 		if ( get_option( 'ilovepdf_wordpress_id' ) === null ) {
 			add_option( 'ilovepdf_wordpress_id', md5( get_option( 'siteurl' ) . get_option( 'admin_email' ) ) );
         }
 
 		self::set_default_values_watermark_settings();
+		self::set_default_values_general_settings();
 	}
 
 	/**
@@ -99,5 +100,27 @@ class Ilove_Pdf_Activator {
 		}
 
 		update_option( 'ilove_pdf_display_settings_format_watermark', $get_options );
+	}
+
+	/**
+	 * General Settings Value.
+	 *
+	 * Set default values.
+	 *
+	 * @since    2.1.0
+	 */
+	public static function set_default_values_general_settings() {
+
+		$get_options = get_option( 'ilove_pdf_display_general_settings' );
+
+		if ( ! is_array( $get_options ) ) {
+			$get_options = array();
+		}
+
+		if ( ! isset( $get_options['ilove_pdf_general_backup'] ) ) {
+			$get_options['ilove_pdf_general_backup'] = 1;
+		}
+
+		update_option( 'ilove_pdf_display_general_settings', $get_options );
 	}
 }

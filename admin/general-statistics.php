@@ -27,14 +27,14 @@ function ilove_pdf_compress_media_column( $cols ) {
  * @param    string $column_name    Column Name.
  * @param    int    $id             File ID.
  */
-function ilove_pdf_compress_button_value( $column_name, $id ) {
+function ilove_pdf_buttons_value( $column_name, $id ) {
     if ( 'ilovepdf-status' === $column_name ) {
-        $filetype = wp_check_filetype( basename( get_attached_file( $id ) ) );
-        $options  = get_option( 'ilove_pdf_display_settings_watermark' );
+        $filetype                 = wp_check_filetype( basename( get_attached_file( $id ) ) );
+        $options_general_settings = get_option( 'ilove_pdf_display_general_settings' );
 
         if ( strcasecmp( $filetype['ext'], 'pdf' ) === 0 ) {
-            $restore = false;
-            $html    = '<div class="row-library"><div class="row-child-library">';
+            $backup_files_is_active = (int) $options_general_settings['ilove_pdf_general_backup'];
+            $html                   = '<div class="row-library"><div class="row-child-library row-compress-tool">';
 
             if ( ! ilove_pdf_is_file_compressed( $id ) ) {
                 $html .= ' <a href="' . admin_url( 'admin-post.php' ) . '?action=ilovepdf_compress&id=' . $id . '&library=1&nonce_ilove_pdf_compress=' . wp_create_nonce( 'admin-post' ) . '" class="button-primary media-ilovepdf-box btn-compress">' . __( 'Compress PDF', 'ilove-pdf' ) . '</a> ';
@@ -47,30 +47,28 @@ function ilove_pdf_compress_button_value( $column_name, $id ) {
             $html .= '<span class="error pdf-status">' . __( 'Error', 'ilove-pdf' ) . '</span>';
             $html .= ' <span class="success pdf-status">' . __( 'Completed', 'ilove-pdf' ) . '</span>';
 
-            $html .= '</div><div class="row-child-library">';
+            $html .= '</div><div class="row-child-library row-watermark-tool">';
 
             if ( ! ilove_pdf_is_file_watermarked( $id ) ) {
                 $html .= sprintf( '<a href="%s" class="%s">%s</a>', add_query_arg( 'nonce_ilove_pdf_watermark', wp_create_nonce( 'admin-post' ), admin_url( 'admin-post.php' ) . '?action=ilovepdf_watermark&id=' . $id . '&library=1' ), 'button-primary media-ilovepdf-box btn-watermark', __( 'Apply Watermark', 'ilove-pdf' ) );
             } else {
-                $restore = true;
-            }
-
-            if ( $restore ) {
-                $options = get_option( 'ilove_pdf_display_settings_watermark' );
-
-                if ( $options['ilove_pdf_watermark_backup'] && get_post_meta( $id, '_wp_attached_file_backup', true ) ) {
-                    $html .= '<i class="fa fa-check t" aria-hidden="true"></i> ' . __( 'Stamped', 'ilove-pdf' ) . ' <a class="btn-restore" href="' . admin_url( 'admin-post.php' ) . '?action=ilovepdf_restore&id=' . $id . '&nonce_ilove_pdf_restore_watermark=' . wp_create_nonce( 'admin-post' ) . '"><br />(' . __( 'Restore original file', 'ilove-pdf' ) . ') </a>';
-                } else {
-                    $html .= '<i class="fa fa-check t" aria-hidden="true"></i> ' . __( 'Stamped', 'ilove-pdf' );
-                }
+                $html .= '<i class="fa fa-check t" aria-hidden="true"></i> ' . __( 'Stamped', 'ilove-pdf' );
             }
 
             $html .= '<span class="loading pdf-status">' . __( 'Loading', 'ilove-pdf' ) . '...</span>';
             $html .= '<span class="applying-watermark pdf-status">' . __( 'Applying Watermark', 'ilove-pdf' ) . '...</span>';
             $html .= '<span class="error pdf-status">' . __( 'Error', 'ilove-pdf' ) . '</span>';
             $html .= '<span class="success pdf-status">' . __( 'Completed', 'ilove-pdf' ) . '</span>';
-            $html .= '</div></div>';
-        } else {
+            $html .= '</div>';
+
+            if ( $backup_files_is_active ) {
+                if ( get_post_meta( $id, '_wp_attached_file_backup', true ) ) {
+                    $html .= '<div class="row-child-library"><a class="btn-restore" href="' . admin_url( 'admin-post.php' ) . '?action=ilovepdf_restore&id=' . $id . '&nonce_ilove_pdf_restore=' . wp_create_nonce( 'admin-post' ) . '">(' . __( 'Restore original file', 'ilove-pdf' ) . ') </a><span class="loading pdf-status">' . __( 'Loading', 'ilove-pdf' ) . '...</span><span class="error pdf-status">' . __( 'Error', 'ilove-pdf' ) . '</span><span class="success pdf-status">' . __( 'Completed, please refresh the page.', 'ilove-pdf' ) . '</span><div id="dialog"><div class="no-close"></div></div></div></div>';
+                }
+            } else {
+                $html .= '</div>';
+            }
+		} else {
             $html = '';
         }
 
@@ -89,7 +87,7 @@ function ilove_pdf_hook_new_media_columns() {
     }
 
     add_filter( 'manage_media_columns', 'ilove_pdf_compress_media_column' );
-    add_action( 'manage_media_custom_column', 'ilove_pdf_compress_button_value', 10, 2 );
+    add_action( 'manage_media_custom_column', 'ilove_pdf_buttons_value', 10, 2 );
 }
 add_action( 'admin_init', 'ilove_pdf_hook_new_media_columns' );
 
@@ -157,14 +155,18 @@ function ilove_pdf_custom_meta_box( $file_object ) {
     if ( get_option( 'ilovepdf_user_id' ) ) {
         wp_nonce_field( basename( __FILE__ ), 'meta-box-nonce' );
 
-        $filetype = wp_check_filetype( basename( get_attached_file( $file_object->ID ) ) );
+        $filetype                 = wp_check_filetype( basename( get_attached_file( $file_object->ID ) ) );
+        $options_general_settings = get_option( 'ilove_pdf_display_general_settings' );
+
         if ( strcasecmp( $filetype['ext'], 'pdf' ) === 0 ) {
-            $restore = false;
+            $backup_files_is_active = (int) $options_general_settings['ilove_pdf_general_backup'];
 
             if ( get_post_meta( $file_object->ID, '_wp_attached_original_size' ) ) {
                 $html .= '<span>' . __( 'Original size: ', 'ilove-pdf' ) . '<strong>' . size_format( get_post_meta( $file_object->ID, '_wp_attached_original_size', true ), 2 ) . '</strong></span><br /><br />';
                 $html .= '<span id="current-size">' . __( 'Current size: ', 'ilove-pdf' ) . '<strong>' . size_format( filesize( get_attached_file( $file_object->ID ) ), 2 ) . '</strong></span><br /><br />';
             }
+
+            $html .= '<div class="ilovepdf--meta-box-container">';
 
             if ( ! ilove_pdf_is_file_compressed( $file_object->ID ) ) {
 				$html .= '<a href="' . admin_url( 'admin-post.php' ) . '?action=ilovepdf_compress&id=' . $file_object->ID . '&editpdf=1&nonce_ilove_pdf_compress=' . wp_create_nonce( 'admin-post' ) . '" class="button-primary media-ilovepdf-box btn-compress">' . __( 'Compress PDF', 'ilove-pdf' ) . '</a> ';
@@ -173,22 +175,22 @@ function ilove_pdf_custom_meta_box( $file_object ) {
             if ( ! ilove_pdf_is_file_watermarked( $file_object->ID ) ) {
 				$html .= ' <a href="' . admin_url( 'admin-post.php' ) . '?action=ilovepdf_watermark&id=' . $file_object->ID . '&editpdf=1&nonce_ilove_pdf_watermark=' . wp_create_nonce( 'admin-post' ) . '" class="button-primary media-ilovepdf-box btn-watermark">' . __( 'Apply Watermark', 'ilove-pdf' ) . '</a>';
             } else {
-                $restore = true;
-            }
-
-            if ( $restore ) {
-                $options = get_option( 'ilove_pdf_display_settings_watermark' );
-                if ( $options['ilove_pdf_watermark_backup'] ) {
-                    $html .= '<i class="fa fa-check" aria-hidden="true"></i> ' . __( 'Stamped', 'ilove-pdf' ) . ' <a class="link-restore" href="' . admin_url( 'admin-post.php' ) . '?action=ilovepdf_restore&id=' . $file_object->ID . '&nonce_ilove_pdf_restore_watermark=' . wp_create_nonce( 'admin-post' ) . '">(' . __( 'Restore original file', 'ilove-pdf' ) . ') </a>';
-                } else {
-                    $html .= '<i class="fa fa-check" aria-hidden="true"></i> ' . __( 'Stamped', 'ilove-pdf' );
-                }
+                $html .= '<i class="fa fa-check t" aria-hidden="true"></i> ' . __( 'Stamped', 'ilove-pdf' );
             }
 
             $html .= '<span class="compressing pdf-status">' . __( 'Compressing', 'ilove-pdf' ) . '...</span>';
             $html .= '<span class="applying-watermark pdf-status">' . __( 'Applying Watermark', 'ilove-pdf' ) . '...</span>';
             $html .= '<span class="error pdf-status">' . __( 'Error', 'ilove-pdf' ) . '</span>';
             $html .= '<span class="success pdf-status">' . __( 'Completed', 'ilove-pdf' ) . '</span>';
+
+            if ( $backup_files_is_active ) {
+
+                if ( get_post_meta( $file_object->ID, '_wp_attached_file_backup', true ) ) {
+                    $html .= '</br><a class="link-restore" href="' . admin_url( 'admin-post.php' ) . '?action=ilovepdf_restore&id=' . $file_object->ID . '&nonce_ilove_pdf_restore=' . wp_create_nonce( 'admin-post' ) . '">(' . __( 'Restore original file', 'ilove-pdf' ) . ') </a>';
+                }
+            }
+
+            $html .= '</div>';
 
         }
     }
@@ -200,11 +202,15 @@ function ilove_pdf_custom_meta_box( $file_object ) {
  * Custom Meta Box Register.
  *
  * @since    1.0.0
+ * @param    string  $post_type   Post type..
+ * @param    WP_Post $post   Post object.
  */
-function ilove_pdf_add_custom_meta_box() {
-    add_meta_box( 'demo-meta-box', 'iLovePDF', 'ilove_pdf_custom_meta_box', 'attachment', 'side', 'low', null );
+function ilove_pdf_add_custom_meta_box( $post_type, $post ) {
+    if ( 'application/pdf' === $post->post_mime_type ) {
+        add_meta_box( 'demo-meta-box', 'iLovePDF', 'ilove_pdf_custom_meta_box', 'attachment', 'side', 'low', null );
+    }
 }
-add_action( 'add_meta_boxes', 'ilove_pdf_add_custom_meta_box' );
+add_action( 'add_meta_boxes', 'ilove_pdf_add_custom_meta_box', 10, 2 );
 
 /**
  * Add the custom Bulk Action to the select media menus.
@@ -303,10 +309,14 @@ add_action( 'admin_notices', 'ilove_pdf_bulk_action_admin_notice' );
  */
 function ilove_pdf_be_attachment_field_mode_grid( $form_fields, $post ) {
     if ( get_option( 'ilovepdf_user_id' ) && isset( $_SERVER['SCRIPT_NAME'] ) && substr( sanitize_url( $_SERVER['SCRIPT_NAME'] ), strrpos( sanitize_url( $_SERVER['SCRIPT_NAME'] ), '/' ) + 1 ) !== 'post.php' ) { // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.MissingUnslash
-        $filetype = wp_check_filetype( basename( get_attached_file( $post->ID ) ) );
+        $filetype                 = wp_check_filetype( basename( get_attached_file( $post->ID ) ) );
+        $options_general_settings = get_option( 'ilove_pdf_display_general_settings' );
+
         if ( strcasecmp( $filetype['ext'], 'pdf' ) === 0 ) {
-            $restore = false;
-            $html    = '';
+            $backup_files_is_active = (int) $options_general_settings['ilove_pdf_general_backup'];
+
+            $html = '';
+
             if ( ! ilove_pdf_is_file_compressed( $post->ID ) ) {
 				$html .= '<a href="' . admin_url( 'admin-post.php' ) . '?action=ilovepdf_compress&id=' . $post->ID . '&editpdf=1&nonce_ilove_pdf_compress=' . wp_create_nonce( 'admin-post' ) . '" class="button-primary media-ilovepdf-box btn-compress">' . __( 'Compress PDF', 'ilove-pdf' ) . '</a> ';
             }
@@ -314,17 +324,7 @@ function ilove_pdf_be_attachment_field_mode_grid( $form_fields, $post ) {
             if ( ! ilove_pdf_is_file_watermarked( $post->ID ) ) {
 				$html .= ' <a href="' . admin_url( 'admin-post.php' ) . '?action=ilovepdf_watermark&id=' . $post->ID . '&editpdf=1&nonce_ilove_pdf_watermark=' . wp_create_nonce( 'admin-post' ) . '" class="button-primary media-ilovepdf-box btn-watermark">' . __( 'Apply Watermark', 'ilove-pdf' ) . '</a>';
             } else {
-                $restore = true;
-            }
-
-            if ( $restore ) {
-                $options = get_option( 'ilove_pdf_display_settings_watermark' );
-                if ( $options['ilove_pdf_watermark_backup'] ) {
-                    $html .= '<i class="fa fa-check" aria-hidden="true"></i> ' . __( 'Stamped', 'ilove-pdf' ) . ' <a class="link-restore" href="' . admin_url( 'admin-post.php' ) . '?action=ilovepdf_restore&id=' . $post->ID . '&nonce_ilove_pdf_restore_watermark=' . wp_create_nonce( 'admin-post' ) . '">(' . __( 'Restore original file', 'ilove-pdf' ) . ') </a>';
-                } else {
-                    $html .= '<i class="fa fa-check" aria-hidden="true"></i> ' . __( 'Stamped', 'ilove-pdf' );
-
-                }
+                $html .= '<i class="fa fa-check t" aria-hidden="true"></i> ' . __( 'Stamped', 'ilove-pdf' );
             }
 
             $html .= '<span class="compressing pdf-status">' . __( 'Compressing', 'ilove-pdf' ) . '...</span>';
@@ -332,7 +332,14 @@ function ilove_pdf_be_attachment_field_mode_grid( $form_fields, $post ) {
             $html .= '<span class="error pdf-status">' . __( 'Error', 'ilove-pdf' ) . '</span>';
             $html .= '<span class="success pdf-status">' . __( 'Completed', 'ilove-pdf' ) . '</span>';
 
-            $form_fields['iLovePDF-compress'] = array(
+            if ( $backup_files_is_active ) {
+                if ( get_post_meta( $post->ID, '_wp_attached_file_backup', true ) ) {
+                    $html .= '</br><a class="link-restore" href="' . admin_url( 'admin-post.php' ) . '?action=ilovepdf_restore&id=' . $post->ID . '&nonce_ilove_pdf_restore=' . wp_create_nonce( 'admin-post' ) . '">(' . __( 'Restore original file', 'ilove-pdf' ) . ') </a>';
+                    $html .= '<script type="text/javascript" src="' . esc_url( ILOVE_PDF_ASSETS_PLUGIN_PATH . 'assets/js/main.min.js' ) . '"></script>'; // phpcs:ignore WordPress.WP.EnqueuedResources.NonEnqueuedScript
+                }
+            }
+
+            $form_fields['iLovePDF-tools'] = array(
                 'label' => 'iLovePDF',
                 'input' => 'html',
                 'html'  => $html,

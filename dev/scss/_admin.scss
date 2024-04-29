@@ -21,6 +21,18 @@
     display: block;
     margin: 20px 0;
   }
+
+  .ilove_pdf_wrapper_buttons {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    padding: 20px 0 10px 0;
+
+    .submit {
+      padding: 0;
+      margin: 0;
+    }
+  }
 }
 
 .progress {
@@ -196,5 +208,17 @@ body #TB_window {
     font-style: italic;
     padding: 0px !important;
     margin-bottom: 0px;
+  }
+}
+
+.swal2-container {
+  z-index: 161000 !important;
+}
+
+.optimization-pdf {
+  &.widefat {
+    td {
+      vertical-align: middle;
+    }
   }
 }
