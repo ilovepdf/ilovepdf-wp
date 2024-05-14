@@ -106,8 +106,8 @@ class Ilove_Pdf_Admin {
 		global $pagenow;
 
 		if ( ( 'upload.php' === $pagenow || 'options-general.php' === $pagenow || 'media-new.php' === $pagenow || 'post.php' === $pagenow ) && get_current_screen()->post_type !== 'product' ) {
-			wp_enqueue_script( 'ilove-pdf-admin', plugins_url( '/assets/js/main.min.js', __DIR__ ), array( 'wp-color-picker', 'sweetalert-ilovepdf' ), '1.0.0', true );
-			wp_enqueue_script( 'sweetalert-ilovepdf', 'https://cdn.jsdelivr.net/npm/sweetalert2@11', array(), '11.10', true );
+			wp_enqueue_script( 'ilove-pdf-admin', plugins_url( '/assets/js/main.min.js', __DIR__ ), array( 'wp-color-picker', 'sweetalert-js-ilovepdf' ), '1.0.0', true );
+			wp_enqueue_script( 'sweetalert-js-ilovepdf', plugins_url( '/assets/js/sweetalert2.all.min.js', __DIR__ ), array(), '11.11.0', true );
 		}
 	}
 
