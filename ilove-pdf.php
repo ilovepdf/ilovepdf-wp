@@ -53,6 +53,41 @@ function ilove_pdf_activate() {
 register_activation_hook( __FILE__, 'ilove_pdf_activate' );
 
 /**
+ * Plugin update.
+ *
+ * Fires when the upgrader process is complete.
+ *
+ * @since    2.2.0
+ *
+ * @param object $upgrader_object Reference to the plugin upgrader object.
+ * @param array  $options {
+ *     Array of plugin update options.
+ *
+ *     @type string $action Type of action. Default 'update'.
+ *     @type string $type Type of plugin being updated. Default 'plugin'.
+ *     @type string $slug Slug of the plugin being updated. Default ''.
+ * }
+ */
+function ilove_pdf_upgrade_plugin( $upgrader_object, $options ) {
+	if ( 'update' === $options['action'] && 'plugin' === $options['type'] ) {
+		foreach ( $options['plugins'] as $each_plugin ) {
+			if ( ILOVE_PDF_PLUGIN_NAME === $each_plugin ) {
+
+				$get_options = get_option( 'ilove_pdf_display_general_settings', array() );
+
+				if ( ! isset( $get_options['ilove_pdf_general_backup'] ) ) {
+					$get_options['ilove_pdf_general_backup'] = 1;
+				}
+
+				update_option( 'ilove_pdf_display_general_settings', $get_options );
+
+			}
+		}
+	}
+}
+add_action( 'upgrader_process_complete', 'ilove_pdf_upgrade_plugin', 10, 2 );
+
+/**
  * The code that runs during plugin deactivation.
  * This action is documented in includes/class-ilove-pdf-deactivator.php
  */
