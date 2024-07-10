@@ -13,7 +13,7 @@
  *
  * @wordpress-plugin
  * Plugin Name:       iLovePDF
- * Plugin URI:        https://developer.ilovepdf.com/
+ * Plugin URI:        https://iloveapi.com/
  * Description:       Compress your PDF files and Stamp Images or text into PDF files. This is the Official iLovePDF plugin for WordPress. You can optimize all your PDF and stamp them automatically as you do in ilovepdf.com.
  * Version:           2.1.1
  * Requires at least: 5.3
