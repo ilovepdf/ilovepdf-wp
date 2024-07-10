@@ -32,7 +32,7 @@ function ilove_pdf_watermark_pdf( $id_file, $auto = false, $bulk = false ) {
 
         try {
             // you can call task class directly
-            // to get your key pair, please visit https://developer.ilovepdf.com/user/projects
+            // to get your key pair, please visit https://iloveapi.com/user/projects
             $my_task = new WatermarkTask( get_option( 'ilovepdf_user_public_key', true ), get_option( 'ilovepdf_user_private_key', true ) );
 
             // file var keeps info about server file id, name...

@@ -126,11 +126,7 @@ class Ilove_Pdf_Activator {
 	 */
 	public static function set_default_values_general_settings() {
 
-		$get_options = get_option( 'ilove_pdf_display_general_settings' );
-
-		if ( ! is_array( $get_options ) ) {
-			$get_options = array();
-		}
+		$get_options = get_option( 'ilove_pdf_display_general_settings', array() );
 
 		if ( ! isset( $get_options['ilove_pdf_general_backup'] ) ) {
 			$get_options['ilove_pdf_general_backup'] = 1;

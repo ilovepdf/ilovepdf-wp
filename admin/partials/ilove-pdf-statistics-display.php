@@ -44,12 +44,12 @@ function ilove_pdf_content_page_statistics() {
                         <div class="container no-center">
                             <div class="row">
                                 <div class="col-md-6 panel">
-                                    <h3><?php esc_html_e( 'Available files to process', 'ilove-pdf' ); ?></h3>
+                                    <h3><?php esc_html_e( 'Credits available to process files', 'ilove-pdf' ); ?></h3>
                                     <div class="progress">
                                         <div class="progress__text"><?php esc_html_e( 'Free', 'ilove-pdf' ); ?></div>
                                         <div class="progress__total">
                                             <div class="progress__total__percent" style="width: <?php echo esc_html( ilove_pdf_get_percentage( $stats['files_used'], $stats['free_files_limit'] ) ); ?>%;"></div>
-                                            <div class="progress__total_text"><?php echo esc_html( ( $stats['files_used'] < $stats['free_files_limit'] ) ? $stats['files_used'] : 250 ); ?> / <?php echo esc_html( $stats['free_files_limit'] ); ?> <?php esc_html_e( 'processed files this month. Free Tier.', 'ilove-pdf' ); ?></div>
+                                            <div class="progress__total_text"><?php echo esc_html( ( $stats['files_used'] < $stats['free_files_limit'] ) ? $stats['files_used'] : 250 ); ?> / <?php echo esc_html( $stats['free_files_limit'] ); ?> <?php esc_html_e( 'credits used this month. Free Tier.', 'ilove-pdf' ); ?></div>
                                         </div>
                                     </div>
                                     <?php if ( $stats['subscription_files_limit'] ) : ?>
@@ -60,7 +60,7 @@ function ilove_pdf_content_page_statistics() {
                                                     $paid_files = ( $stats['files_used'] < $stats['free_files_limit'] ) ? 0 : $stats['files_used'] - $stats['free_files_limit'];
                                                 ?>
                                                 <div class="progress__total__percent" style="width: <?php echo esc_html( ilove_pdf_get_percentage( $paid_files, $stats['subscription_files_limit'] ) ); ?>%;"></div>
-                                                <div class="progress__total_text"><?php echo (int) $paid_files; ?> / <?php echo (int) $stats['subscription_files_limit']; ?> <?php echo wp_kses( ( 'yearly' === $stats['subscription']['period'] ) ? __( 'processed files this month. <strong>Yearly</strong> subscription.', 'ilove-pdf' ) : __( 'processed files this month. <strong>Monthly</strong> subscription.', 'ilove-pdf' ), 'ilove_pdf_expanded_alowed_tags' ); ?></div>
+                                                <div class="progress__total_text"><?php echo (int) $paid_files; ?> / <?php echo (int) $stats['subscription_files_limit']; ?> <?php echo wp_kses( ( 'yearly' === $stats['subscription']['period'] ) ? __( 'credits used this month. <strong>Yearly</strong> subscription.', 'ilove-pdf' ) : __( 'credits used this month. <strong>Monthly</strong> subscription.', 'ilove-pdf' ), 'ilove_pdf_expanded_alowed_tags' ); ?></div>
                                             </div>
                                         </div>
                                     <?php endif; ?>
@@ -69,12 +69,12 @@ function ilove_pdf_content_page_statistics() {
                                             <div class="progress__text"><?php esc_html_e( 'Prepaid', 'ilove-pdf' ); ?></div>
                                             <div class="progress__total">
                                                 <div class="progress__total__percent" style="width: <?php echo esc_html( ilove_pdf_get_percentage( $stats['package_files_used'], $stats['package_files_limit'] ) ); ?>%;"></div>
-                                                <div class="progress__total_text"><?php echo esc_html( $stats['package_files_used'] ); ?> / <?php echo esc_html( $stats['package_files_limit'] ); ?> <?php esc_html_e( 'processed files. Prepaid files.', 'ilove-pdf' ); ?></div>
+                                                <div class="progress__total_text"><?php echo esc_html( $stats['package_files_used'] ); ?> / <?php echo esc_html( $stats['package_files_limit'] ); ?> <?php esc_html_e( 'credits used. Prepaid credits.', 'ilove-pdf' ); ?></div>
                                             </div>
                                         </div>
                                     <?php endif; ?>
-                                    <a href="https://developer.ilovepdf.com/user/account" class="link" target="_blank"><?php esc_html_e( 'Account info', 'ilove-pdf' ); ?> (<?php echo esc_attr( get_option( 'ilovepdf_user_email' ) ); ?>) &raquo;</a>
-                                    <a href="https://developer.ilovepdf.com/pricing" target="_blank" class="button button-primary"><?php esc_html_e( 'Buy more files', 'ilove-pdf' ); ?></a>
+                                    <a href="https://iloveapi.com/user/account" class="link" target="_blank"><?php esc_html_e( 'Account info', 'ilove-pdf' ); ?> (<?php echo esc_attr( get_option( 'ilovepdf_user_email' ) ); ?>) &raquo;</a>
+                                    <a href="https://iloveapi.com/pricing" target="_blank" class="button button-primary"><?php esc_html_e( 'Buy more credits', 'ilove-pdf' ); ?></a>
                                 </div>
                                 <div class="col-md-5 col-md-offset-1 panel panel-margin-left">
                                     <h3>Tools</h3>
