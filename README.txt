@@ -40,49 +40,48 @@ All tools can be applied automatically when a PDF file is upload, so you don't n
 
 From your Admin panel:
 1. Visit Plugins > Add New.
-2. Search for ‘ilovepdf’ and press the ‘Install Now’ button.
+2. Search for **ilovePDF** and press the **Install Now** button.
 3. Activate the plugin from your Plugins page.
 
 Manual:
-1. Upload `ilove-pdf` to the `/wp-content/plugins/` directory
+1. Upload `ilovepdf` to the `/wp-content/plugins/` directory
 2. Activate the plugin through the 'Plugins' menu in WordPress
 3. Create a free account in the plugin settings page, or use your existing one
 4. Configure the plugin as you like
 
-== Configure your iLovePDF Developer Account ==
+== Configure your iLoveAPI Developer Account ==
 
-Install this plugin and go to Settings -> iLovePDF to create your iLovePDF Developer account (if you already registered previously on https://developer.ilovepdf.com you can login directly) and choose your Project, but by default it will be selected ‘Default Project’. A project is what defines which API keys will be used. If you need it, you can manage your projects in your iLovePDF developer account. With your iLovePDF API Free account you get 250 free PDF files to process per month. If you need more you can purchase them
+Install this plugin and go to `Settings -> iLovePDF` to create your iLoveAPI Developer account (if you already registered previously on [iLoveAPI Developer](https://iloveapi.com) you can login directly) and choose your Project, but by default it will be selected **Default Project**. A project is what defines which API keys will be used. If you need it, you can manage your projects in your iLoveAPI developer account. With your iLoveAPI Free account you get 2500 free credits to process per month. If you need more you can purchase them
 
-By going to Settings -> iLovePDF -> Compress PDF you can set the compression level you prefer to optimize your PDF files. We strongly recommend you to use ‘Recommended Compression’ which offers the perfect balance between compression and quality. In this section you can disable the auto compression of new uploaded PDF files in your Media Library.
+By going to `Settings -> iLovePDF -> Compress PDF` you can set the compression level you prefer to optimize your PDF files. We strongly recommend you to use ‘Recommended Compression’ which offers the perfect balance between compression and quality. In this section you can disable the auto compression of new uploaded PDF files in your Media Library.
 
-By going to Settings -> iLovePDF -> Watermark PDF you can set many options on what to stamp and how into your PDF files. In this section you can disable the auto stamping of new uploaded PDF files in your Media Library.
+By going to `Settings -> iLovePDF -> Watermark PDF` you can set many options on what to stamp and how into your PDF files. In this section you can disable the auto stamping of new uploaded PDF files in your Media Library.
 
-To Compress or Stamp PDF files that are already in your Media Library go to Media -> iLovePDF -> Compress PDF or Media -> iLovePDF -> Watermark
+To Compress or Stamp PDF files that are already in your Media Library go to `Media -> iLovePDF -> Compress PDF or Media -> iLovePDF -> Watermark`
 
 == Frequently Asked Questions ==
 
-= Do I need a iLovePDF account? =
+= Do I need a iLoveAPI account? =
 
 Yes, you need a `developer` account. It can be created easily from your Wordpress, or you can use your existing one.
 
 = Is this service free? =
 
-With a free account you can process up to 250 files each month. If you need more, you can upgrade your account.
+With a free account you can process up to 2500 credits each month. If you need more, you can upgrade your account.
 
 = What happens when the limit is reatched? =
 
-We will send you an email before limit is reached. When limit is reached, no more PDF files will be processed. But remember each month, 250 files are free, so in next month you will be able to process more files again!
+We will send you an email before limit is reached. When limit is reached, no more PDF files will be processed. But remember each month, 2500 credits are free, so in next month you will be able to process more files again!
 
 == Screenshots ==
 
 1. Create an account or login.
-2. Configure your pluggin
-3. Bulk actions with existing files
-4. PDF actions
+2. Configure Compress PDF.
+3. Configure Watermark PDF.
 
 == Changelog ==
 
-== 2.1.2 ==
+= 2.1.2 =
 Improved
 * Update Libraries.
 * Now IlovePDF will use credits to process the files.
@@ -90,7 +89,7 @@ Improved
 Fixed
 * A problem was solved with the option to create backup, where in some cases the option was not stored in the database.
 
-== 2.1.1 ==
+= 2.1.1 =
 Improved
 * Update Libraries.
 
@@ -98,7 +97,7 @@ Fixed
 * Fixed an issue when activating the plugin for the first time. Default settings now load correctly.
 * Library was included internally. This will improve file loading and possible CDN blocking in some countries.
 
-== 2.1.0 ==
+= 2.1.0 =
 Added
 * New Backup option added in General Settings. Now the backup works for all tools.
 * Regenerate thumbnails when wattermark is applied.
@@ -114,25 +113,25 @@ Improved
 Fixed
 * In some cases, when a user logged in, they could get a PHP error or warning.
 
-== 2.0.5 ==
+= 2.0.5 =
 Improved
 * Update Libraries.
 * Assets.
 
-== 2.0.4 ==
+= 2.0.4 =
 Fixed
 * Compatibility issue with the Woocommerce plugin.
 
-== 2.0.3 ==
+= 2.0.3 =
 Fixed
 * Specify minimum version of PHP for dependencies.
 
-== 2.0.2 ==
+= 2.0.2 =
 Added
 * Improved class loading.
 * Update library ilovepdf to v1.2.2
 
-== 2.0.1 ==
+= 2.0.1 =
 Changed
 * Remove Function Upload duplicate. Caused an error loading pdf files.
 
