@@ -12,7 +12,7 @@ Requires PHP: 7.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-A wordpress plugin by iLovePDF.
+Optimize and protect your PDFs with automatic compression and watermarking. Save space and secure your documents effortlessly.
 
 == Description ==
 
