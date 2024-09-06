@@ -114,12 +114,12 @@ function ilove_pdf_compress_pdf( $id_file, $auto = false, $bulk = false ) {
 
             $html = 'error_auth';
 
-            if ( $bulk ) {
+            if ( $bulk || $auto ) {
                 $html = 'error_auth';
             }
 
-            if ( $auto ) {
-                $html = 'error_auth';
+            if ( 'Unauthorized (Key may not be empty)' === $e->getMessage() ) {
+                $html = 'Check your credentials in the plugin settings page. If you recently deleted a project in your iloveapi account, try switching to another project to correctly save your API Keys.';
             }
 
             // Uploading files errors
