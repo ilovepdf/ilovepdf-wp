@@ -16,6 +16,6 @@
     "gulp-sass": "^5.1.0",
     "gulp-uglify": "^3.0.2",
     "merge-stream": "^2.0.0",
-    "sass": "^1.78"
+    "sass": "^1.79"
   }
 }
