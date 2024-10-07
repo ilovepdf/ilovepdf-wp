@@ -1,11 +1,6 @@
 <?php
 /**
- * The plugin bootstrap file
- *
- * This file is read by WordPress to generate the plugin information in the plugin
- * admin area. This file also includes all of the dependencies used by the plugin,
- * registers the activation and deactivation functions, and defines a function
- * that starts the plugin.
+ * IlovePdf WordPress Plugin
  *
  * @link              https://ilovepdf.com/
  * @since             1.0.0
@@ -15,7 +10,7 @@
  * Plugin Name:       iLovePDF
  * Plugin URI:        https://iloveapi.com/
  * Description:       Compress your PDF files and Stamp Images or text into PDF files. This is the Official iLovePDF plugin for WordPress. You can optimize all your PDF and stamp them automatically as you do in ilovepdf.com.
- * Version:           2.1.3
+ * Version:           2.1.4
  * Requires at least: 5.3
  * Requires PHP:      7.4
  * Author:            ILovePDF
