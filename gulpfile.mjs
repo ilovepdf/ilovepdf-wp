@@ -2,17 +2,17 @@ import gulp from 'gulp';
 import gulpSass from 'gulp-sass';
 import cleanCSS from 'gulp-clean-css';
 import autoprefixer from 'gulp-autoprefixer';
-import * as sassCompiler from 'sass';
+import * as dartSass from 'sass';
 import uglify from 'gulp-uglify';
 import rename from 'gulp-rename';
 import merge from 'merge-stream';
 
-const sass = gulpSass(sassCompiler);
+const sass = gulpSass(dartSass);
 
 // Task to compile Sass and minify CSS
 gulp.task('build-css', function() {
     return gulp.src('dev/scss/**/*.scss')
-        .pipe(sass.sync().on('error', sass.logError))
+        .pipe(sass().on('error', sass.logError))
         .pipe(autoprefixer({
                 overrideBrowserslist: ["last 2 versions"],
                 cascade: false,
