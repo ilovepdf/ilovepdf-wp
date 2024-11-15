@@ -434,6 +434,16 @@
         }
     );
 
+    const dialogComponent = `
+            <dialog id="ilovepdf-restore-dialog" class="ilovepdf-restore-dialog">
+                <h2 class="ilovepdf-title-dialog">Attention!</h2>
+                <p class="ilovepdf-content-dialog">The changes applied by all the tools will be lost. Do you want to continue?</p>
+                <div class="ilovepdf-btn-groups">
+                    <button id="ilovepdf-dialog-aceptted" class="button-primary">Yes</button>
+                    <button id="ilovepdf-dialog-close" class="button-secondary">Close</button>
+                </div>
+            </dialog>`;
+
     $('.btn-restore').on(
         'click',
         function (e) {
@@ -441,42 +451,42 @@
 
             e.preventDefault();
 
-            Swal.fire({
-                title: 'Attention!',
-                text: 'The changes applied by all the tools will be lost. Do you want to continue?',
-                icon: 'warning',
-                confirmButtonText: 'Yes',
-                showCloseButton: true,
-                buttonsStyling: false,
-                customClass: {
-                    confirmButton: 'button-primary',
-                },
-            }).then(
-                (result) => {
-                    if (result.isConfirmed) {
-                        $(this).hide();
-                        $(this).nextAll('.loading').show();
-                        $(this).parent().prevAll('.row-compress-tool').hide();
-                        $(this).parent().prevAll('.row-watermark-tool').hide();
+            $(this).parent().append(dialogComponent)
 
-                        $.post(
-                            $(this).prop('href') + '&ajax=1',
-                            function (response) {
-                                elem.nextAll('.loading').hide();
-                                if (response == '') {
-                                    elem.nextAll('.success').show();
-                                } else {
-                                    // Strip HTML tags
-                                    var div = document.createElement("div");
-                                    div.innerHTML = response;
+            const dialogElem = document.getElementById("ilovepdf-restore-dialog")
+            const btnConfirmDialog = document.getElementById("ilovepdf-dialog-aceptted")
+            const btnCloseDialog = document.getElementById("ilovepdf-dialog-close")
 
-                                    elem.nextAll('.error').html(div.innerText).show();
-                                }
-                            }
-                        );
+            dialogElem.showModal();
+            btnConfirmDialog.addEventListener("click", (e) => {
+                e.preventDefault();
+                dialogElem.close();
+                $(this).hide();
+                $(this).prev().hide();
+                $(this).nextAll('.loading').show();
+                $(this).parent().prevAll('.row-compress-tool').hide();
+                $(this).parent().prevAll('.row-watermark-tool').hide();
+
+                $.post($(this).prop('href') + '&ajax=1',
+                    function (response) {
+                        elem.nextAll('.loading').hide();
+                        if (response === '') {
+                            elem.nextAll('.success').show();
+                        } else {
+                            // Strip HTML tags
+                            var div = document.createElement("div");
+                            div.innerHTML = response;
+
+                            elem.nextAll('.error').html(div.innerText).show();
+                        }
                     }
-                }
-            );
+                );
+            })
+
+            btnCloseDialog.addEventListener("click", (e) => {
+                e.preventDefault();
+                dialogElem.close();
+            })
         }
     );
 
@@ -489,23 +499,24 @@
 
             e.preventDefault();
 
-            Swal.fire({
-                title: 'Attention!',
-                text: 'The changes applied by all the tools will be lost. Do you want to continue?',
-                icon: 'warning',
-                confirmButtonText: 'Yes',
-                showCloseButton: true,
-                buttonsStyling: false,
-                customClass: {
-                    confirmButton: 'button-primary',
-                },
-            }).then(
-                (result) => {
-                    if (result.isConfirmed) {
-                        location.href = hrefUrl;
-                    }
-                }
-            );
+            $('.ilovepdf--meta-box-container').append(dialogComponent)
+
+            const dialogElem = document.getElementById("ilovepdf-restore-dialog")
+            const btnConfirmDialog = document.getElementById("ilovepdf-dialog-aceptted")
+            const btnCloseDialog = document.getElementById("ilovepdf-dialog-close")
+
+            dialogElem.showModal();
+
+            btnConfirmDialog.addEventListener("click", (e) => {
+                e.preventDefault();
+                dialogElem.close();
+                location.href = hrefUrl;
+            })
+
+            btnCloseDialog.addEventListener("click", (e) => {
+                e.preventDefault();
+                dialogElem.close();
+            })
         }
     );
 
