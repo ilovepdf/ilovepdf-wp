@@ -9,6 +9,8 @@
  * @subpackage Ilove_Pdf/admin
  */
 
+use Ilove_Pdf_Includes\Ilove_Pdf;
+
 /**
  * Register Options
  *
@@ -131,8 +133,8 @@ add_action( 'admin_post_ilovepdf_logout', 'ilove_pdf_logout_action' );
 function ilove_pdf_change_project_action() {
     if ( isset( $_GET['action'] ) && 'ilovepdf_change_project' === $_GET['action'] && isset( $_POST['nonce_ilove_pdf_change_project'] ) && wp_verify_nonce( sanitize_key( $_POST['nonce_ilove_pdf_change_project'] ), 'admin-post' ) && isset( $_POST['ilovepdf_select_project'] ) ) {
         $stats = ilove_pdf_get_statistics();
-        update_option( 'ilovepdf_user_private_key', $stats['projects'][ sanitize_text_field( wp_unslash( $_POST['ilovepdf_select_project'] ) ) ]['secret_key'] );
-        update_option( 'ilovepdf_user_public_key', $stats['projects'][ sanitize_text_field( wp_unslash( $_POST['ilovepdf_select_project'] ) ) ]['public_key'] );
+        Ilove_Pdf::update_option( 'ilovepdf_user_private_key', $stats['projects'][ sanitize_text_field( wp_unslash( $_POST['ilovepdf_select_project'] ) ) ]['secret_key'] );
+        Ilove_Pdf::update_option( 'ilovepdf_user_public_key', $stats['projects'][ sanitize_text_field( wp_unslash( $_POST['ilovepdf_select_project'] ) ) ]['public_key'] );
     }
 
     wp_safe_redirect( wp_get_referer() );

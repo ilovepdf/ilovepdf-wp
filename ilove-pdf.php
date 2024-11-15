@@ -74,7 +74,7 @@ function ilove_pdf_upgrade_plugin( $upgrader_object, $options ) {
 					$get_options['ilove_pdf_general_backup'] = 1;
 				}
 
-				update_option( 'ilove_pdf_display_general_settings', $get_options );
+				Ilove_Pdf::update_option( 'ilove_pdf_display_general_settings', $get_options );
 
 			}
 		}

@@ -50,10 +50,10 @@ class Ilove_Pdf_Activator {
 		}
 
 		$initial_pdf_size = ilove_pdf_get_all_pdf_current_size();
-		add_option( 'ilovepdf_initial_pdf_files_size', $initial_pdf_size );
+		Ilove_Pdf::update_option( 'ilovepdf_initial_pdf_files_size', $initial_pdf_size );
 
 		if ( get_option( 'ilovepdf_wordpress_id' ) === false ) {
-			add_option( 'ilovepdf_wordpress_id', md5( get_option( 'siteurl' ) . get_option( 'admin_email' ) ) );
+			Ilove_Pdf::update_option( 'ilovepdf_wordpress_id', md5( get_option( 'siteurl' ) . get_option( 'admin_email' ) ) );
         }
 
 		self::set_default_values_watermark_settings();
@@ -113,8 +113,8 @@ class Ilove_Pdf_Activator {
 			$get_format_options['ilove_pdf_format_watermark_text_color'] = '#dd3333';
 		}
 
-		update_option( 'ilove_pdf_display_settings_format_watermark', $get_format_options );
-		update_option( 'ilove_pdf_display_settings_watermark', $get_gral_options );
+		Ilove_Pdf::update_option( 'ilove_pdf_display_settings_format_watermark', $get_format_options );
+		Ilove_Pdf::update_option( 'ilove_pdf_display_settings_watermark', $get_gral_options );
 	}
 
 	/**
@@ -132,7 +132,7 @@ class Ilove_Pdf_Activator {
 			$get_options['ilove_pdf_general_backup'] = 1;
 		}
 
-		update_option( 'ilove_pdf_display_general_settings', $get_options );
+		Ilove_Pdf::update_option( 'ilove_pdf_display_general_settings', $get_options );
 	}
 
 	/**
@@ -158,6 +158,6 @@ class Ilove_Pdf_Activator {
 			$get_options['ilove_pdf_compress_quality'] = 1;
 		}
 
-		update_option( 'ilove_pdf_display_settings_compress', $get_options );
+		Ilove_Pdf::update_option( 'ilove_pdf_display_settings_compress', $get_options );
 	}
 }
