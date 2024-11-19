@@ -28,32 +28,20 @@ class Ilove_Pdf_Activator {
 	 * @since    1.0.0
 	 */
 	public static function activate() {
-		$upload_dir  = wp_upload_dir();
-		$pdf_dirname = $upload_dir['basedir'] . '/pdf';
-		if ( ! file_exists( $pdf_dirname ) ) {
-		    wp_mkdir_p( $pdf_dirname );
-		}
+		$directories = array(
+			'/pdf',
+			'/pdf/compress',
+			'/pdf/watermark',
+			'/pdf/backup',
+		);
 
-		$pdf_dirname = $upload_dir['basedir'] . '/pdf/compress';
-		if ( ! file_exists( $pdf_dirname ) ) {
-		    wp_mkdir_p( $pdf_dirname );
-		}
-
-		$pdf_dirname = $upload_dir['basedir'] . '/pdf/watermark';
-		if ( ! file_exists( $pdf_dirname ) ) {
-		    wp_mkdir_p( $pdf_dirname );
-		}
-
-		$pdf_dirname = $upload_dir['basedir'] . '/pdf/backup';
-		if ( ! file_exists( $pdf_dirname ) ) {
-		    wp_mkdir_p( $pdf_dirname );
-		}
+		Ilove_Pdf::create_dir( $directories );
 
 		$initial_pdf_size = ilove_pdf_get_all_pdf_current_size();
-		add_option( 'ilovepdf_initial_pdf_files_size', $initial_pdf_size );
+		Ilove_Pdf::update_option( 'ilovepdf_initial_pdf_files_size', $initial_pdf_size );
 
 		if ( get_option( 'ilovepdf_wordpress_id' ) === false ) {
-			add_option( 'ilovepdf_wordpress_id', md5( get_option( 'siteurl' ) . get_option( 'admin_email' ) ) );
+			Ilove_Pdf::update_option( 'ilovepdf_wordpress_id', md5( get_option( 'siteurl' ) . get_option( 'admin_email' ) ) );
         }
 
 		self::set_default_values_watermark_settings();
@@ -113,8 +101,8 @@ class Ilove_Pdf_Activator {
 			$get_format_options['ilove_pdf_format_watermark_text_color'] = '#dd3333';
 		}
 
-		update_option( 'ilove_pdf_display_settings_format_watermark', $get_format_options );
-		update_option( 'ilove_pdf_display_settings_watermark', $get_gral_options );
+		Ilove_Pdf::update_option( 'ilove_pdf_display_settings_format_watermark', $get_format_options );
+		Ilove_Pdf::update_option( 'ilove_pdf_display_settings_watermark', $get_gral_options );
 	}
 
 	/**
@@ -132,7 +120,7 @@ class Ilove_Pdf_Activator {
 			$get_options['ilove_pdf_general_backup'] = 1;
 		}
 
-		update_option( 'ilove_pdf_display_general_settings', $get_options );
+		Ilove_Pdf::update_option( 'ilove_pdf_display_general_settings', $get_options );
 	}
 
 	/**
@@ -158,6 +146,6 @@ class Ilove_Pdf_Activator {
 			$get_options['ilove_pdf_compress_quality'] = 1;
 		}
 
-		update_option( 'ilove_pdf_display_settings_compress', $get_options );
+		Ilove_Pdf::update_option( 'ilove_pdf_display_settings_compress', $get_options );
 	}
 }

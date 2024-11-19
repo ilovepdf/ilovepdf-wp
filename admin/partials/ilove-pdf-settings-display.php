@@ -115,7 +115,7 @@ function ilove_pdf_content_page_setting() {
                         <?php else : ?>
                             <div class="col-md-6">
                                 <div class="panel" style="margin-right: 10px; height: 350px;">
-                                    <h3 style="margin-bottom: 20px;"><?php esc_html_e( 'Register as iLovePDF developer', 'ilove-pdf' ); ?></h3>
+                                    <h3 style="margin-bottom: 20px;"><?php esc_html_e( 'Register as iLoveAPI developer', 'ilove-pdf' ); ?></h3>
                                     <form method="post" id="ilovepdf_register_form" name="ilove_pdf_form_settings_section" action="">
                                         <input type="hidden" name="action" value="ilovepdf_register" />
                                         <?php wp_nonce_field( 'admin-post', 'nonce_ilove_pdf_register' ); ?>

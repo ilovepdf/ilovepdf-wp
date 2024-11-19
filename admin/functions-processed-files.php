@@ -9,6 +9,8 @@
  * @subpackage Ilove_Pdf/admin
  */
 
+use Ilove_Pdf_Includes\Ilove_Pdf;
+
 /**
  * Check if file is compressed.
  *
@@ -57,7 +59,7 @@ function ilove_pdf_upload_compress_file( $filename, $attachment_id ) {
 
 	if ( get_option( 'ilovepdf_compressed_files' ) || get_option( 'ilovepdf_compressed_files' ) === '0' ) {
 		$n_compressed_files = intval( get_option( 'ilovepdf_compressed_files' ) ) + 1;
-		update_option( 'ilovepdf_compressed_files', $n_compressed_files );
+		Ilove_Pdf::update_option( 'ilovepdf_compressed_files', $n_compressed_files );
 	} else {
 		add_option( 'ilovepdf_compressed_files', 1 );
 	}
@@ -98,7 +100,7 @@ function ilove_pdf_upload_watermark_file( $filename, $attachment_id ) {
 
 	if ( get_option( 'ilovepdf_watermarked_files' ) || get_option( 'ilovepdf_watermarked_files' ) === '0' ) {
 		$n_watermarked_files = intval( get_option( 'ilovepdf_watermarked_files' ) ) + 1;
-		update_option( 'ilovepdf_watermarked_files', $n_watermarked_files );
+		Ilove_Pdf::update_option( 'ilovepdf_watermarked_files', $n_watermarked_files );
 
 	} else {
 		add_option( 'ilovepdf_watermarked_files', 1 );
@@ -122,7 +124,7 @@ function ilove_pdf_restore_pdf( $attachment_id ) {
 		if ( get_option( 'ilovepdf_compressed_files' ) === 1 ) {
 			delete_option( 'ilovepdf_compressed_files' );
 		} else {
-			update_option( 'ilovepdf_compressed_files', get_option( 'ilovepdf_compressed_files' ) - 1 );
+			Ilove_Pdf::update_option( 'ilovepdf_compressed_files', get_option( 'ilovepdf_compressed_files' ) - 1 );
 			if ( get_option( 'ilovepdf_compressed_files' ) <= '0' ) {
 				delete_option( 'ilovepdf_compressed_files' ); }
 		}
@@ -132,7 +134,7 @@ function ilove_pdf_restore_pdf( $attachment_id ) {
 		if ( get_option( 'ilovepdf_watermarked_files' ) === 1 ) {
 			delete_option( 'ilovepdf_watermarked_files' );
 		} else {
-			update_option( 'ilovepdf_watermarked_files', get_option( 'ilovepdf_watermarked_files' ) - 1 );
+			Ilove_Pdf::update_option( 'ilovepdf_watermarked_files', get_option( 'ilovepdf_watermarked_files' ) - 1 );
 			if ( get_option( 'ilovepdf_watermarked_files' ) <= '0' ) {
 				delete_option( 'ilovepdf_watermarked_files' ); }
 		}
@@ -161,14 +163,14 @@ function ilove_pdf_handle_delete_file( $attachment_id ) {
     	if ( get_post_meta( $attachment_id, '_wp_attached_original_size', true ) ) {
     		$result = get_option( 'ilovepdf_initial_pdf_files_size' ) - get_post_meta( $attachment_id, '_wp_attached_original_size', true );
     	}
-    	update_option( 'ilovepdf_initial_pdf_files_size', $result );
+		Ilove_Pdf::update_option( 'ilovepdf_initial_pdf_files_size', $result );
     	$wp_upload_dir = wp_upload_dir();
     	$file_name     = basename( get_attached_file( $attachment_id ) );
         if ( ilove_pdf_is_file_compressed( $attachment_id ) ) {
         	if ( get_option( 'ilovepdf_compressed_files' ) === 1 ) {
 				delete_option( 'ilovepdf_compressed_files' );
 			} else {
-				update_option( 'ilovepdf_compressed_files', get_option( 'ilovepdf_compressed_files' ) - 1 );
+				Ilove_Pdf::update_option( 'ilovepdf_compressed_files', get_option( 'ilovepdf_compressed_files' ) - 1 );
 				if ( get_option( 'ilovepdf_compressed_files' ) <= '0' ) {
 					delete_option( 'ilovepdf_compressed_files' ); }
 			}
@@ -178,7 +180,7 @@ function ilove_pdf_handle_delete_file( $attachment_id ) {
 			if ( get_option( 'ilovepdf_watermarked_files' ) === 1 ) {
 				delete_option( 'ilovepdf_watermarked_files' );
 			} else {
-				update_option( 'ilovepdf_watermarked_files', get_option( 'ilovepdf_watermarked_files' ) - 1 );
+				Ilove_Pdf::update_option( 'ilovepdf_watermarked_files', get_option( 'ilovepdf_watermarked_files' ) - 1 );
 				if ( get_option( 'ilovepdf_watermarked_files' ) <= '0' ) {
 					delete_option( 'ilovepdf_watermarked_files' ); }
 			}
@@ -209,7 +211,7 @@ function ilove_pdf_handle_file_upload_compress_watermark( $attachment_id ) {
     if ( get_post_mime_type( $attachment_id ) === 'application/pdf' ) {
         $options_compress  = get_option( 'ilove_pdf_display_settings_compress' );
         $options_watermark = get_option( 'ilove_pdf_display_settings_watermark' );
-        update_option( 'ilovepdf_initial_pdf_files_size', get_option( 'ilovepdf_initial_pdf_files_size' ) + filesize( get_attached_file( $attachment_id ) ) );
+		Ilove_Pdf::update_option( 'ilovepdf_initial_pdf_files_size', get_option( 'ilovepdf_initial_pdf_files_size' ) + filesize( get_attached_file( $attachment_id ) ) );
 
         if ( isset( $options_compress['ilove_pdf_compress_autocompress_new'] ) && isset( $options_watermark['ilove_pdf_watermark_auto'] ) ) {
             $html_compress  = ilove_pdf_compress_pdf( $attachment_id, true );
