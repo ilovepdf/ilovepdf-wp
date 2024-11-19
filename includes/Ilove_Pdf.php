@@ -211,4 +211,45 @@ class Ilove_Pdf {
 			restore_current_blog();
 		}
 	}
+
+	/**
+	 * Create directories, works with multisite if enabled
+	 *
+	 * @since  2.1.5
+	 * @param  array|string $directories  The directories to create.
+	 */
+	public static function create_dir( $directories ) {
+
+		if ( ! is_array( $directories ) ) {
+			$directories = array( $directories );
+		}
+
+		if ( ! self::is_multisite() ) {
+			foreach ( $directories as $directory ) {
+				$upload_dir = wp_upload_dir();
+				$directory  = $upload_dir['basedir'] . $directory;
+
+				if ( ! file_exists( $directory ) ) {
+					wp_mkdir_p( $directory );
+				}
+			}
+			return;
+		}
+
+		$sites = get_sites();
+        foreach ( $sites as $site ) {
+            switch_to_blog( (int) $site->blog_id );
+
+			foreach ( $directories as $directory ) {
+				$upload_dir = wp_upload_dir();
+				$directory  = $upload_dir['basedir'] . $directory;
+
+				if ( ! file_exists( $directory ) ) {
+					wp_mkdir_p( $directory );
+				}
+			}
+
+            restore_current_blog();
+        }
+	}
 }
