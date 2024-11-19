@@ -20,7 +20,6 @@ function ilove_pdf_content_page_statistics() {
 
     $logo_svg = ILOVE_PDF_ASSETS_PLUGIN_PATH . 'assets/img/logo_ilovepdf.svg';
 
-	$stats                    = ilove_pdf_get_statistics();
     $options_general_settings = get_option( 'ilove_pdf_display_general_settings' );
     $backup_files_is_active   = (int) $options_general_settings['ilove_pdf_general_backup'];
 
@@ -29,6 +28,7 @@ function ilove_pdf_content_page_statistics() {
         <h2 class="plugin-logo-full"><img src="<?php echo esc_url( $logo_svg ); ?>" alt="logo ilovepdf" /></h2>
         <?php if ( get_option( 'ilovepdf_user_id' ) ) : ?>         
             <?php
+                $stats      = ilove_pdf_get_statistics();
                 $active_tab = isset( $_GET['tab'] ) ? sanitize_text_field( wp_unslash( $_GET['tab'] ) ) : 'statistic_statistic'; //phpcs:ignore WordPress.Security.NonceVerification.Recommended
             ?>
              
