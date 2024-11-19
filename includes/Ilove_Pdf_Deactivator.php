@@ -33,8 +33,8 @@ class Ilove_Pdf_Deactivator {
 	 * @since    1.0.0
 	 */
 	public static function deactivate() {
-		update_option( 'ilovepdf_initial_pdf_files_size', 0 );
-		update_option( 'ilovepdf_compressed_files', 0 );
-		update_option( 'ilovepdf_watermarked_files', 0 );
+		Ilove_Pdf::update_option( 'ilovepdf_initial_pdf_files_size', 0 );
+		Ilove_Pdf::update_option( 'ilovepdf_compressed_files', 0 );
+		Ilove_Pdf::update_option( 'ilovepdf_watermarked_files', 0 );
 	}
 }
