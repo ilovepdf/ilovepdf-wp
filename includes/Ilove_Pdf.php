@@ -74,7 +74,7 @@ class Ilove_Pdf {
 	public function __construct() {
 
 		$this->plugin_name = 'ilove-pdf';
-		$this->version     = 'wp.2.1.5';
+		$this->version     = 'wp.2.1.6';
 
 		$this->load_dependencies();
 		$this->set_locale();
@@ -180,36 +180,30 @@ class Ilove_Pdf {
 	}
 
 	/**
-	 * Determines whether Multisite is enabled.
-	 *
-	 * @since  2.1.5
-	 * @return bool  True if Multisite is enabled, false otherwise.
-	 */
-	public static function is_multisite() {
-		return is_multisite();
-	}
-
-	/**
 	 * Update option, works with multisite if enabled
 	 *
 	 * @since  2.1.5
 	 * @param  string    $option Name of the option to update. Expected to not be SQL-escaped.
 	 * @param  mixed     $value Option value. Must be serializable if non-scalar. Expected to not be SQL-escaped.
+	 * @param  bool      $update_all_sites Optional. Whether to update all sites in the network.
 	 * @param  bool|null $autoload Optional. Whether to load the option when WordPress starts up. Accepts a boolean, or null.
 	 */
-	public static function update_option( $option, $value, $autoload = null ) {
+	public static function update_option( $option, $value, $update_all_sites = false, $autoload = null ) {
 
-		if ( ! self::is_multisite() ) {
+		if ( ! is_multisite() ) {
 			update_option( $option, $value, $autoload );
 			return;
 		}
 
-		$sites = get_sites();
-		foreach ( $sites as $site ) {
-			switch_to_blog( (int) $site->blog_id );
-			update_option( $option, $value, $autoload );
-			restore_current_blog();
-		}
+        if ( ! $update_all_sites ) {
+            self::switch_update_blog( get_current_blog_id(), $option, $value, $autoload );
+            return;
+        }
+
+        $sites = get_sites();
+        foreach ( $sites as $site ) {
+            self::switch_update_blog( (int) $site->blog_id, $option, $value, $autoload );
+        }
 	}
 
 	/**
@@ -224,7 +218,7 @@ class Ilove_Pdf {
 			$directories = array( $directories );
 		}
 
-		if ( ! self::is_multisite() ) {
+		if ( ! is_multisite() ) {
 			foreach ( $directories as $directory ) {
 				$upload_dir = wp_upload_dir();
 				$directory  = $upload_dir['basedir'] . $directory;
@@ -252,4 +246,19 @@ class Ilove_Pdf {
             restore_current_blog();
         }
 	}
+
+	/**
+     * Switch to blog and update option
+     *
+     * @since  2.1.6
+     * @param  int       $blog_id ID of the blog to switch to.
+     * @param  string    $option Name of the option to update.
+     * @param  mixed     $value Option value.
+     * @param  bool|null $autoload Whether to load the option when WordPress starts up.
+     */
+    private static function switch_update_blog( $blog_id, $option, $value, $autoload ) {
+        switch_to_blog( $blog_id );
+        update_option( $option, $value, $autoload );
+        restore_current_blog();
+    }
 }
