@@ -74,10 +74,11 @@ function ilove_pdf_upload_compress_file( $filename, $attachment_id ) {
  * Upload Watermark File.
  *
  * @since    1.0.0
- * @param    string $filename         File Name.
- * @param    int    $attachment_id    File ID.
+ * @param    string  $filename         File Name.
+ * @param    int     $attachment_id    File ID.
+ * @param    boolean $generate_manual_attachment_thubnails    Allows you to generate the images for the file again.
  */
-function ilove_pdf_upload_watermark_file( $filename, $attachment_id ) {
+function ilove_pdf_upload_watermark_file( $filename, $attachment_id, $generate_manual_attachment_thubnails = true ) {
 	$wp_upload_dir = wp_upload_dir();
 	if ( ! ilove_pdf_is_file_compressed( $attachment_id ) ) {
 		$original_file_size = filesize( get_attached_file( $attachment_id ) );
@@ -96,7 +97,9 @@ function ilove_pdf_upload_watermark_file( $filename, $attachment_id ) {
 	copy( $wp_upload_dir['basedir'] . '/pdf/watermark/' . basename( get_attached_file( $attachment_id ) ), get_attached_file( $attachment_id ) );
 
 	// Regenerate attachment metadata
-	ilove_pdf_regenerate_attachment_data( $attachment_id );
+	if ( $generate_manual_attachment_thubnails ) {
+		ilove_pdf_regenerate_attachment_data( $attachment_id );
+	}
 
 	if ( get_option( 'ilovepdf_watermarked_files' ) || get_option( 'ilovepdf_watermarked_files' ) === '0' ) {
 		$n_watermarked_files = intval( get_option( 'ilovepdf_watermarked_files' ) ) + 1;
