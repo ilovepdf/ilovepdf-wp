@@ -18,8 +18,9 @@ use Ilovepdf\WatermarkTask;
  * @param    int|null $id_file    File ID.
  * @param    boolean  $auto       Auto compress.
  * @param    boolean  $bulk       Bulk.
+ * @param    boolean  $generate_manual_attachment_thubnails    Allows you to generate the images for the file again.
  */
-function ilove_pdf_watermark_pdf( $id_file, $auto = false, $bulk = false ) {
+function ilove_pdf_watermark_pdf( $id_file, $auto = false, $bulk = false, $generate_manual_attachment_thubnails = true ) {
     $general_options_watermark = get_option( 'ilove_pdf_display_settings_watermark' );
     $options                   = get_option( 'ilove_pdf_display_settings_format_watermark' );
     $html                      = true;
@@ -134,10 +135,10 @@ function ilove_pdf_watermark_pdf( $id_file, $auto = false, $bulk = false ) {
             }
 
             if ( null !== $id_file ) {
-                ilove_pdf_upload_watermark_file( get_attached_file( $id_file ), $id_file );
+                ilove_pdf_upload_watermark_file( get_attached_file( $id_file ), $id_file, $generate_manual_attachment_thubnails );
             } else {
                 foreach ( $files_pdf as $file_pdf ) {
-                    ilove_pdf_upload_watermark_file( get_attached_file( $file_pdf->ID ), $file_pdf->ID );
+                    ilove_pdf_upload_watermark_file( get_attached_file( $file_pdf->ID ), $file_pdf->ID, $generate_manual_attachment_thubnails );
                 }
             }
 
@@ -168,13 +169,14 @@ function ilove_pdf_watermark_pdf( $id_file, $auto = false, $bulk = false ) {
 
             $html = 'error_auth';
 
-            if ( $bulk ) {
+            if ( $bulk || $auto ) {
                 $html = 'error_auth';
             }
 
-            if ( $auto ) {
-                $html = 'error_auth';
+            if ( 'Unauthorized (Key may not be empty)' === $e->getMessage() ) {
+                $html = 'Check your credentials in the plugin settings page. If you recently deleted a project in your iloveapi account, try switching to another project to correctly save your API Keys.';
             }
+
             // Uploading files errors
         } catch ( \Ilovepdf\Exceptions\UploadException $e ) {
 
@@ -238,6 +240,7 @@ function ilove_pdf_watermark_pdf( $id_file, $auto = false, $bulk = false ) {
  *
  * @since    1.0.0
  * @param    int $attachment_id    File ID.
+ * @throws   \Exception            Returns an error in case the wartermarking process fails.
  */
 function ilove_pdf_handle_file_upload_watermark( $attachment_id ) {
     if ( get_post_mime_type( $attachment_id ) === 'application/pdf' ) {
@@ -246,46 +249,48 @@ function ilove_pdf_handle_file_upload_watermark( $attachment_id ) {
 
         if ( isset( $options['ilove_pdf_watermark_auto'] ) && ! ilove_pdf_is_file_watermarked( $attachment_id ) && ! isset( $options_compress['ilove_pdf_compress_autocompress_new'] ) ) {
 
-            $html = ilove_pdf_watermark_pdf( $attachment_id, true );
+            try {
+                $html = ilove_pdf_watermark_pdf( $attachment_id, true, false, false );
 
-            if ( ! ilove_pdf_is_file_compressed( $attachment_id ) && get_user_option( 'media_library_mode', get_current_user_id() ) === 'list' && ! wp_doing_ajax() ) {
+                if ( ! ilove_pdf_is_file_compressed( $attachment_id ) && get_user_option( 'media_library_mode', get_current_user_id() ) === 'list' && ! wp_doing_ajax() ) {
 
-                echo '<img class="pinkynail" src="' . esc_url( includes_url() ) . '/images/media/document.png" alt="">';
-                echo '<span class="title custom-title">' . esc_html( get_the_title( $attachment_id ) ) . '</span><span class="pdf-id">ID: ';
+                    echo '<img class="pinkynail" src="' . esc_url( includes_url() ) . '/images/media/document.png" alt="">';
+                    echo '<span class="title custom-title">' . esc_html( get_the_title( $attachment_id ) ) . '</span><span class="pdf-id">ID: ';
 
-                ?><script type='text/javascript' id="my-script-<?php echo (int) $attachment_id; ?>">
-                    jQuery( function( $ ) {                        
-                        
-                        var response = '<?php echo wp_kses( $html, 'ilove_pdf_expanded_alowed_tags' ); ?>';
-                        var currentElem = $('#my-script-<?php echo (int) $attachment_id; ?>');
-                        var parentTag = currentElem.parent();
-                        var parentDiv = parentTag.parent();
-                        parentDiv.find('.progress').find('.percent').html('Applying Watermark...');
-                        window.setTimeout(function(){
-                            if (response !==  '1') {
-                                parentDiv.find('.progress').find('.percent').html(response.replace(/<\/?p[^>]*>/g, "").replace(/<\/?div[^>]*>/g, ""));
-                                parentDiv.find('.progress').css('width','600px');
-                                parentDiv.find('.progress').find('.percent').css('width','600px');
-                                parentDiv.find('.progress').find('.bar').css({'width':'600px','background-color':'#a00'});
-                            } else {
-                                parentDiv.find('.progress').find('.bar').css({'background-color':'#46b450'});
-                                parentDiv.find('.progress').find('.percent').html('Watermark applied!');
-                            }                         
-                        },3000);                        
-                        
-                    });
+                    ?><script type='text/javascript' id="my-script-<?php echo (int) $attachment_id; ?>">
+                        jQuery( function( $ ) {                        
+                            
+                            var response = '<?php echo wp_kses( $html, 'ilove_pdf_expanded_alowed_tags' ); ?>';
+                            var currentElem = $('#my-script-<?php echo (int) $attachment_id; ?>');
+                            var parentTag = currentElem.parent();
+                            var parentDiv = parentTag.parent();
+                            parentDiv.find('.progress').find('.percent').html('Applying Watermark...');
+                            window.setTimeout(function(){
+                                if (response !== '1') {
+                                    parentDiv.find('.progress').find('.percent').html(response.replace(/<\/?p[^>]*>/g, "").replace(/<\/?div[^>]*>/g, ""));
+                                    parentDiv.find('.progress').css('width','600px');
+                                    parentDiv.find('.progress').find('.percent').css('width','600px');
+                                    parentDiv.find('.progress').find('.bar').css({'width':'600px','background-color':'#a00'});
+                                } else {
+                                    parentDiv.find('.progress').find('.bar').css({'background-color':'#46b450'});
+                                    parentDiv.find('.progress').find('.percent').html('Watermark applied!');
+                                }                         
+                            },3000); 
+                            
+                        });
 
-                </script>
-                <?php
-            } elseif ( ! ilove_pdf_is_file_compressed( $attachment_id ) && ( get_user_option( 'media_library_mode', get_current_user_id() ) === 'grid' || wp_doing_ajax() ) ) {
-                if ( '1' !== $html ) {
-                    $return = array( 'message' => wp_strip_all_tags( $html ) );
-                    wp_send_json_error( $return );
-                } else {
-                    $attachment            = wp_prepare_attachment_for_js( $attachment_id );
-                    $attachment['message'] = 'PDF Stamped!';
-                    wp_send_json_success( $attachment );
+                    </script>
+                    <?php
+                    if ( ! is_bool( $html ) ) {
+                        throw new Exception( 'Exception on media upload mode list: ' . print_r( wp_strip_all_tags( $html ), true ) ); // phpcs:ignore
+                    }
+				} elseif ( ! ilove_pdf_is_file_compressed( $attachment_id ) && ( get_user_option( 'media_library_mode', get_current_user_id() ) === 'grid' || wp_doing_ajax() ) ) {
+                    if ( ! is_bool( $html ) ) {
+                        throw new Exception( 'Exception on media upload mode grid: ' . print_r( wp_strip_all_tags( $html ), true ) ); // phpcs:ignore
+					}
                 }
+            } catch ( \Exception $e ) {
+                error_log('Exception on ilove_pdf_handle_file_upload_watermark Method: ' . print_r(array('message' => $e->getMessage(), 'file' => $e->getFile(), 'line' => $e->getLine()), true)); // phpcs:ignore
             }
         }
     }

@@ -74,10 +74,11 @@ function ilove_pdf_upload_compress_file( $filename, $attachment_id ) {
  * Upload Watermark File.
  *
  * @since    1.0.0
- * @param    string $filename         File Name.
- * @param    int    $attachment_id    File ID.
+ * @param    string  $filename         File Name.
+ * @param    int     $attachment_id    File ID.
+ * @param    boolean $generate_manual_attachment_thubnails    Allows you to generate the images for the file again.
  */
-function ilove_pdf_upload_watermark_file( $filename, $attachment_id ) {
+function ilove_pdf_upload_watermark_file( $filename, $attachment_id, $generate_manual_attachment_thubnails = true ) {
 	$wp_upload_dir = wp_upload_dir();
 	if ( ! ilove_pdf_is_file_compressed( $attachment_id ) ) {
 		$original_file_size = filesize( get_attached_file( $attachment_id ) );
@@ -96,7 +97,9 @@ function ilove_pdf_upload_watermark_file( $filename, $attachment_id ) {
 	copy( $wp_upload_dir['basedir'] . '/pdf/watermark/' . basename( get_attached_file( $attachment_id ) ), get_attached_file( $attachment_id ) );
 
 	// Regenerate attachment metadata
-	ilove_pdf_regenerate_attachment_data( $attachment_id );
+	if ( $generate_manual_attachment_thubnails ) {
+		ilove_pdf_regenerate_attachment_data( $attachment_id );
+	}
 
 	if ( get_option( 'ilovepdf_watermarked_files' ) || get_option( 'ilovepdf_watermarked_files' ) === '0' ) {
 		$n_watermarked_files = intval( get_option( 'ilovepdf_watermarked_files' ) ) + 1;
@@ -206,6 +209,7 @@ add_filter( 'delete_attachment', 'ilove_pdf_handle_delete_file' );
  *
  * @since    1.0.0
  * @param    int $attachment_id    File ID.
+ * @throws   \Exception            Returns an error in case the compressing or wartermarking process fails.
  */
 function ilove_pdf_handle_file_upload_compress_watermark( $attachment_id ) {
     if ( get_post_mime_type( $attachment_id ) === 'application/pdf' ) {
@@ -214,66 +218,70 @@ function ilove_pdf_handle_file_upload_compress_watermark( $attachment_id ) {
 		Ilove_Pdf::update_option( 'ilovepdf_initial_pdf_files_size', get_option( 'ilovepdf_initial_pdf_files_size' ) + filesize( get_attached_file( $attachment_id ) ) );
 
         if ( isset( $options_compress['ilove_pdf_compress_autocompress_new'] ) && isset( $options_watermark['ilove_pdf_watermark_auto'] ) ) {
-            $html_compress  = ilove_pdf_compress_pdf( $attachment_id, true );
-            $html_watermark = ilove_pdf_watermark_pdf( $attachment_id, true );
 
-            if ( get_user_option( 'media_library_mode', get_current_user_id() ) === 'list' && ! wp_doing_ajax() ) {
+			try {
+				$html_compress  = ilove_pdf_compress_pdf( $attachment_id, true );
+				$html_watermark = ilove_pdf_watermark_pdf( $attachment_id, true, false, false );
 
-	            echo '<img class="pinkynail" src="' . esc_url( includes_url() ) . '/images/media/document.png" alt="">';
-	            echo '<span class="title custom-title">' . esc_html( get_the_title( $attachment_id ) ) . '</span><span class="pdf-id">ID: ';
+				if ( get_user_option( 'media_library_mode', get_current_user_id() ) === 'list' && ! wp_doing_ajax() ) {
 
-	            ?><script type='text/javascript' id="my-script-<?php echo (int) $attachment_id; ?>">
-	                jQuery( function( $ ) {
-	                    var response_compress = '<?php echo wp_kses_post( $html_compress ); ?>';
-	                    var currentElem = $('#my-script-<?php echo (int) $attachment_id; ?>');
-	                    var parentTag = currentElem.parent();
-	                    var parentDiv = parentTag.parent();
-	                    parentDiv.find('.progress').find('.percent').html('Compressing...');
-	                    window.setTimeout(function(){
-	                        if (response_compress !==  '1') {
-	                            parentDiv.find('.progress').find('.percent').html(response_compress.replace(/<\/?p[^>]*>/g, "").replace(/<\/?div[^>]*>/g, ""));
-	                            parentDiv.find('.progress').css('width','600px');
-	                            parentDiv.find('.progress').find('.percent').css('width','600px');
-	                            parentDiv.find('.progress').find('.bar').css({'width':'600px','background-color':'#a00'});
-	                        } else {
-	                        	var response_watermark = '<?php echo wp_kses_post( $html_watermark ); ?>';
-	                        	parentDiv.find('.progress').find('.percent').html('Applying Watermark...');
-			                    window.setTimeout(function(){
-			                        if (response_watermark !==  '1') {
-			                            parentDiv.find('.progress').find('.percent').html(response_watermark.replace(/<\/?p[^>]*>/g, "").replace(/<\/?div[^>]*>/g, ""));
-			                            parentDiv.find('.progress').css('width','600px');
-			                            parentDiv.find('.progress').find('.percent').css('width','600px');
-			                            parentDiv.find('.progress').find('.bar').css({'width':'600px','background-color':'#a00'});
-			                        } else {
-			                        	parentDiv.find('.progress').css('width','250px');
-			                        	parentDiv.find('.progress').find('.percent').css('width','250px');
-			                            parentDiv.find('.progress').find('.bar').css({'width':'250px','background-color':'#46b450'});
-			                            parentDiv.find('.progress').find('.percent').html('Compressed and Stamped!');
-			                        }                         
-			                    },3000);
-	                        }
-	                    },3000);
-	                });
+					echo '<img class="pinkynail" src="' . esc_url( includes_url() ) . '/images/media/document.png" alt="">';
+					echo '<span class="title custom-title">' . esc_html( get_the_title( $attachment_id ) ) . '</span><span class="pdf-id">ID: ';
 
-	            </script>
-                <?php
-            } elseif ( get_user_option( 'media_library_mode', get_current_user_id() ) === 'grid' || wp_doing_ajax() ) {
-            	if ( '1' !== $html_compress || '1' !== $html_watermark ) {
-            		if ( '1' !== $html_compress ) {
-            			$return = array( 'message' => wp_strip_all_tags( $html_compress ) );
+					?><script type='text/javascript' id="my-script-<?php echo (int) $attachment_id; ?>">
+						jQuery( function( $ ) {
+							var response_compress = '<?php echo wp_kses_post( $html_compress ); ?>';
+							var currentElem = $('#my-script-<?php echo (int) $attachment_id; ?>');
+							var parentTag = currentElem.parent();
+							var parentDiv = parentTag.parent();
+							parentDiv.find('.progress').find('.percent').html('Compressing...');
+							window.setTimeout(function(){
+								if (response_compress !== '1') {
+									parentDiv.find('.progress').find('.percent').html(response_compress.replace(/<\/?p[^>]*>/g, "").replace(/<\/?div[^>]*>/g, ""));
+									parentDiv.find('.progress').css('width','600px');
+									parentDiv.find('.progress').find('.percent').css('width','600px');
+									parentDiv.find('.progress').find('.bar').css({'width':'600px','background-color':'#a00'});
+								} else {
+									var response_watermark = '<?php echo wp_kses_post( $html_watermark ); ?>';
+									parentDiv.find('.progress').find('.percent').html('Applying Watermark...');
+									window.setTimeout(function(){
+										if (response_watermark !== '1') {
+											parentDiv.find('.progress').find('.percent').html(response_watermark.replace(/<\/?p[^>]*>/g, "").replace(/<\/?div[^>]*>/g, ""));
+											parentDiv.find('.progress').css('width','600px');
+											parentDiv.find('.progress').find('.percent').css('width','600px');
+											parentDiv.find('.progress').find('.bar').css({'width':'600px','background-color':'#a00'});
+										} else {
+											parentDiv.find('.progress').css('width','250px');
+											parentDiv.find('.progress').find('.percent').css('width','250px');
+											parentDiv.find('.progress').find('.bar').css({'width':'250px','background-color':'#46b450'});
+											parentDiv.find('.progress').find('.percent').html('Compressed and Stamped!');
+										}                         
+									},3000);
+								}
+							},3000);
+						});
+	
+					</script>
+					<?php
+					if ( ! is_bool( $html_compress ) ) {
+                        throw new Exception( 'Exception on media upload mode list, compress: ' . print_r( wp_strip_all_tags( $html_compress ), true ) ); // phpcs:ignore
                     }
 
-            		if ( '1' !== $html_watermark ) {
-                    	$return = array( 'message' => wp_strip_all_tags( $html_watermark ) );
+					if ( ! is_bool( $html_watermark ) ) {
+                        throw new Exception( 'Exception on media upload mode list, watermark: ' . print_r( wp_strip_all_tags( $html_watermark ), true ) ); // phpcs:ignore
                     }
+				} elseif ( get_user_option( 'media_library_mode', get_current_user_id() ) === 'grid' || wp_doing_ajax() ) {
+					if ( ! is_bool( $html_compress ) ) {
+                        throw new Exception( 'Exception on media upload mode grid, compress: ' . print_r( wp_strip_all_tags( $html_compress ), true ) ); // phpcs:ignore
+					}
 
-                    wp_send_json_error( $return );
-                } else {
-                    $attachment            = wp_prepare_attachment_for_js( $attachment_id );
-                    $attachment['message'] = 'PDF Compressed & Stamped!';
-                    wp_send_json_success( $attachment );
-                }
-            }
+					if ( ! is_bool( $html_watermark ) ) {
+                        throw new Exception( 'Exception on media upload mode grid, watermark: ' . print_r( wp_strip_all_tags( $html_watermark ), true ) ); // phpcs:ignore
+					}
+				}
+			} catch ( \Exception $e ) {
+				error_log('Exception on ilove_pdf_handle_file_upload_compress_watermark Method: ' . print_r(array('message' => $e->getMessage(), 'file' => $e->getFile(), 'line' => $e->getLine()), true)); // phpcs:ignore
+			}
         }
     }
 }
