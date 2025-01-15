@@ -499,7 +499,7 @@
 
             e.preventDefault();
 
-            $('.ilovepdf--meta-box-container').append(dialogComponent)
+            $('.ilovepdf--meta-box-container, .compat-field-iLovePDF-tools .field').append(dialogComponent)
 
             const dialogElem = document.getElementById("ilovepdf-restore-dialog")
             const btnConfirmDialog = document.getElementById("ilovepdf-dialog-aceptted")
