@@ -119,7 +119,7 @@ class Ilove_Pdf_Admin {
 	 */
 	public function add_action_links( $actions ) {
 		$custom_links = array(
-			'<a href="' . admin_url( 'options-general.php?page=ilove-pdf-content-setting' ) . '">Settings</a>',
+			'<a href="' . admin_url( 'options-general.php?page=ilove-pdf-content-setting' ) . '">' . esc_html_x( 'Settings', 'Link item', 'ilove-pdf' ) . '</a>',
 		);
 		$actions      = array_merge( $actions, $custom_links );
 

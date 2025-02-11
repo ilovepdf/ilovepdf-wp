@@ -4,185 +4,181 @@ msgid ""
 msgstr ""
 "Project-Id-Version: iLovePDF 1.0.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/ilovepdf\n"
-"Last-Translator: ilovepdf <info@ilovepdf.com>\n"
+"POT-Creation-Date: 2025-02-10T12:04:09+00:00\n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
 "Language-Team: ilovepdf <info@ilovepdf.com>\n"
+"Language: es_ES\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-02-10T12:04:09+00:00\n"
-"PO-Revision-Date: \n"
-"X-Generator: WP-CLI 2.11.0\n"
+"X-Generator: Poedit 3.5\n"
 "X-Domain: ilove-pdf\n"
 
 #. Description of the plugin
 #: ilove-pdf.php
-msgid "Compress your PDF files and Stamp Images or text into PDF files. This is the Official iLovePDF plugin for WordPress. You can optimize all your PDF and stamp them automatically as you do in ilovepdf.com."
+msgid ""
+"Compress your PDF files and Stamp Images or text into PDF files. This is the "
+"Official iLovePDF plugin for WordPress. You can optimize all your PDF and "
+"stamp them automatically as you do in ilovepdf.com."
 msgstr ""
+"Comprime tus archivos PDF y estampa imágenes o texto en archivos PDF. Este "
+"es el complemento oficial de iLovePDF para WordPress. Puedes optimizar todos "
+"tus archivos PDF y estamparlos automáticamente como lo haces en ilovepdf.com."
 
 #: admin/compress-settings.php:28
 msgid "Enable Compress PDF"
-msgstr ""
+msgstr "Activar Comprimir PDF"
 
 #: admin/compress-settings.php:33
 msgid "Activate this setting for active/inactive Compress PDF."
-msgstr ""
+msgstr "Active esta configuración para activar/desactivar Comprimir PDF."
 
 #: admin/compress-settings.php:39
 msgid "PDF Quality"
-msgstr ""
+msgstr "Calidad PDF"
 
 #: admin/compress-settings.php:44
 msgid "Low"
-msgstr ""
+msgstr "Bajo"
 
 #: admin/compress-settings.php:45
 msgid "Recommended"
-msgstr ""
+msgstr "Recomendado"
 
 #: admin/compress-settings.php:46
 msgid "Extreme"
-msgstr ""
+msgstr "Extremo"
 
 #: admin/compress-settings.php:52
 msgid "Enable Autocompress PDF"
-msgstr ""
+msgstr "Activar Auto-comprimir PDF"
 
 #: admin/compress-settings.php:57
 msgid "Activate this setting for Autocompress new PDF uploads."
-msgstr ""
+msgstr "Active esta opción para autocomprimir nuevos archivos PDF subidos."
 
 #: admin/compress-settings.php:74
 msgid "Configure your Compress PDF settings."
-msgstr ""
+msgstr "Configurar herramienta Comprimir PDF."
 
 #: admin/compress-settings.php:109
 msgid "High quality, less compression"
-msgstr ""
+msgstr "Alta calidad, baja compresión"
 
 #: admin/compress-settings.php:111
 msgid "Good quality, good compression"
-msgstr ""
+msgstr "Buena calidad, buena compresión"
 
 #: admin/compress-settings.php:113
 msgid "Less quality, high compression"
-msgstr ""
+msgstr "Menos calidad, alta compresión"
 
 #: admin/functions-compress.php:28
 msgid "Enable Compress PDF option on Settings -> iLovePDF -> Compress PDF"
-msgstr ""
+msgstr "Activar Comprimir PDF en Ajustes -> iLovePDF -> Comprimir PDF"
 
-#: admin/functions-compress.php:92
-#: admin/functions-watermark.php:147
+#: admin/functions-compress.php:92 admin/functions-watermark.php:147
 msgid "PDF file saved!"
-msgstr ""
+msgstr "Archivo PDF guardado!"
 
-#: admin/functions-compress.php:102
-#: admin/functions-compress.php:109
-#: admin/functions-watermark.php:157
-#: admin/functions-watermark.php:164
+#: admin/functions-compress.php:102 admin/functions-compress.php:109
+#: admin/functions-watermark.php:157 admin/functions-watermark.php:164
 msgid "An error occured on start: "
-msgstr ""
+msgstr "Ha ocurrido un error en start: "
 
-#: admin/functions-compress.php:122
-#: admin/functions-watermark.php:177
-msgid "Check your credentials in the plugin settings page. If you recently deleted a project in your iloveapi account, try switching to another project to correctly save your API Keys."
+#: admin/functions-compress.php:122 admin/functions-watermark.php:177
+msgid ""
+"Check your credentials in the plugin settings page. If you recently deleted "
+"a project in your iloveapi account, try switching to another project to "
+"correctly save your API Keys."
 msgstr ""
+"Comprueba tus credenciales en la página de configuración del complemento. Si "
+"eliminaste recientemente un proyecto en tu cuenta de iloveapi, intenta "
+"cambiar a otro proyecto para guardar correctamente tus claves API."
 
-#: admin/functions-compress.php:129
-#: admin/functions-compress.php:136
-#: admin/functions-watermark.php:184
-#: admin/functions-watermark.php:191
+#: admin/functions-compress.php:129 admin/functions-compress.php:136
+#: admin/functions-watermark.php:184 admin/functions-watermark.php:191
 msgid "An error occured on upload: "
-msgstr ""
+msgstr "Ha ocurrido un problema en upload: "
 
-#: admin/functions-compress.php:142
-#: admin/functions-compress.php:149
-#: admin/functions-compress.php:155
-#: admin/functions-compress.php:162
-#: admin/functions-watermark.php:197
-#: admin/functions-watermark.php:204
-#: admin/functions-watermark.php:210
-#: admin/functions-watermark.php:217
+#: admin/functions-compress.php:142 admin/functions-compress.php:149
+#: admin/functions-compress.php:155 admin/functions-compress.php:162
+#: admin/functions-watermark.php:197 admin/functions-watermark.php:204
+#: admin/functions-watermark.php:210 admin/functions-watermark.php:217
 msgid "An error occured on process: "
-msgstr ""
+msgstr "Ha ocurrido un error en process: "
 
-#: admin/functions-compress.php:168
-#: admin/functions-compress.php:175
-#: admin/functions-watermark.php:223
-#: admin/functions-watermark.php:230
+#: admin/functions-compress.php:168 admin/functions-compress.php:175
+#: admin/functions-watermark.php:223 admin/functions-watermark.php:230
 msgid "An error occured: "
-msgstr ""
+msgstr "Ha ocurrido un error: "
 
 #: admin/functions-watermark.php:29
 msgid "Enable Watermark PDF option on Settings -> iLovePDF -> Watermark"
-msgstr ""
+msgstr "Activar Marca de Agua en Ajustes -> iLovePDF -> Marca de Agua"
 
 #: admin/functions-watermark.php:230
 msgid "No image selected"
-msgstr ""
+msgstr "No hay imagen seleccionada"
 
 #: admin/general-settings.php:152
 msgctxt "Credits"
 msgid "You have no more credits!"
-msgstr ""
+msgstr "¡No tienes mas créditos!"
 
 #: admin/general-settings.php:152
 msgctxt "Credits"
 msgid "Please purchase more credits to process."
-msgstr ""
+msgstr "Compre más créditos para procesar."
 
 #: admin/general-settings.php:163
 msgid "Accept"
-msgstr ""
+msgstr "Aceptar"
 
 #: admin/general-settings.php:163
 msgid "Cancel"
-msgstr ""
+msgstr "Cancelar"
 
 #: admin/general-settings.php:187
 msgid "Create backup of original files?"
-msgstr ""
+msgstr "¿Crear copia de seguridad para archivos originales?"
 
 #: admin/general-settings.php:193
 msgid "Yes"
-msgstr ""
+msgstr "Si"
 
 #: admin/general-settings.php:210
 msgid "Configure your Tools settings."
-msgstr ""
+msgstr "Configure los ajustes de sus herramientas."
 
 #: admin/general-settings.php:229
 msgid "The backup files can be found on your server:"
-msgstr ""
+msgstr "Los archivos de respaldo se pueden encontrar en su servidor:"
 
-#: admin/general-statistics.php:40
-#: admin/general-statistics.php:172
-#: admin/general-statistics.php:223
-#: admin/general-statistics.php:321
+#: admin/general-statistics.php:40 admin/general-statistics.php:172
+#: admin/general-statistics.php:223 admin/general-statistics.php:321
 #: admin/partials/ilove-pdf-settings-display.php:45
 #: admin/partials/ilove-pdf-statistics-display.php:37
 msgid "Compress PDF"
-msgstr ""
+msgstr "Comprimir PDF"
 
 #: admin/general-statistics.php:44
 msgid "Compressed"
-msgstr ""
+msgstr "Comprimido"
 
 #: admin/general-statistics.php:44
 msgid "Savings"
-msgstr ""
+msgstr "Ahorro"
 
-#: admin/general-statistics.php:46
-#: admin/general-statistics.php:181
+#: admin/general-statistics.php:46 admin/general-statistics.php:181
 #: admin/general-statistics.php:330
 #: admin/partials/ilove-pdf-statistics-display.php:197
 msgid "Compressing"
-msgstr ""
+msgstr "Comprimiendo"
 
-#: admin/general-statistics.php:47
-#: admin/general-statistics.php:60
-#: admin/general-statistics.php:66
-#: admin/general-statistics.php:183
+#: admin/general-statistics.php:47 admin/general-statistics.php:60
+#: admin/general-statistics.php:66 admin/general-statistics.php:183
 #: admin/general-statistics.php:332
 #: admin/partials/ilove-pdf-statistics-display.php:137
 #: admin/partials/ilove-pdf-statistics-display.php:198
@@ -191,522 +187,519 @@ msgstr ""
 #: admin/partials/ilove-pdf-statistics-display.php:337
 #: admin/partials/ilove-pdf-statistics-display.php:343
 msgid "Error"
-msgstr ""
+msgstr "Error"
 
-#: admin/general-statistics.php:48
-#: admin/general-statistics.php:61
-#: admin/general-statistics.php:184
-#: admin/general-statistics.php:333
+#: admin/general-statistics.php:48 admin/general-statistics.php:61
+#: admin/general-statistics.php:184 admin/general-statistics.php:333
 #: admin/partials/ilove-pdf-statistics-display.php:199
 #: admin/partials/ilove-pdf-statistics-display.php:338
 msgid "Completed"
-msgstr ""
+msgstr "Completado"
 
-#: admin/general-statistics.php:53
-#: admin/general-statistics.php:176
-#: admin/general-statistics.php:224
-#: admin/general-statistics.php:325
+#: admin/general-statistics.php:53 admin/general-statistics.php:176
+#: admin/general-statistics.php:224 admin/general-statistics.php:325
 #: admin/partials/ilove-pdf-statistics-display.php:335
 msgid "Apply Watermark"
-msgstr ""
+msgstr "Aplicar Marca de Agua"
 
-#: admin/general-statistics.php:55
-#: admin/general-statistics.php:178
+#: admin/general-statistics.php:55 admin/general-statistics.php:178
 #: admin/general-statistics.php:327
 msgid "Stamped"
-msgstr ""
+msgstr "Estampado"
 
-#: admin/general-statistics.php:58
-#: admin/general-statistics.php:66
+#: admin/general-statistics.php:58 admin/general-statistics.php:66
 #: admin/partials/ilove-pdf-statistics-display.php:209
 #: admin/partials/ilove-pdf-statistics-display.php:342
 msgid "Loading"
-msgstr ""
+msgstr "Cargando"
 
-#: admin/general-statistics.php:59
-#: admin/general-statistics.php:182
+#: admin/general-statistics.php:59 admin/general-statistics.php:182
 #: admin/general-statistics.php:331
 #: admin/partials/ilove-pdf-statistics-display.php:336
 msgid "Applying Watermark"
-msgstr ""
+msgstr "Aplicando Marca de Agua"
 
-#: admin/general-statistics.php:66
-#: admin/general-statistics.php:189
+#: admin/general-statistics.php:66 admin/general-statistics.php:189
 #: admin/general-statistics.php:337
 #: admin/partials/ilove-pdf-statistics-display.php:208
 #: admin/partials/ilove-pdf-statistics-display.php:341
 msgid "Restore original file"
-msgstr ""
+msgstr "Restaurar archivo original"
 
 #: admin/general-statistics.php:66
 #: admin/partials/ilove-pdf-statistics-display.php:211
 #: admin/partials/ilove-pdf-statistics-display.php:344
 msgid "Completed, please refresh the page."
-msgstr ""
+msgstr "Completado, por favor vuelva a cargar la página."
 
 #: admin/general-statistics.php:165
 msgid "Original size: "
-msgstr ""
+msgstr "Tamaño original: "
 
 #: admin/general-statistics.php:166
 msgid "Current size: "
-msgstr ""
+msgstr "Tamaño actual: "
 
 #: admin/general-statistics.php:276
 msgid "Process complete!"
-msgstr ""
+msgstr "Proceso completado!"
 
 #: admin/general-statistics.php:280
 msgid "An error occured on start."
-msgstr ""
+msgstr "Ha ocurrido un error en start."
 
 #: admin/general-statistics.php:284
 msgid "An error occured on auth."
-msgstr ""
+msgstr "Ha ocurrido un error en auth."
 
 #: admin/general-statistics.php:288
 msgid "An error occured on upload."
-msgstr ""
+msgstr "Ha ocurrido un problema en upload."
 
 #: admin/general-statistics.php:292
 msgid "An error occured on process."
-msgstr ""
+msgstr "Ha ocurrido un error en process."
 
 #: admin/general-statistics.php:296
 msgid "An error occured."
-msgstr ""
+msgstr "Ha ocurrido un error."
 
 #: admin/Ilove_Pdf_Admin.php:122
 msgctxt "Link item"
 msgid "Settings"
-msgstr ""
+msgstr "Configuraciones"
 
 #: admin/partials/ilove-pdf-settings-display.php:20
 msgid "Bad request."
-msgstr ""
+msgstr "Solicitud incorrecta."
 
 #: admin/partials/ilove-pdf-settings-display.php:24
 msgid "Incorrect email or password."
-msgstr ""
+msgstr "Correo o contraseña incorrecto."
 
 #: admin/partials/ilove-pdf-settings-display.php:28
 msgid "Welcome!"
-msgstr ""
+msgstr "Bienvenido!"
 
 #: admin/partials/ilove-pdf-settings-display.php:32
 msgid "Error on register/login."
-msgstr ""
+msgstr "Error en registro/acceso."
 
 #: admin/partials/ilove-pdf-settings-display.php:44
 msgid "General"
-msgstr ""
+msgstr "General"
 
 #: admin/partials/ilove-pdf-settings-display.php:46
 #: admin/partials/ilove-pdf-statistics-display.php:38
 msgid "Watermark"
-msgstr ""
+msgstr "Marca de Agua"
 
 #: admin/partials/ilove-pdf-settings-display.php:65
 #: admin/partials/ilove-pdf-statistics-display.php:47
 msgid "Credits available to process files"
-msgstr ""
+msgstr "Créditos disponibles para procesar archivos"
 
 #: admin/partials/ilove-pdf-settings-display.php:67
 #: admin/partials/ilove-pdf-statistics-display.php:49
 msgid "Free"
-msgstr ""
+msgstr "Gratis"
 
 #: admin/partials/ilove-pdf-settings-display.php:70
 #: admin/partials/ilove-pdf-statistics-display.php:52
 msgid "credits used this month. Free Tier."
-msgstr ""
+msgstr "créditos utilizados este mes. Nivel gratuito."
 
 #: admin/partials/ilove-pdf-settings-display.php:75
 #: admin/partials/ilove-pdf-statistics-display.php:57
 msgid "Subscription"
-msgstr ""
+msgstr "Suscripción"
 
 #: admin/partials/ilove-pdf-settings-display.php:81
 #: admin/partials/ilove-pdf-statistics-display.php:63
 msgid "credits used this month. <strong>Yearly</strong> subscription."
-msgstr ""
+msgstr "créditos utilizados este mes. Suscripción <strong>anual</strong>."
 
 #: admin/partials/ilove-pdf-settings-display.php:81
 #: admin/partials/ilove-pdf-statistics-display.php:63
 msgid "credits used this month. <strong>Monthly</strong> subscription."
-msgstr ""
+msgstr "créditos utilizados este mes. Suscripción <strong>Mensual</strong>."
 
 #: admin/partials/ilove-pdf-settings-display.php:87
 #: admin/partials/ilove-pdf-statistics-display.php:69
 msgid "Prepaid"
-msgstr ""
+msgstr "Prepago"
 
 #: admin/partials/ilove-pdf-settings-display.php:90
 #: admin/partials/ilove-pdf-statistics-display.php:72
 msgid "credits used. Prepaid credits."
-msgstr ""
+msgstr "créditos utilizados. Créditos prepago."
 
 #: admin/partials/ilove-pdf-settings-display.php:94
 #: admin/partials/ilove-pdf-statistics-display.php:76
 msgid "Account info"
-msgstr ""
+msgstr "Información de cuenta"
 
 #: admin/partials/ilove-pdf-settings-display.php:95
 #: admin/partials/ilove-pdf-statistics-display.php:77
 msgid "Buy more credits"
-msgstr ""
+msgstr "Comprar más créditos"
 
 #: admin/partials/ilove-pdf-settings-display.php:98
 msgid "Account"
-msgstr ""
+msgstr "Cuenta"
 
 #: admin/partials/ilove-pdf-settings-display.php:99
 msgid "Logged as"
-msgstr ""
+msgstr "Accedió como"
 
 #: admin/partials/ilove-pdf-settings-display.php:99
 msgid "Logout"
-msgstr ""
+msgstr "Cerrar sesión"
 
 #: admin/partials/ilove-pdf-settings-display.php:111
 msgid "Change Project"
-msgstr ""
+msgstr "Cambiar proyecto"
 
 #: admin/partials/ilove-pdf-settings-display.php:118
 msgid "Register as iLoveAPI developer"
-msgstr ""
+msgstr "Registrarse como desarrollador en iLoveAPI"
 
 #: admin/partials/ilove-pdf-settings-display.php:122
 msgid "Provide your name and email address to generate keys."
 msgstr ""
+"Proporcione su nombre y dirección de correo electrónico para generar claves."
 
 #: admin/partials/ilove-pdf-settings-display.php:123
 msgid "Name"
-msgstr ""
+msgstr "Nombre"
 
 #: admin/partials/ilove-pdf-settings-display.php:124
 #: admin/partials/ilove-pdf-settings-display.php:138
 msgid "Email"
-msgstr ""
+msgstr "Correo"
 
 #: admin/partials/ilove-pdf-settings-display.php:125
 #: admin/partials/ilove-pdf-settings-display.php:139
 msgid "Password"
-msgstr ""
+msgstr "Contraseña"
 
 #: admin/partials/ilove-pdf-settings-display.php:126
 msgid "Confirm Password"
-msgstr ""
+msgstr "Confirmar Contraseña"
 
 #: admin/partials/ilove-pdf-settings-display.php:127
 msgid "Register &amp; Generate keys"
-msgstr ""
+msgstr "Registrar y generar claves"
 
 #: admin/partials/ilove-pdf-settings-display.php:133
 #: admin/partials/ilove-pdf-settings-display.php:140
 msgid "Login"
-msgstr ""
+msgstr "Iniciar Sesión"
 
 #: admin/partials/ilove-pdf-settings-display.php:137
 msgid "If you have an account, please log in."
-msgstr ""
+msgstr "Si tiene una cuenta, inicie sesión."
 
 #: admin/partials/ilove-pdf-settings-display.php:151
 msgid "Incorrect password."
-msgstr ""
+msgstr "Contraseña incorrecta."
 
 #: admin/partials/ilove-pdf-settings-display.php:155
 msgid "Correct password."
-msgstr ""
+msgstr "Contraseña correcta."
 
 #: admin/partials/ilove-pdf-settings-display.php:175
 msgid "Go to Compress Tool"
-msgstr ""
+msgstr "Ir a Herramienta Comprimir"
 
 #: admin/partials/ilove-pdf-settings-display.php:189
 msgid "Go to Watermark Tool"
-msgstr ""
+msgstr "Ir a Herramienta Marca de Agua"
 
 #: admin/partials/ilove-pdf-statistics-display.php:36
 msgid "Overview"
-msgstr ""
+msgstr "Resumen"
 
 #: admin/partials/ilove-pdf-statistics-display.php:80
 msgid "Tools"
-msgstr ""
+msgstr "Herramientas"
 
 #: admin/partials/ilove-pdf-statistics-display.php:81
 msgid "Go to Compress PDF tab"
-msgstr ""
+msgstr "Ir a pestaña Comprimir PDF"
 
 #: admin/partials/ilove-pdf-statistics-display.php:82
 msgid "Go to Watermark tab"
-msgstr ""
+msgstr "Ir a pestaña Marca de Agua"
 
 #: admin/partials/ilove-pdf-statistics-display.php:108
 msgid "Total savings"
-msgstr ""
+msgstr "Ahorro total"
 
 #: admin/partials/ilove-pdf-statistics-display.php:109
 msgid "Here you can check how much space you saved."
-msgstr ""
+msgstr "Aquí puedes comprobar cuánto espacio has ahorrado."
 
 #: admin/partials/ilove-pdf-statistics-display.php:112
 msgid "Saved!"
-msgstr ""
+msgstr "¡Ahorrado!"
 
 #: admin/partials/ilove-pdf-statistics-display.php:124
 msgid "PDF files compressed"
-msgstr ""
+msgstr "Archivos PDF comprimidos"
 
 #: admin/partials/ilove-pdf-statistics-display.php:125
 msgid "initial size"
-msgstr ""
+msgstr "tamaño inicial"
 
 #: admin/partials/ilove-pdf-statistics-display.php:126
 msgid "current size"
-msgstr ""
+msgstr "actual tamaño"
 
 #: admin/partials/ilove-pdf-statistics-display.php:133
 #: admin/partials/ilove-pdf-statistics-display.php:279
 msgid "Processing"
-msgstr ""
+msgstr "Procesando"
 
 #: admin/partials/ilove-pdf-statistics-display.php:138
 #: admin/partials/ilove-pdf-statistics-display.php:284
 msgid "Finished"
-msgstr ""
+msgstr "Finalizado"
 
 #: admin/partials/ilove-pdf-statistics-display.php:139
 #: admin/partials/ilove-pdf-statistics-display.php:285
 msgid "Canceled"
-msgstr ""
+msgstr "Cancelado"
 
 #: admin/partials/ilove-pdf-statistics-display.php:142
 #: admin/partials/ilove-pdf-statistics-display.php:288
 msgid "Cancel Process"
-msgstr ""
+msgstr "Cancelar proceso"
 
 #: admin/partials/ilove-pdf-statistics-display.php:148
 #: admin/partials/ilove-pdf-statistics-display.php:293
 msgid "PDFs in your library"
-msgstr ""
+msgstr "Archivos PDF en tu biblioteca"
 
 #: admin/partials/ilove-pdf-statistics-display.php:149
 msgid "Compress all non compressed PDF in your library at once."
-msgstr ""
+msgstr "Comprime todos los PDF no comprimidos de tu biblioteca a la vez."
 
 #: admin/partials/ilove-pdf-statistics-display.php:174
 #: admin/partials/ilove-pdf-statistics-display.php:320
 msgid "File"
-msgstr ""
+msgstr "Archivo"
 
 #: admin/partials/ilove-pdf-statistics-display.php:175
 msgid "Original Size"
-msgstr ""
+msgstr "Tamaño original"
 
 #: admin/partials/ilove-pdf-statistics-display.php:176
 msgid "Compressed Size"
-msgstr ""
+msgstr "Tamaño comprimido"
 
 #: admin/partials/ilove-pdf-statistics-display.php:196
 msgid "Compress"
-msgstr ""
+msgstr "Comprimir"
 
 #: admin/partials/ilove-pdf-statistics-display.php:225
 msgid "PDFs non compressed"
-msgstr ""
+msgstr "PDFs no comprimidos"
 
 #: admin/partials/ilove-pdf-statistics-display.php:246
 #: admin/partials/ilove-pdf-statistics-display.php:378
 msgid "No pdf files found"
-msgstr ""
+msgstr "No se encontraron archivos pdf"
 
 #: admin/partials/ilove-pdf-statistics-display.php:248
 #: admin/partials/ilove-pdf-statistics-display.php:380
 msgid "Settings"
-msgstr ""
+msgstr "Configuraciones"
 
 #: admin/partials/ilove-pdf-statistics-display.php:272
 msgid "Total PDF files stamped"
-msgstr ""
+msgstr "Total de archivos PDF marcados"
 
 #: admin/partials/ilove-pdf-statistics-display.php:273
 msgid "Here you can check how many PDF files have been stamped."
-msgstr ""
+msgstr "Aquí puedes comprobar cuántos archivos PDF se han marcado."
 
 #: admin/partials/ilove-pdf-statistics-display.php:274
 msgid "PDF files have been stamped!"
-msgstr ""
+msgstr "¡Los archivos PDF han sido marcados!"
 
 #: admin/partials/ilove-pdf-statistics-display.php:294
 msgid "Stamp all non stamped PDF in your library at once."
-msgstr ""
+msgstr "Marca todos los PDF no marcados en tu biblioteca a la vez."
 
 #: admin/partials/ilove-pdf-statistics-display.php:321
 msgid "Size"
-msgstr ""
+msgstr "Tamaño"
 
 #: admin/partials/ilove-pdf-statistics-display.php:356
 msgid "PDFs without watermark"
-msgstr ""
+msgstr "PDF sin marca de agua"
 
 #: admin/partials/ilove-pdf-statistics-display.php:390
 msgid "You must first login or register to use this plugin"
-msgstr ""
+msgstr "Primero debe iniciar sesión o registrarse para usar este complemento"
 
 #: admin/partials/ilove-pdf-statistics-display.php:391
 msgid "Go to Settings"
-msgstr ""
+msgstr "Ir a Configuraciones"
 
 #: admin/watermark-settings.php:32
 msgid "Enable Watermark PDF"
-msgstr ""
+msgstr "Activar Marca de Agua"
 
 #: admin/watermark-settings.php:37
 msgid "Activate this setting for active/inactive Watermark on PDF files."
 msgstr ""
+"Active esta configuración activa/inactiva  para la marca de agua en archivos "
+"PDF."
 
 #: admin/watermark-settings.php:43
 msgid "Enable Auto Watermark"
-msgstr ""
+msgstr "Activar marca de agua automática"
 
 #: admin/watermark-settings.php:48
 msgid "Activate this setting for Auto Watermark on new PDF uploads."
 msgstr ""
+"Active esta configuración para la marca de agua automática en las nuevas "
+"cargas de PDF."
 
 #: admin/watermark-settings.php:65
 msgid "Configure your Watermark PDF settings."
-msgstr ""
+msgstr "Configure los ajustes de marca de agua."
 
 #: admin/watermark-settings.php:128
 msgid "Watermark mode"
-msgstr ""
+msgstr "Modo de marca de agua"
 
 #: admin/watermark-settings.php:133
 msgid "Text"
-msgstr ""
+msgstr "Texto"
 
 #: admin/watermark-settings.php:134
 msgid "Image"
-msgstr ""
+msgstr "Imagen"
 
 #: admin/watermark-settings.php:140
 msgid "Watermark Text"
-msgstr ""
+msgstr "Marca de Agua. Texto"
 
 #: admin/watermark-settings.php:145
 msgid "Watermark text."
-msgstr ""
+msgstr "Marca de Agua de Texto."
 
 #: admin/watermark-settings.php:151
 msgid "Watermark Text Size"
-msgstr ""
+msgstr "Marca de Agua. Tamaño de Texto"
 
 #: admin/watermark-settings.php:156
 msgid "Indicate text size in pixels. From 5 to 80."
-msgstr ""
+msgstr "Indica tamaño de texto en pixeles. De 5 a 80."
 
 #: admin/watermark-settings.php:162
 msgid "Watermark Font Family"
-msgstr ""
+msgstr "Marca de Agua. Familia De Fuentes"
 
 #: admin/watermark-settings.php:167
 msgid "Select Watermark font Family."
-msgstr ""
+msgstr "Selecciona familia de fuente."
 
 #: admin/watermark-settings.php:175
 msgid "Watermark Text Color"
-msgstr ""
+msgstr "Marca de Agua. Color de texto"
 
 #: admin/watermark-settings.php:183
 msgid "Watermark image"
-msgstr ""
+msgstr "Imagen de Marca de Agua"
 
 #: admin/watermark-settings.php:191
 msgid "Watermark Vertical position"
-msgstr ""
+msgstr "Marca de Agua. Posición Vertical"
 
 #: admin/watermark-settings.php:199
 msgid "Watermark Horizontal position"
-msgstr ""
+msgstr "Marca de Agua. Posición Horizontal"
 
 #: admin/watermark-settings.php:207
 msgid "Watermark Opacity"
-msgstr ""
+msgstr "Opacidad de Marca de Agua"
 
 #: admin/watermark-settings.php:212
 msgid "From 0 to 100."
-msgstr ""
+msgstr "De 0 a 100."
 
 #: admin/watermark-settings.php:218
 msgid "Watermark Rotation"
-msgstr ""
+msgstr "Rotación de Marca de Agua"
 
 #: admin/watermark-settings.php:223
 msgid "From 0 to 360."
-msgstr ""
+msgstr "De 0 a 360."
 
 #: admin/watermark-settings.php:229
 msgid "Watermark layer depth"
-msgstr ""
+msgstr "Profundidad de la capa de marca de agua"
 
 #: admin/watermark-settings.php:237
 msgid "Enable Mosaic Watermark"
-msgstr ""
+msgstr "Habilitar Marca de Agua de Mosaico"
 
 #: admin/watermark-settings.php:242
 msgid "Activate this setting for enable Watermark Mosaic."
-msgstr ""
+msgstr "Active esta configuración para habilitar el mosaico de marca de agua."
 
 #: admin/watermark-settings.php:259
 msgid "Configure your Watermark format."
-msgstr ""
+msgstr "Configurar Formato de Marca de Agua."
 
 #: admin/watermark-settings.php:351
 msgid "Bottom"
-msgstr ""
+msgstr "Abajo"
 
 #: admin/watermark-settings.php:353
 msgid "Middle"
-msgstr ""
+msgstr "Medio"
 
 #: admin/watermark-settings.php:355
 msgid "Top"
-msgstr ""
+msgstr "Arriba"
 
 #: admin/watermark-settings.php:374
 msgid "Left"
-msgstr ""
+msgstr "Izquierda"
 
 #: admin/watermark-settings.php:376
 msgid "Center"
-msgstr ""
+msgstr "Centro"
 
 #: admin/watermark-settings.php:378
 msgid "Right"
-msgstr ""
+msgstr "Derecha"
 
 #: admin/watermark-settings.php:432
 msgid "Over"
-msgstr ""
+msgstr "Por encima"
 
 #: admin/watermark-settings.php:434
 msgid "Below"
-msgstr ""
+msgstr "Por Abajo"
 
 #: admin/watermark-settings.php:495
 msgid "Upload image"
-msgstr ""
+msgstr "Subir Imagen"
 
 #: admin/watermark-settings.php:497
 msgid "Save"
-msgstr ""
+msgstr "Guardar"
 
 #: admin/watermark-settings.php:537
 msgid "Select a image to upload"
-msgstr ""
+msgstr "Selecciona una imagen a cargar"
 
 #: admin/watermark-settings.php:542
 msgid "Use this image"
-msgstr ""
+msgstr "Usar esta imagen"

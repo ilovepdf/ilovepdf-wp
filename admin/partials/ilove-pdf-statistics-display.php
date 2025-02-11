@@ -77,7 +77,7 @@ function ilove_pdf_content_page_statistics() {
                                     <a href="https://iloveapi.com/pricing" target="_blank" class="button button-primary"><?php esc_html_e( 'Buy more credits', 'ilove-pdf' ); ?></a>
                                 </div>
                                 <div class="col-md-5 col-md-offset-1 panel panel-margin-left">
-                                    <h3>Tools</h3>
+                                    <h3><?php esc_html_e( 'Tools', 'ilove-pdf' ); ?></h3>
                                     <a href="?page=ilove-pdf-content-statistics&tab=compress_statistic" class="button button-primary"><?php esc_html_e( 'Go to Compress PDF tab', 'ilove-pdf' ); ?></a>
                                     <a href="?page=ilove-pdf-content-statistics&tab=watermark_statistic" class="button button-primary"><?php esc_html_e( 'Go to Watermark tab', 'ilove-pdf' ); ?></a>
                                 </div>
@@ -106,7 +106,7 @@ function ilove_pdf_content_page_statistics() {
                             <div class="row">
                                 <div class="col-md-12 col-md-offset-1 panel">
                                     <h3><?php esc_html_e( 'Total savings', 'ilove-pdf' ); ?></h3>
-                                    <p style="margin-bottom: 20px;">Here you can check how much space you saved.</p>
+                                    <p style="margin-bottom: 20px;"><?php esc_html_e( 'Here you can check how much space you saved.', 'ilove-pdf' ); ?></p>
                                     <div style="overflow: hidden;">
                                         <div class="c100 p<?php echo esc_html( ilove_pdf_get_percentage_compress( ilove_pdf_get_all_pdf_original_size(), ilove_pdf_get_all_pdf_original_size() - ilove_pdf_get_all_pdf_current_size() ) ); ?> green"> 
                                             <span style="top: -15px"><?php esc_html_e( 'Saved!', 'ilove-pdf' ); ?></span>
@@ -146,7 +146,7 @@ function ilove_pdf_content_page_statistics() {
                                 </div>
                                 <div class="col-md-12 panel" id="compress-pdf-list">
                                     <h3><?php esc_html_e( 'PDFs in your library', 'ilove-pdf' ); ?></h3>
-                                    <p>Compress all non compressed PDF in your library at once.</p>
+                                    <p><?php esc_html_e( 'Compress all non compressed PDF in your library at once.', 'ilove-pdf' ); ?></p>
                                     <?php $files = ilove_pdf_initialize_list_compress_pdf(); ?>
                                     <?php
                                         $paged            = isset( $_GET['paged'] ) ? (int) $_GET['paged'] : 1; //phpcs:ignore WordPress.Security.NonceVerification.Recommended
@@ -270,7 +270,7 @@ function ilove_pdf_content_page_statistics() {
                             <div class="row">
                                 <div class="col-md-12 col-md-offset-1 panel">
                                     <h3><?php esc_html_e( 'Total PDF files stamped', 'ilove-pdf' ); ?></h3>
-                                    <p style="margin-bottom: 20px;">Here you can check how many PDF files have been stamped.</p>
+                                    <p style="margin-bottom: 20px;"><?php esc_html_e( 'Here you can check how many PDF files have been stamped.', 'ilove-pdf' ); ?></p>
                                     <h1><strong id="stats_total_files_watermarked"><?php echo esc_html( get_option( 'ilovepdf_watermarked_files' ) ? get_option( 'ilovepdf_watermarked_files' ) : 0 ); ?></strong> <?php esc_html_e( 'PDF files have been stamped!', 'ilove-pdf' ); ?></h1>
 
                                     <div class="row">
@@ -291,7 +291,7 @@ function ilove_pdf_content_page_statistics() {
                                 </div>
                                 <div class="col-md-12 panel" id="watermark-pdf-list">
                                     <h3><?php esc_html_e( 'PDFs in your library', 'ilove-pdf' ); ?></h3>
-                                    <p>Stamp all non stamped PDF in your library at once.</p>
+                                    <p><?php esc_html_e( 'Stamp all non stamped PDF in your library at once.', 'ilove-pdf' ); ?></p>
                                     <?php $files = ilove_pdf_initialize_list_watermark_pdf(); ?>
                                     <?php
                                         $paged            = isset( $_GET['paged'] ) ? (int) $_GET['paged'] : 1; //phpcs:ignore WordPress.Security.NonceVerification.Recommended
