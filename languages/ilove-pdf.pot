@@ -14,19 +14,9 @@ msgstr ""
 "X-Generator: WP-CLI 2.11.0\n"
 "X-Domain: ilove-pdf\n"
 
-#. Plugin Name of the plugin
-#: ilove-pdf.php
-msgid "iLovePDF"
-msgstr ""
-
 #. Description of the plugin
 #: ilove-pdf.php
 msgid "Compress your PDF files and Stamp Images or text into PDF files. This is the Official iLovePDF plugin for WordPress. You can optimize all your PDF and stamp them automatically as you do in ilovepdf.com."
-msgstr ""
-
-#. Author of the plugin
-#: ilove-pdf.php
-msgid "ILovePDF"
 msgstr ""
 
 #: admin/compress-settings.php:28
@@ -131,6 +121,16 @@ msgstr ""
 msgid "No image selected"
 msgstr ""
 
+#: admin/general-settings.php:152
+msgctxt "Credits"
+msgid "You have no more credits!"
+msgstr ""
+
+#: admin/general-settings.php:152
+msgctxt "Credits"
+msgid "Please purchase more credits to process."
+msgstr ""
+
 #: admin/general-settings.php:163
 msgid "Accept"
 msgstr ""
@@ -143,8 +143,16 @@ msgstr ""
 msgid "Create backup of original files?"
 msgstr ""
 
+#: admin/general-settings.php:193
+msgid "Yes"
+msgstr ""
+
 #: admin/general-settings.php:210
 msgid "Configure your Tools settings."
+msgstr ""
+
+#: admin/general-settings.php:229
+msgid "The backup files can be found on your server:"
 msgstr ""
 
 #: admin/general-statistics.php:40
@@ -266,6 +274,11 @@ msgstr ""
 
 #: admin/general-statistics.php:296
 msgid "An error occured."
+msgstr ""
+
+#: admin/Ilove_Pdf_Admin.php:122
+msgctxt "Link item"
+msgid "Settings"
 msgstr ""
 
 #: admin/partials/ilove-pdf-settings-display.php:20
@@ -418,6 +431,10 @@ msgstr ""
 msgid "Overview"
 msgstr ""
 
+#: admin/partials/ilove-pdf-statistics-display.php:80
+msgid "Tools"
+msgstr ""
+
 #: admin/partials/ilove-pdf-statistics-display.php:81
 msgid "Go to Compress PDF tab"
 msgstr ""
@@ -428,6 +445,10 @@ msgstr ""
 
 #: admin/partials/ilove-pdf-statistics-display.php:108
 msgid "Total savings"
+msgstr ""
+
+#: admin/partials/ilove-pdf-statistics-display.php:109
+msgid "Here you can check how much space you saved."
 msgstr ""
 
 #: admin/partials/ilove-pdf-statistics-display.php:112
@@ -471,6 +492,10 @@ msgstr ""
 msgid "PDFs in your library"
 msgstr ""
 
+#: admin/partials/ilove-pdf-statistics-display.php:149
+msgid "Compress all non compressed PDF in your library at once."
+msgstr ""
+
 #: admin/partials/ilove-pdf-statistics-display.php:174
 #: admin/partials/ilove-pdf-statistics-display.php:320
 msgid "File"
@@ -506,8 +531,16 @@ msgstr ""
 msgid "Total PDF files stamped"
 msgstr ""
 
+#: admin/partials/ilove-pdf-statistics-display.php:273
+msgid "Here you can check how many PDF files have been stamped."
+msgstr ""
+
 #: admin/partials/ilove-pdf-statistics-display.php:274
 msgid "PDF files have been stamped!"
+msgstr ""
+
+#: admin/partials/ilove-pdf-statistics-display.php:294
+msgid "Stamp all non stamped PDF in your library at once."
 msgstr ""
 
 #: admin/partials/ilove-pdf-statistics-display.php:321
@@ -550,6 +583,14 @@ msgstr ""
 msgid "Watermark mode"
 msgstr ""
 
+#: admin/watermark-settings.php:133
+msgid "Text"
+msgstr ""
+
+#: admin/watermark-settings.php:134
+msgid "Image"
+msgstr ""
+
 #: admin/watermark-settings.php:140
 msgid "Watermark Text"
 msgstr ""
@@ -586,54 +627,86 @@ msgstr ""
 msgid "Watermark Vertical position"
 msgstr ""
 
-#: admin/watermark-settings.php:204
+#: admin/watermark-settings.php:199
 msgid "Watermark Horizontal position"
 msgstr ""
 
-#: admin/watermark-settings.php:217
+#: admin/watermark-settings.php:207
 msgid "Watermark Opacity"
 msgstr ""
 
-#: admin/watermark-settings.php:222
+#: admin/watermark-settings.php:212
 msgid "From 0 to 100."
 msgstr ""
 
-#: admin/watermark-settings.php:228
+#: admin/watermark-settings.php:218
 msgid "Watermark Rotation"
 msgstr ""
 
-#: admin/watermark-settings.php:233
+#: admin/watermark-settings.php:223
 msgid "From 0 to 360."
 msgstr ""
 
-#: admin/watermark-settings.php:239
+#: admin/watermark-settings.php:229
 msgid "Watermark layer depth"
 msgstr ""
 
-#: admin/watermark-settings.php:251
+#: admin/watermark-settings.php:237
 msgid "Enable Mosaic Watermark"
 msgstr ""
 
-#: admin/watermark-settings.php:256
+#: admin/watermark-settings.php:242
 msgid "Activate this setting for enable Watermark Mosaic."
 msgstr ""
 
-#: admin/watermark-settings.php:273
+#: admin/watermark-settings.php:259
 msgid "Configure your Watermark format."
 msgstr ""
 
-#: admin/watermark-settings.php:512
+#: admin/watermark-settings.php:351
+msgid "Bottom"
+msgstr ""
+
+#: admin/watermark-settings.php:353
+msgid "Middle"
+msgstr ""
+
+#: admin/watermark-settings.php:355
+msgid "Top"
+msgstr ""
+
+#: admin/watermark-settings.php:374
+msgid "Left"
+msgstr ""
+
+#: admin/watermark-settings.php:376
+msgid "Center"
+msgstr ""
+
+#: admin/watermark-settings.php:378
+msgid "Right"
+msgstr ""
+
+#: admin/watermark-settings.php:432
+msgid "Over"
+msgstr ""
+
+#: admin/watermark-settings.php:434
+msgid "Below"
+msgstr ""
+
+#: admin/watermark-settings.php:495
 msgid "Upload image"
 msgstr ""
 
-#: admin/watermark-settings.php:514
+#: admin/watermark-settings.php:497
 msgid "Save"
 msgstr ""
 
-#: admin/watermark-settings.php:554
+#: admin/watermark-settings.php:537
 msgid "Select a image to upload"
 msgstr ""
 
-#: admin/watermark-settings.php:559
+#: admin/watermark-settings.php:542
 msgid "Use this image"
 msgstr ""
