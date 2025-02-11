@@ -149,7 +149,7 @@ add_action( 'admin_post_ilovepdf_change_project', 'ilove_pdf_change_project_acti
 function ilove_pdf_popup_buymore_action() {
 
     add_thickbox();
-    echo '<div id="pricing_ilovepdf" style="display:none;"><div class="popup_buymore"><h3>Your files have been exceeded! </h3><p>Please purchase more files to process.</p><svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="150px" height="75.51px" viewBox="0 0 300 75.51" enable-background="new 0 0 300 75.51" xml:space="preserve">
+    echo '<div id="pricing_ilovepdf" style="display:none;"><div class="popup_buymore"><h3>' . esc_html_x( 'You have no more credits!', 'Credits', 'ilove-pdf' ) . '</h3><p>' . esc_html_x( 'Please purchase more credits to process.', 'Credits', 'ilove-pdf' ) . '</p><svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="150px" height="75.51px" viewBox="0 0 300 75.51" enable-background="new 0 0 300 75.51" xml:space="preserve">
                     <g>
                         <path fill="#E5322D" d="M94.313,2.543c-4.785,2.309-8.374,6.2-10.995,10.612C79.104,6.071,72.405,0.326,62.259,0.326   c-10.15,0-22.594,8.614-22.594,23.165c0,14.732,12.293,21.715,18.382,25.658c6.508,4.211,17.613,11.867,25.27,26.036   c7.66-14.168,18.763-21.825,25.273-26.036c4.574-2.965,12.655-7.647,16.387-16.047L94.313,2.543z M93.946,33.938V6.254   l27.684,27.683H93.946z"></path>
                         <g>
@@ -190,7 +190,7 @@ function ilove_pdf_initialize_general_options() {
         'general_settings_section',
         array(
             'No',
-            'Yes',
+            __( 'Yes', 'ilove-pdf' ),
         )
     );
 
@@ -221,11 +221,12 @@ function ilove_pdf_general_backup_callback( $args ) {
     $options = get_option( 'ilove_pdf_display_general_settings' );
     $html    = sprintf(
         '<input type="radio" id="ilove_pdf_general_backup" name="ilove_pdf_display_general_settings[ilove_pdf_general_backup]" value="0" %s><label for="ilove_pdf_general_backup">%s</label>&nbsp;
-        <input type="radio" id="ilove_pdf_general_backup" name="ilove_pdf_display_general_settings[ilove_pdf_general_backup]" value="1" %s><label for="ilove_pdf_general_backup">%s</label><div><p><small>The backup files can be found on your server:</small></p><p><strong>wp-content/uploads/pdf/backup</strong></p></div>',
+        <input type="radio" id="ilove_pdf_general_backup" name="ilove_pdf_display_general_settings[ilove_pdf_general_backup]" value="1" %s><label for="ilove_pdf_general_backup">%s</label><div><p><small>%s</small></p><p><strong>wp-content/uploads/pdf/backup</strong></p></div>',
         isset( $options['ilove_pdf_general_backup'] ) ? checked( 0, $options['ilove_pdf_general_backup'], false ) : '',
         $args[0],
         isset( $options['ilove_pdf_general_backup'] ) ? checked( 1, $options['ilove_pdf_general_backup'], false ) : 'checked="checked"',
-        $args[1]
+        $args[1],
+        __( 'The backup files can be found on your server:', 'ilove-pdf' )
     );
 
     echo wp_kses( $html, ilove_pdf_expanded_alowed_tags() );
