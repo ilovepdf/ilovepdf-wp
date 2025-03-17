@@ -18,10 +18,12 @@
         "phpstan/phpstan": "^2.1",
         "szepeviktor/phpstan-wordpress": "^2.0",
         "phpstan/extension-installer": "^1.4",
-        "wp-coding-standards/wpcs": "^3.0"
+        "wp-coding-standards/wpcs": "^3.1"
     },
     "config": {
-        "platform-check": false,
+        "platform": {
+            "php": "7.4"
+        },
         "allow-plugins": {
             "phpstan/extension-installer": true,
             "dealerdirect/phpcodesniffer-composer-installer": true
