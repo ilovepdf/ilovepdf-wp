@@ -11,15 +11,6 @@ vendor/*
 !/vendor/symfony/
 composer.lock
 package-lock.json
-/lib/*
-!/lib/autoload.php
-!/lib/composer/
-!/lib/ilovepdf/
-!/lib/firebase/
-!/lib/guzzlehttp/
-!/lib/psr/
-!/lib/ralouphie/
-!/lib/symfony/
 
 # Compiled Java class files
 *.class
@@ -49,6 +40,7 @@ Thumbs.db
 *.app
 *.exe
 *.war
+*.zip
 
 # Large media files
 *.mp4
