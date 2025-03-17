@@ -6,13 +6,20 @@ import * as dartSass from 'sass';
 import uglify from 'gulp-uglify';
 import rename from 'gulp-rename';
 import merge from 'merge-stream';
+import sourcemaps from 'gulp-sourcemaps';
+import gulpIf from 'gulp-if';
 import babel from 'gulp-babel';
 
 const sass = gulpSass(dartSass);
 
+const config = {
+    sourceMaps: process.env.NODE_ENV === 'development'
+}
+
 // Task to compile Sass and minify CSS
 gulp.task('build-css', function() {
     return gulp.src('dev/scss/**/*.scss')
+        .pipe(gulpIf(config.sourceMaps, sourcemaps.init()))
         .pipe(sass().on('error', sass.logError))
         .pipe(autoprefixer({
                 overrideBrowserslist: ["last 2 versions"],
@@ -20,6 +27,7 @@ gulp.task('build-css', function() {
          }))
         .pipe(cleanCSS())
         .pipe(rename({ suffix: '.min' }))
+        .pipe(gulpIf(config.sourceMaps, sourcemaps.write()))
         .pipe(gulp.dest('assets/css'));
 });
 
