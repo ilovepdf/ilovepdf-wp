@@ -13,7 +13,8 @@ import babel from 'gulp-babel';
 const sass = gulpSass(dartSass);
 
 const config = {
-    sourceMaps: process.env.NODE_ENV === 'development'
+    sourceMaps: process.env.NODE_ENV === 'development',
+    cleanCSS: process.env.NODE_ENV === 'production'
 }
 
 // Task to compile Sass and minify CSS
@@ -22,10 +23,9 @@ gulp.task('build-css', function() {
         .pipe(gulpIf(config.sourceMaps, sourcemaps.init()))
         .pipe(sass().on('error', sass.logError))
         .pipe(autoprefixer({
-                overrideBrowserslist: ["last 2 versions"],
-                cascade: false,
+                cascade: false
          }))
-        .pipe(cleanCSS())
+        .pipe(gulpIf(config.cleanCSS, cleanCSS()))
         .pipe(rename({ suffix: '.min' }))
         .pipe(gulpIf(config.sourceMaps, sourcemaps.write()))
         .pipe(gulp.dest('assets/css'));
