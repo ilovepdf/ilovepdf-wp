@@ -74,7 +74,7 @@ class Ilove_Pdf {
 	public function __construct() {
 
 		$this->plugin_name = 'ilove-pdf';
-		$this->version     = 'wp.2.1.10';
+		$this->version     = 'wp.2.1.11';
 
 		$this->load_dependencies();
 		$this->set_locale();
