@@ -61,24 +61,19 @@ class Ilove_Pdf_Admin {
 	 */
 	public function enqueue_styles() {
 
-		/**
-		 * This function is provided for demonstration purposes only.
-		 *
-		 * An instance of this class should be passed to the run() function
-		 * defined in Ilove_Pdf_Loader as all of the hooks are defined
-		 * in that particular class.
-		 *
-		 * The Ilove_Pdf_Loader will then create the relationship
-		 * between the defined hooks and the functions defined in this
-		 * class.
-		 */
-		global $pagenow;
+		global $pagenow, $hook_suffix;
 
-		if ( ( 'upload.php' === $pagenow || 'options-general.php' === $pagenow || 'media-new.php' === $pagenow || 'post.php' === $pagenow ) && get_current_screen()->post_type !== 'product' ) {
+		if ( (
+			'upload.php' === $pagenow ||
+			'toplevel_page_ilovepdf-admin-page' === $hook_suffix ||
+			'ilovepdf_page_ipdf-compress-admin-page' === $hook_suffix ||
+			'ilovepdf_page_ipdf-watermark-admin-page' === $hook_suffix ||
+			'media-new.php' === $pagenow ||
+			'post.php' === $pagenow
+			) && get_current_screen()->post_type !== 'product' ) {
 			wp_enqueue_style( $this->plugin_name, plugins_url( '/assets/css/app.min.css', __DIR__ ), array(), $this->version, 'all' );
+			wp_enqueue_style( 'font-awesome', '//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css', array(), '4.7.0' );
 		}
-
-		wp_enqueue_style( 'font-awesome', '//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css', array(), '4.7.0' );
 	}
 
 	/**
@@ -88,41 +83,20 @@ class Ilove_Pdf_Admin {
 	 */
 	public function enqueue_scripts() {
 
-		/**
-		 * This function is provided for demonstration purposes only.
-		 *
-		 * An instance of this class should be passed to the run() function
-		 * defined in Ilove_Pdf_Loader as all of the hooks are defined
-		 * in that particular class.
-		 *
-		 * The Ilove_Pdf_Loader will then create the relationship
-		 * between the defined hooks and the functions defined in this
-		 * class.
-		 */
+		global $pagenow, $hook_suffix;
 
-		// Add the color picker css file
+		// Add the color picker css file.
 		wp_enqueue_style( 'wp-color-picker' );
 
-		global $pagenow;
-
-		if ( ( 'upload.php' === $pagenow || 'options-general.php' === $pagenow || 'media-new.php' === $pagenow || 'post.php' === $pagenow ) && get_current_screen()->post_type !== 'product' ) {
+		if ( (
+			'upload.php' === $pagenow ||
+			'toplevel_page_ilovepdf-admin-page' === $hook_suffix ||
+			'ilovepdf_page_ipdf-compress-admin-page' === $hook_suffix ||
+			'ilovepdf_page_ipdf-watermark-admin-page' === $hook_suffix ||
+			'media-new.php' === $pagenow ||
+			'post.php' === $pagenow
+			) && get_current_screen()->post_type !== 'product' ) {
 			wp_enqueue_script( 'ilove-pdf-admin', plugins_url( '/assets/js/main.min.js', __DIR__ ), array( 'wp-color-picker' ), '1.0.0', true );
 		}
-	}
-
-	/**
-	 * Add Link to page settings from Plugins List Page.
-	 *
-	 * @since    2.1.0
-	 *
-	 * @param    array $actions    An array of plugin action links.
-	 */
-	public function add_action_links( $actions ) {
-		$custom_links = array(
-			'<a href="' . admin_url( 'options-general.php?page=ilove-pdf-content-setting' ) . '">' . esc_html_x( 'Settings', 'Link item', 'ilove-pdf' ) . '</a>',
-		);
-		$actions      = array_merge( $actions, $custom_links );
-
-		return $actions;
 	}
 }

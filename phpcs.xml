@@ -1,11 +1,10 @@
 <?xml version="1.0"?>
-<ruleset name="ilovecompany">
+<ruleset name="ilovepdf">
     <description>WordPress Config.</description>
         <rule ref="WordPress-Extra">
+            <exclude name="Generic.Functions.CallTimePassByReference"/>
             <exclude name="Generic.WhiteSpace.DisallowSpaceIndent" />
-                <property name="indent" value="4"/>
-            <properties>
-            </properties>
+            <property name="indent" value="4"/>
         </rule>
         <rule ref="WordPress.WP.I18n">
             <properties>
@@ -31,12 +30,6 @@
         </rule>
         <rule ref="WordPress"></rule>
         <rule ref="Squiz.Commenting.FileComment.Missing">
-            <severity>0</severity>
-        </rule>
-        <rule ref="Squiz.Commenting.InlineComment.InvalidEndChar">
-            <severity>0</severity>
-        </rule>
-        <rule ref="Generic.Commenting.DocComment.MissingShort">
             <severity>0</severity>
         </rule>
         <config name="minimum_wp_version" value="5.3"/>
