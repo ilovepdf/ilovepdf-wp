@@ -22,7 +22,7 @@
  */
 
 // If this file is called directly, abort.
-if ( ! defined( 'WPINC' ) ) {
+if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
 
@@ -34,6 +34,7 @@ require_once plugin_dir_path( __FILE__ ) . '/vendor/autoload.php';
 use Ilove_Pdf_Includes\Ilove_Pdf;
 use Ilove_Pdf_Includes\Ilove_Pdf_Activator;
 use Ilove_Pdf_Includes\Ilove_Pdf_Deactivator;
+use Ilove_Pdf_Admin\Submenu_Page;
 
 require __DIR__ . '/includes/utility-functions.php';
 require __DIR__ . '/admin/ilove-pdf-admin-page-settings.php';
@@ -107,3 +108,5 @@ define( 'ILOVE_PDF_USER_URL', 'https://api.ilovepdf.com/v1/user' );
 
 $ilove_pdf_plugin = new Ilove_Pdf();
 $ilove_pdf_plugin->run();
+
+new Submenu_Page();

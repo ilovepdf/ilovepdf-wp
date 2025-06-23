@@ -1,51 +1,51 @@
 <?php
 /**
- * Function showing configuration page
+ * View: General settings page
+ *
+ * @var string $logo_svg
+ * @package Ilove_Pdf
  */
-function ilove_pdf_content_page_setting() {
 
-    $logo_svg = ILOVE_PDF_ASSETS_PLUGIN_PATH . 'assets/img/logo_ilovepdf.svg';
-    $options  = get_option( 'ilove_pdf_display_settings_watermark' );
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 
-	?>
-	<div class="wrap">
-		<div class="plugin-logo">
-            <img src="<?php echo esc_url( $logo_svg ); ?>" alt="logo ilovepdf" />
-        </div>
-        <?php if ( isset( $_GET['response_code'] ) && isset( $_GET['nonce_ilove_pdf_response'] ) && wp_verify_nonce( sanitize_key( $_GET['nonce_ilove_pdf_response'] ) ) ) : ?>
+?>
+<div class="wrap">
+    <div class="plugin-logo">
+        <img src="<?php echo esc_url( $logo_svg ); ?>" alt="logo ilovepdf" />
+    </div>
+    <?php if ( isset( $_GET['response_code'] ) && isset( $_GET['nonce_ilove_pdf_response'] ) && wp_verify_nonce( sanitize_key( $_GET['nonce_ilove_pdf_response'] ) ) ) : ?>
 
-            <?php
-            switch ( $_GET['response_code'] ) {
-                case 400:
-                    echo '<div class="settings-error notice is-dismissible error"><p>' . esc_html( __( 'Bad request.', 'ilove-pdf' ) );
-                    break;
-
-                case 401:
-                    echo '<div class="settings-error notice is-dismissible error"><p>' . esc_html( __( 'Incorrect email or password.', 'ilove-pdf' ) );
-                    break;
-
-                case 200:
-                    echo '<div class="settings-error notice is-dismissible updated"><p>' . esc_html( __( 'Welcome!', 'ilove-pdf' ) );
-                    break;
-
-                case 500:
-                    echo '<div class="settings-error notice is-dismissible error"><p>' . esc_html( __( 'Error on register/login.', 'ilove-pdf' ) );
-                    break;
-            }
-            ?>
-            </p></div>
-        <?php endif; ?>
         <?php
-            $nonce_settings = wp_create_nonce();
-            $active_tab     = isset( $_GET['tab'] ) && isset( $_GET['nonce_ilove_pdf_settings_tab'] ) && wp_verify_nonce( sanitize_key( $_GET['nonce_ilove_pdf_settings_tab'] ) ) ? sanitize_text_field( wp_unslash( $_GET['tab'] ) ) : 'setting_options';
+        switch ( $_GET['response_code'] ) {
+            case 400:
+                echo '<div class="settings-error notice is-dismissible error"><p>' . esc_html( __( 'Bad request.', 'ilove-pdf' ) );
+                break;
+
+            case 401:
+                echo '<div class="settings-error notice is-dismissible error"><p>' . esc_html( __( 'Incorrect email or password.', 'ilove-pdf' ) );
+                break;
+
+            case 200:
+                echo '<div class="settings-error notice is-dismissible updated"><p>' . esc_html( __( 'Welcome!', 'ilove-pdf' ) );
+                break;
+
+            case 500:
+                echo '<div class="settings-error notice is-dismissible error"><p>' . esc_html( __( 'Error on register/login.', 'ilove-pdf' ) );
+                break;
+        }
         ?>
-         
-        <h2 class="nav-tab-wrapper">
-            <a href="?page=ilove-pdf-content-setting&tab=setting_options&nonce_ilove_pdf_settings_tab=<?php echo sanitize_key( $nonce_settings ); ?>" class="nav-tab <?php echo 'setting_options' === $active_tab ? 'nav-tab-active tab-ilovepdf' : ''; ?>"><?php echo esc_html( __( 'General', 'ilove-pdf' ) ); ?></a>
-            <a href="?page=ilove-pdf-content-setting&tab=compress_options&nonce_ilove_pdf_settings_tab=<?php echo sanitize_key( $nonce_settings ); ?>" class="nav-tab <?php echo 'compress_options' === $active_tab ? 'nav-tab-active tab-ilovepdf' : ''; ?>"><?php echo esc_html( __( 'Compress PDF', 'ilove-pdf' ) ); ?></a>
-            <a href="?page=ilove-pdf-content-setting&tab=watermark_options&nonce_ilove_pdf_settings_tab=<?php echo sanitize_key( $nonce_settings ); ?>" class="nav-tab <?php echo 'watermark_options' === $active_tab ? 'nav-tab-active tab-ilovepdf' : ''; ?>"><?php echo esc_html( __( 'Watermark', 'ilove-pdf' ) ); ?></a>
-        </h2> 	        
-      		<?php if ( 'setting_options' === $active_tab ) : ?>
+        </p></div>
+    <?php endif; ?>
+    <?php
+        $nonce_settings = wp_create_nonce();
+        $active_tab     = isset( $_GET['tab'] ) && isset( $_GET['nonce_ilove_pdf_settings_tab'] ) && wp_verify_nonce( sanitize_key( $_GET['nonce_ilove_pdf_settings_tab'] ) ) ? sanitize_text_field( wp_unslash( $_GET['tab'] ) ) : 'setting_options';
+    ?>
+    
+    <?php require_once 'components/tab-menu.php'; ?>
+     
+        <?php if ( 'setting_options' === $active_tab ) : ?>
             <div class="wrap">           
                 <div class="container no-center">
                     <div class="row">
@@ -163,75 +163,10 @@ function ilove_pdf_content_page_setting() {
                     </div>
                 </div>        
             </div>
- 			<?php elseif ( 'compress_options' === $active_tab ) : ?>
-            <div class="wrap">
-                <div class="panel">
-                    <form method="post" name="ilove_pdf_form_compress" action="options.php">
-         				<?php settings_fields( 'ilove_pdf_display_settings_compress' ); ?>
-        		        <?php do_settings_sections( 'ilove_pdf_display_settings_compress' ); ?>
+        <?php elseif ( 'compress_options' === $active_tab ) : ?>
+            <?php require_once 'compress-settings.php'; ?>
+        <?php elseif ( 'watermark_options' === $active_tab ) : ?>
+            <?php require_once 'watermark-settings.php'; ?>
+        <?php endif; ?>
 
-                        <div class="ilove_pdf_wrapper_buttons">
-                            <?php submit_button(); ?>
-                            <a href="<?php echo esc_url( admin_url( 'upload.php?page=ilove-pdf-content-statistics&tab=compress_statistic' ) ); ?>" class="button button-secondary"><?php esc_html_e( 'Go to Compress Tool', 'ilove-pdf' ); ?></a>
-                        </div>
-                    </form>
-                </div>
-            </div>
-            <?php elseif ( 'watermark_options' === $active_tab ) : ?>
-            <div class="wrap">
-                <div class="panel">
-                    <form method="post" name="ilove_pdf_form_watermark" action="options.php">
-                        <?php settings_fields( 'ilove_pdf_display_settings_watermark' ); ?>
-                        <?php do_settings_sections( 'ilove_pdf_display_settings_watermark' ); ?>
-
-                        <div class="ilove_pdf_wrapper_buttons">
-                            <?php submit_button(); ?>
-                            <a href="<?php echo esc_url( admin_url( 'upload.php?page=ilove-pdf-content-statistics&tab=watermark_statistic' ) ); ?>" class="button button-secondary"><?php esc_html_e( 'Go to Watermark Tool', 'ilove-pdf' ); ?></a>
-                        </div>
-                    </form>
-                </div>
-
-                <?php if ( isset( $options['ilove_pdf_watermark_active'] ) ) : ?>
-                <div class="panel">
-                    <form method="post" name="ilove_pdf_form_watermark_format" action="options.php">
-                        <div class="">
-                            <?php settings_fields( 'ilove_pdf_display_settings_format_watermark' ); ?>
-                            <?php do_settings_sections( 'ilove_pdf_display_settings_format_watermark' ); ?>
-                            <table class="form-table">
-                                <tr><?php do_settings_fields( 'ilove_pdf_display_settings_format_watermark', 'format_watermark_settings_section_vertical' ); ?></tr>
-                                <tr><?php do_settings_fields( 'ilove_pdf_display_settings_format_watermark', 'format_watermark_settings_section_horizontal' ); ?></tr>
-                                <tr><?php do_settings_fields( 'ilove_pdf_display_settings_format_watermark', 'format_watermark_settings_section_mode' ); ?></tr>
-                            </table>
-                            <?php
-                                $options     = get_option( 'ilove_pdf_display_settings_format_watermark' );
-                                $div_display = ( isset( $options['ilove_pdf_format_watermark_mode'] ) ? $options['ilove_pdf_format_watermark_mode'] : 0 );
-                            ?>
-                            <div class="watermark-mode" id="div-mode0" style="<?php echo ( 0 === (int) $div_display ? '' : 'display: none' ); ?>">
-                                <table class="form-table">
-                                    <tr><?php do_settings_fields( 'ilove_pdf_display_settings_format_watermark', 'format_watermark_settings_section_text' ); ?></tr>
-                                    <tr><?php do_settings_fields( 'ilove_pdf_display_settings_format_watermark', 'format_watermark_settings_section_size' ); ?></tr>
-                                    <tr><?php do_settings_fields( 'ilove_pdf_display_settings_format_watermark', 'format_watermark_settings_section_font_family' ); ?></tr>
-                                    <tr><?php do_settings_fields( 'ilove_pdf_display_settings_format_watermark', 'format_watermark_settings_section_text_color' ); ?></tr>
-                                </table>
-                            </div>
-                            <div class="watermark-mode" id="div-mode1" style="<?php echo ( 1 === (int) $div_display ? '' : 'display: none' ); ?>">
-                                <table class="form-table">
-                                    <tr><?php do_settings_fields( 'ilove_pdf_display_settings_format_watermark', 'format_watermark_settings_section_image' ); ?></tr>
-                                    <tr><?php do_settings_fields( 'ilove_pdf_display_settings_format_watermark', 'format_watermark_settings_section_opacity' ); ?></tr>
-                                    <tr><?php do_settings_fields( 'ilove_pdf_display_settings_format_watermark', 'format_watermark_settings_section_rotation' ); ?></tr>
-                                    <tr><?php do_settings_fields( 'ilove_pdf_display_settings_format_watermark', 'format_watermark_settings_section_layer' ); ?></tr>
-                                    <tr><?php do_settings_fields( 'ilove_pdf_display_settings_format_watermark', 'format_watermark_settings_section_mosaic' ); ?></tr>
-                                </table>
-                            </div>
-                            <?php submit_button(); ?>
-                        </div>
-                    </form>
-                </div>
-                <?php endif; ?>
-            </div>
- 			<?php endif; ?>
-
-	</div>
-
-	<?php
-}
+</div>
