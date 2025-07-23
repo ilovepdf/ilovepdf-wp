@@ -1,6 +1,6 @@
 {
     "name": "ilovepdf/ilovepdf-wp",
-    "description": "iLovePDF Wordpress Plugin",
+    "description": "Compress your PDF files and Stamp Images or text into PDF files. This is the Official iLovePDF plugin for WordPress. You can optimize all your PDF and stamp them automatically as you do in ilovepdf.com.",
     "type": "wordpress-plugin",
     "homepage": "https://ilovepdf.com/",
     "license": "GPL-2.0-or-later",
@@ -38,8 +38,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Ilove_Pdf_Admin\\": "admin",
-            "Ilove_Pdf_Includes\\": "includes"
+            "Ilove_Pdf_WP\\": "admin"
         }
     }
 }
