@@ -1,0 +1,161 @@
+@use '../variables' as *;
+
+@mixin input-base {
+	background-color: $white;
+	border: 1px solid $secondary_color_300;
+	border-radius: 2px;
+	height: 32px;
+	width: 100%;
+	margin-bottom: 10px;
+	display: block;
+	font-weight: normal;
+	transition: all 0.2s ease;
+}
+
+@mixin select-base {
+	border: 1px solid $secondary_color;
+	max-width: 130px;
+	height: 32px;
+	border-radius: 0;
+	margin-right: 10px;
+}
+
+@mixin input-icon($icon-url) {
+	background-image: url($icon-url);
+	background-position: 8px center;
+	background-repeat: no-repeat;
+	text-indent: 22px;
+}
+
+@mixin input-checkbox {
+  appearance: none;
+  background: $white;
+  border: 0;
+  box-shadow: none;
+  border-radius: 2px;
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  &:checked::before {
+	content: none;
+  }
+}
+
+@mixin input-slider {
+	position: relative;
+	z-index: 10;
+	width: 100%;
+	height: 100%;
+	margin: 0;
+	opacity: 0;
+
+	&:checked {
+		border-color: $primary_color;
+		position: relative;
+
+		&:before {
+			content: '';
+			display: block;
+			background-size: 60%;
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			background: $primary_color;
+		}
+
+		& + .ipdf-input-group-switch-slider {
+			background-color: $primary_color;
+			border: 1px solid $primary_color;
+
+			&:after {
+				content: '';
+				position: absolute;
+				width: 1px;
+				height: 6px;
+				background: $white;
+				top: 5px;
+				left: 6px;
+				border: 0;
+			}
+
+			&:before {
+				transform: translateX(10px);
+				background-color: $white;
+			}
+		}
+	}
+
+	&:focus + .slider {
+		box-shadow: 0 0 1px $primary_color;
+	}
+}
+
+@mixin input-range {
+	appearance: none;
+	background: transparent;
+	cursor: pointer;
+	width: 25rem;
+
+	&:focus {
+		outline: none;
+	}
+
+	&::-webkit-slider-runnable-track {
+		background-color: $light_color_500;
+		border-radius: 0.5rem;
+		height: 0.5rem;
+	}
+
+	&::-webkit-slider-thumb {
+		appearance: none;
+		margin-top: -4px;
+		background-color: $primary_color;
+		border-radius: 0.5rem;
+		height: 1rem;
+		width: 1rem;
+
+		&:focus {
+			outline: 3px solid $primary_color;
+			outline-offset: 0.125rem;
+		}
+	}
+
+	&::-moz-range-track {
+		background-color: $light_color_500;
+		border-radius: 0.5rem;
+		height: 0.5rem;
+	}
+
+	&::-moz-range-thumb {
+		background-color: $primary_color;
+		border: none;
+		border-radius: 0.5rem;
+		height: 1rem;
+		width: 1rem;
+
+		&:focus {
+			outline: 3px solid $primary_color;
+			outline-offset: 0.125rem;
+		}
+	}
+}
+
+@mixin input-submit {
+	&.ipdf-btn--need-saving {
+		animation: shadow-pulse 1s infinite;
+	}
+
+	&[disabled] {
+		background: $light_color_600;
+		text-shadow: none;
+		cursor: not-allowed;
+
+		&.ipdf-tooltip:hover .ipdf-tooltip-text {
+			visibility: visible;
+		}
+	}
+}

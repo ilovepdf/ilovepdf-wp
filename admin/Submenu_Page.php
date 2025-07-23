@@ -1,6 +1,6 @@
 <?php
 
-namespace Ilove_Pdf_Admin;
+namespace Ilove_Pdf_WP;
 
 /**
  * Managing the iLovePDF plugin's submenu and pages.
@@ -8,7 +8,7 @@ namespace Ilove_Pdf_Admin;
  * Responsible for adding a submenu to the menu in the WordPress admin area and rendering the plugin's settings and content pages. It initializes the submenu and adds individual pages for compress settings, watermark settings, and media optimization.
  *
  * @since 3.0.0
- * @package Ilove_Pdf/admin
+ * @package Ilove_Pdf_WP
  */
 class Submenu_Page {
 
@@ -16,28 +16,25 @@ class Submenu_Page {
 	 * Parent slug for the submenu page.
 	 *
 	 * @var string
-	 * @access protected
 	 * @since 3.0.0
 	 */
-	protected $parent_slug = 'ilovepdf-admin-page';
+	public static $parent_slug = 'ilovepdf-admin-page';
 
 	/**
 	 * Slug for the compress settings page.
 	 *
 	 * @var string
-	 * @access protected
 	 * @since 3.0.0
 	 */
-	protected $compress_slug = 'ipdf-compress-admin-page';
+	public static $compress_slug = 'ipdf-compress-admin-page';
 
 	/**
 	 * Slug for the watermark settings page.
 	 *
 	 * @var string
-	 * @access protected
 	 * @since 3.0.0
 	 */
-	protected $watermark_slug = 'ipdf-watermark-admin-page';
+	public static $watermark_slug = 'ipdf-watermark-admin-page';
 
     /**
      * Initializing the class and adding the page menu to WordPress dashboard.
@@ -46,7 +43,7 @@ class Submenu_Page {
      */
     public function __construct() {
         add_action( 'admin_menu', array( $this, 'add_page_settings' ) );
-        add_filter( 'plugin_action_links_' . ILOVE_PDF_PLUGIN_NAME, array( $this, 'add_action_links' ) );
+        add_filter( 'plugin_action_links_' . Ilove_Pdf_Plugin::get_plugin_basename(), array( $this, 'add_action_links' ) );
     }
 
     /**
@@ -61,7 +58,7 @@ class Submenu_Page {
             _x( 'General Settings', 'submenu link', 'ilove-pdf' ),
 			'iLovePDF',
 			'manage_options',
-			$this->parent_slug,
+			self::$parent_slug,
 			array(
                 $this,
                 'render_page_general_settings',
@@ -71,11 +68,11 @@ class Submenu_Page {
 
 		// Add general settings.
         add_submenu_page(
-			$this->parent_slug,
+			self::$parent_slug,
 			_x( 'General Settings', 'submenu link', 'ilove-pdf' ),
 			_x( 'General Settings', 'submenu link', 'ilove-pdf' ),
 			'manage_options',
-			$this->parent_slug,
+			self::$parent_slug,
 			array(
 				$this,
 				'render_page_general_settings',
@@ -84,27 +81,27 @@ class Submenu_Page {
 
 		// Add compress settings.
         add_submenu_page(
-			$this->parent_slug,
+			self::$parent_slug,
 			_x( 'Compress settings', 'submenu link', 'ilove-pdf' ),
 			_x( 'Compress settings', 'submenu link', 'ilove-pdf' ),
 			'manage_options',
-			$this->compress_slug,
+			self::$compress_slug,
 			array(
 				$this,
-				'render_page_compress_settings',
+				'render_page_general_settings',
 			)
 		);
 
 		// Add watermark settings.
 		add_submenu_page(
-			$this->parent_slug,
+			self::$parent_slug,
 			_x( 'Watermark settings', 'submenu link', 'ilove-pdf' ),
 			_x( 'Watermark settings', 'submenu link', 'ilove-pdf' ),
 			'manage_options',
-			$this->watermark_slug,
+			self::$watermark_slug,
 			array(
 				$this,
-				'render_page_watermark_settings',
+				'render_page_general_settings',
 			)
 		);
     }
@@ -116,36 +113,9 @@ class Submenu_Page {
      */
     public function render_page_general_settings() {
 
-        $logo_svg = ILOVE_PDF_ASSETS_PLUGIN_PATH . 'assets/img/logo_ilovepdf.svg';
-        $options  = get_option( 'ilove_pdf_display_settings_watermark' );
+        $options = get_option( 'ilove_pdf_display_settings_watermark' );
 
-        require_once plugin_dir_path( __DIR__ ) . 'admin/views/general-settings.php';
-    }
-
-    /**
-     * Showing compress settings page
-	 *
-	 * @since 3.0.0
-     */
-    public function render_page_compress_settings() {
-
-        $logo_svg = ILOVE_PDF_ASSETS_PLUGIN_PATH . 'assets/img/logo_ilovepdf.svg';
-        $options  = get_option( 'ilove_pdf_display_settings_watermark' );
-
-        require_once plugin_dir_path( __DIR__ ) . 'admin/views/compress-settings.php';
-    }
-
-    /**
-     * Showing watermark settings page
-	 *
-	 * @since 3.0.0
-     */
-    public function render_page_watermark_settings() {
-
-        $logo_svg = ILOVE_PDF_ASSETS_PLUGIN_PATH . 'assets/img/logo_ilovepdf.svg';
-        $options  = get_option( 'ilove_pdf_display_settings_watermark' );
-
-        require_once plugin_dir_path( __DIR__ ) . 'admin/views/watermark-settings.php';
+        require_once plugin_dir_path( __DIR__ ) . 'admin/views/ilovepdf-settings.php';
     }
 
     /**
@@ -160,19 +130,19 @@ class Submenu_Page {
 
 		$general_settings[] = sprintf(
 			'<a href="%1$s">%2$s</a>',
-			esc_url( add_query_arg( 'page', $this->parent_slug, get_admin_url() . 'admin.php' ) ),
+			esc_url( add_query_arg( 'page', self::$parent_slug, get_admin_url() . 'admin.php' ) ),
 			esc_html_x( 'General Settings', 'Link item', 'ilove-pdf' )
 		);
 
 		$compress_settings[] = sprintf(
 			'<a href="%1$s">%2$s</a>',
-			esc_url( add_query_arg( 'page', $this->compress_slug, get_admin_url() . 'admin.php' ) ),
+			esc_url( add_query_arg( 'page', self::$compress_slug, get_admin_url() . 'admin.php' ) ),
 			esc_html_x( 'Compress Settings', 'Link item', 'ilove-pdf' )
 		);
 
 		$watermark_settings[] = sprintf(
 			'<a href="%1$s">%2$s</a>',
-			esc_url( add_query_arg( 'page', $this->watermark_slug, get_admin_url() . 'admin.php' ) ),
+			esc_url( add_query_arg( 'page', self::$watermark_slug, get_admin_url() . 'admin.php' ) ),
 			esc_html_x( 'Watermark Settings', 'Link item', 'ilove-pdf' )
 		);
 

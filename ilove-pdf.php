@@ -4,7 +4,7 @@
  *
  * @link              https://ilovepdf.com/
  * @since             1.0.0
- * @package           Ilove_Pdf
+ * @package           Ilove_Pdf_WP
  *
  * @wordpress-plugin
  * Plugin Name:       iLovePDF
@@ -26,27 +26,29 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
 
-define( 'ILOVE_PDF_ASSETS_PLUGIN_PATH', plugin_dir_url( __FILE__ ) );
-define( 'ILOVE_PDF_PLUGIN_NAME', plugin_basename( __FILE__ ) );
+if ( ini_get( 'max_execution_time' ) < 300 ) {
+    set_time_limit( 300 );
+}
 
 require_once plugin_dir_path( __FILE__ ) . '/vendor/autoload.php';
 
-use Ilove_Pdf_Includes\Ilove_Pdf;
-use Ilove_Pdf_Includes\Ilove_Pdf_Activator;
-use Ilove_Pdf_Includes\Ilove_Pdf_Deactivator;
-use Ilove_Pdf_Admin\Submenu_Page;
+use Ilove_Pdf_WP\Activator;
+use Ilove_Pdf_WP\Deactivator;
+use Ilove_Pdf_WP\Ilove_Pdf_Plugin;
+use Ilove_Pdf_WP\Submenu_Page;
+use Ilove_Pdf_WP\I18n;
+use Ilove_Pdf_WP\Helpers\Admin_Notice;
+use Ilove_Pdf_WP\Tools\General\Settings as General_Settings;
+use Ilove_Pdf_WP\Tools\Compress\Settings as Compress_Settings;
+use Ilove_Pdf_WP\Tools\Watermark\Settings as Watermark_Settings;
 
-require __DIR__ . '/includes/utility-functions.php';
 require __DIR__ . '/admin/ilove-pdf-admin-page-settings.php';
 
-/**
- * The code that runs during plugin activation.
- * This action is documented in includes/class-ilove-pdf-activator.php
- */
-function ilove_pdf_activate() {
-	Ilove_Pdf_Activator::activate();
-}
-register_activation_hook( __FILE__, 'ilove_pdf_activate' );
+add_action( 'plugins_loaded', array( I18n::class, 'load_textdomain' ) );
+
+register_activation_hook( __FILE__, array( Activator::class, 'activate' ) );
+
+register_deactivation_hook( __FILE__, array( Deactivator::class, 'deactivate' ) );
 
 /**
  * Plugin update.
@@ -67,46 +69,21 @@ register_activation_hook( __FILE__, 'ilove_pdf_activate' );
 function ilove_pdf_upgrade_plugin( $upgrader_object, $options ) {
 	if ( 'update' === $options['action'] && 'plugin' === $options['type'] ) {
 		foreach ( $options['plugins'] as $each_plugin ) {
-			if ( ILOVE_PDF_PLUGIN_NAME === $each_plugin ) {
+			if ( Ilove_Pdf_Plugin::get_plugin_basename() === $each_plugin ) {
 
-				$get_options = get_option( 'ilove_pdf_display_general_settings', array() );
-
-				if ( ! isset( $get_options['ilove_pdf_general_backup'] ) ) {
-					$get_options['ilove_pdf_general_backup'] = 1;
+				try {
+					General_Settings::migrate_general_settings();
+					Compress_Settings::migrate_compress_settings();
+					Watermark_Settings::migrate_watermark_settings();
+				} catch ( \Error $e ) {
+					if ( ! empty( $e->getMessage() ) ) {
+						Admin_Notice::render( $e->getMessage(), 'error' );
+					}
 				}
-
-				Ilove_Pdf::update_option( 'ilove_pdf_display_general_settings', $get_options, true );
-
 			}
 		}
 	}
 }
 add_action( 'upgrader_process_complete', 'ilove_pdf_upgrade_plugin', 10, 2 );
-
-/**
- * The code that runs during plugin deactivation.
- * This action is documented in includes/class-ilove-pdf-deactivator.php
- */
-function ilove_pdf_deactivate() {
-	Ilove_Pdf_Deactivator::deactivate();
-}
-register_deactivation_hook( __FILE__, 'ilove_pdf_deactivate' );
-
-/**
- * Begins execution of the plugin.
- *
- * Since everything within the plugin is registered via hooks,
- * then kicking off the plugin from this point in the file does
- * not affect the page life cycle.
- *
- * @since    1.0.0
- */
-
-define( 'ILOVE_PDF_REGISTER_URL', 'https://api.ilovepdf.com/v1/user' );
-define( 'ILOVE_PDF_LOGIN_URL', 'https://api.ilovepdf.com/v1/user/login' );
-define( 'ILOVE_PDF_USER_URL', 'https://api.ilovepdf.com/v1/user' );
-
-$ilove_pdf_plugin = new Ilove_Pdf();
-$ilove_pdf_plugin->run();
-
+new Ilove_Pdf_Plugin( '2.1.11', plugin_basename( __FILE__ ) );
 new Submenu_Page();

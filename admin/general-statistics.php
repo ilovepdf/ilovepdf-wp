@@ -9,6 +9,8 @@
  * @subpackage Ilove_Pdf/admin
  */
 
+use Ilove_Pdf_WP\File_System;
+
 /**
  * Compress Add Media Column.
  *
@@ -260,7 +262,7 @@ function ilove_pdf_compress_bulk_action_handler( $redirect_to, $doaction, $post_
 		$redirect_to .= '</form><script type="text/javascript">document.getElementById("bulkActionsForm").submit();</script>';
 	}
 
-    echo wp_kses( $redirect_to, ilove_pdf_expanded_alowed_tags() );
+    echo wp_kses( $redirect_to, array() );
 }
 add_filter( 'handle_bulk_actions-upload', 'ilove_pdf_compress_bulk_action_handler', 10, 3 );
 
@@ -335,7 +337,7 @@ function ilove_pdf_be_attachment_field_mode_grid( $form_fields, $post ) {
             if ( $backup_files_is_active ) {
                 if ( get_post_meta( $post->ID, '_wp_attached_file_backup', true ) ) {
                     $html .= '</br><a class="link-restore" href="' . admin_url( 'admin-post.php' ) . '?action=ilovepdf_restore&id=' . $post->ID . '&nonce_ilove_pdf_restore=' . wp_create_nonce( 'admin-post' ) . '">(' . __( 'Restore original file', 'ilove-pdf' ) . ') </a>';
-                    $html .= '<script type="text/javascript" src="' . esc_url( ILOVE_PDF_ASSETS_PLUGIN_PATH . 'assets/js/main.min.js' ) . '"></script>'; // phpcs:ignore WordPress.WP.EnqueuedResources.NonEnqueuedScript
+                    $html .= '<script type="text/javascript" src="' . esc_url( File_System::get_assets_url( 'build/main.js' ) ) . '"></script>'; // phpcs:ignore WordPress.WP.EnqueuedResources.NonEnqueuedScript
                 }
             }
 

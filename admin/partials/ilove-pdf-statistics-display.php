@@ -1,4 +1,8 @@
 <?php
+
+use Ilove_Pdf_WP\File_System;
+use Ilove_Pdf_WP\Account\User_Account;
+
 /**
  * Function that shows the statistics page.
  */
@@ -18,7 +22,7 @@ function ilove_pdf_content_page_statistics() {
         }
     }
 
-    $logo_svg = ILOVE_PDF_ASSETS_PLUGIN_PATH . 'assets/img/logo_ilovepdf.svg';
+    $logo_svg = File_System::get_assets_url( 'img/logo_ilovepdf.svg' );
 
     $options_general_settings = get_option( 'ilove_pdf_display_general_settings' );
     $backup_files_is_active   = (int) $options_general_settings['ilove_pdf_general_backup'];
@@ -28,7 +32,7 @@ function ilove_pdf_content_page_statistics() {
         <h2 class="plugin-logo-full"><img src="<?php echo esc_url( $logo_svg ); ?>" alt="logo ilovepdf" /></h2>
         <?php if ( get_option( 'ilovepdf_user_id' ) ) : ?>         
             <?php
-                $stats      = ilove_pdf_get_statistics();
+                $stats      = User_Account::get_user_data();
                 $active_tab = isset( $_GET['tab'] ) ? sanitize_text_field( wp_unslash( $_GET['tab'] ) ) : 'statistic_statistic'; //phpcs:ignore WordPress.Security.NonceVerification.Recommended
             ?>
              
@@ -94,7 +98,7 @@ function ilove_pdf_content_page_statistics() {
                         <script type="text/javascript">
                         document.onreadystatechange = function(){
                             if(document.readyState === 'complete'){
-                                window.exportedCompressMultiPDF(<?php echo wp_json_encode( wp_unslash( ilove_pdf_array_sanitize_text_field( $_POST['array_ids'] ) ) );//phpcs:ignore WordPress.Security.ValidatedSanitizedInput ?>);
+                                window.exportedCompressMultiPDF(<?php echo wp_json_encode( wp_unslash( $_POST['array_ids'] ) );//phpcs:ignore WordPress.Security.ValidatedSanitizedInput ?>);
                             }
                         }
                         </script>
@@ -205,7 +209,7 @@ function ilove_pdf_content_page_statistics() {
                                                             </span>
                                                             <?php if ( $backup_files_is_active ) : ?>
                                                                 <?php if ( get_post_meta( get_the_ID(), '_wp_attached_file_backup', true ) ) : ?>
-                                                                    <a class="btn-restore button-secondary" href="<?php echo esc_url( admin_url( 'admin-post.php' ) . '?action=ilovepdf_restore&id=' . get_the_ID() . '&nonce_ilove_pdf_restore=' . wp_create_nonce( 'admin-post' ) ); ?>"><?php esc_html_e( 'Restore original file', 'ilove-pdf' ); ?></a>
+                                                                    <a class="btn-restore ipdf-btn--secondary" href="<?php echo esc_url( admin_url( 'admin-post.php' ) . '?action=ilovepdf_restore&id=' . get_the_ID() . '&nonce_ilove_pdf_restore=' . wp_create_nonce( 'admin-post' ) ); ?>"><?php esc_html_e( 'Restore original file', 'ilove-pdf' ); ?></a>
                                                                     <span class="loading pdf-status"><?php esc_html_e( 'Loading', 'ilove-pdf' ); ?>...</span>
                                                                     <span class="error pdf-status"><?php esc_html_e( 'Error', 'ilove-pdf' ); ?></span>
                                                                     <span class="success pdf-status"><?php esc_html_e( 'Completed, please refresh the page.', 'ilove-pdf' ); ?></span>
@@ -257,7 +261,7 @@ function ilove_pdf_content_page_statistics() {
                         <script type="text/javascript">
                         document.onreadystatechange = function(){
                             if(document.readyState === 'complete'){
-                                window.exportedWatermarkMultiPDF(<?php echo wp_json_encode( wp_unslash( ilove_pdf_array_sanitize_text_field( $_POST['array_ids'] ) ) );//phpcs:ignore WordPress.Security.ValidatedSanitizedInput ?>);
+                                window.exportedWatermarkMultiPDF(<?php echo wp_json_encode( wp_unslash( $_POST['array_ids'] ) );//phpcs:ignore WordPress.Security.ValidatedSanitizedInput ?>);
                             }
                         }
                         </script>
@@ -338,7 +342,7 @@ function ilove_pdf_content_page_statistics() {
                                                         <span class="success pdf-status"><?php esc_html_e( 'Completed', 'ilove-pdf' ); ?></span>
                                                     <?php elseif ( $backup_files_is_active ) : ?>
                                                         <?php if ( get_post_meta( get_the_ID(), '_wp_attached_file_backup', true ) ) : ?>
-                                                            <a class="btn-restore button-secondary" href="<?php echo esc_url( admin_url( 'admin-post.php' ) . '?action=ilovepdf_restore&id=' . get_the_ID() . '&nonce_ilove_pdf_restore=' . wp_create_nonce( 'admin-post' ) ); ?>"><?php esc_html_e( 'Restore original file', 'ilove-pdf' ); ?></a>
+                                                            <a class="btn-restore ipdf-btn--secondary" href="<?php echo esc_url( admin_url( 'admin-post.php' ) . '?action=ilovepdf_restore&id=' . get_the_ID() . '&nonce_ilove_pdf_restore=' . wp_create_nonce( 'admin-post' ) ); ?>"><?php esc_html_e( 'Restore original file', 'ilove-pdf' ); ?></a>
                                                             <span class="loading pdf-status"><?php esc_html_e( 'Loading', 'ilove-pdf' ); ?>...</span>
                                                             <span class="error pdf-status"><?php esc_html_e( 'Error', 'ilove-pdf' ); ?></span>
                                                             <span class="success pdf-status"><?php esc_html_e( 'Completed, please refresh the page.', 'ilove-pdf' ); ?></span>

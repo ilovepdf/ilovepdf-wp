@@ -1,0 +1,516 @@
+@use '../../variables' as *;
+
+@mixin watermark-settings {
+    &.ilovepdf-settings__main__view--watermark {
+        .ilovepdf-settings__main__form_fields {
+            .ilovepdf-settings__main__form_fields_inner_field {
+                .ilovepdf_field-mode {
+                    display: flex;
+                    position: relative;
+                    margin-bottom: 20px;
+                    max-width: 100%;
+                    height: 38px;
+
+                    label {
+                        position: relative;
+                        flex: 1;
+                        cursor: pointer;
+                        color: $secondary_color;
+
+                        input {
+                            appearance: none;
+                            position: absolute;
+                            margin: 0;
+                            top: 0;
+                            height: 100%;
+                            left: 0;
+                            width: 100%;
+                            border: 0;
+                            border-radius: 0;
+                            box-shadow: none;
+                            background-color: $light_color_300;
+
+                            &::before {
+                                content: none;
+                            }
+
+                            &:checked {
+                                background-color: $primary_color;
+
+                                & + span {
+                                    color: $white;
+                                }
+                            }
+                        }
+
+                        span {
+                            display: inline-block;
+                            position: relative;
+                            z-index: 10;
+                            margin-left: 15px;
+                            top: 50%;
+                            transform: translateY(-50%);
+                        }
+                    }
+                }
+
+                .ilovepdf_font_none_style {
+                    display: none;
+                    color: $primary_color;
+                    font-style: italic;
+                }
+
+                .ilovepdf_options-preview-wrapper {
+                    display: flex;
+                    flex-wrap: wrap;
+                    gap: 30px;
+
+                    .ilovepdf_option-col-wrapper {
+                        &.ilovepdf_option-file-wrapper {
+                            width: 100%;
+                            position: relative;
+
+                            .ilovepdf_option-file-preview {
+                                position: relative;
+                                background: url('../img/pdf-sample.png') no-repeat;
+                                background-position: center;
+                                background-size: contain;
+                                height: 450px;
+                                overflow: hidden;
+                                border: 1px solid $light_color_300;
+                            }
+
+                            #ipdf-element-watermark {
+                                position: absolute;
+                                left: 0;
+                                top: 0;
+                                height: 100%;
+                                width: 100%;
+                                z-index: 2;
+                                overflow: hidden;
+
+                                > * {
+                                    position: absolute;
+                                    margin: 0;
+                                    padding: 0;
+                                }
+                            }
+                        }
+
+                        &.ilovepdf_option-settings-wrapper {
+                            .ilovepdf_option-settings-text {
+                                padding: 10px;
+                                border: 1px solid $light_color_600;
+                                margin-bottom: 20px;
+                                display: none;
+
+                                .ilovepdf_settings__options__texts-toolbar {
+                                    margin-bottom: 10px;
+                                    display: flex;
+                                    align-items: center;
+
+                                    input[type='color'] {
+                                        display: none;
+                                    }
+
+                                    .ipdf-input-font-style {
+                                        background-repeat: no-repeat;
+                                        background-position: center center;
+
+                                        &.ipdf-input-font-bold {
+                                            background-image: url(../img/icon_bold.svg);
+                                            background-size: 8.5px 12px;
+                                            width: 32px;
+                                            height: 32px;
+                                        }
+
+                                        &.ipdf-input-font-italic {
+                                            background-image: url(../img/icon_italic.svg);
+                                            background-size: 8.5px 12px;
+                                            width: 32px;
+                                            height: 32px;
+                                        }
+
+                                        &:hover,
+                                        &:checked {
+                                            background-color: $light_color_500;
+                                        }
+                                    }
+
+                                    #ipdf-color-picker {
+                                        width: 32px;
+                                        height: 32px;
+                                        display: inline-block;
+                                        background-image: url('../img/icon_text_color.svg');
+                                        background-repeat: no-repeat;
+                                        background-position: center center;
+
+                                        &:hover {
+                                            background-color: $light_color_500;
+                                        }
+                                    }
+
+                                    .ipdf-number-group {
+                                        border: 1px solid $dark;
+                                        padding: 0 8px 0 0;
+                                        margin-left: 10px;
+
+                                        input {
+                                            border: 0;
+                                            padding-right: 0;
+
+                                            &:focus {
+                                                outline: none;
+                                                box-shadow: none;
+                                            }
+                                        }
+                                    }
+                                }
+
+                                .ilovepdf_settings__options__text {
+                                    > input {
+                                        margin: 0;
+                                        font-size: 32px;
+                                        box-shadow: none;
+                                        padding: 0;
+                                        border: 0;
+
+                                        &:focus {
+                                            outline: none;
+                                            border: 0;
+                                        }
+                                    }
+                                }
+                            }
+
+                            .ilovepdf_option-settings-image {
+                                margin-bottom: 20px;
+                                display: none;
+
+                                h5 {
+                                    font-size: 1rem;
+                                    margin: 0;
+                                }
+
+                                p {
+                                    margin: 5px 0 10px 0;
+                                }
+
+                                #ipdf_option_mode_image_url {
+                                    margin: 0 0 0 5px;
+                                    display: inline-block;
+                                    width: max-content;
+                                    min-width: 50%;
+                                }
+                            }
+
+                            .ilovepdf_option-settings-common {
+                                display: flex;
+                                flex-wrap: wrap;
+                                gap: 60px;
+
+                                .ilovepdf_option-settings-common-col {
+                                    .ilovepdf_option-settings-common-row {
+                                        margin: 15px 0;
+
+                                        > p {
+                                            color: $secondary_color;
+                                            margin: 0 0 5px 0;
+                                        }
+
+                                        .ilovepdf_field-layer {
+                                            margin-top: 10px;
+                                            display: flex;
+                                            align-items: center;
+                                            gap: 20px;
+
+                                            > label {
+                                                position: relative;
+                                                display: flex;
+                                                align-items: center;
+                                                justify-content: center;
+                                                flex-direction: column;
+                                                padding: 10px;
+
+                                                input {
+                                                    appearance: none;
+                                                    position: absolute;
+                                                    margin: 0;
+                                                    top: 0;
+                                                    height: 100%;
+                                                    left: 0;
+                                                    width: 100%;
+                                                    border: 2px solid transparent;
+                                                    border-radius: 10px;
+                                                    overflow: hidden;
+                                                    box-shadow: none;
+                                                    background-color: $light_color_300;
+
+                                                    &::before {
+                                                        content: none;
+                                                    }
+
+                                                    &:focus {
+                                                        outline: none;
+                                                    }
+
+                                                    &:checked {
+                                                        border: 2px solid $primary_color;
+
+                                                        & + svg {
+                                                            fill: $primary_color;
+                                                        }
+
+                                                        & + svg + span {
+                                                            color: $secondary_color;
+                                                        }
+                                                    }
+                                                }
+
+                                                svg {
+                                                    position: relative;
+                                                    z-index: 5;
+                                                    fill: $secondary_color_300;
+                                                }
+
+                                                > span {
+                                                    position: relative;
+                                                    z-index: 5;
+                                                    text-align: center;
+                                                    color: $secondary_color_300;
+                                                }
+                                            }
+                                        }
+
+                                        > label {
+                                            position: relative;
+
+                                            > span {
+                                                visibility: hidden;
+                                                width: max-content;
+                                                background-color: $secondary_color;
+                                                color: $white;
+                                                text-align: center;
+                                                border-radius: 4px;
+                                                padding: 6px 8px;
+                                                position: absolute;
+                                                z-index: 5;
+                                                bottom: 125%;
+                                                left: 50%;
+                                                transform: translateX(-50%);
+                                                opacity: 0;
+                                                transition: opacity 0.3s;
+                                                white-space: nowrap;
+                                            }
+
+                                            .ipdf-value-selected {
+                                                background-color: $primary_color;
+                                                color: $white;
+                                                padding: 2px 6px;
+                                                font-size: 12px;
+                                                border-radius: 4px;
+                                                white-space: nowrap;
+                                                pointer-events: none;
+                                                z-index: 2;
+                                            }
+
+                                            &:hover {
+                                                > span {
+                                                    visibility: visible;
+                                                    opacity: 1;
+                                                }
+                                            }
+                                        }
+
+                                        .ipdf-range-group {
+                                            position: relative;
+
+                                            .ipdf-range-labels {
+                                                display: flex;
+                                                justify-content: space-between;
+                                                position: absolute;
+                                                top: 100%;
+                                                left: 0;
+                                                width: 100%;
+                                                padding-top: 6px;
+                                                font-size: 12px;
+                                                color: $secondary_color_500;
+
+                                                span {
+                                                    text-align: center;
+                                                    transform: translateX(3px);
+
+                                                    &:first-child {
+                                                        transform: translateX(0);
+                                                    }
+
+                                                    &::before {
+                                                        content: '';
+                                                        display: block;
+                                                        width: 1px;
+                                                        height: 8px;
+                                                        background: $light_color_600;
+                                                        margin: 0 auto 2px;
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+
+                                    &:first-child {
+                                        max-width: 100%;
+                                    }
+
+                                    &:last-child {
+                                        width: 100%;
+                                        .ilovepdf_option-settings-common-row {
+                                            margin-bottom: 60px;
+
+                                            label {
+                                                display: inline-block;
+                                                margin-bottom: 5px;
+                                            }
+                                        }
+                                    }
+
+                                    .ilovepdf_option-settings-position-container {
+                                        margin: 5px 0 15px 0;
+                                        padding: 0;
+                                        border: 1px solid $light_color_500;
+                                        border-spacing: 0;
+
+                                        tr {
+                                            td {
+                                                border-right: 1px solid $light_color_500;
+                                                border-bottom: 1px solid $light_color_500;
+
+                                                input {
+                                                    appearance: none;
+                                                    margin: 0;
+                                                    width: 4rem;
+                                                    height: 4rem;
+                                                    border: 0;
+                                                    position: relative;
+                                                    box-shadow: none;
+
+                                                    &:checked::before {
+                                                        display: block;
+                                                        content: '';
+                                                        transition: all 0.2s ease;
+                                                        width: 32px;
+                                                        height: 32px;
+                                                        background: $primary_color;
+                                                        border-radius: 100%;
+                                                        border: 0;
+                                                        padding: 0;
+                                                        margin: 0;
+                                                        box-shadow: none;
+                                                        position: absolute;
+                                                        top: 50%;
+                                                        left: 50%;
+                                                        transform: translate(-50%, -50%);
+                                                    }
+                                                }
+
+                                                &:last-child {
+                                                    border-right: 0;
+                                                }
+                                            }
+
+                                            &:last-child {
+                                                td {
+                                                    border-bottom: 0;
+                                                }
+                                            }
+                                        }
+
+                                        &.ilovepdf_option-settings-position-mode-mosaic {
+                                            tr {
+                                                td {
+                                                    input {
+                                                        &::before {
+                                                            display: block;
+                                                            content: '';
+                                                            transition: all 0.2s ease;
+                                                            width: 32px;
+                                                            height: 32px;
+                                                            background: $primary_color;
+                                                            border-radius: 100%;
+                                                            border: 0;
+                                                            padding: 0;
+                                                            margin: 0;
+                                                            box-shadow: none;
+                                                            position: absolute;
+                                                            top: 50%;
+                                                            left: 50%;
+                                                            transform: translate(
+                                                                -50%,
+                                                                -50%
+                                                            );
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+
+                                    input[type='range'] {
+                                        width: 100%;
+                                    }
+                                }
+                            }
+
+                            .ipdf-option-selected {
+                                display: block;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        @media (min-width: 1440px) {
+            .ilovepdf-settings__main__form_fields {
+                .ilovepdf-settings__main__form_fields_inner_field {
+                    .ilovepdf_field-mode {
+                        max-width: 450px;
+                    }
+
+                    .ilovepdf_options-preview-wrapper {
+                        flex-wrap: nowrap;
+
+                        .ilovepdf_option-col-wrapper {
+                            &.ilovepdf_option-file-wrapper {
+                                width: 450px;
+
+                                .ilovepdf_option-file-preview {
+                                    background-position: left;
+                                    height: 600px;
+                                }
+                            }
+
+                            &.ilovepdf_option-settings-wrapper {
+                                width: calc(100% - 450px);
+
+                                .ilovepdf_option-settings-common {
+                                    flex-wrap: nowrap;
+
+                                    .ilovepdf_option-settings-common-col {
+                                        &:first-child {
+                                            max-width: 30%;
+                                            width: 100%;
+                                        }
+
+                                        input[type='range'] {
+                                            width: 100%;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
