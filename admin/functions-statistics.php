@@ -10,26 +10,6 @@
  */
 
 /**
- * Get Statistics.
- *
- * @since    1.0.0
- */
-function ilove_pdf_get_statistics() {
-	$response = wp_remote_get(
-        ILOVE_PDF_USER_URL . '/' . get_option( 'ilovepdf_user_id', true ),
-		array(
-			'headers' => array( 'Authorization' => 'Bearer ' . get_option( 'ilovepdf_user_token', true ) ),
-		)
-	);
-
-	if ( isset( $response['response']['code'] ) && 200 === $response['response']['code'] ) {
-		return json_decode( $response['body'], true );
-	} else {
-		return;
-	}
-}
-
-/**
  * Get Percentage.
  *
  * @since    1.0.0

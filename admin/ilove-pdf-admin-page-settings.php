@@ -9,9 +9,6 @@
  * @subpackage Ilove_Pdf/admin
  */
 
-require __DIR__ . '/general-settings.php';
-require __DIR__ . '/compress-settings.php';
-require __DIR__ . '/watermark-settings.php';
 require __DIR__ . '/general-statistics.php';
 require __DIR__ . '/partials/ilove-pdf-statistics-display.php';
 

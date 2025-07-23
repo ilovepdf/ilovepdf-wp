@@ -1,27 +1,21 @@
 {
   "name": "@ilovepdf/ilovepdf-wp",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "Compress your PDF files and Stamp Images or text into PDF files. This is the Official iLovePDF plugin for WordPress. You can optimize all your PDF and stamp them automatically as you do in ilovepdf.com.",
   "main": "index.js",
   "scripts": {
-    "dev": "NODE_ENV='development' gulp",
-    "build": "NODE_ENV='production' gulp"
+    "start": "wp-scripts start",
+    "build": "wp-scripts build",
+    "lint": "npx eslint --exit-on-fatal-error ./ & npx eslint --exit-on-fatal-error ./ > eslint.report.log",
+    "prettier": "prettier --write ./dev"
   },
   "author": "ilovepdf",
   "license": "ISC",
   "devDependencies": {
-    "@babel/core": "^7.27",
-    "@babel/preset-env": "^7.27",
-    "gulp": "^5.0.0",
-    "gulp-autoprefixer": "^9.0.0",
-    "gulp-babel": "^8.0.0",
-    "gulp-clean-css": "^4.3.0",
-    "gulp-if": "^3.0.0",
-    "gulp-rename": "^2.0.0",
-    "gulp-sass": "^6.0.1",
-    "gulp-sourcemaps": "^3.0.0",
-    "gulp-uglify": "^3.0.2",
-    "merge-stream": "^2.0.0",
-    "sass": "^1.89"
+    "@wordpress/i18n": "^5.26",
+    "@wordpress/scripts": "^30.19",
+    "eslint": "^9.31",
+    "eslint-config-prettier": "^10.1",
+    "prettier": "^3.6"
   }
 }

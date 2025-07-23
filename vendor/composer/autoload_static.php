@@ -21,8 +21,7 @@ class ComposerStaticInitc8c93814224bd6d38e781da2d69243f3
         'I' => 
         array (
             'Ilovepdf\\' => 9,
-            'Ilove_Pdf_Includes\\' => 19,
-            'Ilove_Pdf_Admin\\' => 16,
+            'Ilove_Pdf_WP\\' => 13,
         ),
         'G' => 
         array (
@@ -50,11 +49,7 @@ class ComposerStaticInitc8c93814224bd6d38e781da2d69243f3
         array (
             0 => __DIR__ . '/..' . '/ilovepdf/ilovepdf-php/src',
         ),
-        'Ilove_Pdf_Includes\\' => 
-        array (
-            0 => __DIR__ . '/../..' . '/includes',
-        ),
-        'Ilove_Pdf_Admin\\' => 
+        'Ilove_Pdf_WP\\' => 
         array (
             0 => __DIR__ . '/../..' . '/admin',
         ),

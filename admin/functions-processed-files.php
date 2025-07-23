@@ -9,7 +9,8 @@
  * @subpackage Ilove_Pdf/admin
  */
 
-use Ilove_Pdf_Includes\Ilove_Pdf;
+use Ilove_Pdf_WP\Helpers\DB_Handler;
+use Ilove_Pdf_WP\Helpers\Media_Handler;
 
 /**
  * Check if file is compressed.
@@ -59,7 +60,7 @@ function ilove_pdf_upload_compress_file( $filename, $attachment_id ) {
 
 	if ( get_option( 'ilovepdf_compressed_files' ) || get_option( 'ilovepdf_compressed_files' ) === '0' ) {
 		$n_compressed_files = intval( get_option( 'ilovepdf_compressed_files' ) ) + 1;
-		Ilove_Pdf::update_option( 'ilovepdf_compressed_files', $n_compressed_files );
+		DB_Handler::update_option( 'ilovepdf_compressed_files', $n_compressed_files );
 	} else {
 		add_option( 'ilovepdf_compressed_files', 1 );
 	}
@@ -98,12 +99,12 @@ function ilove_pdf_upload_watermark_file( $filename, $attachment_id, $generate_m
 
 	// Regenerate attachment metadata
 	if ( $generate_manual_attachment_thubnails ) {
-		ilove_pdf_regenerate_attachment_data( $attachment_id );
+		Media_Handler::regenerate_attachment_data( $attachment_id );
 	}
 
 	if ( get_option( 'ilovepdf_watermarked_files' ) || get_option( 'ilovepdf_watermarked_files' ) === '0' ) {
 		$n_watermarked_files = intval( get_option( 'ilovepdf_watermarked_files' ) ) + 1;
-		Ilove_Pdf::update_option( 'ilovepdf_watermarked_files', $n_watermarked_files );
+		DB_Handler::update_option( 'ilovepdf_watermarked_files', $n_watermarked_files );
 
 	} else {
 		add_option( 'ilovepdf_watermarked_files', 1 );
@@ -113,96 +114,6 @@ function ilove_pdf_upload_watermark_file( $filename, $attachment_id, $generate_m
 
 	update_post_meta( $attachment_id, '_watermarked_file', 1 );
 }
-
-/**
- * Restore File.
- *
- * @since    1.0.0
- * @param    int $attachment_id    File ID.
- */
-function ilove_pdf_restore_pdf( $attachment_id ) {
-	$wp_upload_dir = wp_upload_dir();
-
-	if ( ilove_pdf_is_file_compressed( $attachment_id ) ) {
-		if ( get_option( 'ilovepdf_compressed_files' ) === 1 ) {
-			delete_option( 'ilovepdf_compressed_files' );
-		} else {
-			Ilove_Pdf::update_option( 'ilovepdf_compressed_files', get_option( 'ilovepdf_compressed_files' ) - 1 );
-			if ( get_option( 'ilovepdf_compressed_files' ) <= '0' ) {
-				delete_option( 'ilovepdf_compressed_files' ); }
-		}
-	}
-
-	if ( ilove_pdf_is_file_watermarked( $attachment_id ) ) {
-		if ( get_option( 'ilovepdf_watermarked_files' ) === 1 ) {
-			delete_option( 'ilovepdf_watermarked_files' );
-		} else {
-			Ilove_Pdf::update_option( 'ilovepdf_watermarked_files', get_option( 'ilovepdf_watermarked_files' ) - 1 );
-			if ( get_option( 'ilovepdf_watermarked_files' ) <= '0' ) {
-				delete_option( 'ilovepdf_watermarked_files' ); }
-		}
-	}
-
-	copy( $wp_upload_dir['basedir'] . '/pdf/backup/' . basename( get_attached_file( $attachment_id ) ), get_attached_file( $attachment_id ) );
-
-	// Regenerate attachment metadata
-	ilove_pdf_regenerate_attachment_data( $attachment_id );
-
-	delete_post_meta( $attachment_id, '_wp_attached_file_backup' );
-	delete_post_meta( $attachment_id, '_compressed_file' );
-	delete_post_meta( $attachment_id, '_watermarked_file' );
-	delete_post_meta( $attachment_id, '_wp_attached_compress_size' );
-}
-
-/**
- * Delete File.
- *
- * @since    1.0.0
- * @param    int $attachment_id    File ID.
- */
-function ilove_pdf_handle_delete_file( $attachment_id ) {
-    if ( get_post_mime_type( $attachment_id ) === 'application/pdf' ) {
-    	$result = 0;
-    	if ( get_post_meta( $attachment_id, '_wp_attached_original_size', true ) ) {
-    		$result = get_option( 'ilovepdf_initial_pdf_files_size' ) - get_post_meta( $attachment_id, '_wp_attached_original_size', true );
-    	}
-		Ilove_Pdf::update_option( 'ilovepdf_initial_pdf_files_size', $result );
-    	$wp_upload_dir = wp_upload_dir();
-    	$file_name     = basename( get_attached_file( $attachment_id ) );
-        if ( ilove_pdf_is_file_compressed( $attachment_id ) ) {
-        	if ( get_option( 'ilovepdf_compressed_files' ) === 1 ) {
-				delete_option( 'ilovepdf_compressed_files' );
-			} else {
-				Ilove_Pdf::update_option( 'ilovepdf_compressed_files', get_option( 'ilovepdf_compressed_files' ) - 1 );
-				if ( get_option( 'ilovepdf_compressed_files' ) <= '0' ) {
-					delete_option( 'ilovepdf_compressed_files' ); }
-			}
-        }
-
-		if ( ilove_pdf_is_file_watermarked( $attachment_id ) ) {
-			if ( get_option( 'ilovepdf_watermarked_files' ) === 1 ) {
-				delete_option( 'ilovepdf_watermarked_files' );
-			} else {
-				Ilove_Pdf::update_option( 'ilovepdf_watermarked_files', get_option( 'ilovepdf_watermarked_files' ) - 1 );
-				if ( get_option( 'ilovepdf_watermarked_files' ) <= '0' ) {
-					delete_option( 'ilovepdf_watermarked_files' ); }
-			}
-		}
-
-		if ( file_exists( $wp_upload_dir['basedir'] . '/pdf/compress/' . $file_name ) ) {
-			wp_delete_file( $wp_upload_dir['basedir'] . '/pdf/compress/' . $file_name );
-        }
-
-		if ( file_exists( $wp_upload_dir['basedir'] . '/pdf/watermark/' . $file_name ) ) {
-			wp_delete_file( $wp_upload_dir['basedir'] . '/pdf/watermark/' . $file_name );
-        }
-
-		if ( file_exists( $wp_upload_dir['basedir'] . '/pdf/backup/' . $file_name ) ) {
-			wp_delete_file( $wp_upload_dir['basedir'] . '/pdf/backup/' . $file_name );
-        }
-	}
-}
-add_filter( 'delete_attachment', 'ilove_pdf_handle_delete_file' );
 
 /**
  * File Upload Compress Watermark.
@@ -215,7 +126,7 @@ function ilove_pdf_handle_file_upload_compress_watermark( $attachment_id ) {
     if ( get_post_mime_type( $attachment_id ) === 'application/pdf' ) {
         $options_compress  = get_option( 'ilove_pdf_display_settings_compress' );
         $options_watermark = get_option( 'ilove_pdf_display_settings_watermark' );
-		Ilove_Pdf::update_option( 'ilovepdf_initial_pdf_files_size', get_option( 'ilovepdf_initial_pdf_files_size' ) + filesize( get_attached_file( $attachment_id ) ) );
+		// DB_Handler::update_option( 'ilovepdf_initial_pdf_files_size', get_option( 'ilovepdf_initial_pdf_files_size' ) + filesize( get_attached_file( $attachment_id ) ) );
 
         if ( isset( $options_compress['ilove_pdf_compress_autocompress_new'] ) && isset( $options_watermark['ilove_pdf_watermark_auto'] ) ) {
 

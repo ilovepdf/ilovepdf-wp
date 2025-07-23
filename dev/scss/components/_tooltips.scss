@@ -1,0 +1,36 @@
+@use '../variables' as *;
+
+@mixin tooltip {
+	position: relative;
+	display: inline-block;
+	border-bottom: 1px dotted $dark;
+
+	.ipdf-tooltip-text {
+		overflow: hidden;
+		visibility: hidden;
+		width: 350px;
+		background-color: $dark;
+		color: $white;
+		text-align: center;
+		border-radius: 6px;
+		padding: 5px 0;
+		position: absolute;
+		z-index: 1;
+		bottom: 115%;
+		left: 50%;
+		margin-left: -290px;
+		font-size: 12px;
+		line-height: 16px;
+
+		&::after {
+			content: '';
+			position: absolute;
+			top: 100%;
+			left: 50%;
+			margin-left: -5px;
+			border-width: 5px;
+			border-style: solid;
+			border-color: $dark transparent transparent transparent;
+		}
+	}
+}
