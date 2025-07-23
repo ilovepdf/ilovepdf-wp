@@ -16,9 +16,13 @@ jobs:
       uses: shivammathur/setup-php@v2
       with:
         php-version: 7.4
+    - name: Create empty node_modules directory
+      run: |
+        mkdir -p node_modules
+        echo "Created empty node_modules directory"
     - name: Install Composer Dependencies
       run: |
-        composer install
+        composer install --prefer-dist --no-interaction
         composer dump-autoload
     - name: Run PHPStan
       run: vendor/bin/phpstan analyse
