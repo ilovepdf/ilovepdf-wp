@@ -1,0 +1,27 @@
+@use '../variables' as *;
+@use '../components/buttons' as *;
+@use '../components/tooltips' as *;
+@use '../components/badges' as *;
+@use '../components/modals' as *;
+
+.upload-php {
+	@include all-buttons;
+	@include tooltip;
+	@include badge;
+	@include popup-dialog;
+
+	.ilovepdf-media-library-actions {
+		margin-bottom: 10px;
+	}
+
+	.ipdf-status {
+		.ipdf-item-status {
+			margin-bottom: 8px;
+		}
+
+		&.ipdf-status-process {
+			padding-top: 10px;
+			border-top: 1px dotted $secondary_color;
+		}
+	}
+}

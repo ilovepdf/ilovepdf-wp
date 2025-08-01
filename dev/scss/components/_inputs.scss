@@ -28,19 +28,19 @@
 }
 
 @mixin input-checkbox {
-  appearance: none;
-  background: $white;
-  border: 0;
-  box-shadow: none;
-  border-radius: 2px;
-  width: 16px;
-  height: 16px;
-  cursor: pointer;
-  transition: all 0.2s ease;
+	appearance: none;
+	background: $white;
+	border: 0;
+	box-shadow: none;
+	border-radius: 2px;
+	width: 16px;
+	height: 16px;
+	cursor: pointer;
+	transition: all 0.2s ease;
 
-  &:checked::before {
-	content: none;
-  }
+	&:checked::before {
+		content: none;
+	}
 }
 
 @mixin input-slider {
@@ -155,6 +155,7 @@
 		cursor: not-allowed;
 
 		&.ipdf-tooltip:hover .ipdf-tooltip-text {
+			animation: fadeIn 300ms ease-in-out 0s 1 normal forwards;
 			visibility: visible;
 		}
 	}

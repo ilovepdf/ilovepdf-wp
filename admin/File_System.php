@@ -53,6 +53,28 @@ class File_System {
 		return $wp_upload_dir['basedir'] . self::$folder_backup . '/';
 	}
 
+	/**
+	 * Get the full path to the temporary compress folder.
+	 *
+	 * @since  3.0.0
+	 * @return string
+	 */
+	public static function get_full_path_tmp_compress_folder() {
+		$wp_upload_dir = wp_upload_dir();
+		return $wp_upload_dir['basedir'] . self::$folder_tmp_compress . '/';
+	}
+
+	/**
+	 * Get the full path to the temporary watermark folder.
+	 *
+	 * @since  3.0.0
+	 * @return string
+	 */
+	public static function get_full_path_tmp_watermark_folder() {
+		$wp_upload_dir = wp_upload_dir();
+		return $wp_upload_dir['basedir'] . self::$folder_tmp_watermark . '/';
+	}
+
     /**
 	 * Create directories, works with multisite if enabled
 	 *

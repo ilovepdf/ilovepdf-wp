@@ -15,7 +15,7 @@
 		@include main-menu;
 
 		.ilovepdf-settings__main__view {
-            width: 100%;
+			width: 100%;
 			background-color: $white;
 			padding: 30px;
 			box-shadow: $box_shadow;
@@ -29,7 +29,7 @@
 	@media (min-width: 1280px) {
 		.ilovepdf-settings__main__section {
 			.ilovepdf-settings__main__view {
-                width: 90%;
+				width: 90%;
 			}
 		}
 	}

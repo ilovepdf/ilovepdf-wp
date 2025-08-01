@@ -5,9 +5,12 @@ namespace Ilove_Pdf_WP;
 use Ilove_Pdf_WP\File_System;
 use Ilove_Pdf_WP\Helpers\DB_Handler;
 use Ilove_Pdf_WP\Account\User_Account;
+use Ilove_Pdf_WP\Tools\Backup;
 use Ilove_Pdf_WP\Tools\General\Settings as General_Settings;
 use Ilove_Pdf_WP\Tools\Compress\Settings as Compress_Settings;
+use Ilove_Pdf_WP\Tools\Compress\Tool_Compress;
 use Ilove_Pdf_WP\Tools\Watermark\Settings as Watermark_Settings;
+use Ilove_Pdf_WP\Tools\Watermark\Tool_Watermark;
 
 /**
  * Fired during plugin activation.
@@ -24,6 +27,9 @@ class Activator {
 	public static function activate() {
 		File_System::create_ilovepdf_directories();
 		File_System::migrate_legacy_directories();
+		Backup::migrate_file_backup();
+		Tool_Compress::migrate_metadata();
+		Tool_Watermark::migrate_watermark_status();
 
 		User_Account::create_wordpress_id();
 
@@ -62,6 +68,10 @@ class Activator {
 
 		if ( ! isset( $settings['ipdf_option_font_size'] ) ) {
 			$settings['ipdf_option_font_size'] = 33;
+		}
+
+		if ( ! isset( $settings['ipdf_option_font_style'] ) ) {
+			$settings['ipdf_option_font_style'] = null;
 		}
 
 		if ( ! isset( $settings['ipdf_option_font_family'] ) ) {

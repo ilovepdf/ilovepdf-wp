@@ -2,7 +2,7 @@
 @use '../../components/bars' as *;
 
 @mixin account {
-    .ilovepdf-settings__main__account {
+	.ilovepdf-settings__main__account {
 		.ilovepdf-settings__main__account-inner {
 			background-color: $white;
 			padding: 30px;
@@ -45,7 +45,7 @@
 							font-size: 0.9rem;
 							margin: 0 0 0.5rem 0;
 						}
-	
+
 						.ipdf-bar-progress {
 							@extend %bar-progress;
 						}

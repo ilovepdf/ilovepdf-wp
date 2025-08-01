@@ -139,8 +139,8 @@ class Settings extends Options {
      * @param string $option_name Optional. The specific option key to retrieve.
      * @return mixed An option value or the full settings array.
      */
-    public static function get_settings( $option_name = '' ) {
-        $settings = get_option( self::$db_key_settings, array() );
+    public static function get_settings( $option_name = '', $default = array() ) {
+        $settings = get_option( self::$db_key_settings, $default );
 
         if ( ! empty( $option_name ) ) {
             return isset( $settings[ $option_name ] ) ? $settings[ $option_name ] : '';

@@ -36,6 +36,14 @@ class Submenu_Page {
 	 */
 	public static $watermark_slug = 'ipdf-watermark-admin-page';
 
+	/**
+	 * Slug for the media optimization page.
+	 *
+	 * @var string
+	 * @since 3.0.0
+	 */
+	private static $media_slug = 'ipdf-media-optimization';
+
     /**
      * Initializing the class and adding the page menu to WordPress dashboard.
 	 *
@@ -43,6 +51,7 @@ class Submenu_Page {
      */
     public function __construct() {
         add_action( 'admin_menu', array( $this, 'add_page_settings' ) );
+		add_action( 'admin_menu', array( $this, 'add_media_page' ) );
         add_filter( 'plugin_action_links_' . Ilove_Pdf_Plugin::get_plugin_basename(), array( $this, 'add_action_links' ) );
     }
 
@@ -106,17 +115,41 @@ class Submenu_Page {
 		);
     }
 
+	/**
+	 * Adding media optimization page.
+	 *
+	 * @since 3.0.0
+	 */
+	public function add_media_page() {
+		add_media_page(
+			'iLovePDF',
+			'iLovePDF',
+			'manage_options',
+			self::$media_slug,
+			array(
+				$this,
+				'render_media_page',
+			)
+		);
+	}
+
     /**
      * Showing general settings page
 	 *
 	 * @since 3.0.0
      */
     public function render_page_general_settings() {
-
-        $options = get_option( 'ilove_pdf_display_settings_watermark' );
-
         require_once plugin_dir_path( __DIR__ ) . 'admin/views/ilovepdf-settings.php';
     }
+
+	/**
+	 * Render the media optimization page.
+	 *
+	 * @since 3.0.0
+	 */
+	public function render_media_page() {
+		require_once plugin_dir_path( __DIR__ ) . 'admin/views/media-bulk.php';
+	}
 
     /**
 	 * Add Link to page settings from Plugins List Page.
