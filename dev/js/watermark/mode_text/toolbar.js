@@ -64,20 +64,23 @@ const disableStyleOptions = (element) => {
  *
  * @param {HTMLElement} element - The element whose font style will be updated.
  * @param {string} inputId - The ID of the input element that triggered the update ('ipdf_option_font_style_bold' or 'ipdf_option_font_style_italic').
- * @param {boolean} value - The checked state of the input element that determines whether to apply or remove the style
+ * @param {string} value - The new font style value to apply ('bold' or 'italic').
  * @returns {void}
  */
 export const updateFontStyle = (element, inputId, value) => {
-	if (inputId === 'ipdf_option_font_style_bold' && value) {
-		element.style.fontWeight = 'bold';
-	} else if (inputId === 'ipdf_option_font_style_bold' && !value) {
+	if (inputId === 'ipdf_option_font_style_bold') {
+		element.style.fontWeight = value.toLowerCase();
+		element.style.fontStyle = 'normal';
+	}
+
+	if (inputId === 'ipdf_option_font_style_italic') {
+		element.style.fontStyle = value.toLowerCase();
 		element.style.fontWeight = 'normal';
 	}
 
-	if (inputId === 'ipdf_option_font_style_italic' && value) {
-		element.style.fontStyle = 'italic';
-	} else if (inputId === 'ipdf_option_font_style_italic' && !value) {
+	if (inputId === 'ipdf_option_font_style_normal') {
 		element.style.fontStyle = 'normal';
+		element.style.fontWeight = 'normal';
 	}
 };
 

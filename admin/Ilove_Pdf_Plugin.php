@@ -2,11 +2,14 @@
 
 namespace Ilove_Pdf_WP;
 
-use Ilove_Pdf_WP\Tool_Process;
 use Ilove_Pdf_WP\Account\User_Account;
+use Ilove_Pdf_WP\Media\Library;
+use Ilove_Pdf_WP\Tools\Backup;
 use Ilove_Pdf_WP\Tools\General\Settings as General_Settings;
 use Ilove_Pdf_WP\Tools\Compress\Settings as Compress_Settings;
 use Ilove_Pdf_WP\Tools\Watermark\Settings as Watermark_Settings;
+use Ilove_Pdf_WP\Tools\Compress\Tool_Compress;
+use Ilove_Pdf_WP\Tools\Watermark\Tool_Watermark;
 
 /**
  * The main functionality of the plugin.
@@ -65,14 +68,16 @@ class Ilove_Pdf_Plugin {
 	 */
     public function admin_init() {
 
-		$tool_process = new Tool_Process();
-		$tool_process->init();
-
+		new Backup();
 		$user_account = new User_Account();
 		$user_account->init_hooks();
 
+		new Library();
+
 		new General_Settings();
 		new Compress_Settings();
+		new Tool_Compress();
+		new Tool_Watermark();
 		new Watermark_Settings();
 
         // Enqueue scripts for the admin area.

@@ -131,3 +131,29 @@
 		opacity: 0.8;
 	}
 }
+
+@mixin all-buttons() {
+	.ipdf-btn--primary {
+		@extend %button-primary;
+	}
+
+	.ipdf-btn--inline-primary {
+		@extend %button-inline-primary;
+	}
+
+	.ipdf-btn--outline-primary {
+		@extend %button-outline-primary;
+	}
+
+	.ipdf-btn--secondary {
+		@extend %button-secondary;
+	}
+
+	.ipdf-btn--inline-secondary {
+		@extend %button-inline-secondary;
+	}
+
+	.ipdf-btn--upload-file {
+		@extend %button-upload;
+	}
+}

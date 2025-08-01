@@ -3,39 +3,41 @@
 @use '../components/buttons' as *;
 
 @mixin popup-dialog {
-	border: none;
-	border-radius: 20px;
-	padding: 40px;
-	animation: fade-out 0.2s ease-out;
+	.ipdf-restore-dialog {
+		border: none;
+		border-radius: 20px;
+		padding: 40px;
+		animation: fade-out 0.2s ease-out;
 
-	.ilovepdf-title-dialog {
-		text-align: center;
-		font-size: 2.8em;
-		color: $primary_color;
-	}
-
-	.ilovepdf-content-dialog {
-		font-size: 18px;
-		font-weight: 500;
-		color: $secondary_color;
-	}
-
-	.ilovepdf-btn-groups {
-		margin-top: 30px;
-		display: flex;
-		justify-content: center;
-		gap: 30px;
-
-		.button-primary {
-			@extend %button-primary;
+		.ilovepdf-title-dialog {
+			text-align: center;
+			font-size: 2.8em;
+			color: $primary_color;
 		}
-	}
 
-	&::backdrop {
-		background-color: rgba(56, 56, 56, 0.75);
-	}
+		.ilovepdf-content-dialog {
+			font-size: 18px;
+			font-weight: 500;
+			color: $secondary_color;
+		}
 
-	&[open] {
-		animation: openDialog 300ms ease-in-out 0s 1 normal forwards;
+		.ilovepdf-btn-groups {
+			margin-top: 30px;
+			display: flex;
+			justify-content: center;
+			gap: 30px;
+
+			.button-primary {
+				@extend %button-primary;
+			}
+		}
+
+		&::backdrop {
+			background-color: rgba(56, 56, 56, 0.75);
+		}
+
+		&[open] {
+			animation: openDialog 300ms ease-in-out 0s 1 normal forwards;
+		}
 	}
 }

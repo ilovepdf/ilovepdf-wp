@@ -1,0 +1,57 @@
+@use '../variables' as *;
+
+@mixin badge {
+	.ipdf-item-status {
+		display: none;
+		background-color: $light_color_300;
+		color: $secondary_color;
+		border-radius: 10px;
+		padding: 2px 6px;
+		font-size: 12px;
+		letter-spacing: 0.4px;
+		width: max-content;
+
+		&.ipdf-item-status-compressing,
+		&.ipdf-item-status-watermark-processing,
+		&.ipdf-item-status-processing-restore {
+			background-color: $processing_color_300;
+			color: $processing_color;
+
+			svg {
+				circle {
+					stroke: $white;
+				}
+
+				circle:last-child {
+					stroke: $processing_color;
+				}
+			}
+		}
+
+		&.ipdf-item-status-compressed,
+		&.ipdf-item-status-watermark-applied,
+		&.ipdf-item-status-restored {
+			background-color: $success_color_300;
+			color: $success_color_700;
+
+			& button {
+				background-color: $success_color_300;
+				color: $success_color_700;
+				appearance: none;
+				border: none;
+				background: none;
+				cursor: pointer;
+			}
+		}
+
+		&.ipdf-item-status-fail {
+			background-color: $primary_color;
+			color: $white;
+		}
+
+		&.ipdf-item-status-active {
+			display: flex;
+			max-width: fit-content;
+		}
+	}
+}

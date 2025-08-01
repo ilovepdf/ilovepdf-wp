@@ -42,8 +42,6 @@ use Ilove_Pdf_WP\Tools\General\Settings as General_Settings;
 use Ilove_Pdf_WP\Tools\Compress\Settings as Compress_Settings;
 use Ilove_Pdf_WP\Tools\Watermark\Settings as Watermark_Settings;
 
-require __DIR__ . '/admin/ilove-pdf-admin-page-settings.php';
-
 add_action( 'plugins_loaded', array( I18n::class, 'load_textdomain' ) );
 
 register_activation_hook( __FILE__, array( Activator::class, 'activate' ) );

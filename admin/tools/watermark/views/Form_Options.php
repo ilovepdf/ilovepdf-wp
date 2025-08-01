@@ -500,20 +500,21 @@ class Form_Options extends Form {
      * @return string HTML markup for the font style field.
      */
     private static function create_field_font_style() {
-        $db_value_font_style        = Settings::get_settings( Settings::get_field_font_style() ) ?: array();
-        $font_style_bold_value      = Settings::get_font_style_values( 'Bold' );
-        $font_style_italic_value    = Settings::get_font_style_values( 'Italic' );
-        $font_style_bold_db_value   = in_array( $font_style_bold_value, $db_value_font_style ) ? $font_style_bold_value : 'normal';
-        $font_style_italic_db_value = in_array( $font_style_italic_value, $db_value_font_style ) ? $font_style_italic_value : 'normal';
+        $db_value_font_style     = Settings::get_settings( Settings::get_field_font_style(), null );
+        $font_style_bold_value   = Settings::get_font_style_values( 'Bold' );
+        $font_style_italic_value = Settings::get_font_style_values( 'Italic' );
 
         return sprintf(
-            '<input type="checkbox" name="%1$s[0]" id="%1$s_bold" class="ipdf-input--checkbox ipdf-input-font-style ipdf-input-font-bold" value="%2$s" %4$s />
-            <input type="checkbox" name="%1$s[1]" id="%1$s_italic" class="ipdf-input--checkbox ipdf-input-font-style ipdf-input-font-italic" value="%3$s" %5$s />',
+            '<input type="radio" name="%1$s" id="%1$s_normal" class="ipdf-input--checkbox ipdf-input-font-style ipdf-input-font-normal" value="%2$s" %5$s />
+            <input type="radio" name="%1$s" id="%1$s_bold" class="ipdf-input--checkbox ipdf-input-font-style ipdf-input-font-bold" value="%3$s" %6$s />
+            <input type="radio" name="%1$s" id="%1$s_italic" class="ipdf-input--checkbox ipdf-input-font-style ipdf-input-font-italic" value="%4$s" %7$s />',
             Settings::get_field_font_style(),
+            null,
             $font_style_bold_value,
             $font_style_italic_value,
-            checked( $font_style_bold_value, $font_style_bold_db_value, false ),
-            checked( $font_style_italic_value, $font_style_italic_db_value, false ),
+            checked( null, $db_value_font_style, false ),
+            checked( $font_style_bold_value, $db_value_font_style, false ),
+            checked( $font_style_italic_value, $db_value_font_style, false ),
         );
     }
 
@@ -658,9 +659,9 @@ class Form_Options extends Form {
         $db_value_font_family = Settings::get_settings( Settings::get_field_font_family() );
         $db_value_font_color  = Settings::get_settings( Settings::get_field_font_color() );
         $db_value_font_size   = Settings::get_settings( Settings::get_field_font_size() );
-        $db_value_font_style  = Settings::get_settings( Settings::get_field_font_style() ) ?: array();
-        $style_bold           = in_array( Settings::get_font_style_values( 'Bold' ), $db_value_font_style ) ? 'bold' : 'normal';
-        $style_italic         = in_array( Settings::get_font_style_values( 'Italic' ), $db_value_font_style ) ? 'italic' : 'normal';
+        $db_value_font_style  = Settings::get_settings( Settings::get_field_font_style(), null );
+        $style_bold           = $db_value_font_style === Settings::get_font_style_values( 'Bold' ) ? $db_value_font_style : 'normal';
+        $style_italic         = $db_value_font_style === Settings::get_font_style_values( 'Italic' ) ? $db_value_font_style : 'normal';
 
         $style = "font-family: '$db_value_font_family'; color: $db_value_font_color; font-size: {$db_value_font_size}px; font-style: $style_italic; font-weight: $style_bold;";
 

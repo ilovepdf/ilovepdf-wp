@@ -1,6 +1,16 @@
 <?php
 
-namespace Ilove_Pdf_WP\Watermark;
+namespace Ilove_Pdf_WP\Tools\Watermark;
+
+use Exception;
+use Ilovepdf\WatermarkTask;
+use Ilovepdf\Exceptions\AuthException;
+use Ilove_Pdf_WP\Account\User_Account;
+use Ilove_Pdf_WP\File_System;
+use Ilove_Pdf_WP\Helpers\Media_Handler;
+use Ilove_Pdf_WP\Tools\Backup;
+use Ilove_Pdf_WP\Tools\Base\Status_Process;
+use Ilove_Pdf_WP\Tools\Watermark\Settings as Watermark_Settings;
 
 /**
  * Manages the watermark process.
@@ -9,11 +19,265 @@ namespace Ilove_Pdf_WP\Watermark;
  * @since 3.0.0
  */
 class Tool_Watermark {
+    use Status_Process;
+
     /**
      * Post meta key for tracking the watermark status of an attachment.
      *
      * @var string
      * @since 3.0.0
      */
-    public $db_key_status = '_ipdf_attachment_watermark_status';
+    private $db_key_status = '_ipdf_attachment_watermark_status';
+
+    /**
+     * Legacy post meta key for tracking the watermark status of an attachment.
+     *
+     * @var string
+     * @since 3.0.0
+     */
+    private $legacy_db_key_status = '_watermarked_file';
+
+    /**
+     * Constructor to initialize the watermark tool.
+     *
+     * This method sets up the AJAX handler for the watermark action.
+     *
+     * @since 3.0.0
+     */
+    public function __construct() {
+        add_action( 'wp_ajax_ilovepdf_action_watermark', array( $this, 'handler_action_watermark' ) );
+    }
+
+    /**
+     * Get the database key for the watermark status.
+     *
+     * @return string
+     * @since 3.0.0
+     */
+    public static function get_db_key_status() {
+        return ( new self() )->db_key_status;
+    }
+
+    /**
+     * Handle the AJAX request for applying a watermark to a PDF file.
+     *
+     * This method verifies the nonce, checks for the post ID, and processes the watermarking.
+     * It returns a JSON response indicating success or failure.
+     *
+     * @since 3.0.0
+     * @return void
+     */
+    public function handler_action_watermark() {
+        if ( ! isset( $_POST['_wpnonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_wpnonce'] ) ), 'ilovepdf_action_watermark' ) ) {
+            wp_send_json_error( __( 'Error processing your request. Invalid Nonce code', 'ilove-pdf' ), 401 );
+        }
+
+        if ( ! isset( $_POST['post_id'] ) ) {
+            wp_send_json_error( __( 'Error processing your request. The file ID must be sent', 'ilove-pdf' ), 400 );
+        }
+
+        try {
+            $watermark_process = $this->watermark_process( (int) $_POST['post_id'] );
+
+            wp_send_json_success(
+                $watermark_process,
+                200
+            );
+
+        } catch ( Exception $e ) {
+            wp_send_json_error(
+                sprintf(
+                    /* translators: %s Additional process error  */
+                    _x( 'Watermark PDF error: %s', 'Watermark PDF: Error message.', 'ilove-pdf' ),
+                    $e->getMessage()
+                ),
+                500
+            );
+        }
+    }
+
+    /**
+     * Process the watermarking of a PDF file.
+     *
+     * This method applies the watermark to the specified PDF file, handling various settings and exceptions.
+     * It returns an array with the result of the watermarking process.
+     *
+     * @param int $post_id The ID of the post (attachment) to be watermarked.
+     * @return array
+     * @throws Exception If an error occurs during the watermarking process.
+     * @since 3.0.0
+     */
+    public function watermark_process( $post_id ) {
+        $options = Watermark_Settings::get_settings();
+
+        try {
+
+            if ( $this->is_file_watermarked( $post_id ) ) {
+                return array(
+                    'error'   => false,
+                    'message' => __( 'This file already has a watermark applied.', 'ilove-pdf' ),
+                );
+            }
+
+            $this->set_status_in_process( $post_id, $this->db_key_status );
+
+            if ( ! isset( $options[ Watermark_Settings::get_field_watermark_active() ] ) ) {
+                throw new Exception( _x( 'The watermark tool is not activated.', 'Watermark PDF: Error message.', 'ilove-pdf' ) );
+            }
+
+            if ( get_post_mime_type( $post_id ) !== 'application/pdf' ) {
+                throw new Exception( _x( 'The file is not a PDF.', 'Watermark PDF: Error message.', 'ilove-pdf' ) );
+            }
+
+            /** @var \WP_Filesystem_Base $wp_filesystem */
+            global $wp_filesystem;
+
+            if ( ! WP_Filesystem() ) {
+                throw new Exception(
+                    esc_html__( 'Unable to connect to the filesystem', 'ilove-pdf' )
+                );
+            }
+
+            $public_key  = User_Account::get_settings( User_Account::get_db_user_publickey_key(), '' );
+            $private_key = User_Account::get_settings( User_Account::get_db_user_privatekey_key(), '' );
+
+            if ( empty( $public_key ) || empty( $private_key ) ) {
+                throw new AuthException(
+                    _x( 'The API Keys are not set. Please check your settings.', 'Auth: Error message.', 'ilove-pdf' ),
+                );
+            }
+
+            $attachment_file = get_attached_file( $post_id );
+
+            Backup::add_file( $post_id, $attachment_file );
+
+            $main_task = new WatermarkTask( $public_key, $private_key );
+
+            $main_task->addFile( $attachment_file );
+
+            switch ( $options[ Watermark_Settings::get_field_mode() ] ) {
+                case Watermark_Settings::get_mode_values( 'image' ):
+                    $main_task->setMode( 'image' );
+
+                    if ( isset( $options[ Watermark_Settings::get_field_image_mode() ] ) ) {
+                        $image = $main_task->addFile( $options[ Watermark_Settings::get_field_image_mode() ] );
+                        $main_task->setImage( $image->getServerFilename() );
+                    }
+
+                    break;
+
+                case Watermark_Settings::get_mode_values( 'text' ):
+                    $main_task->setMode( 'text' );
+
+                    $main_task->setText( $options[ Watermark_Settings::get_field_text_mode() ] );
+                    $main_task->setFontFamily( $options[ Watermark_Settings::get_field_font_family() ] );
+                    $main_task->setFontSize( $options[ Watermark_Settings::get_field_font_size() ] );
+                    $main_task->setFontStyle( $options[ Watermark_Settings::get_field_font_style() ] );
+                    $main_task->setFontColor( $options[ Watermark_Settings::get_field_font_color() ] );
+
+                    break;
+            }
+
+            $position = explode( ' ', $options[ Watermark_Settings::get_field_position() ] );
+            $main_task->setHorizontalPosition( $position[0] );
+            $main_task->setVerticalPosition( $position[1] );
+
+            $main_task->setTransparency( $options[ Watermark_Settings::get_field_transparency() ] );
+            $main_task->setRotation( $options[ Watermark_Settings::get_field_rotation() ] );
+            $main_task->setLayer( $options[ Watermark_Settings::get_field_layer() ] );
+
+            if ( isset( $options[ Watermark_Settings::get_field_mosaic() ] ) && Watermark_Settings::get_field_mosaic() === 'on' ) {
+                $main_task->setMosaic( true );
+            }
+
+            $main_task->execute();
+
+            $tmp_folder = File_System::get_full_path_tmp_watermark_folder();
+
+            if ( ! $wp_filesystem->exists( $tmp_folder ) ) {
+                File_System::create_dir( $tmp_folder );
+            }
+
+            // and finally download file. If no path is set, it will be downloaded on current folder
+            $main_task->download( $tmp_folder );
+
+            $watermarked_file = $tmp_folder . basename( $attachment_file );
+
+            if ( ! $wp_filesystem->exists( $watermarked_file ) ) {
+                throw new Exception( __( 'The watermarked file was not found.', 'ilove-pdf' ) );
+            }
+
+            $wp_filesystem->move( $watermarked_file, $attachment_file, true );
+
+            Media_Handler::regenerate_attachment_data( $post_id );
+
+            $this->set_status_ready( $post_id, $this->db_key_status );
+
+            return array(
+                'error'   => false,
+                'message' => __( 'The watermark was applied correctly.', 'ilove-pdf' ),
+                'data'    => array(),
+            );
+
+        } catch ( Exception $e ) {
+            $this->set_status_error( $post_id, $this->db_key_status );
+            throw new Exception( $e->getMessage() );
+        }
+    }
+
+    /**
+     * Check if a file is already watermarked.
+     *
+     * This method checks the post meta for the watermark status of a file.
+     *
+     * @param int $file_id The ID of the file to check.
+     * @return bool True if the file is watermarked, false otherwise.
+     * @since 3.0.0
+     */
+    public static function is_file_watermarked( $file_id ) {
+
+        $status = get_post_meta( $file_id, self::get_db_key_status(), true );
+
+        if ( empty( $status ) ) {
+            return false;
+        }
+
+        if ( $status === 'error' ) {
+            return false;
+        }
+
+        if ( $status === 'in_progress' ) {
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * Migrate the legacy watermark status to the new system.
+     *
+     * This method checks for attachments with the legacy watermark status and updates them to the new status.
+     *
+     * @since 3.0.0
+     */
+    public static function migrate_watermark_status() {
+        $instance = new self();
+        $args     = array(
+            'post_type'      => 'attachment',
+            'post_mime_type' => 'application/pdf',
+            'posts_per_page' => -1,
+            'fields'         => 'ids',
+        );
+
+        $attachments = get_posts( $args );
+
+        foreach ( $attachments as $attachment_id ) {
+            $status = get_post_meta( $attachment_id, $instance->legacy_db_key_status, true );
+
+            if ( ! empty( $status ) && (int) $status === 1 ) {
+                $instance->set_status_in_process( $attachment_id, self::get_db_key_status() );
+                delete_post_meta( $attachment_id, $instance->legacy_db_key_status );
+            }
+        }
+    }
 }

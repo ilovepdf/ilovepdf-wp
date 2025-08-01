@@ -34,6 +34,14 @@
 	justify-content: flex-end;
 }
 
+.ilovepdf-base__layout-justify--center {
+	justify-content: center;
+}
+
+.ilovepdf-base__layout-justify--between {
+	justify-content: space-between;
+}
+
 .ilovepdf-base__layout-gap--small {
 	gap: 10px;
 }

@@ -4,6 +4,7 @@
 @use 'components/spacers' as *;
 @use 'components/modals' as *;
 @use 'components/tooltips' as *;
+@use 'components/badges' as *;
 
 body {
 	.ilovepdf-base {
@@ -57,33 +58,9 @@ body {
 			padding: 0;
 		}
 
-		.ipdf-btn--primary {
-			@extend %button-primary;
-		}
+		@include all-buttons;
 
-		.ipdf-btn--inline-primary {
-			@extend %button-inline-primary;
-		}
-
-		.ipdf-btn--outline-primary {
-			@extend %button-outline-primary;
-		}
-
-		.ipdf-btn--secondary {
-			@extend %button-secondary;
-		}
-
-		.ipdf-btn--inline-secondary {
-			@extend %button-inline-secondary;
-		}
-
-		.ipdf-btn--upload-file {
-			@extend %button-upload;
-		}
-
-		.ipdf-restore-dialog {
-			@include popup-dialog;
-		}
+		@include popup-dialog;
 
 		.ipdf-divisor {
 			@extend %solid-divisor;
@@ -97,9 +74,7 @@ body {
 			margin: 0 0 20px 0;
 		}
 
-		.ipdf-tooltip {
-			@include tooltip;
-		}
+		@include tooltip;
 
 		// The switch
 		.ipdf-input-group-switch {
@@ -178,12 +153,15 @@ body {
 			@include input-submit;
 		}
 
-		.ipdf-select {
+		.ipdf-select,
+		select {
 			@include select-base;
 		}
 
 		.ipdf-input-range {
 			@include input-range;
 		}
+
+		@include badge;
 	}
 }
