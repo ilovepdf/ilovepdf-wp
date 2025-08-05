@@ -1,4 +1,5 @@
 import './common/backup';
+import { restoreFile } from './common/backup/restoreFile';
 import { compressFile } from './compress';
 import { applyWatermark } from './watermark';
 import {
@@ -30,6 +31,12 @@ window.addEventListener('load', function () {
 			const statusContainer = getStatusContainer(btnTrigger);
 
 			applyWatermark(statusContainer, btnTrigger);
+		}
+
+		if (event.target.classList.contains('ipdf-btn--media-action-restore')) {
+			event.preventDefault();
+
+			restoreFile(btnTrigger);
 		}
 	});
 });
