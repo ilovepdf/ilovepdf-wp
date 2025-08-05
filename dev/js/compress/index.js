@@ -1,79 +1,69 @@
-import { getStatusContainer, getFormData } from '../common/DOMElements';
 import { showAdminNotice } from '../components';
+import { getFormData } from '../common/DOMElements';
 
-document.addEventListener('DOMContentLoaded', function () {
-	const bodyContent = document.querySelector('#wpbody-content');
+/**
+ * Compress a file by sending a request to the server.
+ * @param {HTMLElement} container - The container element where the status will be displayed.
+ * @param {HTMLElement} btnTrigger - The button element that triggered the compression action.
+ * @since 3.0.0
+ */
+export const compressFile = (container, btnTrigger) => {
+	const statusNotCompressed = container.querySelector('.ipdf-item-status-not-compressed');
+	const statusSuccess = container.querySelector('.ipdf-item-status-compressed');
+	const statusFail = container.querySelector('.ipdf-item-status-fail');
+	statusFail.classList.remove('ipdf-item-status-active');
 
-	bodyContent?.addEventListener('click', function (event) {
-		if (event.target.classList.contains('ipdf-btn--media-action-compress')) {
-			event.preventDefault();
+	// TODO: revisar que la respuesta tenga un true en caso de que el archivo tenga un backup y se pueda restaurar.
+	//const btnRestoreFile = container.querySelector('.ipdf-btn--media-action-restore');
 
-			const btnTrigger = event.target;
-			btnTrigger.classList.add('ipdf-btn--media-action-trigger');
+	const loading = container.querySelector('.ipdf-item-status-compressing');
+	loading?.classList.add('ipdf-item-status-active');
 
-			const statusContainer = getStatusContainer(btnTrigger);
+	const formData = getFormData(btnTrigger);
 
-			const statusNotCompressed = statusContainer.querySelector(
-				'.ipdf-item-status-not-compressed'
-			);
-			const statusSuccess = statusContainer.querySelector('.ipdf-item-status-compressed');
-			const statusFail = statusContainer.querySelector('.ipdf-item-status-fail');
-			statusFail.classList.remove('ipdf-item-status-active');
+	const options = {
+		method: 'POST',
+		body: formData
+	};
 
-			// TODO: revisar que la respuesta tenga un true en caso de que el archivo tenga un backup y se pueda restaurar.
-			//const btnRestoreFile = statusContainer.querySelector('.ipdf-btn--media-action-restore');
+	fetch(ajaxurl, options)
+		.then((response) => response.json())
+		.then((response) => {
+			const { success, data } = response;
 
-			const loading = statusContainer.querySelector('.ipdf-item-status-compressing');
-			loading?.classList.add('ipdf-item-status-active');
+			loading?.classList.remove('ipdf-item-status-active');
 
-			const formData = getFormData(btnTrigger);
+			if (!success && typeof data === 'string') {
+				statusFail?.classList.add('ipdf-item-status-active');
+				btnTrigger.classList.remove('ipdf-btn--media-action-trigger');
+				showAdminNotice(data, 'error');
+			}
 
-			const options = {
-				method: 'POST',
-				body: formData
-			};
+			if (success) {
+				statusSuccess?.classList.add('ipdf-item-status-active');
+				statusNotCompressed?.classList.remove('ipdf-item-status-active');
 
-			fetch(ajaxurl, options)
-				.then((response) => response.json())
-				.then((response) => {
-					const { success, data } = response;
+				switch (typeof data) {
+					case 'string':
+						showAdminNotice(data);
+						break;
 
-					loading?.classList.remove('ipdf-item-status-active');
-
-					if (!success && typeof data === 'string') {
-						statusFail?.classList.add('ipdf-item-status-active');
-						btnTrigger.classList.remove('ipdf-btn--media-action-trigger');
-						showAdminNotice(data, 'error');
-					}
-
-					if (success) {
-						statusSuccess?.classList.add('ipdf-item-status-active');
-						statusNotCompressed?.classList.remove('ipdf-item-status-active');
-
-						switch (typeof data) {
-							case 'string':
-								showAdminNotice(data);
-								break;
-
-							case 'object':
-								if (data.data.percentage) {
-									statusSuccess.querySelector('span').textContent =
-										data.data.percentage;
-								}
-
-								showAdminNotice(data.message);
-								break;
-
-							default:
-								showAdminNotice('File compressed successfully.');
-								break;
+					case 'object':
+						if (data.data.percentage) {
+							statusSuccess.querySelector('span').textContent = data.data.percentage;
 						}
-					}
-				})
-				.catch((error) => {
-					showAdminNotice(error.data, 'error');
-					console.error(error);
-				});
-		}
-	});
-});
+
+						showAdminNotice(data.message);
+						break;
+
+					default:
+						showAdminNotice('File compressed successfully.');
+						break;
+				}
+			}
+		})
+		.catch((error) => {
+			showAdminNotice(error.data, 'error');
+			console.error(error);
+		});
+};

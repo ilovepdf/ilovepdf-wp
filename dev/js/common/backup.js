@@ -4,7 +4,6 @@ import { getStatusContainer } from './DOMElements';
 
 const btnRestoreAll = document.getElementById('ilovepdf_restore_all');
 const btnClearBackup = document.getElementById('ilovepdf_clear_backup');
-const bodyContent = document.querySelector('#wpbody-content');
 
 const removeAllStatus = (btnTrigger) => {
 	const statusContainer = getStatusContainer(btnTrigger);
@@ -152,7 +151,7 @@ btnClearBackup?.addEventListener('click', function (e) {
 	});
 });
 
-bodyContent?.addEventListener('click', function (event) {
+document.addEventListener('click', function (event) {
 	if (event.target.classList.contains('ipdf-btn--media-action-restore')) {
 		event.preventDefault();
 

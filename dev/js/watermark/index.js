@@ -1,77 +1,67 @@
 import './settings';
-import { getStatusContainer, getFormData } from '../common/DOMElements';
+import { getFormData } from '../common/DOMElements';
 import { showAdminNotice } from '../components';
 
-document.addEventListener('DOMContentLoaded', function () {
-	const bodyContent = document.querySelector('#wpbody-content');
+/**
+ * Apply a watermark to a file by sending a request to the server.
+ *
+ * @param {HTMLElement} container - The container element where the status will be displayed.
+ * @param {HTMLElement} btnTrigger - The button element that triggered the watermark action.
+ * @since 3.0.0
+ */
+export const applyWatermark = (container, btnTrigger) => {
+	const statusWatermarkNotApplied = container.querySelector('.ipdf-item-status-not-watermarked');
+	const statusSuccess = container.querySelector('.ipdf-item-status-watermark-applied');
+	const statusFail = container.querySelector('.ipdf-item-status-fail');
+	statusFail.classList.remove('ipdf-item-status-active');
 
-	bodyContent?.addEventListener('click', function (event) {
-		if (event.target.classList.contains('ipdf-btn--media-action-watermark')) {
-			event.preventDefault();
+	// TODO: revisar que la respuesta tenga un true en caso de que el archivo tenga un backup y se pueda restaurar.
+	//const btnRestoreFile = container.querySelector('.ipdf-btn--media-action-restore');
 
-			const btnTrigger = event.target;
-			btnTrigger.classList.add('ipdf-btn--media-action-trigger');
+	const loading = container.querySelector('.ipdf-item-status-watermark-processing');
+	loading?.classList.add('ipdf-item-status-active');
 
-			const statusContainer = getStatusContainer(btnTrigger);
+	const formData = getFormData(btnTrigger);
 
-			const statusWatermarkNotApplied = statusContainer.querySelector(
-				'.ipdf-item-status-not-watermarked'
-			);
-			const statusSuccess = statusContainer.querySelector(
-				'.ipdf-item-status-watermark-applied'
-			);
-			const statusFail = statusContainer.querySelector('.ipdf-item-status-fail');
-			statusFail.classList.remove('ipdf-item-status-active');
+	const options = {
+		method: 'POST',
+		body: formData
+	};
 
-			// TODO: revisar que la respuesta tenga un true en caso de que el archivo tenga un backup y se pueda restaurar.
-			//const btnRestoreFile = statusContainer.querySelector('.ipdf-btn--media-action-restore');
+	fetch(ajaxurl, options)
+		.then((response) => response.json())
+		.then((response) => {
+			const { success, data } = response;
 
-			const loading = statusContainer.querySelector('.ipdf-item-status-watermark-processing');
-			loading?.classList.add('ipdf-item-status-active');
+			loading?.classList.remove('ipdf-item-status-active');
 
-			const formData = getFormData(btnTrigger);
+			if (!success && typeof data === 'string') {
+				statusFail?.classList.add('ipdf-item-status-active');
+				btnTrigger.classList.remove('ipdf-btn--media-action-trigger');
+				showAdminNotice(data, 'error');
+			}
 
-			const options = {
-				method: 'POST',
-				body: formData
-			};
+			if (success) {
+				statusSuccess?.classList.add('ipdf-item-status-active');
+				statusWatermarkNotApplied?.classList.remove('ipdf-item-status-active');
 
-			fetch(ajaxurl, options)
-				.then((response) => response.json())
-				.then((response) => {
-					const { success, data } = response;
+				switch (typeof data) {
+					case 'string':
+						showAdminNotice(data);
+						break;
 
-					loading?.classList.remove('ipdf-item-status-active');
+					case 'object':
+						showAdminNotice(data.message);
+						break;
 
-					if (!success && typeof data === 'string') {
-						statusFail?.classList.add('ipdf-item-status-active');
-						btnTrigger.classList.remove('ipdf-btn--media-action-trigger');
-						showAdminNotice(data, 'error');
-					}
-
-					if (success) {
-						statusSuccess?.classList.add('ipdf-item-status-active');
-						statusWatermarkNotApplied?.classList.remove('ipdf-item-status-active');
-
-						switch (typeof data) {
-							case 'string':
-								showAdminNotice(data);
-								break;
-
-							case 'object':
-								showAdminNotice(data.message);
-								break;
-
-							default:
-								showAdminNotice('The watermark was applied correctly.');
-								break;
-						}
-					}
-				})
-				.catch((error) => {
-					showAdminNotice(error.data, 'error');
-					console.error(error);
-				});
-		}
-	});
-});
+					default:
+						showAdminNotice('The watermark was applied correctly.');
+						break;
+				}
+			}
+		})
+		.catch((error) => {
+			showAdminNotice(error.data, 'error');
+			console.error(error);
+		});
+};

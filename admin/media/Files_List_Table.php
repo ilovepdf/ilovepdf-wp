@@ -3,6 +3,7 @@
 namespace Ilove_Pdf_WP\Media;
 
 use WP_List_Table;
+use Ilove_Pdf_WP\Media\Views\Status_Renderer;
 use Ilove_Pdf_WP\Tools\Compress\Tool_Compress;
 use Ilove_Pdf_WP\Tools\Compress\Views\Actions as Compress_Actions;
 use Ilove_Pdf_WP\Tools\Watermark\Views\Actions as Watermark_Actions;
@@ -16,6 +17,33 @@ use Ilove_Pdf_WP\Tools\Watermark\Views\Actions as Watermark_Actions;
 class Files_List_Table extends WP_List_Table {
     use Compress_Actions;
     use Watermark_Actions;
+
+    /**
+     * Holds the actions for the IPDF plugin.
+     *
+     * This array is used to define the bulk actions available in the media library for PDF files.
+     *
+     * @var array
+     * @since 3.0.0
+     */
+    private $ipdf_actions = array();
+
+    /**
+     * Class constructor.
+     *
+     * Initializes the list table and sets up the necessary hooks.
+     *
+     * @since 3.0.0
+     */
+    public function __construct() {
+        parent::__construct(
+            array(
+                'singular' => 'file', // Singular name of the file.
+                'plural'   => 'files', // Plural name of the files.
+                'ajax'     => true, // No AJAX support.
+            )
+        );
+    }
 
     /**
      * Prepare the items for the table to process.
@@ -37,6 +65,7 @@ class Files_List_Table extends WP_List_Table {
         $this->_column_headers = array( $columns, $hidden, $sortable );
 
         $this->get_bulk_actions();
+        $this->process_bulk_action();
 
         $order = 'ORDER BY post_date DESC';
 
@@ -179,11 +208,11 @@ class Files_List_Table extends WP_List_Table {
                 return esc_html( date_i18n( get_option( 'date_format' ), strtotime( $item['post_date'] ) ) );
 
             case 'status':
-                return $this->render_status( $item['ID'] );
+                return Status_Renderer::create( $item['ID'], true );
 
             case 'tools_action':
                 return sprintf(
-                    '<nav class="ilovepdf-base__layout-flex ilovepdf-base__layout-items--center ilovepdf-base__layout-gap--small">
+                    '<nav class="ilovepdf-media-library-actions-container ilovepdf-base__layout-flex ilovepdf-base__layout-items--center ilovepdf-base__layout-gap--small">
                         %1$s
                         %2$s
                         %3$s
@@ -207,41 +236,102 @@ class Files_List_Table extends WP_List_Table {
      * @see WP_List_Table::get_bulk_actions()
      */
     protected function get_bulk_actions() {
-        return array(
-            'delete' => _x( 'Delete', 'File List Table: button action', 'ilove-pdf' ),
+        $this->ipdf_actions = array(
+            'ilovepdf_compress'  => _x( 'Compress PDF', 'Bulk action button', 'ilove-pdf' ),
+            'ilovepdf_watermark' => _x( 'Apply Watermark', 'Bulk action button', 'ilove-pdf' ),
         );
+
+        return $this->ipdf_actions;
     }
 
     /**
-     * Render the status for the file.
+     * Process the bulk action for the table.
      *
-     * @param int $post_id The ID of the post.
-     * @return string HTML for the status.
+     * This method is called when a bulk action is performed on the table.
+     * It verifies the nonce, checks if any files are selected, and processes the compression action.
+     *
      * @since 3.0.0
+     * @return void
      */
-    private function render_status( $post_id ) {
-        return sprintf(
-            '<div class="ipdf-status %8$s">
-                %1$s
-                %2$s
-                %3$s
-                %4$s
-                %5$s
-                %6$s
-                %7$s
-                %9$s
-                %10$s
-            </div>',
-            $this->status_not_compressed( $post_id ),
-            $this->status_compressing(),
-            $this->status_compressed( $post_id ),
-            $this->status_not_watermarked( $post_id ),
-            $this->status_watermark_processing(),
-            $this->status_watermark_applied( $post_id ),
-            $this->status_fail(),
-            Tool_Compress::is_file_compressed( $post_id ) ? 'ipdf-status-process' : '',
-            $this->status_restore_processing(),
-            $this->status_restored(),
+    public function process_bulk_action() {
+
+        $action = $this->current_action();
+
+        if ( ! $action ) {
+            return;
+        }
+
+        if ( ! in_array( $action, array_keys( $this->ipdf_actions ), true ) ) {
+            return;
+        }
+
+        if ( isset( $_POST['_wpnonce'] ) && ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_wpnonce'] ) ), 'bulk-' . $this->_args['plural'] ) ) {
+
+            set_transient(
+                'ilovepdf_bulk',
+                array(
+                    'errors' => array(
+                        array(
+                            'message' => __( 'Nonce verification failed.', 'ilove-pdf' ),
+                        ),
+                    ),
+                ),
+                600
+            );
+
+            wp_safe_redirect(
+                add_query_arg(
+                    array(
+                        'page' => 'ipdf-media-optimization',
+                        admin_url( 'upload.php' ),
+                    )
+                )
+            );
+            exit();
+        }
+
+        $tools_message = array(
+            'ilovepdf_compress'  => array(
+                'no_files_selected' => __( 'No files selected for compression.', 'ilove-pdf' ),
+            ),
+            'ilovepdf_watermark' => array(
+                'no_files_selected' => __( 'No files selected for watermarking.', 'ilove-pdf' ),
+            ),
         );
+
+        $post_ids = isset( $_POST['file'] ) ? array_map( 'absint', (array) $_POST['file'] ) : array();
+
+        if ( empty( $post_ids ) ) {
+            set_transient(
+                'ilovepdf_bulk',
+                array(
+                    'errors' => array(
+                        array(
+                            'message' => $tools_message[ $action ]['no_files_selected'],
+                        ),
+                    ),
+                ),
+                600
+            );
+
+            wp_safe_redirect(
+                add_query_arg(
+                    array(
+                        'page' => 'ipdf-media-optimization',
+                        admin_url( 'upload.php' ),
+                    )
+                )
+            );
+            exit();
+        }
+
+        $sendback = add_query_arg(
+            array(
+                'page' => 'ipdf-media-optimization',
+            ),
+            admin_url( 'upload.php' ),
+        );
+
+		apply_filters( 'handle_bulk_actions-upload', $sendback, $action, $post_ids );
     }
 }

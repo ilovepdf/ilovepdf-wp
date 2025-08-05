@@ -1,53 +1,35 @@
-import { pulseAnimation } from './utils';
 import './common/backup';
-import './compress';
-import './watermark';
+import { compressFile } from './compress';
+import { applyWatermark } from './watermark';
+import {
+	addAnimationToBtnSaveChanges,
+	getStatusContainer,
+} from './common/DOMElements';
+
 import '../scss/app.scss';
 
-const btnsSaveChanges = document.querySelectorAll(
-	'.ilovepdf-settings__main .ilovepdf-settings__main__section form .ipdf-input-submit'
-);
+window.addEventListener('load', function () {
+	addAnimationToBtnSaveChanges();
 
-document
-	.querySelector('.ilovepdf-settings__main .ilovepdf-settings__main__section form')
-	?.addEventListener('change', function () {
-		btnsSaveChanges.forEach((btn) => {
-			pulseAnimation(btn);
-		});
-	});
+	document.addEventListener('click', function (event) {
+		const btnTrigger = event.target;
 
-(function ($) {
-	'use strict';
+		if (btnTrigger.classList.contains('ipdf-btn--media-action-compress')) {
+			event.preventDefault();
 
-	// trigger on File Single Edit page
-	$('.ilovepdf--meta-box-container .link-restore, .compat-field-iLovePDF-tools .link-restore').on(
-		'click',
-		function (e) {
-			var elem = $(this);
-			const hrefUrl = elem[0].href;
+			btnTrigger.classList.add('ipdf-btn--media-action-trigger');
+			const statusContainer = getStatusContainer(btnTrigger);
 
-			e.preventDefault();
-
-			$('.ilovepdf--meta-box-container, .compat-field-iLovePDF-tools .field').append(
-				dialogComponent
-			);
-
-			const dialogElem = document.getElementById('ipdf-restore-dialog');
-			const btnConfirmDialog = document.getElementById('ilovepdf-dialog-aceptted');
-			const btnCloseDialog = document.getElementById('ilovepdf-dialog-close');
-
-			dialogElem.showModal();
-
-			btnConfirmDialog.addEventListener('click', (e) => {
-				e.preventDefault();
-				dialogElem.close();
-				location.href = hrefUrl;
-			});
-
-			btnCloseDialog.addEventListener('click', (e) => {
-				e.preventDefault();
-				dialogElem.close();
-			});
+			compressFile(statusContainer, btnTrigger);
 		}
-	);
-})(jQuery);
+
+		if (btnTrigger.classList.contains('ipdf-btn--media-action-watermark')) {
+			event.preventDefault();
+
+			btnTrigger.classList.add('ipdf-btn--media-action-trigger');
+			const statusContainer = getStatusContainer(btnTrigger);
+
+			applyWatermark(statusContainer, btnTrigger);
+		}
+	});
+});
