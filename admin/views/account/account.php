@@ -22,9 +22,9 @@ use Ilove_Pdf_WP\Account\User_Account;
                 require_once 'components/banner-logout.php';
 
                 if ( isset( $_GET['section'] ) && 'register' === $_GET['section'] ) {
-                    require_once 'register.php';
+                    require_once 'form-register.php';
                 } else {
-                    require_once 'login.php';
+                    require_once 'form-login.php';
                 }
 
                 ?>

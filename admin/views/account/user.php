@@ -33,6 +33,6 @@ use Ilove_Pdf_WP\Account\User_Account;
     <hr class="ipdf-divisor" />
 
     <div class="ilovepdf__account-project-wrapper">
-        <?php require_once 'projects.php'; ?>
+        <?php require_once 'form-projects.php'; ?>
     </div>
 </article>
