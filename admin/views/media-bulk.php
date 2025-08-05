@@ -30,6 +30,8 @@ $ilove_pdf_list_table->prepare_items();
     </section>
 
     <section class="ilovepdf-media__table">
-        <?php $ilove_pdf_list_table->display(); ?>
+        <form id="posts-filter" method="post">
+            <?php $ilove_pdf_list_table->display(); ?>
+        </form>
     </section>
 </main>

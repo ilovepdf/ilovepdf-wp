@@ -64,6 +64,8 @@ class Tool_Compress {
      */
     public function __construct() {
         add_action( 'wp_ajax_ilovepdf_action_compress', array( $this, 'handler_compress_action' ) );
+        add_filter( 'bulk_actions-upload', array( $this, 'add_bulk_action' ) );
+        add_filter( 'handle_bulk_actions-upload', array( $this, 'handle_bulk_action' ), 10, 3 );
     }
 
     /**
@@ -156,7 +158,7 @@ class Tool_Compress {
                 throw new Exception( _x( 'The file is not a PDF.', 'Compress PDF: Error message.', 'ilove-pdf' ) );
             }
 
-            /** @var \WP_Filesystem_Base $wp_filesystem */
+            /** File System. @var \WP_Filesystem_Base $wp_filesystem */
             global $wp_filesystem;
 
             if ( ! WP_Filesystem() ) {
@@ -196,7 +198,7 @@ class Tool_Compress {
                 File_System::create_dir( $tmp_folder );
             }
 
-            // and finally download file. If no path is set, it will be downloaded on current folder
+            // and finally download file. If no path is set, it will be downloaded on current folder.
             $main_task->download( $tmp_folder );
 
             $compressed_file = $tmp_folder . basename( $attachment_file );
@@ -285,10 +287,10 @@ class Tool_Compress {
         }
 
         $percentage = ( $original - $compressed ) / $original * 100;
-        $percentage = round( ( $percentage > 100 ) ? 100 : $percentage );
+        $percentage = ( $percentage > 100 ) ? 100 : number_format( $percentage, 2 );
 
         return sprintf(
-            _x( 'Compressed (-%d%%)', 'Compress PDF: Compressed percentage.', 'ilove-pdf' ),
+            _x( 'Compressed (-%1$s%%)', 'Compress PDF: Compressed percentage.', 'ilove-pdf' ),
             $percentage,
         );
     }
@@ -348,5 +350,70 @@ class Tool_Compress {
                 delete_post_meta( $file_id, $instance->legacy_db_key_compressed_size );
             }
         }
+    }
+
+    /**
+     * Add a bulk action for compressing PDF files.
+     *
+     * This method adds a custom bulk action to the media library for compressing selected PDF files.
+     *
+     * @since 3.0.0
+     * @param array $actions Existing bulk actions.
+     * @return array Modified bulk actions with the new 'ilovepdf_compress' action.
+     */
+    public function add_bulk_action( $actions ) {
+        $actions['ilovepdf_compress'] = _x( 'Compress PDF', 'Bulk action button', 'ilove-pdf' );
+        return $actions;
+    }
+
+    /**
+     * Handle the bulk action for compressing PDF files.
+     *
+     * This method processes the selected files for compression and redirects to the media library.
+     * It sets a transient with success and error messages for the bulk action.
+     *
+     * @since 3.0.0
+     * @param string $redirect_to The URL to redirect to after processing.
+     * @param string $doaction The action being performed.
+     * @param array  $post_ids The IDs of the selected posts/files.
+     * @return string Redirect URL.
+     */
+    public function handle_bulk_action( $redirect_to, $doaction, $post_ids ) {
+
+        if ( 'ilovepdf_compress' !== $doaction ) {
+            return $redirect_to;
+        }
+
+        if ( empty( $post_ids ) ) {
+            return $redirect_to;
+        }
+
+		$success_items = array();
+		$error_items   = array();
+
+		foreach ( $post_ids as $id ) {
+			$process = $this->compress_process( $id );
+
+			if ( ! empty( $process['error'] ) ) {
+				$error_items[] = array(
+					'id'      => $id,
+					'message' => $process['message'],
+				);
+			} else {
+				$success_items[] = $process['message'];
+			}
+		}
+
+		set_transient(
+            'ilovepdf_bulk',
+            array(
+				'success' => $success_items,
+				'errors'  => $error_items,
+            ),
+            600
+        );
+
+        wp_safe_redirect( $redirect_to );
+        exit;
     }
 }

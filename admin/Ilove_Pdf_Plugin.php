@@ -3,6 +3,8 @@
 namespace Ilove_Pdf_WP;
 
 use Ilove_Pdf_WP\Account\User_Account;
+use Ilove_Pdf_WP\Helpers\Admin_Notice;
+use Ilove_Pdf_WP\Media\Edit_File_Page;
 use Ilove_Pdf_WP\Media\Library;
 use Ilove_Pdf_WP\Tools\Backup;
 use Ilove_Pdf_WP\Tools\General\Settings as General_Settings;
@@ -68,6 +70,8 @@ class Ilove_Pdf_Plugin {
 	 */
     public function admin_init() {
 
+		new Admin_Notice();
+
 		new Backup();
 		$user_account = new User_Account();
 		$user_account->init_hooks();
@@ -76,9 +80,10 @@ class Ilove_Pdf_Plugin {
 
 		new General_Settings();
 		new Compress_Settings();
+		new Watermark_Settings();
 		new Tool_Compress();
 		new Tool_Watermark();
-		new Watermark_Settings();
+		new Edit_File_Page();
 
         // Enqueue scripts for the admin area.
         add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_resources' ) );
