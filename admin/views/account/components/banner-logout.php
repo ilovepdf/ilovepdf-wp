@@ -1,8 +1,9 @@
 <?php
 /**
- * Component: Account banner.
+ * Component: Banner logout.
  *
- * @package Ilove_Pdf_WP\views\components
+ * @package Ilove_Pdf_WP\views\account\components
+ * @since 3.0.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) {

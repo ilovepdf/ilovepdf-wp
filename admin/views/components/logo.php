@@ -3,6 +3,7 @@
  * Component: Plugin logo
  *
  * @package Ilove_Pdf_WP\views\components
+ * @since 3.0.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) {

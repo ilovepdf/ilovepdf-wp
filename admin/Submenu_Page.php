@@ -148,7 +148,7 @@ class Submenu_Page {
 	 * @since 3.0.0
 	 */
 	public function render_media_page() {
-		require_once plugin_dir_path( __DIR__ ) . 'admin/views/media-bulk.php';
+		require_once plugin_dir_path( __DIR__ ) . 'admin/views/media/media-bulk.php';
 	}
 
     /**

@@ -2,7 +2,8 @@
 /**
  * View: General settings page
  *
- * @package Ilove_Pdf/views
+ * @package Ilove_Pdf\views\settings
+ * @since 3.0.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
