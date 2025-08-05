@@ -2,7 +2,7 @@
 
 namespace Ilove_Pdf_WP\Media;
 
-use Ilove_Pdf_WP\Tools\Compress\Tool_Compress;
+use Ilove_Pdf_WP\Media\Views\Status_Renderer;
 use Ilove_Pdf_WP\Tools\Compress\Views\Actions as Compress_Actions;
 use Ilove_Pdf_WP\Tools\Watermark\Views\Actions as Watermark_Actions;
 
@@ -64,7 +64,7 @@ class Library {
             }
 
             printf(
-                '<div class="ilovepdf-media-library-actions ilovepdf-base__layout-flex ilovepdf-base__layout-items--center ilovepdf-base__layout-gap--small">
+                '<div class="ilovepdf-media-library-actions-container ilovepdf-media-library-actions ilovepdf-base__layout-flex ilovepdf-base__layout-items--center ilovepdf-base__layout-gap--small">
                     %1$s
                     %2$s
                     %3$s
@@ -72,37 +72,8 @@ class Library {
                 $this->render_compress_action( $post_id ),
                 $this->render_watermark_action( $post_id ),
                 $this->render_restore_action( $post_id ),
-                $this->render_status( $post_id ),
+                Status_Renderer::create( $post_id ),
             );
         }
-    }
-
-    /**
-     * Render status for tool actions in the media library.
-     *
-     * @param int $post_id The ID of the media item.
-     * @return string HTML for the action button.
-     * @since 3.0.0
-     */
-    private function render_status( $post_id ) {
-        return sprintf(
-            '<div class="ipdf-status %6$s">
-                %1$s
-                %2$s
-                %3$s
-                %4$s
-                %5$s
-                %7$s
-                %8$s
-            </div>',
-            $this->status_compressing(),
-            $this->status_compressed( $post_id ),
-            $this->status_watermark_processing(),
-            $this->status_watermark_applied( $post_id ),
-            $this->status_fail(),
-            Tool_Compress::is_file_compressed( $post_id ) ? 'ipdf-status-process' : '',
-            $this->status_restore_processing(),
-            $this->status_restored(),
-        );
     }
 }

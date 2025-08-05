@@ -10,8 +10,12 @@
 		animation: fade-out 0.2s ease-out;
 
 		.ilovepdf-title-dialog {
+			display: block !important;
+			padding: 0 !important;
 			text-align: center;
-			font-size: 2.8em;
+			font-size: 2.6em !important;
+			margin: 0 0 15px 0 !important;
+			line-height: normal !important;
 			color: $primary_color;
 		}
 

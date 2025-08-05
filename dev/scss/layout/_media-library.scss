@@ -4,7 +4,8 @@
 @use '../components/badges' as *;
 @use '../components/modals' as *;
 
-.upload-php {
+.upload-php,
+.post-php {
 	@include all-buttons;
 	@include tooltip;
 	@include badge;
@@ -22,6 +23,80 @@
 		&.ipdf-status-process {
 			padding-top: 10px;
 			border-top: 1px dotted $secondary_color;
+		}
+	}
+
+	.compat-field-ilovepdf_tools {
+		overflow: visible;
+		display: flex;
+		width: 100%;
+
+		.label {
+			margin: 0;
+			padding: 0 4% 0 30px;
+			background-color: $white;
+			border-radius: 10px 0 0 10px;
+			float: none;
+			text-align: left;
+
+			span {
+				display: flex;
+				align-items: center;
+				padding: 0;
+				text-align: left;
+			}
+
+			.clear {
+				display: none;
+			}
+		}
+
+		.field {
+			margin: 0;
+			padding-right: 10px;
+			background-color: $white;
+			border-radius: 0 10px 10px 0;
+			float: none;
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			min-width: 100%;
+		}
+	}
+
+	&.post-php {
+		.compat-field-ilovepdf_tools {
+			.label {
+				display: flex;
+				align-items: center;
+				padding: 4% 14% 4% 30px;
+			}
+
+			.field {
+				padding: 4% 4% 4% 0;
+			}
+		}
+	}
+
+	@media (max-width: 1189px) {
+		&.upload-php {
+			.compat-field-ilovepdf_tools {
+				flex-wrap: wrap;
+
+				.label {
+					padding: 1% 0;
+					width: 100%;
+
+					span {
+						text-align: center;
+					}
+				}
+
+				.field {
+					padding: 1% 0;
+					align-items: center;
+				}
+			}
 		}
 	}
 }

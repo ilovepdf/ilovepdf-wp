@@ -46,6 +46,8 @@ class Tool_Watermark {
      */
     public function __construct() {
         add_action( 'wp_ajax_ilovepdf_action_watermark', array( $this, 'handler_action_watermark' ) );
+        add_filter( 'bulk_actions-upload', array( $this, 'add_bulk_action' ) );
+        add_filter( 'handle_bulk_actions-upload', array( $this, 'handle_bulk_action' ), 10, 3 );
     }
 
     /**
@@ -279,5 +281,69 @@ class Tool_Watermark {
                 delete_post_meta( $attachment_id, $instance->legacy_db_key_status );
             }
         }
+    }
+
+    /**
+     * Add a bulk action for applying watermarks to PDF files.
+     *
+     * This method adds a custom bulk action to the media library for applying watermarks to selected PDF files.
+     *
+     * @since 3.0.0
+     * @param array $actions Existing bulk actions.
+     * @return array Modified bulk actions with the new 'ilovepdf_watermark' action.
+     */
+    public function add_bulk_action( $actions ) {
+        $actions['ilovepdf_watermark'] = _x( 'Apply Watermark', 'Bulk action button', 'ilove-pdf' );
+        return $actions;
+    }
+
+    /**
+     * Handle the bulk action for applying watermarks to selected files.
+     *
+     * This method processes the selected files when the 'ilovepdf_watermark' action is triggered.
+     *
+     * @since 3.0.0
+     * @param string $redirect_to The URL to redirect to after processing.
+     * @param string $doaction The action being performed.
+     * @param array  $post_ids The IDs of the selected posts/files.
+     * @return string Redirect URL.
+     */
+    public function handle_bulk_action( $redirect_to, $doaction, $post_ids ) {
+
+        if ( 'ilovepdf_watermark' !== $doaction ) {
+            return $redirect_to;
+        }
+
+        if ( empty( $post_ids ) ) {
+            return $redirect_to;
+        }
+
+		$success_items = array();
+		$error_items   = array();
+
+		foreach ( $post_ids as $id ) {
+			$process = $this->watermark_process( $id );
+
+			if ( ! empty( $process['error'] ) ) {
+				$error_items[] = array(
+					'id'      => $id,
+					'message' => $process['message'],
+				);
+			} else {
+				$success_items[] = $process['message'];
+			}
+		}
+
+		set_transient(
+            'ilovepdf_bulk',
+            array(
+				'success' => $success_items,
+				'errors'  => $error_items,
+            ),
+            600
+        );
+
+        wp_safe_redirect( $redirect_to );
+        exit;
     }
 }
