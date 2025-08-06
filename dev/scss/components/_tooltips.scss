@@ -36,9 +36,11 @@
 		}
 
 		&.ipdf-btn--media-action {
-			border-bottom: none;
+			border: none;
+			padding: 0;
 			display: inline-flex;
 			box-shadow: none;
+			cursor: pointer;
 
 			svg {
 				pointer-events: none;
@@ -79,6 +81,14 @@
 				svg {
 					fill: $primary_color_700;
 					fill-opacity: 1;
+				}
+			}
+
+			&:disabled {
+				cursor: not-allowed;
+
+				svg {
+					fill-opacity: 0.4;
 				}
 			}
 		}
