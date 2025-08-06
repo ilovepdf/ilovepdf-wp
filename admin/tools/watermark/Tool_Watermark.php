@@ -110,14 +110,21 @@ class Tool_Watermark {
      * @since 3.0.0
      */
     public function watermark_process( $post_id ) {
-        $options = Watermark_Settings::get_settings();
+        $options   = Watermark_Settings::get_settings();
+        $file_name = basename( get_attached_file( $post_id ) );
 
         try {
 
             if ( $this->is_file_watermarked( $post_id ) ) {
+                $message = sprintf(
+                    /* translators: %1$s The file name */
+                    _x( 'The file %1$s already has a watermark applied.', 'Watermark PDF: Info message.', 'ilove-pdf' ),
+                    $file_name,
+                );
+
                 return array(
                     'error'   => false,
-                    'message' => __( 'This file already has a watermark applied.', 'ilove-pdf' ),
+                    'message' => $message,
                 );
             }
 
@@ -128,7 +135,13 @@ class Tool_Watermark {
             }
 
             if ( get_post_mime_type( $post_id ) !== 'application/pdf' ) {
-                throw new Exception( _x( 'The file is not a PDF.', 'Watermark PDF: Error message.', 'ilove-pdf' ) );
+                $message = sprintf(
+                    /* translators: %1$s The file name */
+                    _x( 'The file %1$s is not a PDF.', 'Watermark PDF: Error message.', 'ilove-pdf' ),
+                    $file_name,
+                );
+
+                throw new Exception( $message );
             }
 
             /** @var \WP_Filesystem_Base $wp_filesystem */
@@ -203,10 +216,16 @@ class Tool_Watermark {
             // and finally download file. If no path is set, it will be downloaded on current folder
             $main_task->download( $tmp_folder );
 
-            $watermarked_file = $tmp_folder . basename( $attachment_file );
+            $watermarked_file = $tmp_folder . $file_name;
 
             if ( ! $wp_filesystem->exists( $watermarked_file ) ) {
-                throw new Exception( __( 'The watermarked file was not found.', 'ilove-pdf' ) );
+                $message = sprintf(
+                    /* translators: %1$s The file name */
+                    _x( 'The %1$s file could not be found inside the temporary download folder.', 'Watermark PDF: Error message.', 'ilove-pdf' ),
+                    $file_name,
+                );
+
+                throw new Exception( $message );
             }
 
             $wp_filesystem->move( $watermarked_file, $attachment_file, true );
@@ -215,9 +234,15 @@ class Tool_Watermark {
 
             $this->set_status_ready( $post_id, $this->db_key_status );
 
+            $message = sprintf(
+                /* translators: %1$s The file name */
+                _x( 'The watermark was applied successfully to %1$s.', 'Watermark PDF: Success message.', 'ilove-pdf' ),
+                $file_name,
+            );
+
             return array(
                 'error'   => false,
-                'message' => __( 'The watermark was applied correctly.', 'ilove-pdf' ),
+                'message' => $message,
                 'data'    => array(),
             );
 
@@ -335,7 +360,7 @@ class Tool_Watermark {
 		}
 
 		set_transient(
-            'ilovepdf_bulk',
+            'ilovepdf_notices',
             array(
 				'success' => $success_items,
 				'errors'  => $error_items,

@@ -3,7 +3,6 @@
 namespace Ilove_Pdf_WP\Tools;
 
 use Exception;
-use WP_Error;
 use Ilove_Pdf_WP\Helpers\File_System;
 use Ilove_Pdf_WP\Helpers\DB_Handler;
 use Ilove_Pdf_WP\Helpers\Media_Handler;
@@ -312,10 +311,18 @@ class Backup {
             global $wp_filesystem;
 
             if ( ! WP_Filesystem() ) {
-                return new \WP_Error(
-                    'Unable Filesystem',
-                    esc_html__( 'Unable to connect to the filesystem', 'ilove-pdf' )
+                set_transient(
+                    'ilovepdf_notices',
+                    array(
+                        'errors' => array(
+                            array(
+                                'message' => esc_html__( 'Unable to connect to the filesystem', 'ilove-pdf' ),
+                            ),
+                        ),
+                    )
                 );
+
+                return;
             }
 
             $file_name     = basename( get_attached_file( $attachment_id ) );
@@ -429,16 +436,15 @@ class Backup {
 
         if ( ! WP_Filesystem() ) {
 
-            add_action(
-                'admin_notices',
-                function () {
-					$error = new WP_Error(
-                        'Unable Filesystem',
-                        esc_html__( 'Unable to connect to the filesystem', 'ilove-pdf' )
-					);
-
-					echo '<div class="notice notice-error is-dismissible"><p>' . esc_html( $error->get_error_message() ) . '</p></div>';
-				}
+            set_transient(
+                'ilovepdf_notices',
+                array(
+                    'errors' => array(
+                        array(
+                            'message' => esc_html__( 'Unable to connect to the filesystem', 'ilove-pdf' ),
+                        ),
+                    ),
+                )
             );
 
             return;

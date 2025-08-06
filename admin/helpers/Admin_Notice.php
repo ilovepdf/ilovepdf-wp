@@ -43,7 +43,7 @@ class Admin_Notice {
      * @since 3.0.0
      */
     public function show_notice_on_media_page() {
-        $bulk_notices = get_transient( 'ilovepdf_bulk' );
+        $bulk_notices = get_transient( 'ilovepdf_notices' );
 
         if ( $bulk_notices ) {
 
@@ -59,7 +59,7 @@ class Admin_Notice {
                 }
             }
 
-            delete_transient( 'ilovepdf_bulk' );
+            delete_transient( 'ilovepdf_notices' );
         }
     }
 }

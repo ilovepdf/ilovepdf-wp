@@ -268,7 +268,7 @@ class Files_List_Table extends WP_List_Table {
         if ( isset( $_POST['_wpnonce'] ) && ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_wpnonce'] ) ), 'bulk-' . $this->_args['plural'] ) ) {
 
             set_transient(
-                'ilovepdf_bulk',
+                'ilovepdf_notices',
                 array(
                     'errors' => array(
                         array(
@@ -303,7 +303,7 @@ class Files_List_Table extends WP_List_Table {
 
         if ( empty( $post_ids ) ) {
             set_transient(
-                'ilovepdf_bulk',
+                'ilovepdf_notices',
                 array(
                     'errors' => array(
                         array(

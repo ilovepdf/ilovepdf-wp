@@ -137,25 +137,38 @@ class Tool_Compress {
      */
 	public function compress_process( $post_id ) {
         // TODO: en la respuesta enviar un true en caso de que el archivo tenga un backup y se pueda restaurar.
-        $options = Compress_Settings::get_compress_settings();
+        $options   = Compress_Settings::get_compress_settings();
+        $file_name = basename( get_attached_file( $post_id ) );
 
         try {
 
             if ( $this->is_file_compressed( $post_id ) ) {
+                $message = sprintf(
+                    /* translators: %1$s The file name */
+                    _x( 'The file %1$s is already compressed.', 'Compress PDF: File already processed.', 'ilove-pdf' ),
+                    $file_name,
+                );
+
                 return array(
                     'error'   => false,
-                    'message' => __( 'The file is already compressed.', 'ilove-pdf' ),
+                    'message' => $message,
                 );
             }
 
             $this->set_status_in_process( $post_id, $this->db_key_status );
 
             if ( ! isset( $options[ Compress_Settings::get_field_compress_active() ] ) ) {
-                throw new Exception( _x( 'The compress tool is not activated.', 'Compress PDF: Error message.', 'ilove-pdf' ) );
+                throw new Exception( _x( 'The compress tool is not activated. Please check your settings.', 'Compress PDF: Error message.', 'ilove-pdf' ) );
             }
 
             if ( get_post_mime_type( $post_id ) !== 'application/pdf' ) {
-                throw new Exception( _x( 'The file is not a PDF.', 'Compress PDF: Error message.', 'ilove-pdf' ) );
+                $message = sprintf(
+                    /* translators: %1$s The file name */
+                    _x( 'The file %1$s is not a PDF.', 'Compress PDF: Error message.', 'ilove-pdf' ),
+                    $file_name,
+                );
+
+                throw new Exception( $message );
             }
 
             /** File System. @var \WP_Filesystem_Base $wp_filesystem */
@@ -201,10 +214,16 @@ class Tool_Compress {
             // and finally download file. If no path is set, it will be downloaded on current folder.
             $main_task->download( $tmp_folder );
 
-            $compressed_file = $tmp_folder . basename( $attachment_file );
+            $compressed_file = $tmp_folder . $file_name;
 
             if ( ! $wp_filesystem->exists( $compressed_file ) ) {
-                throw new Exception( __( 'The compressed file was not found.', 'ilove-pdf' ) );
+                $message = sprintf(
+                    /* translators: %1$s The file name */
+                    _x( 'The %1$s file could not be found inside the temporary download folder.', 'Compress PDF: Error message.', 'ilove-pdf' ),
+                    $file_name,
+                );
+
+                throw new Exception( $message );
             }
 
             $compressed_size = filesize( $compressed_file );
@@ -225,9 +244,15 @@ class Tool_Compress {
 
             $this->set_status_ready( $post_id, $this->db_key_status );
 
+            $message = sprintf(
+                /* translators: %1$s The file name */
+                _x( 'The file %1$s was compressed successfully.', 'Compress PDF: Success message.', 'ilove-pdf' ),
+                basename( $attachment_file )
+            );
+
             return array(
                 'error'   => false,
-                'message' => __( 'The file was compressed successfully.', 'ilove-pdf' ),
+                'message' => $message,
                 'data'    => array(
                     'percentage' => self::get_compressed_reabable_percentage( $original_size, $compressed_size ),
                 ),
@@ -405,7 +430,7 @@ class Tool_Compress {
 		}
 
 		set_transient(
-            'ilovepdf_bulk',
+            'ilovepdf_notices',
             array(
 				'success' => $success_items,
 				'errors'  => $error_items,
