@@ -48,6 +48,7 @@ class Tool_Watermark {
         add_action( 'wp_ajax_ilovepdf_action_watermark', array( $this, 'handler_action_watermark' ) );
         add_filter( 'bulk_actions-upload', array( $this, 'add_bulk_action' ) );
         add_filter( 'handle_bulk_actions-upload', array( $this, 'handle_bulk_action' ), 10, 3 );
+        add_action( 'add_attachment', array( $this, 'handle_auto_watermark' ) );
     }
 
     /**
@@ -370,5 +371,59 @@ class Tool_Watermark {
 
         wp_safe_redirect( $redirect_to );
         exit;
+    }
+
+    /**
+     * Handle automatic watermarking when a new attachment is added.
+     *
+     * This method checks the settings and user account status, then processes the watermarking.
+     * It sets a transient with success or error messages for the watermark process.
+     *
+     * @since 3.0.0
+     * @param int $post_id The ID of the newly added attachment.
+     */
+    public function handle_auto_watermark( $post_id ) {
+        $options = Watermark_Settings::get_settings();
+
+        if ( ! User_Account::is_user_logged_in() ) {
+            return;
+        }
+
+        if ( ! isset( $options[ Watermark_Settings::get_field_watermark_active() ] ) ) {
+            return;
+        }
+
+        if ( ! isset( $options[ Watermark_Settings::get_field_auto_watermark() ] ) ) {
+            return;
+        }
+
+        if ( get_post_mime_type( $post_id ) !== 'application/pdf' ) {
+            return;
+        }
+
+        try {
+            $process = $this->watermark_process( $post_id );
+
+            set_transient(
+                'ilovepdf_notices',
+                array(
+                    'success' => array( $process['message'] ),
+                ),
+                600
+            );
+        } catch ( Exception $e ) {
+            set_transient(
+                'ilovepdf_notices',
+                array(
+                    'errors' => array(
+                        array(
+                            'id'      => $post_id,
+                            'message' => $e->getMessage(),
+                        ),
+                    ),
+                ),
+                600
+            );
+        }
     }
 }

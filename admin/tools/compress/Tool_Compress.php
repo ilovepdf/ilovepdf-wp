@@ -66,6 +66,7 @@ class Tool_Compress {
         add_action( 'wp_ajax_ilovepdf_action_compress', array( $this, 'handler_compress_action' ) );
         add_filter( 'bulk_actions-upload', array( $this, 'add_bulk_action' ) );
         add_filter( 'handle_bulk_actions-upload', array( $this, 'handle_bulk_action' ), 10, 3 );
+        add_action( 'add_attachment', array( $this, 'handle_auto_compress' ) );
     }
 
     /**
@@ -440,5 +441,58 @@ class Tool_Compress {
 
         wp_safe_redirect( $redirect_to );
         exit;
+    }
+
+    /**
+     * Handle automatic compression when a new attachment is added.
+     *
+     * This method checks the settings and user account status, then processes the compression.
+     * It sets a transient with success or error messages for the compression process.
+     *
+     * @since 3.0.0
+     * @param int $post_id The ID of the newly added attachment.
+     */
+    public function handle_auto_compress( $post_id ) {
+        $options = Compress_Settings::get_compress_settings();
+
+        if ( ! User_Account::is_user_logged_in() ) {
+            return;
+        }
+
+        if ( ! isset( $options[ Compress_Settings::get_field_compress_active() ] ) ) {
+            return;
+        }
+
+        if ( ! isset( $options[ Compress_Settings::get_field_auto_compress() ] ) ) {
+            return;
+        }
+
+        if ( get_post_mime_type( $post_id ) !== 'application/pdf' ) {
+            return;
+        }
+
+        try {
+			$process = $this->compress_process( $post_id );
+			set_transient(
+                'ilovepdf_notices',
+                array(
+					'success' => array( $process['message'] ),
+                ),
+                600
+			);
+        } catch ( Exception $e ) {
+            set_transient(
+                'ilovepdf_notices',
+                array(
+                    'errors' => array(
+                        array(
+                            'id'      => $post_id,
+                            'message' => $e->getMessage(),
+                        ),
+                    ),
+                ),
+                600
+            );
+        }
     }
 }
