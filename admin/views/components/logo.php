@@ -3,13 +3,14 @@
  * Component: Plugin logo
  *
  * @package Ilove_Pdf_WP\views\components
+ * @since 3.0.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-use Ilove_Pdf_WP\File_System;
+use Ilove_Pdf_WP\Helpers\File_System;
 
 ?>
 <figure class="ipdf-logo">

@@ -4,7 +4,7 @@ namespace Ilove_Pdf_WP\Tools;
 
 use Exception;
 use WP_Error;
-use Ilove_Pdf_WP\File_System;
+use Ilove_Pdf_WP\Helpers\File_System;
 use Ilove_Pdf_WP\Helpers\DB_Handler;
 use Ilove_Pdf_WP\Helpers\Media_Handler;
 use Ilove_Pdf_WP\Tools\General\Settings as General_Settings;

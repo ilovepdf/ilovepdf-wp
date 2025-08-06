@@ -4,7 +4,7 @@ namespace Ilove_Pdf_WP\Tools\Compress;
 
 use Exception;
 use Ilovepdf\CompressTask;
-use Ilove_Pdf_WP\File_System;
+use Ilove_Pdf_WP\Helpers\File_System;
 use Ilove_Pdf_WP\Tools\Backup;
 use Ilove_Pdf_WP\Account\User_Account;
 use Ilove_Pdf_WP\Tools\Base\Status_Process;

@@ -6,7 +6,7 @@ use Exception;
 use Ilovepdf\WatermarkTask;
 use Ilovepdf\Exceptions\AuthException;
 use Ilove_Pdf_WP\Account\User_Account;
-use Ilove_Pdf_WP\File_System;
+use Ilove_Pdf_WP\Helpers\File_System;
 use Ilove_Pdf_WP\Helpers\Media_Handler;
 use Ilove_Pdf_WP\Tools\Backup;
 use Ilove_Pdf_WP\Tools\Base\Status_Process;

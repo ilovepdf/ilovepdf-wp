@@ -2,7 +2,8 @@
 /**
  * View: Account page login
  *
- * @package Ilove_Pdf_WP\views\components
+ * @package Ilove_Pdf_WP\views\account
+ * @since 3.0.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) {

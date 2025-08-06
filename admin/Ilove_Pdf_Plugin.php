@@ -2,16 +2,18 @@
 
 namespace Ilove_Pdf_WP;
 
+use Ilove_Pdf_WP\I18n;
+use Ilove_Pdf_WP\Submenu_Page;
+use Ilove_Pdf_WP\Tools\Backup;
+use Ilove_Pdf_WP\Media\Library;
 use Ilove_Pdf_WP\Account\User_Account;
 use Ilove_Pdf_WP\Helpers\Admin_Notice;
 use Ilove_Pdf_WP\Media\Edit_File_Page;
-use Ilove_Pdf_WP\Media\Library;
-use Ilove_Pdf_WP\Tools\Backup;
+use Ilove_Pdf_WP\Tools\Compress\Tool_Compress;
+use Ilove_Pdf_WP\Tools\Watermark\Tool_Watermark;
 use Ilove_Pdf_WP\Tools\General\Settings as General_Settings;
 use Ilove_Pdf_WP\Tools\Compress\Settings as Compress_Settings;
 use Ilove_Pdf_WP\Tools\Watermark\Settings as Watermark_Settings;
-use Ilove_Pdf_WP\Tools\Compress\Tool_Compress;
-use Ilove_Pdf_WP\Tools\Watermark\Tool_Watermark;
 
 /**
  * The main functionality of the plugin.
@@ -59,6 +61,9 @@ class Ilove_Pdf_Plugin {
 		$this->version              = $version;
 		self::$plugin_file_basename = $file_basename;
 
+		new Submenu_Page();
+
+		add_action( 'plugins_loaded', array( I18n::class, 'load_textdomain' ) );
 		add_action( 'admin_init', array( $this, 'admin_init' ) );
 	}
 

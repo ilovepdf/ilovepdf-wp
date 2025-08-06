@@ -2,7 +2,8 @@
 /**
  * View: Account page user info
  *
- * @package Ilove_Pdf_WP/views
+ * @package Ilove_Pdf_WP\views\account
+ * @since 3.0.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -32,6 +33,6 @@ use Ilove_Pdf_WP\Account\User_Account;
     <hr class="ipdf-divisor" />
 
     <div class="ilovepdf__account-project-wrapper">
-        <?php require_once 'projects.php'; ?>
+        <?php require_once 'form-projects.php'; ?>
     </div>
 </article>

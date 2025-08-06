@@ -2,7 +2,8 @@
 /**
  * View: Compress settings page
  *
- * @package Ilove_Pdf_WP/views
+ * @package Ilove_Pdf_WP\views\settings
+ * @since 3.0.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) {

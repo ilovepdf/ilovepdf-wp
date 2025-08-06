@@ -1,15 +1,16 @@
 <?php
 /**
- * Component: Account banner.
+ * Component: Banner logout.
  *
- * @package Ilove_Pdf_WP\views\components
+ * @package Ilove_Pdf_WP\views\account\components
+ * @since 3.0.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-use Ilove_Pdf_WP\File_System;
+use Ilove_Pdf_WP\Helpers\File_System;
 
 ?>
 <figure class="ilovepdf-banner-account">

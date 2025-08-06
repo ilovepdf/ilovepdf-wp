@@ -35,14 +35,10 @@ require_once plugin_dir_path( __FILE__ ) . '/vendor/autoload.php';
 use Ilove_Pdf_WP\Activator;
 use Ilove_Pdf_WP\Deactivator;
 use Ilove_Pdf_WP\Ilove_Pdf_Plugin;
-use Ilove_Pdf_WP\Submenu_Page;
-use Ilove_Pdf_WP\I18n;
 use Ilove_Pdf_WP\Helpers\Admin_Notice;
 use Ilove_Pdf_WP\Tools\General\Settings as General_Settings;
 use Ilove_Pdf_WP\Tools\Compress\Settings as Compress_Settings;
 use Ilove_Pdf_WP\Tools\Watermark\Settings as Watermark_Settings;
-
-add_action( 'plugins_loaded', array( I18n::class, 'load_textdomain' ) );
 
 register_activation_hook( __FILE__, array( Activator::class, 'activate' ) );
 
@@ -84,4 +80,3 @@ function ilove_pdf_upgrade_plugin( $upgrader_object, $options ) {
 }
 add_action( 'upgrader_process_complete', 'ilove_pdf_upgrade_plugin', 10, 2 );
 new Ilove_Pdf_Plugin( '2.1.11', plugin_basename( __FILE__ ) );
-new Submenu_Page();

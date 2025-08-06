@@ -1,6 +1,6 @@
 <?php
 
-namespace Ilove_Pdf_WP;
+namespace Ilove_Pdf_WP\Helpers;
 
 /**
  * File system management.
@@ -142,7 +142,8 @@ class File_System {
 	 * @return string
 	 */
 	public static function get_assets_url( $path = '' ) {
-		return plugin_dir_url( __DIR__ ) . 'assets/' . $path;
+		$plugin_dir_name = basename( dirname( __DIR__, 2 ) );
+		return plugins_url( $plugin_dir_name . '/assets/' . $path );
 	}
 
 	/**
