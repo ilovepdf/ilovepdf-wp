@@ -2,10 +2,7 @@ import './common/backup';
 import { restoreFile } from './common/backup/restoreFile';
 import { compressFile } from './compress';
 import { applyWatermark } from './watermark';
-import {
-	addAnimationToBtnSaveChanges,
-	getStatusContainer,
-} from './common/DOMElements';
+import { addAnimationToBtnSaveChanges, getStatusContainer } from './common/DOMElements';
 
 import '../scss/app.scss';
 

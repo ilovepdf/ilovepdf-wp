@@ -7,6 +7,7 @@ use Ilovepdf\CompressTask;
 use Ilove_Pdf_WP\Helpers\File_System;
 use Ilove_Pdf_WP\Tools\Backup;
 use Ilove_Pdf_WP\Account\User_Account;
+use Ilove_Pdf_WP\Helpers\Admin_Notice;
 use Ilove_Pdf_WP\Tools\Base\Status_Process;
 use Ilovepdf\Exceptions\AuthException;
 use Ilove_Pdf_WP\Tools\Compress\Settings as Compress_Settings;
@@ -66,6 +67,7 @@ class Tool_Compress {
         add_action( 'wp_ajax_ilovepdf_action_compress', array( $this, 'handler_compress_action' ) );
         add_filter( 'bulk_actions-upload', array( $this, 'add_bulk_action' ) );
         add_filter( 'handle_bulk_actions-upload', array( $this, 'handle_bulk_action' ), 10, 3 );
+        add_action( 'add_attachment', array( $this, 'handle_auto_compress' ) );
     }
 
     /**
@@ -137,25 +139,39 @@ class Tool_Compress {
      */
 	public function compress_process( $post_id ) {
         // TODO: en la respuesta enviar un true en caso de que el archivo tenga un backup y se pueda restaurar.
-        $options = Compress_Settings::get_compress_settings();
+        $options   = Compress_Settings::get_compress_settings();
+        $file_name = basename( get_attached_file( $post_id ) );
 
         try {
 
             if ( $this->is_file_compressed( $post_id ) ) {
+                $message = sprintf(
+                    /* translators: %1$s The file name */
+                    _x( 'The file %1$s is already compressed.', 'Compress PDF: File already processed.', 'ilove-pdf' ),
+                    $file_name,
+                );
+
                 return array(
-                    'error'   => false,
-                    'message' => __( 'The file is already compressed.', 'ilove-pdf' ),
+                    'error'       => false,
+                    'type_notice' => 'info',
+                    'message'     => $message,
                 );
             }
 
             $this->set_status_in_process( $post_id, $this->db_key_status );
 
             if ( ! isset( $options[ Compress_Settings::get_field_compress_active() ] ) ) {
-                throw new Exception( _x( 'The compress tool is not activated.', 'Compress PDF: Error message.', 'ilove-pdf' ) );
+                throw new Exception( _x( 'The compress tool is not activated. Please check your settings.', 'Compress PDF: Error message.', 'ilove-pdf' ) );
             }
 
             if ( get_post_mime_type( $post_id ) !== 'application/pdf' ) {
-                throw new Exception( _x( 'The file is not a PDF.', 'Compress PDF: Error message.', 'ilove-pdf' ) );
+                $message = sprintf(
+                    /* translators: %1$s The file name */
+                    _x( 'The file %1$s is not a PDF.', 'Compress PDF: Error message.', 'ilove-pdf' ),
+                    $file_name,
+                );
+
+                throw new Exception( $message );
             }
 
             /** File System. @var \WP_Filesystem_Base $wp_filesystem */
@@ -163,7 +179,7 @@ class Tool_Compress {
 
             if ( ! WP_Filesystem() ) {
                 throw new Exception(
-                    esc_html__( 'Unable to connect to the filesystem', 'ilove-pdf' )
+                    esc_html_x( 'Unable to connect to the filesystem', '', 'ilove-pdf' ),
                 );
             }
 
@@ -201,10 +217,16 @@ class Tool_Compress {
             // and finally download file. If no path is set, it will be downloaded on current folder.
             $main_task->download( $tmp_folder );
 
-            $compressed_file = $tmp_folder . basename( $attachment_file );
+            $compressed_file = $tmp_folder . $file_name;
 
             if ( ! $wp_filesystem->exists( $compressed_file ) ) {
-                throw new Exception( __( 'The compressed file was not found.', 'ilove-pdf' ) );
+                $message = sprintf(
+                    /* translators: %1$s The file name */
+                    _x( 'The %1$s file could not be found inside the temporary download folder.', 'Compress PDF: Error message.', 'ilove-pdf' ),
+                    $file_name,
+                );
+
+                throw new Exception( $message );
             }
 
             $compressed_size = filesize( $compressed_file );
@@ -225,10 +247,17 @@ class Tool_Compress {
 
             $this->set_status_ready( $post_id, $this->db_key_status );
 
+            $message = sprintf(
+                /* translators: %1$s The file name */
+                _x( 'The file %1$s was compressed successfully.', 'Compress PDF: Success message.', 'ilove-pdf' ),
+                basename( $attachment_file ),
+            );
+
             return array(
-                'error'   => false,
-                'message' => __( 'The file was compressed successfully.', 'ilove-pdf' ),
-                'data'    => array(
+                'error'       => false,
+                'type_notice' => 'success',
+                'message'     => $message,
+                'data'        => array(
                     'percentage' => self::get_compressed_reabable_percentage( $original_size, $compressed_size ),
                 ),
             );
@@ -388,32 +417,67 @@ class Tool_Compress {
             return $redirect_to;
         }
 
-		$success_items = array();
-		$error_items   = array();
-
 		foreach ( $post_ids as $id ) {
 			$process = $this->compress_process( $id );
 
 			if ( ! empty( $process['error'] ) ) {
-				$error_items[] = array(
-					'id'      => $id,
-					'message' => $process['message'],
-				);
+                Admin_Notice::add_notice(
+                    $process['message'],
+                    'error'
+                );
+
 			} else {
-				$success_items[] = $process['message'];
+                Admin_Notice::add_notice(
+                    $process['message'],
+                    $process['type_notice'] ?? 'success',
+                );
 			}
 		}
 
-		set_transient(
-            'ilovepdf_bulk',
-            array(
-				'success' => $success_items,
-				'errors'  => $error_items,
-            ),
-            600
-        );
-
         wp_safe_redirect( $redirect_to );
         exit;
+    }
+
+    /**
+     * Handle automatic compression when a new attachment is added.
+     *
+     * This method checks the settings and user account status, then processes the compression.
+     * It sets a transient with success or error messages for the compression process.
+     *
+     * @since 3.0.0
+     * @param int $post_id The ID of the newly added attachment.
+     */
+    public function handle_auto_compress( $post_id ) {
+        $options = Compress_Settings::get_compress_settings();
+
+        if ( ! User_Account::is_user_logged_in() ) {
+            return;
+        }
+
+        if ( ! isset( $options[ Compress_Settings::get_field_compress_active() ] ) ) {
+            return;
+        }
+
+        if ( ! isset( $options[ Compress_Settings::get_field_auto_compress() ] ) ) {
+            return;
+        }
+
+        if ( get_post_mime_type( $post_id ) !== 'application/pdf' ) {
+            return;
+        }
+
+        try {
+			$process = $this->compress_process( $post_id );
+
+            Admin_Notice::add_notice(
+                $process['message'],
+                $process['type_notice'] ?? 'success',
+            );
+        } catch ( Exception $e ) {
+            Admin_Notice::add_notice(
+                $e->getMessage(),
+                'error'
+            );
+        }
     }
 }

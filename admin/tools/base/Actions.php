@@ -46,12 +46,12 @@ trait Actions {
      */
     protected function render_restore_action( $post_id ) {
         return sprintf(
-            '<a href="#" class="ipdf-btn ipdf-tooltip ipdf-btn--media-action ipdf-btn--media-action-restore %6$s" data-post-id="%1$s" data-action="%2$s" data-nonce="%3$s">
+            '<button class="ipdf-btn ipdf-tooltip ipdf-btn--media-action ipdf-btn--media-action-restore %6$s" data-post-id="%1$s" data-action="%2$s" data-nonce="%3$s">
                 %4$s
                 <span class="ipdf-tooltip-text">
                     %5$s
                 </span>
-            </a>',
+            </button>',
             $post_id,
             'ilovepdf_restore_file',
             esc_attr( wp_create_nonce( 'ilovepdf_restore_file' ) ),

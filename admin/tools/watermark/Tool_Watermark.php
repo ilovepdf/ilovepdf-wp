@@ -6,6 +6,7 @@ use Exception;
 use Ilovepdf\WatermarkTask;
 use Ilovepdf\Exceptions\AuthException;
 use Ilove_Pdf_WP\Account\User_Account;
+use Ilove_Pdf_WP\Helpers\Admin_Notice;
 use Ilove_Pdf_WP\Helpers\File_System;
 use Ilove_Pdf_WP\Helpers\Media_Handler;
 use Ilove_Pdf_WP\Tools\Backup;
@@ -48,6 +49,7 @@ class Tool_Watermark {
         add_action( 'wp_ajax_ilovepdf_action_watermark', array( $this, 'handler_action_watermark' ) );
         add_filter( 'bulk_actions-upload', array( $this, 'add_bulk_action' ) );
         add_filter( 'handle_bulk_actions-upload', array( $this, 'handle_bulk_action' ), 10, 3 );
+        add_action( 'add_attachment', array( $this, 'handle_auto_watermark' ) );
     }
 
     /**
@@ -110,14 +112,22 @@ class Tool_Watermark {
      * @since 3.0.0
      */
     public function watermark_process( $post_id ) {
-        $options = Watermark_Settings::get_settings();
+        $options   = Watermark_Settings::get_settings();
+        $file_name = basename( get_attached_file( $post_id ) );
 
         try {
 
             if ( $this->is_file_watermarked( $post_id ) ) {
+                $message = sprintf(
+                    /* translators: %1$s The file name */
+                    _x( 'The file %1$s already has a watermark applied.', 'Watermark PDF: Info message.', 'ilove-pdf' ),
+                    $file_name,
+                );
+
                 return array(
-                    'error'   => false,
-                    'message' => __( 'This file already has a watermark applied.', 'ilove-pdf' ),
+                    'error'       => false,
+                    'type_notice' => 'info',
+                    'message'     => $message,
                 );
             }
 
@@ -128,7 +138,13 @@ class Tool_Watermark {
             }
 
             if ( get_post_mime_type( $post_id ) !== 'application/pdf' ) {
-                throw new Exception( _x( 'The file is not a PDF.', 'Watermark PDF: Error message.', 'ilove-pdf' ) );
+                $message = sprintf(
+                    /* translators: %1$s The file name */
+                    _x( 'The file %1$s is not a PDF.', 'Watermark PDF: Error message.', 'ilove-pdf' ),
+                    $file_name,
+                );
+
+                throw new Exception( $message );
             }
 
             /** @var \WP_Filesystem_Base $wp_filesystem */
@@ -136,7 +152,7 @@ class Tool_Watermark {
 
             if ( ! WP_Filesystem() ) {
                 throw new Exception(
-                    esc_html__( 'Unable to connect to the filesystem', 'ilove-pdf' )
+                    esc_html_x( 'Unable to connect to the filesystem', '', 'ilove-pdf' )
                 );
             }
 
@@ -203,10 +219,16 @@ class Tool_Watermark {
             // and finally download file. If no path is set, it will be downloaded on current folder
             $main_task->download( $tmp_folder );
 
-            $watermarked_file = $tmp_folder . basename( $attachment_file );
+            $watermarked_file = $tmp_folder . $file_name;
 
             if ( ! $wp_filesystem->exists( $watermarked_file ) ) {
-                throw new Exception( __( 'The watermarked file was not found.', 'ilove-pdf' ) );
+                $message = sprintf(
+                    /* translators: %1$s The file name */
+                    _x( 'The %1$s file could not be found inside the temporary download folder.', 'Watermark PDF: Error message.', 'ilove-pdf' ),
+                    $file_name,
+                );
+
+                throw new Exception( $message );
             }
 
             $wp_filesystem->move( $watermarked_file, $attachment_file, true );
@@ -215,10 +237,17 @@ class Tool_Watermark {
 
             $this->set_status_ready( $post_id, $this->db_key_status );
 
+            $message = sprintf(
+                /* translators: %1$s The file name */
+                _x( 'The watermark was applied successfully to %1$s.', 'Watermark PDF: Success message.', 'ilove-pdf' ),
+                $file_name,
+            );
+
             return array(
-                'error'   => false,
-                'message' => __( 'The watermark was applied correctly.', 'ilove-pdf' ),
-                'data'    => array(),
+                'error'       => false,
+                'type_notice' => 'success',
+                'message'     => $message,
+                'data'        => array(),
             );
 
         } catch ( Exception $e ) {
@@ -318,32 +347,68 @@ class Tool_Watermark {
             return $redirect_to;
         }
 
-		$success_items = array();
-		$error_items   = array();
-
 		foreach ( $post_ids as $id ) {
 			$process = $this->watermark_process( $id );
 
 			if ( ! empty( $process['error'] ) ) {
-				$error_items[] = array(
-					'id'      => $id,
-					'message' => $process['message'],
-				);
+                Admin_Notice::add_notice(
+                    $process['message'],
+                    'error',
+                );
+
 			} else {
-				$success_items[] = $process['message'];
+                Admin_Notice::add_notice(
+                    $process['message'],
+                    $process['type_notice'] ?? 'success',
+                );
 			}
 		}
 
-		set_transient(
-            'ilovepdf_bulk',
-            array(
-				'success' => $success_items,
-				'errors'  => $error_items,
-            ),
-            600
-        );
-
         wp_safe_redirect( $redirect_to );
         exit;
+    }
+
+    /**
+     * Handle automatic watermarking when a new attachment is added.
+     *
+     * This method checks the settings and user account status, then processes the watermarking.
+     * It sets a transient with success or error messages for the watermark process.
+     *
+     * @since 3.0.0
+     * @param int $post_id The ID of the newly added attachment.
+     */
+    public function handle_auto_watermark( $post_id ) {
+        $options = Watermark_Settings::get_settings();
+
+        if ( ! User_Account::is_user_logged_in() ) {
+            return;
+        }
+
+        if ( ! isset( $options[ Watermark_Settings::get_field_watermark_active() ] ) ) {
+            return;
+        }
+
+        if ( ! isset( $options[ Watermark_Settings::get_field_auto_watermark() ] ) ) {
+            return;
+        }
+
+        if ( get_post_mime_type( $post_id ) !== 'application/pdf' ) {
+            return;
+        }
+
+        try {
+            $process = $this->watermark_process( $post_id );
+
+            Admin_Notice::add_notice(
+                $process['message'],
+                $process['error'] ? 'error' : 'success',
+            );
+
+        } catch ( Exception $e ) {
+            Admin_Notice::add_notice(
+                $e->getMessage(),
+                'error',
+            );
+        }
     }
 }

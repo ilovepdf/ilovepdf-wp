@@ -8,6 +8,7 @@ use Ilove_Pdf_WP\Tools\Backup;
 use Ilove_Pdf_WP\Media\Library;
 use Ilove_Pdf_WP\Account\User_Account;
 use Ilove_Pdf_WP\Helpers\Admin_Notice;
+use Ilove_Pdf_WP\Helpers\File_System;
 use Ilove_Pdf_WP\Media\Edit_File_Page;
 use Ilove_Pdf_WP\Tools\Compress\Tool_Compress;
 use Ilove_Pdf_WP\Tools\Watermark\Tool_Watermark;
@@ -116,6 +117,7 @@ class Ilove_Pdf_Plugin {
 		$asset_file   = include plugin_dir_path( __DIR__ ) . 'assets/build/main.min.asset.php';
 		$css_key_name = $this->plugin_name . '-css';
 		$js_key_name  = $this->plugin_name . '-js';
+		$logo_url     = File_System::get_assets_url( 'img/logo_ilovepdf.svg' );
 
 		if ( (
 			'upload.php' === $pagenow ||
@@ -132,6 +134,15 @@ class Ilove_Pdf_Plugin {
 			wp_enqueue_media();
 			wp_enqueue_script( $js_key_name, plugins_url( '/assets/build/main.min.js', __DIR__ ), array_merge( $asset_file['dependencies'], array() ), $asset_file['version'], true );
 			wp_set_script_translations( $js_key_name, 'ilove-pdf', plugin_dir_path( __DIR__ ) . 'languages' );
+			wp_add_inline_script(
+				$js_key_name,
+				sprintf(
+					'const IlovePdfData = {
+						logoUrl: "%s"
+					};',
+					esc_url( $logo_url ),
+				)
+			);
 		}
 	}
 }
