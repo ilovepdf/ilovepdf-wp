@@ -3,6 +3,7 @@
 namespace Ilove_Pdf_WP\Media;
 
 use WP_List_Table;
+use Ilove_Pdf_WP\Helpers\Admin_Notice;
 use Ilove_Pdf_WP\Media\Views\Status_Renderer;
 use Ilove_Pdf_WP\Tools\Compress\Tool_Compress;
 use Ilove_Pdf_WP\Tools\Compress\Views\Actions as Compress_Actions;
@@ -267,16 +268,9 @@ class Files_List_Table extends WP_List_Table {
 
         if ( isset( $_POST['_wpnonce'] ) && ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_wpnonce'] ) ), 'bulk-' . $this->_args['plural'] ) ) {
 
-            set_transient(
-                'ilovepdf_notices',
-                array(
-                    'errors' => array(
-                        array(
-                            'message' => __( 'Nonce verification failed.', 'ilove-pdf' ),
-                        ),
-                    ),
-                ),
-                600
+            Admin_Notice::add_notice(
+                _x( 'Nonce verification failed.', '', 'ilove-pdf' ),
+                'error'
             );
 
             wp_safe_redirect(
@@ -302,16 +296,9 @@ class Files_List_Table extends WP_List_Table {
         $post_ids = isset( $_POST['file'] ) ? array_map( 'absint', (array) $_POST['file'] ) : array();
 
         if ( empty( $post_ids ) ) {
-            set_transient(
-                'ilovepdf_notices',
-                array(
-                    'errors' => array(
-                        array(
-                            'message' => $tools_message[ $action ]['no_files_selected'],
-                        ),
-                    ),
-                ),
-                600
+            Admin_Notice::add_notice(
+                $tools_message[ $action ]['no_files_selected'],
+                'error',
             );
 
             wp_safe_redirect(

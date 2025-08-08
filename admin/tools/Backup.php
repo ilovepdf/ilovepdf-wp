@@ -3,6 +3,7 @@
 namespace Ilove_Pdf_WP\Tools;
 
 use Exception;
+use Ilove_Pdf_WP\Helpers\Admin_Notice;
 use Ilove_Pdf_WP\Helpers\File_System;
 use Ilove_Pdf_WP\Helpers\DB_Handler;
 use Ilove_Pdf_WP\Helpers\Media_Handler;
@@ -311,15 +312,9 @@ class Backup {
             global $wp_filesystem;
 
             if ( ! WP_Filesystem() ) {
-                set_transient(
-                    'ilovepdf_notices',
-                    array(
-                        'errors' => array(
-                            array(
-                                'message' => esc_html__( 'Unable to connect to the filesystem', 'ilove-pdf' ),
-                            ),
-                        ),
-                    )
+                Admin_Notice::add_notice(
+                    esc_html_x( 'Unable to connect to the filesystem', '', 'ilove-pdf' ),
+                    'error',
                 );
 
                 return;
@@ -428,7 +423,6 @@ class Backup {
      * It also ensures that the backup folder exists before proceeding with the migration.
      *
      * @since 3.0.0
-     * @throws \Exception If unable to connect to the filesystem.
      */
     public static function migrate_file_backup() {
         /** @var \WP_Filesystem_Base $wp_filesystem */
@@ -436,15 +430,9 @@ class Backup {
 
         if ( ! WP_Filesystem() ) {
 
-            set_transient(
-                'ilovepdf_notices',
-                array(
-                    'errors' => array(
-                        array(
-                            'message' => esc_html__( 'Unable to connect to the filesystem', 'ilove-pdf' ),
-                        ),
-                    ),
-                )
+            Admin_Notice::add_notice(
+                esc_html_x( 'Unable to connect to the filesystem', '', 'ilove-pdf' ),
+                'error',
             );
 
             return;

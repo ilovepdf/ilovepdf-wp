@@ -7,6 +7,7 @@ use Ilovepdf\CompressTask;
 use Ilove_Pdf_WP\Helpers\File_System;
 use Ilove_Pdf_WP\Tools\Backup;
 use Ilove_Pdf_WP\Account\User_Account;
+use Ilove_Pdf_WP\Helpers\Admin_Notice;
 use Ilove_Pdf_WP\Tools\Base\Status_Process;
 use Ilovepdf\Exceptions\AuthException;
 use Ilove_Pdf_WP\Tools\Compress\Settings as Compress_Settings;
@@ -151,8 +152,9 @@ class Tool_Compress {
                 );
 
                 return array(
-                    'error'   => false,
-                    'message' => $message,
+                    'error'       => false,
+                    'type_notice' => 'info',
+                    'message'     => $message,
                 );
             }
 
@@ -177,7 +179,7 @@ class Tool_Compress {
 
             if ( ! WP_Filesystem() ) {
                 throw new Exception(
-                    esc_html__( 'Unable to connect to the filesystem', 'ilove-pdf' )
+                    esc_html_x( 'Unable to connect to the filesystem', '', 'ilove-pdf' ),
                 );
             }
 
@@ -248,13 +250,14 @@ class Tool_Compress {
             $message = sprintf(
                 /* translators: %1$s The file name */
                 _x( 'The file %1$s was compressed successfully.', 'Compress PDF: Success message.', 'ilove-pdf' ),
-                basename( $attachment_file )
+                basename( $attachment_file ),
             );
 
             return array(
-                'error'   => false,
-                'message' => $message,
-                'data'    => array(
+                'error'       => false,
+                'type_notice' => 'success',
+                'message'     => $message,
+                'data'        => array(
                     'percentage' => self::get_compressed_reabable_percentage( $original_size, $compressed_size ),
                 ),
             );
@@ -414,30 +417,22 @@ class Tool_Compress {
             return $redirect_to;
         }
 
-		$success_items = array();
-		$error_items   = array();
-
 		foreach ( $post_ids as $id ) {
 			$process = $this->compress_process( $id );
 
 			if ( ! empty( $process['error'] ) ) {
-				$error_items[] = array(
-					'id'      => $id,
-					'message' => $process['message'],
-				);
+                Admin_Notice::add_notice(
+                    $process['message'],
+                    'error'
+                );
+
 			} else {
-				$success_items[] = $process['message'];
+                Admin_Notice::add_notice(
+                    $process['message'],
+                    $process['type_notice'] ?? 'success',
+                );
 			}
 		}
-
-		set_transient(
-            'ilovepdf_notices',
-            array(
-				'success' => $success_items,
-				'errors'  => $error_items,
-            ),
-            600
-        );
 
         wp_safe_redirect( $redirect_to );
         exit;
@@ -473,25 +468,15 @@ class Tool_Compress {
 
         try {
 			$process = $this->compress_process( $post_id );
-			set_transient(
-                'ilovepdf_notices',
-                array(
-					'success' => array( $process['message'] ),
-                ),
-                600
-			);
+
+            Admin_Notice::add_notice(
+                $process['message'],
+                $process['type_notice'] ?? 'success',
+            );
         } catch ( Exception $e ) {
-            set_transient(
-                'ilovepdf_notices',
-                array(
-                    'errors' => array(
-                        array(
-                            'id'      => $post_id,
-                            'message' => $e->getMessage(),
-                        ),
-                    ),
-                ),
-                600
+            Admin_Notice::add_notice(
+                $e->getMessage(),
+                'error'
             );
         }
     }

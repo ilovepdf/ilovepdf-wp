@@ -6,6 +6,7 @@ use Exception;
 use Ilovepdf\WatermarkTask;
 use Ilovepdf\Exceptions\AuthException;
 use Ilove_Pdf_WP\Account\User_Account;
+use Ilove_Pdf_WP\Helpers\Admin_Notice;
 use Ilove_Pdf_WP\Helpers\File_System;
 use Ilove_Pdf_WP\Helpers\Media_Handler;
 use Ilove_Pdf_WP\Tools\Backup;
@@ -124,8 +125,9 @@ class Tool_Watermark {
                 );
 
                 return array(
-                    'error'   => false,
-                    'message' => $message,
+                    'error'       => false,
+                    'type_notice' => 'info',
+                    'message'     => $message,
                 );
             }
 
@@ -150,7 +152,7 @@ class Tool_Watermark {
 
             if ( ! WP_Filesystem() ) {
                 throw new Exception(
-                    esc_html__( 'Unable to connect to the filesystem', 'ilove-pdf' )
+                    esc_html_x( 'Unable to connect to the filesystem', '', 'ilove-pdf' )
                 );
             }
 
@@ -242,9 +244,10 @@ class Tool_Watermark {
             );
 
             return array(
-                'error'   => false,
-                'message' => $message,
-                'data'    => array(),
+                'error'       => false,
+                'type_notice' => 'success',
+                'message'     => $message,
+                'data'        => array(),
             );
 
         } catch ( Exception $e ) {
@@ -344,30 +347,22 @@ class Tool_Watermark {
             return $redirect_to;
         }
 
-		$success_items = array();
-		$error_items   = array();
-
 		foreach ( $post_ids as $id ) {
 			$process = $this->watermark_process( $id );
 
 			if ( ! empty( $process['error'] ) ) {
-				$error_items[] = array(
-					'id'      => $id,
-					'message' => $process['message'],
-				);
+                Admin_Notice::add_notice(
+                    $process['message'],
+                    'error',
+                );
+
 			} else {
-				$success_items[] = $process['message'];
+                Admin_Notice::add_notice(
+                    $process['message'],
+                    $process['type_notice'] ?? 'success',
+                );
 			}
 		}
-
-		set_transient(
-            'ilovepdf_notices',
-            array(
-				'success' => $success_items,
-				'errors'  => $error_items,
-            ),
-            600
-        );
 
         wp_safe_redirect( $redirect_to );
         exit;
@@ -404,25 +399,15 @@ class Tool_Watermark {
         try {
             $process = $this->watermark_process( $post_id );
 
-            set_transient(
-                'ilovepdf_notices',
-                array(
-                    'success' => array( $process['message'] ),
-                ),
-                600
+            Admin_Notice::add_notice(
+                $process['message'],
+                $process['error'] ? 'error' : 'success',
             );
+
         } catch ( Exception $e ) {
-            set_transient(
-                'ilovepdf_notices',
-                array(
-                    'errors' => array(
-                        array(
-                            'id'      => $post_id,
-                            'message' => $e->getMessage(),
-                        ),
-                    ),
-                ),
-                600
+            Admin_Notice::add_notice(
+                $e->getMessage(),
+                'error',
             );
         }
     }

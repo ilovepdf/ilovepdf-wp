@@ -6,6 +6,7 @@ use Ilove_Pdf_WP\Helpers\HTTP_Handler;
 use Ilove_Pdf_WP\Helpers\DB_Handler;
 use Ilove_Pdf_WP\Account\User_Form_Options;
 use Ilove_Pdf_WP\Account\User_Statistics;
+use Ilove_Pdf_WP\Helpers\Admin_Notice;
 
 /**
  * Handling User Operations with iLoveAPI.
@@ -153,72 +154,60 @@ class User_Account {
     public function register_action() {
 
         if ( ! ( current_user_can( 'manage_options' ) ) ) {
-            self::redirect(
-                array(
-                    'ilovepdf_notice' => array(
-                        'type'    => 'error',
-                        'message' => _x( 'You do not have permission to edit the options.', 'Form submission: Error message, user without permissions.', 'ilove-pdf' ),
-                    ),
-                )
+            Admin_Notice::add_notice(
+                _x( 'You do not have permission to edit the options.', 'Error message, user without permissions.', 'ilove-pdf' ),
+                'error',
             );
+
+            self::redirect();
         }
 
         if ( isset( $_POST['_wpnonce_register'] ) && ! wp_verify_nonce( $_POST['_wpnonce_register'] ) ) {
-            self::redirect(
-                array(
-                    'ilovepdf_notice' => array(
-                        'type'    => 'error',
-                        'message' => _x( 'There was a problem validating the nonce code, please try again later.', 'Form submission: Error message, invalid nonce code.', 'ilove-pdf' ),
-                    ),
-                )
+            Admin_Notice::add_notice(
+                _x( 'There was a problem validating the nonce code, please try again later.', 'Error message, invalid nonce code.', 'ilove-pdf' ),
+                'error',
             );
+
+            self::redirect();
         }
 
         if ( isset( $_POST['action'] ) && self::get_action_register_key() !== $_POST['action'] ) {
-            self::redirect(
-                array(
-                    'ilovepdf_notice' => array(
-                        'type'    => 'error',
-                        'message' => _x( 'There was a problem registering. Please try again later.', 'Form submission: Error message, invalid action.', 'ilove-pdf' ),
-                    ),
-                )
+            Admin_Notice::add_notice(
+                _x( 'There was a problem registering. Please try again later.', 'Error message, invalid action.', 'ilove-pdf' ),
+                'error',
             );
+
+            self::redirect();
         }
 
         $field_email = self::get_field_email();
         if ( isset( $_POST[ $field_email ] ) && empty( trim( $_POST[ $field_email ] ) ) ) {
-            self::redirect(
-                array(
-                    'ilovepdf_notice' => array(
-                        'type'    => 'error',
-                        'message' => _x( 'The email field is required.', 'Form submission: Error message, invalid input field.', 'ilove-pdf' ),
-                    ),
-                )
+            Admin_Notice::add_notice(
+                _x( 'The email field is required.', 'Form submission: Error message, invalid input field.', 'ilove-pdf' ),
+                'error',
             );
+
+            self::redirect();
         }
 
         $field_password = self::get_field_password();
         if ( isset( $_POST[ $field_password ] ) && empty( trim( $_POST[ $field_password ] ) ) ) {
-            self::redirect(
-                array(
-                    'ilovepdf_notice' => array(
-                        'type'    => 'error',
-                        'message' => _x( 'The password field is required.', 'Form submission: Error message, invalid input field.', 'ilove-pdf' ),
-                    ),
-                )
+            Admin_Notice::add_notice(
+                _x( 'The password field is required.', 'Form submission: Error message, invalid input field.', 'ilove-pdf' ),
+                'error',
             );
+
+            self::redirect();
         }
 
         $field_name = self::get_field_name();
         if ( isset( $_POST[ $field_name ] ) && empty( trim( $_POST[ $field_name ] ) ) ) {
-            self::redirect(
-                array(
-                    'ilovepdf_notice' => array(
-                        'type'    => 'error',
-                        'message' => _x( 'The name field is required.', 'Form submission: Error message, invalid input field.', 'ilove-pdf' ),
-                    ),
-                )
+            Admin_Notice::add_notice(
+                _x( 'The name field is required.', 'Form submission: Error message, invalid input field.', 'ilove-pdf' ),
+                'error',
             );
+
+            self::redirect();
         }
 
         $wordpress_id = self::get_settings( self::get_db_wordpress_id_key(), '' );
@@ -236,28 +225,24 @@ class User_Account {
         );
 
         if ( is_wp_error( $response ) ) {
-            self::redirect(
-                array(
-                    'ilovepdf_notice' => array(
-                        'type'    => 'error',
-                        'message' => $response->get_error_message(),
-                    ),
-                )
+            Admin_Notice::add_notice(
+                $response->get_error_message(),
+                'error',
             );
+
+            self::redirect();
         }
 
         if ( isset( $response['response']['code'] ) && 200 !== $response['response']['code'] ) {
             $error_body    = json_decode( $response['body'], true );
             $error_message = self::get_message_error( $error_body, _x( 'There was a problem registering. Please try again later.', 'Form submission: Error message, invalid registration.', 'ilove-pdf' ) );
 
-            self::redirect(
-                array(
-                    'ilovepdf_notice' => array(
-                        'type'    => 'error',
-                        'message' => 'iLoveAPI: ' . $error_message,
-                    ),
-                )
+            Admin_Notice::add_notice(
+                'iLoveAPI: ' . $error_message,
+                'error',
             );
+
+            self::redirect();
         }
 
         $user                 = json_decode( $response['body'], true );
@@ -265,14 +250,12 @@ class User_Account {
 
         $this->update_user_data( $user );
 
-        self::redirect(
-            array(
-                'ilovepdf_notice' => array(
-                    'type'    => 'success',
-                    'message' => _x( 'Your user was created correctly.', 'Form submission: Success message.', 'ilove-pdf' ),
-                ),
-            )
+        Admin_Notice::add_notice(
+            _x( 'User created successfully.', 'Form submission: Success message.', 'ilove-pdf' ),
+            'success',
         );
+
+        self::redirect();
     }
 
     /**
@@ -285,60 +268,50 @@ class User_Account {
     public function login_action() {
 
         if ( ! ( current_user_can( 'manage_options' ) ) ) {
-            self::redirect(
-                array(
-                    'ilovepdf_notice' => array(
-                        'type'    => 'error',
-                        'message' => _x( 'You do not have permission to edit the options.', 'Form submission: Error message, user without permissions.', 'ilove-pdf' ),
-                    ),
-                )
+            Admin_Notice::add_notice(
+                _x( 'You do not have permission to edit the options.', 'Error message, user without permissions.', 'ilove-pdf' ),
+                'error',
             );
+
+            self::redirect();
         }
 
         if ( isset( $_POST['_wpnonce_login'] ) && ! wp_verify_nonce( $_POST['_wpnonce_login'] ) ) {
-            self::redirect(
-                array(
-                    'ilovepdf_notice' => array(
-                        'type'    => 'error',
-                        'message' => _x( 'There was a problem validating the nonce code, please try again later.', 'Form submission: Error message, invalid nonce code.', 'ilove-pdf' ),
-                    ),
-                )
+            Admin_Notice::add_notice(
+                _x( 'There was a problem validating the nonce code, please try again later.', 'Form submission: Error message, invalid nonce code.', 'ilove-pdf' ),
+                'error',
             );
+
+            self::redirect();
         }
 
         if ( isset( $_POST['action'] ) && self::get_action_login_key() !== $_POST['action'] ) {
-            self::redirect(
-                array(
-                    'ilovepdf_notice' => array(
-                        'type'    => 'error',
-                        'message' => _x( 'There was a problem logging in. Please try again later.', 'Form submission: Error message, invalid action.', 'ilove-pdf' ),
-                    ),
-                )
+            Admin_Notice::add_notice(
+                _x( 'There was a problem logging in. Please try again later.', 'Form submission: Error message, invalid action.', 'ilove-pdf' ),
+                'error',
             );
+
+            self::redirect();
         }
 
         $field_email = self::get_field_email();
         if ( isset( $_POST[ $field_email ] ) && empty( trim( $_POST[ $field_email ] ) ) ) {
-            self::redirect(
-                array(
-                    'ilovepdf_notice' => array(
-                        'type'    => 'error',
-                        'message' => _x( 'The email field is required.', 'Form submission: Error message, invalid input field.', 'ilove-pdf' ),
-                    ),
-                )
+            Admin_Notice::add_notice(
+                _x( 'The email field is required.', 'Form submission: Error message, invalid input field.', 'ilove-pdf' ),
+                'error',
             );
+
+            self::redirect();
         }
 
         $field_password = self::get_field_password();
         if ( isset( $_POST[ $field_password ] ) && empty( trim( $_POST[ $field_password ] ) ) ) {
-            self::redirect(
-                array(
-                    'ilovepdf_notice' => array(
-                        'type'    => 'error',
-                        'message' => _x( 'The password field is required.', 'Form submission: Error message, invalid input field.', 'ilove-pdf' ),
-                    ),
-                )
+            Admin_Notice::add_notice(
+                _x( 'The password field is required.', 'Form submission: Error message, invalid input field.', 'ilove-pdf' ),
+                'error',
             );
+
+            self::redirect();
         }
 
         $wordpress_id = self::get_settings( self::get_db_wordpress_id_key(), '' );
@@ -355,14 +328,12 @@ class User_Account {
         );
 
         if ( is_wp_error( $response ) ) {
-            self::redirect(
-                array(
-                    'ilovepdf_notice' => array(
-                        'type'    => 'error',
-                        'message' => $response->get_error_message(),
-                    ),
-                )
+            Admin_Notice::add_notice(
+                $response->get_error_message(),
+                'error',
             );
+
+            self::redirect();
         }
 
         if ( isset( $response['response']['code'] ) && 200 !== $response['response']['code'] ) {
@@ -370,14 +341,12 @@ class User_Account {
             $error_body    = json_decode( $response['body'], true );
             $error_message = self::get_message_error( $error_body, _x( 'There was a problem logging in. Please try again later.', 'Form submission: Error message, invalid loggin.', 'ilove-pdf' ) );
 
-            self::redirect(
-                array(
-                    'ilovepdf_notice' => array(
-                        'type'    => 'error',
-                        'message' => 'iLoveAPI: ' . $error_message,
-                    ),
-                )
+            Admin_Notice::add_notice(
+                'iLoveAPI: ' . $error_message,
+                'error',
             );
+
+            self::redirect();
         }
 
         $user                 = json_decode( $response['body'], true );
@@ -385,14 +354,12 @@ class User_Account {
 
         $this->update_user_data( $user );
 
-        self::redirect(
-            array(
-                'ilovepdf_notice' => array(
-                    'type'    => 'success',
-                    'message' => _x( 'You have successfully logged in.', 'Form submission: Success message.', 'ilove-pdf' ),
-                ),
-            )
+        Admin_Notice::add_notice(
+            _x( 'You have successfully logged in.', 'Form submission: Success message.', 'ilove-pdf' ),
+            'success',
         );
+
+        self::redirect();
     }
 
     /**
@@ -404,36 +371,30 @@ class User_Account {
      */
     public function logout_action() {
         if ( ! ( current_user_can( 'manage_options' ) ) ) {
-            self::redirect(
-                array(
-                    'ilovepdf_notice' => array(
-                        'type'    => 'error',
-                        'message' => _x( 'You do not have permission to edit the options.', 'Form submission: Error message, user without permissions.', 'ilove-pdf' ),
-                    ),
-                )
+            Admin_Notice::add_notice(
+                _x( 'You do not have permission to edit the options.', 'Error message, user without permissions.', 'ilove-pdf' ),
+                'error',
             );
+
+            self::redirect();
         }
 
         if ( isset( $_POST['_wpnonce_logout'] ) && ! wp_verify_nonce( $_POST['_wpnonce_logout'] ) ) {
-            self::redirect(
-                array(
-                    'ilovepdf_notice' => array(
-                        'type'    => 'error',
-                        'message' => _x( 'There was a problem validating the nonce code, please try again later.', 'Form submission: Error message, invalid nonce code.', 'ilove-pdf' ),
-                    ),
-                )
+            Admin_Notice::add_notice(
+                _x( 'There was a problem validating the nonce code, please try again later.', 'Form submission: Error message, invalid nonce code.', 'ilove-pdf' ),
+                'error',
             );
+
+            self::redirect();
         }
 
         if ( isset( $_POST['action'] ) && self::get_action_logout_key() !== $_POST['action'] ) {
-            self::redirect(
-                array(
-                    'ilovepdf_notice' => array(
-                        'type'    => 'error',
-                        'message' => _x( 'There was a problem trying to log out. Please try again later.', 'Form submission: Error message, invalid action.', 'ilove-pdf' ),
-                    ),
-                )
+            Admin_Notice::add_notice(
+                _x( 'There was a problem trying to log out. Please try again later.', 'Form submission: Error message, invalid action.', 'ilove-pdf' ),
+                'error',
             );
+
+            self::redirect();
         }
 
         $wordpress_id = self::get_settings( self::get_db_wordpress_id_key(), '' );
@@ -446,14 +407,12 @@ class User_Account {
             ),
         );
 
-        self::redirect(
-            array(
-                'ilovepdf_notice' => array(
-                    'type'    => 'success',
-                    'message' => _x( 'You have successfully logged out.', 'Form submission: Success message.', 'ilove-pdf' ),
-                ),
-            )
+        Admin_Notice::add_notice(
+            _x( 'You have successfully logged out.', 'Form submission: Success message.', 'ilove-pdf' ),
+            'success',
         );
+
+        self::redirect();
     }
 
     /**
@@ -464,47 +423,39 @@ class User_Account {
      */
     public function change_project_action() {
         if ( ! ( current_user_can( 'manage_options' ) ) ) {
-            self::redirect(
-                array(
-                    'ilovepdf_notice' => array(
-                        'type'    => 'error',
-                        'message' => _x( 'You do not have permission to edit the options.', 'Form submission: Error message, user without permissions.', 'ilove-pdf' ),
-                    ),
-                )
+            Admin_Notice::add_notice(
+                _x( 'You do not have permission to edit the options.', 'Error message, user without permissions.', 'ilove-pdf' ),
+                'error',
             );
+
+            self::redirect();
         }
 
         if ( isset( $_POST['_wpnonce_project'] ) && ! wp_verify_nonce( $_POST['_wpnonce_project'] ) ) {
-            self::redirect(
-                array(
-                    'ilovepdf_notice' => array(
-                        'type'    => 'error',
-                        'message' => _x( 'There was a problem validating the nonce code, please try again later.', 'Form submission: Error message, invalid nonce code.', 'ilove-pdf' ),
-                    ),
-                )
+            Admin_Notice::add_notice(
+                _x( 'There was a problem validating the nonce code, please try again later.', 'Error message, invalid nonce code.', 'ilove-pdf' ),
+                'error',
             );
+
+            self::redirect();
         }
 
         if ( isset( $_POST['action'] ) && self::get_action_change_project_key() !== $_POST['action'] ) {
-            self::redirect(
-                array(
-                    'ilovepdf_notice' => array(
-                        'type'    => 'error',
-                        'message' => _x( 'There was a problem logging in. Please try again later.', 'Form submission: Error message, invalid action.', 'ilove-pdf' ),
-                    ),
-                )
+            Admin_Notice::add_notice(
+                _x( 'There was a problem changing the project. Please try again later.', 'Error message, invalid action.', 'ilove-pdf' ),
+                'error',
             );
+
+            self::redirect();
         }
 
         if ( ! array_key_exists( self::$user_projects, $_POST ) ) {
-            self::redirect(
-                array(
-                    'ilovepdf_notice' => array(
-                        'type'    => 'error',
-                        'message' => _x( 'The projects field is required.', 'Form submission: Error message, invalid input field.', 'ilove-pdf' ),
-                    ),
-                )
+            Admin_Notice::add_notice(
+                _x( 'The projects field is required.', 'Error message, invalid input field.', 'ilove-pdf' ),
+                'error',
             );
+
+            self::redirect();
         }
 
         $settings      = self::get_settings();
@@ -512,14 +463,12 @@ class User_Account {
         $project_found = array_search( $_POST[ self::$user_projects ], array_column( $projects, 'id' ) );
 
         if ( $project_found === false ) {
-            self::redirect(
-                array(
-                    'ilovepdf_notice' => array(
-                        'type'    => 'error',
-                        'message' => _x( 'The selected project is not valid.', 'Form submission: Error message, invalid input field.', 'ilove-pdf' ),
-                    ),
-                )
+            Admin_Notice::add_notice(
+                _x( 'The selected project is not valid.', 'Form submission: Error message, invalid input field.', 'ilove-pdf' ),
+                'warning',
             );
+
+            self::redirect();
         }
 
         $settings[ self::$user_name ]        = $projects[ $project_found ]['name'];
@@ -528,14 +477,14 @@ class User_Account {
 
         DB_Handler::update_option( self::$db_key_account, $settings );
 
-        self::redirect(
-            array(
-                'ilovepdf_notice' => array(
-                    'type'    => 'success',
-                    'message' => _x( 'The project was successfully changed.', 'Form submission: Success message.', 'ilove-pdf' ),
-                ),
-            )
+        delete_transient( self::$transient_key );
+
+        Admin_Notice::add_notice(
+            _x( 'The project was successfully changed.', 'Form submission: Success message.', 'ilove-pdf' ),
+            'success',
         );
+
+        self::redirect();
     }
 
     /**
@@ -766,14 +715,12 @@ class User_Account {
         }
 
         if ( ! ( current_user_can( 'manage_options' ) ) ) {
-            self::redirect(
-                array(
-                    'ilovepdf_notice' => array(
-                        'type'    => 'error',
-                        'message' => _x( 'You do not have permission to edit the options.', 'Form submission: Error message, user without permissions.', 'ilove-pdf' ),
-                    ),
-                )
+            Admin_Notice::add_notice(
+                _x( 'You do not have permission to edit the options.', 'Error message, user without permissions.', 'ilove-pdf' ),
+                'error',
             );
+
+            self::redirect();
         }
 
         if ( false !== get_transient( self::$transient_key ) ) {
@@ -791,28 +738,24 @@ class User_Account {
         );
 
         if ( is_wp_error( $response ) ) {
-            self::redirect(
-                array(
-                    'ilovepdf_notice' => array(
-                        'type'    => 'error',
-                        'message' => $response->get_error_message(),
-                    ),
-                )
+            Admin_Notice::add_notice(
+                $response->get_error_message(),
+                'error',
             );
+
+            self::redirect();
         }
 
         if ( isset( $response['response']['code'] ) && 200 !== $response['response']['code'] ) {
             $error_body    = json_decode( $response['body'], true );
             $error_message = self::get_message_error( $error_body, _x( 'There was a problem trying to get the user data. Please try again later.', 'User Account: Error message.', 'ilove-pdf' ) );
 
-            self::redirect(
-                array(
-                    'ilovepdf_notice' => array(
-                        'type'    => 'error',
-                        'message' => $error_message,
-                    ),
-                )
+            Admin_Notice::add_notice(
+                'iLoveAPI: ' . $error_message,
+                'error',
             );
+
+            self::redirect();
         }
 
         $data = json_decode( $response['body'], true );

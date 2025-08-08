@@ -10,12 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-use Ilove_Pdf_WP\Helpers\Admin_Notice;
 use Ilove_Pdf_WP\Submenu_Page;
-
-if ( isset( $_GET['ilovepdf_notice'] ) ) {
-    Admin_Notice::render( $_GET['ilovepdf_notice']['message'], $_GET['ilovepdf_notice']['type'] );
-}
 
 ?>
 <main class="ilovepdf-base ilovepdf-settings__main">

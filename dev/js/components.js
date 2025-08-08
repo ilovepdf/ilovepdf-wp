@@ -39,8 +39,9 @@ export const createDialogComponent = (content) => {
  */
 export const showAdminNotice = (message, type = 'success') => {
 	const notice = sprintf(
-		'<div class="notice notice-%s is-dismissible"><p>%s</p><button type="button" class="notice-dismiss"><span class="screen-reader-text">Dismiss this notice.</span></button></div>',
+		'<div class="ipdf-notice ilovepdf-base__layout-flex notice notice-%s is-dismissible"><figure class="ipdf-logo ilovepdf-base__layout-flex ilovepdf-base__layout-items--center"><img src="%s" alt="logo ilovepdf" /></figure><p>%s</p><button type="button" class="notice-dismiss"><span class="screen-reader-text">Dismiss this notice.</span></button></div>',
 		type,
+		IlovePdfData.logoUrl,
 		message
 	);
 
@@ -48,6 +49,10 @@ export const showAdminNotice = (message, type = 'success') => {
 		'#wpwrap #wpcontent #wpbody #wpbody-content > h1, #wpwrap #wpcontent #wpbody #wpbody-content > h2, #wpwrap #wpcontent #wpbody #wpbody-content'
 	);
 	container?.insertAdjacentHTML('beforebegin', notice);
+
+	setTimeout(() => {
+		window.scrollTo({ top: 0, behavior: 'smooth' });
+	}, 500);
 
 	if (container) {
 		const btnsCloseNotice = document.querySelectorAll('.is-dismissible .notice-dismiss');
