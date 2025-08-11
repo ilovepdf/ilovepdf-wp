@@ -140,8 +140,8 @@ class Files_List_Table extends WP_List_Table {
     protected function column_cb( $item ) {
         return sprintf(
             '<input type="checkbox" name="%1$s[]" value="%2$s" />',
-            /*$1%s*/ $this->_args['singular'],  // Let's simply repurpose the table's singular label ("movie")
-            /*$2%s*/ $item['ID']                // The value of the checkbox should be the record's id
+            /*$1%s*/ $this->_args['singular'],  // Let's simply repurpose the table's singular label ("movie").
+            /*$2%s*/ $item['ID']                // The value of the checkbox should be the record's id.
         );
     }
 
@@ -150,11 +150,11 @@ class Files_List_Table extends WP_List_Table {
      *
      * @return array The array of sortable columns.
      * @since 3.0.0
-     * @see WP_List_Table::get_sortable_columns()
+     * @see WP_List_Table::get_sortable_columns().
      */
     protected function get_sortable_columns() {
         return array(
-            'file'        => array( 'file', false ),     // true means it's already sorted
+            'file'        => array( 'file', false ),     // true means it's already sorted.
             'post_author' => array( 'post_author', false ),
             'post_date'   => array( 'post_date', false ),
         );
@@ -234,7 +234,7 @@ class Files_List_Table extends WP_List_Table {
      *
      * @return array The array of bulk actions.
      * @since 3.0.0
-     * @see WP_List_Table::get_bulk_actions()
+     * @see WP_List_Table::get_bulk_actions().
      */
     protected function get_bulk_actions() {
         $this->ipdf_actions = array(

@@ -23,7 +23,8 @@ trait User_Statistics {
 
         if ( 'free' === $account_type ) {
             $readable_credits = sprintf(
-                _x( '%1$s / %2$s credits used this month.', '', 'ilove-pdf' ),
+                /* translators: %1$s: used credits, %2$s: total credits */
+                __( '%1$s / %2$s credits used this month.', 'ilove-pdf' ),
                 number_format_i18n( self::get_credits( $account_type, 'used' ) ),
                 number_format_i18n( self::get_credits( $account_type, 'limit' ) ),
             );
@@ -31,7 +32,8 @@ trait User_Statistics {
 
         if ( 'package' === $account_type ) {
             $readable_credits = sprintf(
-                _x( '%1$s / %2$s credits used this month.', '', 'ilove-pdf' ),
+                /* translators: %1$s: used credits, %2$s: total credits */
+                __( '%1$s / %2$s credits used this month.', 'ilove-pdf' ),
                 number_format_i18n( self::get_credits( $account_type, 'used' ) ),
                 number_format_i18n( self::get_credits( $account_type, 'limit' ) ),
             );
@@ -39,7 +41,8 @@ trait User_Statistics {
 
         if ( 'suscription' === $account_type ) {
             $readable_credits = sprintf(
-                _x( '%1$s / %2$s credits used this month.', '', 'ilove-pdf' ),
+                /* translators: %1$s: used credits, %2$s: total credits */
+                __( '%1$s / %2$s credits used this month.', 'ilove-pdf' ),
                 number_format_i18n( self::get_credits( $account_type, 'used' ) ),
                 number_format_i18n( self::get_credits( $account_type, 'limit' ) ),
             );

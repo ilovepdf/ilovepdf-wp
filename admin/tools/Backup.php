@@ -67,10 +67,10 @@ class Backup {
      * TODO: revisar si la metadata del archivo restaurado se actualiza correctamente.
      *
      * @since 3.0.0
-     * @return void
+     * @throws Exception If the file restoration fails.
      */
     public function restore_file() {
-        /** @var \WP_Filesystem_Base $wp_filesystem */
+        /** Filesystem @var \WP_Filesystem_Base $wp_filesystem */
         global $wp_filesystem;
 
         try {
@@ -120,6 +120,7 @@ class Backup {
 
 			wp_send_json_success(
                 sprintf(
+                    /* translators: %1$s: file name */
                     __( 'The %1$s file was restored successfully', 'ilove-pdf' ),
                     $file_name
                 ),
@@ -128,6 +129,7 @@ class Backup {
         } catch ( Exception $e ) {
             wp_send_json_error(
                 sprintf(
+                    /* translators: %1$s: error message */
                     __( 'Error restoring file: %s', 'ilove-pdf' ),
                     $e->getMessage(),
                 ),
@@ -143,11 +145,11 @@ class Backup {
      * and returns a success or error JSON response.
      *
      * @since 3.0.0
-     * @throws \Error If unable to connect to the filesystem.
+     * @throws Exception If unable to connect to the filesystem.
      */
     public function restore_all() {
 
-        /** @var \WP_Filesystem_Base $wp_filesystem */
+        /** Filesystem @var \WP_Filesystem_Base $wp_filesystem */
         global $wp_filesystem;
 
         try {
@@ -182,6 +184,7 @@ class Backup {
 					$files_errors[] = array(
 						'id'      => $value,
 						'message' => sprintf(
+                            /* translators: %1$s: file ID */
 							__( 'The original file ID %1$s was not found', 'ilove-pdf' ),
 							$value
 						),
@@ -197,6 +200,7 @@ class Backup {
 					$files_errors[] = array(
 						'id'      => $value,
 						'message' => sprintf(
+                            /* translators: %1$s: file ID */
 							__( 'The backup file ID %1$s was not found', 'ilove-pdf' ),
 							$value
 						),
@@ -240,6 +244,7 @@ class Backup {
                 array(
 					'data'    => array(
 						'files_restored' => sprintf(
+                            /* translators: %1$s: file names */
 							__( 'The %1$s file was restored successfully', 'ilove-pdf' ),
 							implode( ', ', $files_restored )
 						),
@@ -259,12 +264,12 @@ class Backup {
      * Clears the entire backup directory and its corresponding database entries.
      *
      * @since 3.0.0
-     * @throws \Error If unable to connect to the filesystem.
+     * @throws Exception If unable to connect to the filesystem.
      */
     public function clear_backup() {
 
         try {
-            /** @var \WP_Filesystem_Base $wp_filesystem */
+            /** Filesystem @var \WP_Filesystem_Base $wp_filesystem */
             global $wp_filesystem;
 
             if ( ! WP_Filesystem() ) {
@@ -314,12 +319,12 @@ class Backup {
      *
      * @since 1.0.0
      * @param int $attachment_id The ID of the attachment being deleted.
-     * @throws \Error If unable to connect to the filesystem.
+     * @throws Exception If unable to connect to the filesystem.
      */
     public function handle_delete_file( $attachment_id ) {
         if ( get_post_mime_type( $attachment_id ) === 'application/pdf' ) {
 
-            /** @var \WP_Filesystem_Base $wp_filesystem */
+            /** Filesystem @var \WP_Filesystem_Base $wp_filesystem */
             global $wp_filesystem;
 
             if ( ! WP_Filesystem() ) {
@@ -360,10 +365,10 @@ class Backup {
      * @since 3.0.0
      * @param int    $file_id The ID of the file to be backed up.
      * @param string $file_path The path to the file to be backed up.
-     * @throws \Error If unable to connect to the filesystem or if backup creation fails.
+     * @throws Exception If unable to connect to the filesystem or if backup creation fails.
      */
     public static function add_file( $file_id, $file_path ) {
-        /** @var \WP_Filesystem_Base $wp_filesystem */
+        /** Filesystem @var \WP_Filesystem_Base $wp_filesystem */
         global $wp_filesystem;
 
         $is_backup_activated = General_Settings::get_general_settings( General_Settings::get_field_backup() );
@@ -408,9 +413,10 @@ class Backup {
      * @since 3.0.0
      * @param int $file_id The ID of the file to check.
      * @return bool True if the file has a backup, false otherwise.
+     * @throws Exception If unable to connect to the filesystem.
      */
     public static function is_file_backup( $file_id ) {
-        /** @var \WP_Filesystem_Base $wp_filesystem */
+        /** Filesystem @var \WP_Filesystem_Base $wp_filesystem */
         global $wp_filesystem;
 
         if ( ! WP_Filesystem() ) {
@@ -439,7 +445,7 @@ class Backup {
      * @since 3.0.0
      */
     public static function migrate_file_backup() {
-        /** @var \WP_Filesystem_Base $wp_filesystem */
+        /** Filesystem @var \WP_Filesystem_Base $wp_filesystem */
         global $wp_filesystem;
 
         if ( ! WP_Filesystem() ) {

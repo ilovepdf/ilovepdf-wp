@@ -133,10 +133,11 @@ class Settings extends Options {
      * Retrieves the watermark settings from the database.
      *
      * @param string $option_name Optional. The specific option key to retrieve.
+     * @param mixed  $default_value     Optional. Default value to return if the option is not set.
      * @return mixed An option value or the full settings array.
      */
-    public static function get_settings( $option_name = '', $default = array() ) {
-        $settings = get_option( self::$db_key_settings, $default );
+    public static function get_settings( $option_name = '', $default_value = array() ) {
+        $settings = get_option( self::$db_key_settings, $default_value );
 
         if ( ! empty( $option_name ) ) {
             return isset( $settings[ $option_name ] ) ? $settings[ $option_name ] : '';

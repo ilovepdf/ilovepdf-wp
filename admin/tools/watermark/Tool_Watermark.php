@@ -109,6 +109,7 @@ class Tool_Watermark {
      * @param int $post_id The ID of the post (attachment) to be watermarked.
      * @return array
      * @throws Exception If an error occurs during the watermarking process.
+     * @throws AuthException If authentication fails.
      * @since 3.0.0
      */
     public function watermark_process( $post_id ) {
@@ -147,7 +148,7 @@ class Tool_Watermark {
                 throw new Exception( $message );
             }
 
-            /** @var \WP_Filesystem_Base $wp_filesystem */
+            /** Filesystem @var \WP_Filesystem_Base $wp_filesystem */
             global $wp_filesystem;
 
             if ( ! WP_Filesystem() ) {
@@ -216,7 +217,7 @@ class Tool_Watermark {
                 File_System::create_dir( $tmp_folder );
             }
 
-            // and finally download file. If no path is set, it will be downloaded on current folder
+            // and finally download file. If no path is set, it will be downloaded on current folder.
             $main_task->download( $tmp_folder );
 
             $watermarked_file = $tmp_folder . $file_name;

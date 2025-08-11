@@ -460,7 +460,7 @@ class User_Account {
 
         $settings      = self::get_settings();
         $projects      = self::get_settings( self::$user_projects );
-        $project_found = array_search( $_POST[ self::$user_projects ], array_column( $projects, 'id' ) );
+        $project_found = array_search( $_POST[ self::$user_projects ], array_column( $projects, 'id' ), true );
 
         if ( false === $project_found ) {
             Admin_Notice::add_notice(

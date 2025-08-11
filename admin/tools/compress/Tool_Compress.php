@@ -304,6 +304,7 @@ class Tool_Compress {
     public static function get_compressed_reabable_percentage( $original, $compressed ) {
         if ( $original === $compressed ) {
             return sprintf(
+                /* translators: %d: compression percentage */
                 _x( 'Compressed (%d%%)', 'Compress PDF: Compressed percentage.', 'ilove-pdf' ),
                 0,
             );
@@ -317,6 +318,7 @@ class Tool_Compress {
         $percentage = ( $percentage > 100 ) ? 100 : number_format( $percentage, 2 );
 
         return sprintf(
+            /* translators: %1$s: compression percentage */
             _x( 'Compressed (-%1$s%%)', 'Compress PDF: Compressed percentage.', 'ilove-pdf' ),
             $percentage,
         );

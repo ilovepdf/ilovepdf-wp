@@ -87,6 +87,7 @@ class Statistics {
         $stats = self::compute_stats();
 
         return sprintf(
+            /* translators: %1$d: total files, %2$d: watermarked files */
             esc_html__( 'Your files, summary: Total files %1$d → Protected files %2$d', 'ilove-pdf' ),
             $stats['total'],
             $stats['watermarked'],
