@@ -78,15 +78,15 @@ class Files_List_Table extends WP_List_Table {
             }
         }
 
-        $db_results = $wpdb->get_results(
+        $db_results = $wpdb->get_results(// phpcs:ignore WordPress.DB.DirectDatabaseQuery
             $wpdb->prepare(
                 "SELECT ID, post_title AS file, post_author, post_date, post_status AS status
                 FROM {$wpdb->posts}
                 WHERE post_type = %s AND post_mime_type LIKE %s
-                $order",
+                ",
                 'attachment',
                 'application/pdf',
-            ),
+            ) . " {$order}",
             ARRAY_A
         );
 
