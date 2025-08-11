@@ -258,7 +258,7 @@ class Tool_Watermark {
 
         } catch ( Exception $e ) {
             $this->set_status_error( $post_id, $this->db_key_status );
-            throw new Exception( $e->getMessage() );
+            throw new Exception( esc_html( $e->getMessage() ) );
         }
     }
 

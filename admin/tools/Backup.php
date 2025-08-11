@@ -391,7 +391,7 @@ class Backup {
             $backup_file = $backup_folder . basename( $file_path );
 
             if ( ! $wp_filesystem->copy( $file_path, $backup_file ) ) {
-                throw new Exception( __( 'Failed to create a backup of the file.', 'ilove-pdf' ) );
+                throw new Exception( esc_html__( 'Failed to create a backup of the file.', 'ilove-pdf' ) );
             }
 
             if ( ! in_array( $file_id, $files_restore, true ) ) {
@@ -446,7 +446,7 @@ class Backup {
      */
     public static function migrate_file_backup() {
         /** Filesystem @var \WP_Filesystem_Base $wp_filesystem */
-        global $wp_filesystem;
+        global $wp_filesystem, $wpdb;
 
         if ( ! WP_Filesystem() ) {
 
@@ -461,49 +461,57 @@ class Backup {
         $instance      = new self();
         $files_restore = get_option( $instance->db_key_all_files_backup, array() );
 
-        $query_args = array(
-            'post_type'      => 'attachment',
-            'post_mime_type' => 'application/pdf',
-            'posts_per_page' => -1,
-            'meta_query'     => array(
-                array(
-                    'key'     => $instance->legacy_db_key_file_backup,
-                    'compare' => 'EXISTS',
-                ),
-            ),
-            'fields'         => 'ids',
-        );
-
-        $attachments = get_posts( $query_args );
-        if ( empty( $attachments ) ) {
-            return;
-        }
-
         if ( ! $wp_filesystem->exists( File_System::get_full_path_backup_folder() ) ) {
             File_System::create_dir( File_System::get_full_path_backup_folder() );
         }
 
-        // Migrate each attachment's backup file.
-        foreach ( $attachments as $post_id ) {
-            $file_path = get_post_meta( $post_id, $instance->legacy_db_key_file_backup, true );
+        $batch_size                = 300;
+        $legacy_db_key_file_backup = $instance->legacy_db_key_file_backup;
 
-            if ( empty( $file_path ) ) {
-                continue;
+        do {
+            $ids = $wpdb->get_col(// phpcs:ignore WordPress.DB.DirectDatabaseQuery
+                $wpdb->prepare(
+                    "
+                    SELECT p.ID
+                    FROM {$wpdb->posts} p
+                    INNER JOIN {$wpdb->postmeta} m1
+                        ON m1.post_id = p.ID AND m1.meta_key = %s
+                    WHERE p.post_type = 'attachment'
+                      AND p.post_mime_type = 'application/pdf'
+                    ORDER BY p.ID ASC
+                    LIMIT %d
+                    ",
+                    $legacy_db_key_file_backup,
+                    $batch_size
+                )
+            );
+
+            $ids_count = is_array( $ids ) ? count( $ids ) : 0;
+            if ( 0 === $ids_count ) {
+                break;
             }
 
-            $file_name   = basename( $file_path );
-            $backup_file = File_System::get_full_path_backup_folder() . $file_name;
-            if ( ! $wp_filesystem->exists( $backup_file ) ) {
-                continue;
-            }
+            foreach ( $ids as $post_id ) {
+                $file_path = get_post_meta( $post_id, $instance->legacy_db_key_file_backup, true );
 
-            if ( ! in_array( $post_id, $files_restore, true ) ) {
-                $files_restore[] = $post_id;
-                DB_Handler::update_option( $instance->db_key_all_files_backup, $files_restore );
-            }
+                if ( empty( $file_path ) ) {
+                    continue;
+                }
 
-            update_post_meta( $post_id, $instance->db_key_file_backup, $file_path ); // Update the post meta to use the new key.
-            delete_post_meta( $post_id, $instance->legacy_db_key_file_backup ); // Remove the old post meta.
-        }
+                $file_name   = basename( $file_path );
+                $backup_file = File_System::get_full_path_backup_folder() . $file_name;
+                if ( ! $wp_filesystem->exists( $backup_file ) ) {
+                    continue;
+                }
+
+                if ( ! in_array( $post_id, $files_restore, true ) ) {
+                    $files_restore[] = $post_id;
+                    DB_Handler::update_option( $instance->db_key_all_files_backup, $files_restore );
+                }
+
+                update_post_meta( $post_id, $instance->db_key_file_backup, $file_path ); // Update the post meta to use the new key.
+                delete_post_meta( $post_id, $instance->legacy_db_key_file_backup ); // Remove the old post meta.
+            }
+		} while ( $ids_count === $batch_size );
     }
 }

@@ -22,6 +22,8 @@ class Form_Options extends Form {
      * buttons, and sections for backup/restore functionality.
      *
      * @since 3.0.0
+     *
+     * phpcs:disable WordPress.Security.EscapeOutput.OutputNotEscaped
      */
     public static function render() {
         printf(
@@ -42,7 +44,7 @@ class Form_Options extends Form {
             </form>',
             esc_html( admin_url( 'admin-post.php' ) ),
             Settings::get_action_key(),
-            wp_nonce_field(),
+            wp_nonce_field( -1, '_wpnonce', true, false ),
             self::create_submit_button(),
             esc_html_x( 'General Options', 'form title', 'ilove-pdf' ),
             self::create_field_backup(),

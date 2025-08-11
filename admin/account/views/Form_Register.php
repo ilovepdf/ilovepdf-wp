@@ -16,6 +16,8 @@ class Form_Register extends Form {
      * Renders the account register form.
      *
      * @since 3.0.0
+     *
+     * phpcs:disable WordPress.Security.EscapeOutput.OutputNotEscaped
      */
     public static function render() {
         printf(
@@ -48,6 +50,7 @@ class Form_Register extends Form {
      *
      * @since 3.0.0
      * @return string HTML markup for the name input field.
+     * TODO: implementar: si el registro falla, mostrar el valor que el usuario ingresó en el campo de nombre.
      */
     private static function create_field_name() {
         return sprintf(

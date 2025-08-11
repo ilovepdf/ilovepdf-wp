@@ -16,6 +16,8 @@ class Form_Login extends Form {
      * Renders the account login form.
      *
      * @since 3.0.0
+     *
+     * phpcs:disable WordPress.Security.EscapeOutput.OutputNotEscaped
      */
     public static function render() {
         printf(
