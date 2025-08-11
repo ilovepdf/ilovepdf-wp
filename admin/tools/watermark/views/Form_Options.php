@@ -189,7 +189,7 @@ class Form_Options extends Form {
             self::create_field_font_color(),
             self::create_field_font_size(),
             self::create_field_mode_text(),
-            $value_mode_checked === Settings::get_mode_values( 'text' ) ? 'ipdf-option-selected' : '',
+            Settings::get_mode_values( 'text' ) === $value_mode_checked ? 'ipdf-option-selected' : '',
         );
     }
 
@@ -615,7 +615,7 @@ class Form_Options extends Form {
             $db_key_mode_image,
             Settings::get_settings( $db_key_mode_image ),
             esc_html_x( 'Image URL', 'input text: placeholder', 'ilove-pdf' ),
-            $value_mode_checked === Settings::get_mode_values( 'image' ) ? 'ipdf-option-selected' : '',
+            Settings::get_mode_values( 'image' ) === $value_mode_checked ? 'ipdf-option-selected' : '',
         );
     }
 
@@ -660,8 +660,8 @@ class Form_Options extends Form {
         $db_value_font_color  = Settings::get_settings( Settings::get_field_font_color() );
         $db_value_font_size   = Settings::get_settings( Settings::get_field_font_size() );
         $db_value_font_style  = Settings::get_settings( Settings::get_field_font_style(), null );
-        $style_bold           = $db_value_font_style === Settings::get_font_style_values( 'Bold' ) ? $db_value_font_style : 'normal';
-        $style_italic         = $db_value_font_style === Settings::get_font_style_values( 'Italic' ) ? $db_value_font_style : 'normal';
+        $style_bold           = Settings::get_font_style_values( 'Bold' ) === $db_value_font_style ? $db_value_font_style : 'normal';
+        $style_italic         = Settings::get_font_style_values( 'Italic' ) === $db_value_font_style ? $db_value_font_style : 'normal';
 
         $style = "font-family: '$db_value_font_family'; color: $db_value_font_color; font-size: {$db_value_font_size}px; font-style: $style_italic; font-weight: $style_bold;";
 
@@ -771,8 +771,8 @@ class Form_Options extends Form {
         }
 
         foreach ( $styles as $key => $value ) {
-            if ( $value !== null ) {
-                if ( $key !== 'transform' ) {
+            if ( null !== $value ) {
+                if ( 'transform' !== $key ) {
                     $inline_styles['position'][ $key ] = "$key: $value";
                 } else {
                     $inline_styles['transform'] = $value;

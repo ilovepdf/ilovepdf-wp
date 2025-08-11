@@ -274,15 +274,7 @@ class Tool_Watermark {
 
         $status = get_post_meta( $file_id, self::get_db_key_status(), true );
 
-        if ( empty( $status ) ) {
-            return false;
-        }
-
-        if ( $status === 'error' ) {
-            return false;
-        }
-
-        if ( $status === 'in_progress' ) {
+        if ( 'ready' !== $status ) {
             return false;
         }
 
@@ -310,7 +302,7 @@ class Tool_Watermark {
         foreach ( $attachments as $attachment_id ) {
             $status = get_post_meta( $attachment_id, $instance->legacy_db_key_status, true );
 
-            if ( ! empty( $status ) && (int) $status === 1 ) {
+            if ( ! empty( $status ) && 1 === (int) $status ) {
                 $instance->set_status_in_process( $attachment_id, self::get_db_key_status() );
                 delete_post_meta( $attachment_id, $instance->legacy_db_key_status );
             }

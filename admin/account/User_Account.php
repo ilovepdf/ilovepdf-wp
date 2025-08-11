@@ -462,7 +462,7 @@ class User_Account {
         $projects      = self::get_settings( self::$user_projects );
         $project_found = array_search( $_POST[ self::$user_projects ], array_column( $projects, 'id' ) );
 
-        if ( $project_found === false ) {
+        if ( false === $project_found ) {
             Admin_Notice::add_notice(
                 _x( 'The selected project is not valid.', 'Form submission: Error message, invalid input field.', 'ilove-pdf' ),
                 'warning',

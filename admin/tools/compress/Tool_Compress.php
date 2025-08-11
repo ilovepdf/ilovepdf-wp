@@ -286,15 +286,7 @@ class Tool_Compress {
 
         $status = get_post_meta( $file_id, self::get_db_key_status(), true );
 
-        if ( empty( $status ) ) {
-            return false;
-        }
-
-        if ( $status === 'error' ) {
-            return false;
-        }
-
-        if ( $status === 'in_progress' ) {
+        if ( 'ready' !== $status ) {
             return false;
         }
 
