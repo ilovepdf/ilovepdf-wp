@@ -133,6 +133,7 @@ class Statistics {
         $stats = self::compute_stats();
 
         return sprintf(
+            /* translators: %1$s: Original size, %2$s: Compressed size */
             esc_html_x( 'Your files, summary: Original size: %1$s → After compression: %2$s', 'Compress Overview: Tool Resume.', 'ilove-pdf' ),
             size_format( $stats['total_original_size'], 2 ),
             size_format( $stats['total_compressed_size'], 2 ),
