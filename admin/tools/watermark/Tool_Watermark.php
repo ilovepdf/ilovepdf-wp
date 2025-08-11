@@ -237,6 +237,8 @@ class Tool_Watermark {
 
             $this->set_status_ready( $post_id, $this->db_key_status );
 
+            Statistics::reset_statistics();
+
             $message = sprintf(
                 /* translators: %1$s The file name */
                 _x( 'The watermark was applied successfully to %1$s.', 'Watermark PDF: Success message.', 'ilove-pdf' ),
@@ -247,7 +249,10 @@ class Tool_Watermark {
                 'error'       => false,
                 'type_notice' => 'success',
                 'message'     => $message,
-                'data'        => array(),
+                'data'        => array(
+                    'files_protected' => Statistics::get_protected_files(),
+                    'resume'          => Statistics::get_resume(),
+                ),
             );
 
         } catch ( Exception $e ) {

@@ -1,5 +1,6 @@
 import { showAdminNotice } from '../components';
 import { getFormData } from '../common/DOMElements';
+import { setFilesProcessed, setAverageReduction, setSpaceSaved, setResume } from './statistics';
 
 /**
  * Compress a file by sending a request to the server.
@@ -51,6 +52,15 @@ export const compressFile = (container, btnTrigger) => {
 					case 'object':
 						if (data.data.percentage) {
 							statusSuccess.querySelector('span').textContent = data.data.percentage;
+						}
+
+						const params = new URL(window.location.href).searchParams;
+
+						if (params.get('page') === 'ipdf-media-optimization') {
+							setFilesProcessed(data.data.files_processed);
+							setAverageReduction(data.data.average_reduction);
+							setSpaceSaved(data.data.space_saved);
+							setResume(data.data.total_resume);
 						}
 
 						showAdminNotice(data.message);

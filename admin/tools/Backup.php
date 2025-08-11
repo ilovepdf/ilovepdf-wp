@@ -7,6 +7,8 @@ use Ilove_Pdf_WP\Helpers\Admin_Notice;
 use Ilove_Pdf_WP\Helpers\File_System;
 use Ilove_Pdf_WP\Helpers\DB_Handler;
 use Ilove_Pdf_WP\Helpers\Media_Handler;
+use Ilove_Pdf_WP\Tools\Compress\Statistics as Compress_Statistics;
+use Ilove_Pdf_WP\Tools\Watermark\Statistics as Watermark_Statistics;
 use Ilove_Pdf_WP\Tools\General\Settings as General_Settings;
 use Ilove_Pdf_WP\Tools\Compress\Tool_Compress;
 
@@ -112,6 +114,9 @@ class Backup {
 				wp_delete_file( $file_backup_path );
 				DB_Handler::update_option( $this->db_key_all_files_backup, $files_restore );
 			}
+
+            Compress_Statistics::reset_statistics();
+            Watermark_Statistics::reset_statistics();
 
 			wp_send_json_success(
                 sprintf(
@@ -228,6 +233,9 @@ class Backup {
 				);
 			}
 
+            Compress_Statistics::reset_statistics();
+            Watermark_Statistics::reset_statistics();
+
 			wp_send_json(
                 array(
 					'data'    => array(
@@ -288,6 +296,9 @@ class Backup {
             $wp_filesystem->rmdir( File_System::get_full_path_backup_folder(), true );
             delete_option( $this->db_key_all_files_backup );
 
+            Compress_Statistics::reset_statistics();
+            Watermark_Statistics::reset_statistics();
+
             wp_send_json_success( __( 'Backup folder deleted successfully', 'ilove-pdf' ), 200 );
 
         } catch ( Exception $e ) {
@@ -337,6 +348,9 @@ class Backup {
                     DB_Handler::update_option( $this->db_key_all_files_backup, $files_restore );
                 }
             }
+
+            Compress_Statistics::reset_statistics();
+            Watermark_Statistics::reset_statistics();
         }
     }
 

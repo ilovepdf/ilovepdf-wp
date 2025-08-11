@@ -1,13 +1,21 @@
 <?php
 
-namespace Ilove_Pdf_WP\Media;
+namespace Ilove_Pdf_WP\Media\Views;
 
-use Ilove_Pdf_WP\Tools\Compress\Views\Compress_Overview;
-use Ilove_Pdf_WP\Tools\Watermark\Views\Watermark_Overview;
+use Ilove_Pdf_WP\Tools\Compress\Views\Overview as Compress_Overview;
+use Ilove_Pdf_WP\Tools\Watermark\Views\Overview as Watermark_Overview;
 
+/**
+ * Creates the HTML for the media overview.
+ *
+ * @since 3.0.0
+ * @package Ilove_Pdf_WP\Media\Views
+ */
 class Media_Overview {
     /**
-     * Render the media overview.
+     * Creates the HTML for the media overview.
+     *
+     * @since 3.0.0
      */
     public static function render() {
         printf(
@@ -18,7 +26,7 @@ class Media_Overview {
                     %3$s
                 </div>
             </div>',
-            esc_html_x( 'Overview', '', 'ilove-pdf' ),
+            esc_html_x( 'Overview', 'Section Title', 'ilove-pdf' ),
             Compress_Overview::render(),
             Watermark_Overview::render(),
         );

@@ -10,13 +10,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-use Ilove_Pdf_WP\Helpers\Admin_Notice;
 use Ilove_Pdf_WP\Media\Files_List_Table;
-use Ilove_Pdf_WP\Media\Media_Overview;
-
-if ( isset( $_GET['ilovepdf_notice'] ) ) {
-    Admin_Notice::render( $_GET['ilovepdf_notice']['message'], $_GET['ilovepdf_notice']['type'] );
-}
+use Ilove_Pdf_WP\Media\Views\Media_Overview;
 
 $ilove_pdf_list_table = new Files_List_Table();
 $ilove_pdf_list_table->prepare_items();

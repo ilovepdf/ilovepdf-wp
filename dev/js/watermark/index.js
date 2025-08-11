@@ -1,6 +1,7 @@
 import './settings';
 import { getFormData } from '../common/DOMElements';
 import { showAdminNotice } from '../components';
+import { setFilesProtected, setResume } from './statistics';
 
 /**
  * Apply a watermark to a file by sending a request to the server.
@@ -51,6 +52,13 @@ export const applyWatermark = (container, btnTrigger) => {
 						break;
 
 					case 'object':
+						const params = new URL(window.location.href).searchParams;
+
+						if (params.get('page') === 'ipdf-media-optimization') {
+							setFilesProtected(data.data.files_protected);
+							setResume(data.data.resume);
+						}
+
 						showAdminNotice(data.message);
 						break;
 

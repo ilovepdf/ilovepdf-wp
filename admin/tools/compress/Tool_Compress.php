@@ -253,12 +253,18 @@ class Tool_Compress {
                 basename( $attachment_file ),
             );
 
+            Statistics::reset_statistics();
+
             return array(
                 'error'       => false,
                 'type_notice' => 'success',
                 'message'     => $message,
                 'data'        => array(
-                    'percentage' => self::get_compressed_reabable_percentage( $original_size, $compressed_size ),
+                    'percentage'        => self::get_compressed_reabable_percentage( $original_size, $compressed_size ),
+                    'files_processed'   => Statistics::get_files_processed(),
+                    'average_reduction' => Statistics::get_average_reduction(),
+                    'space_saved'       => Statistics::get_space_saved(),
+                    'total_resume'      => Statistics::get_resume(),
                 ),
             );
 
