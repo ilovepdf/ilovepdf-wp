@@ -2,26 +2,14 @@
 
 namespace Ilove_Pdf_WP\Helpers;
 
+/**
+ * HTTP Request Handler Trait
+ * Provides methods for handling HTTP requests and responses.
+ *
+ * @package Ilove_Pdf_WP\Helpers
+ * @since 3.0.0
+ */
 trait HTTP_Handler {
-    /**
-     * Redirects the user back to the referring admin page with optional query arguments.
-     *
-     * @param array $args Optional. Query arguments to append to the redirect URL.
-     */
-	private static function redirect( $args = array() ) {
-
-        if ( ! isset( $_POST['_wp_http_referer'] ) ) {
-            $_POST['_wp_http_referer'] = wp_login_url();
-        }
-
-        $url = sanitize_text_field(
-            wp_unslash( $_POST['_wp_http_referer'] )
-        );
-
-        wp_safe_redirect( add_query_arg( $args, urldecode( $url ) ) );
-        exit;
-    }
-
     /**
      * Get API error message.
      *

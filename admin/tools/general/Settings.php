@@ -64,16 +64,18 @@ class Settings {
                 'error',
             );
 
-            self::redirect();
+            wp_safe_redirect( wp_get_referer() );
+            exit;
         }
 
-        if ( isset( $_POST['_wpnonce'] ) && ! wp_verify_nonce( $_POST['_wpnonce'] ) ) {
+        if ( isset( $_POST['_wpnonce'] ) && ! wp_verify_nonce( sanitize_key( wp_unslash( $_POST['_wpnonce'] ) ) ) ) {
             Admin_Notice::add_notice(
                 _x( 'There was a problem validating the nonce code, please try again later.', 'Error message, invalid nonce code.', 'ilove-pdf' ),
                 'error',
             );
 
-            self::redirect();
+            wp_safe_redirect( wp_get_referer() );
+            exit;
         }
 
         $posts_value = array();
@@ -91,7 +93,8 @@ class Settings {
             'success',
         );
 
-        self::redirect();
+        wp_safe_redirect( wp_get_referer() );
+        exit;
     }
 
     /**

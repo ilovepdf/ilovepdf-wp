@@ -159,16 +159,18 @@ class User_Account {
                 'error',
             );
 
-            self::redirect();
+            wp_safe_redirect( wp_get_referer() );
+            exit;
         }
 
-        if ( isset( $_POST['_wpnonce_register'] ) && ! wp_verify_nonce( $_POST['_wpnonce_register'] ) ) {
+        if ( isset( $_POST['_wpnonce_register'] ) && ! wp_verify_nonce( sanitize_key( wp_unslash( $_POST['_wpnonce_register'] ) ) ) ) {
             Admin_Notice::add_notice(
                 _x( 'There was a problem validating the nonce code, please try again later.', 'Error message, invalid nonce code.', 'ilove-pdf' ),
                 'error',
             );
 
-            self::redirect();
+            wp_safe_redirect( wp_get_referer() );
+            exit;
         }
 
         if ( isset( $_POST['action'] ) && self::get_action_register_key() !== $_POST['action'] ) {
@@ -177,7 +179,8 @@ class User_Account {
                 'error',
             );
 
-            self::redirect();
+            wp_safe_redirect( wp_get_referer() );
+            exit;
         }
 
         $field_email = self::get_field_email();
@@ -187,7 +190,8 @@ class User_Account {
                 'error',
             );
 
-            self::redirect();
+            wp_safe_redirect( wp_get_referer() );
+            exit;
         }
 
         $field_password = self::get_field_password();
@@ -197,7 +201,8 @@ class User_Account {
                 'error',
             );
 
-            self::redirect();
+            wp_safe_redirect( wp_get_referer() );
+            exit;
         }
 
         $field_name = self::get_field_name();
@@ -207,7 +212,8 @@ class User_Account {
                 'error',
             );
 
-            self::redirect();
+            wp_safe_redirect( wp_get_referer() );
+            exit;
         }
 
         $wordpress_id = self::get_settings( self::get_db_wordpress_id_key(), '' );
@@ -230,10 +236,11 @@ class User_Account {
                 'error',
             );
 
-            self::redirect();
+            wp_safe_redirect( wp_get_referer() );
+            exit;
         }
 
-        if ( isset( $response['response']['code'] ) && 200 !== $response['response']['code'] ) {
+        if ( 200 !== $response['response']['code'] ) {
             $error_body    = json_decode( $response['body'], true );
             $error_message = self::get_message_error( $error_body, _x( 'There was a problem registering. Please try again later.', 'Form submission: Error message, invalid registration.', 'ilove-pdf' ) );
 
@@ -242,7 +249,8 @@ class User_Account {
                 'error',
             );
 
-            self::redirect();
+            wp_safe_redirect( wp_get_referer() );
+            exit;
         }
 
         $user                 = json_decode( $response['body'], true );
@@ -255,7 +263,8 @@ class User_Account {
             'success',
         );
 
-        self::redirect();
+        wp_safe_redirect( wp_get_referer() );
+        exit;
     }
 
     /**
@@ -273,16 +282,18 @@ class User_Account {
                 'error',
             );
 
-            self::redirect();
+            wp_safe_redirect( wp_get_referer() );
+            exit;
         }
 
-        if ( isset( $_POST['_wpnonce_login'] ) && ! wp_verify_nonce( $_POST['_wpnonce_login'] ) ) {
+        if ( isset( $_POST['_wpnonce_login'] ) && ! wp_verify_nonce( sanitize_key( wp_unslash( $_POST['_wpnonce_login'] ) ) ) ) {
             Admin_Notice::add_notice(
                 _x( 'There was a problem validating the nonce code, please try again later.', 'Form submission: Error message, invalid nonce code.', 'ilove-pdf' ),
                 'error',
             );
 
-            self::redirect();
+            wp_safe_redirect( wp_get_referer() );
+            exit;
         }
 
         if ( isset( $_POST['action'] ) && self::get_action_login_key() !== $_POST['action'] ) {
@@ -291,7 +302,8 @@ class User_Account {
                 'error',
             );
 
-            self::redirect();
+            wp_safe_redirect( wp_get_referer() );
+            exit;
         }
 
         $field_email = self::get_field_email();
@@ -301,7 +313,8 @@ class User_Account {
                 'error',
             );
 
-            self::redirect();
+            wp_safe_redirect( wp_get_referer() );
+            exit;
         }
 
         $field_password = self::get_field_password();
@@ -311,7 +324,8 @@ class User_Account {
                 'error',
             );
 
-            self::redirect();
+            wp_safe_redirect( wp_get_referer() );
+            exit;
         }
 
         $wordpress_id = self::get_settings( self::get_db_wordpress_id_key(), '' );
@@ -333,10 +347,11 @@ class User_Account {
                 'error',
             );
 
-            self::redirect();
+            wp_safe_redirect( wp_get_referer() );
+            exit;
         }
 
-        if ( isset( $response['response']['code'] ) && 200 !== $response['response']['code'] ) {
+        if ( 200 !== $response['response']['code'] ) {
 
             $error_body    = json_decode( $response['body'], true );
             $error_message = self::get_message_error( $error_body, _x( 'There was a problem logging in. Please try again later.', 'Form submission: Error message, invalid loggin.', 'ilove-pdf' ) );
@@ -346,7 +361,8 @@ class User_Account {
                 'error',
             );
 
-            self::redirect();
+            wp_safe_redirect( wp_get_referer() );
+            exit;
         }
 
         $user                 = json_decode( $response['body'], true );
@@ -359,7 +375,8 @@ class User_Account {
             'success',
         );
 
-        self::redirect();
+        wp_safe_redirect( wp_get_referer() );
+        exit;
     }
 
     /**
@@ -376,16 +393,18 @@ class User_Account {
                 'error',
             );
 
-            self::redirect();
+            wp_safe_redirect( wp_get_referer() );
+            exit;
         }
 
-        if ( isset( $_POST['_wpnonce_logout'] ) && ! wp_verify_nonce( $_POST['_wpnonce_logout'] ) ) {
+        if ( isset( $_POST['_wpnonce_logout'] ) && ! wp_verify_nonce( sanitize_key( wp_unslash( $_POST['_wpnonce_logout'] ) ) ) ) {
             Admin_Notice::add_notice(
                 _x( 'There was a problem validating the nonce code, please try again later.', 'Form submission: Error message, invalid nonce code.', 'ilove-pdf' ),
                 'error',
             );
 
-            self::redirect();
+            wp_safe_redirect( wp_get_referer() );
+            exit;
         }
 
         if ( isset( $_POST['action'] ) && self::get_action_logout_key() !== $_POST['action'] ) {
@@ -394,7 +413,8 @@ class User_Account {
                 'error',
             );
 
-            self::redirect();
+            wp_safe_redirect( wp_get_referer() );
+            exit;
         }
 
         $wordpress_id = self::get_settings( self::get_db_wordpress_id_key(), '' );
@@ -412,7 +432,8 @@ class User_Account {
             'success',
         );
 
-        self::redirect();
+        wp_safe_redirect( wp_get_referer() );
+        exit;
     }
 
     /**
@@ -428,16 +449,18 @@ class User_Account {
                 'error',
             );
 
-            self::redirect();
+            wp_safe_redirect( wp_get_referer() );
+            exit;
         }
 
-        if ( isset( $_POST['_wpnonce_project'] ) && ! wp_verify_nonce( $_POST['_wpnonce_project'] ) ) {
+        if ( isset( $_POST['_wpnonce_project'] ) && ! wp_verify_nonce( sanitize_key( wp_unslash( $_POST['_wpnonce_project'] ) ) ) ) {
             Admin_Notice::add_notice(
                 _x( 'There was a problem validating the nonce code, please try again later.', 'Error message, invalid nonce code.', 'ilove-pdf' ),
                 'error',
             );
 
-            self::redirect();
+            wp_safe_redirect( wp_get_referer() );
+            exit;
         }
 
         if ( isset( $_POST['action'] ) && self::get_action_change_project_key() !== $_POST['action'] ) {
@@ -446,7 +469,8 @@ class User_Account {
                 'error',
             );
 
-            self::redirect();
+            wp_safe_redirect( wp_get_referer() );
+            exit;
         }
 
         if ( ! array_key_exists( self::$user_projects, $_POST ) ) {
@@ -455,12 +479,13 @@ class User_Account {
                 'error',
             );
 
-            self::redirect();
+            wp_safe_redirect( wp_get_referer() );
+            exit;
         }
 
         $settings      = self::get_settings();
         $projects      = self::get_settings( self::$user_projects );
-        $project_found = array_search( $_POST[ self::$user_projects ], array_column( $projects, 'id' ), true );
+        $project_found = array_search( (int) $_POST[ self::$user_projects ], array_column( $projects, 'id' ), true );
 
         if ( false === $project_found ) {
             Admin_Notice::add_notice(
@@ -468,7 +493,8 @@ class User_Account {
                 'warning',
             );
 
-            self::redirect();
+            wp_safe_redirect( wp_get_referer() );
+            exit;
         }
 
         $settings[ self::$user_name ]        = $projects[ $project_found ]['name'];
@@ -484,7 +510,8 @@ class User_Account {
             'success',
         );
 
-        self::redirect();
+        wp_safe_redirect( wp_get_referer() );
+        exit;
     }
 
     /**
@@ -720,7 +747,8 @@ class User_Account {
                 'error',
             );
 
-            self::redirect();
+            wp_safe_redirect( wp_get_referer() );
+            exit;
         }
 
         if ( false !== get_transient( self::$transient_key ) ) {
@@ -743,10 +771,11 @@ class User_Account {
                 'error',
             );
 
-            self::redirect();
+            wp_safe_redirect( wp_get_referer() );
+            exit;
         }
 
-        if ( isset( $response['response']['code'] ) && 200 !== $response['response']['code'] ) {
+        if ( 200 !== $response['response']['code'] ) {
             $error_body    = json_decode( $response['body'], true );
             $error_message = self::get_message_error( $error_body, _x( 'There was a problem trying to get the user data. Please try again later.', 'User Account: Error message.', 'ilove-pdf' ) );
 
@@ -755,7 +784,8 @@ class User_Account {
                 'error',
             );
 
-            self::redirect();
+            wp_safe_redirect( wp_get_referer() );
+            exit;
         }
 
         $data = json_decode( $response['body'], true );
