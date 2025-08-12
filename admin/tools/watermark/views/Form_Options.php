@@ -292,7 +292,7 @@ class Form_Options extends Form {
      */
     private static function create_field_position() {
         $db_key_position  = Settings::get_field_position();
-        $position_checked = Settings::get_settings( $db_key_position ) ?: 'center middle';
+        $position_checked = ! empty( Settings::get_settings( $db_key_position ) ) ? Settings::get_settings( $db_key_position ) : 'center middle';
 
         return sprintf(
             '<label for="%1$s">%2$s</label>
@@ -363,7 +363,7 @@ class Form_Options extends Form {
         $layer_above_value = Settings::get_layer_values( 'above' );
         $layer_below_value = Settings::get_layer_values( 'below' );
 
-        $layer_value_checked = Settings::get_settings( $db_key_layer ) ?: $layer_above_value;
+        $layer_value_checked = ! empty( Settings::get_settings( $db_key_layer ) ) ? Settings::get_settings( $db_key_layer ) : $layer_above_value;
 
         return sprintf(
             '<p>Layer</p>
@@ -421,7 +421,7 @@ class Form_Options extends Form {
             esc_html_x( 'Opacity', 'input range field label', 'ilove-pdf' ),
             Settings::get_transparency_values( false, 'min' ),
             Settings::get_transparency_values( false, 'max' ),
-            Settings::get_settings( $db_key_transparency ) ?: Settings::get_transparency_values( false, 'max' )
+            ! empty( Settings::get_settings( $db_key_transparency ) ) ? Settings::get_settings( $db_key_transparency ) : Settings::get_transparency_values( false, 'max' ),
         );
     }
 
@@ -451,7 +451,7 @@ class Form_Options extends Form {
             esc_html_x( 'Rotation', 'input range field label', 'ilove-pdf' ),
             Settings::get_rotation_values( false, 'min' ),
             Settings::get_rotation_values( false, 'max' ),
-            Settings::get_settings( $db_key_rotation ) ?: Settings::get_rotation_values( false, 'min' )
+            ! empty( Settings::get_settings( $db_key_rotation ) ) ? Settings::get_settings( $db_key_rotation ) : Settings::get_rotation_values( false, 'min' ),
         );
     }
 
@@ -470,7 +470,7 @@ class Form_Options extends Form {
             '<input type="text" name="%1$s" id="%1$s" placeholder="%2$s" value="%3$s" />',
             $db_key_mode_text,
             esc_html_x( 'Text to stamp', 'input text: placeholder', 'ilove-pdf' ),
-            Settings::get_settings( $db_key_mode_text ) ?: get_bloginfo( 'name' ),
+            ! empty( Settings::get_settings( $db_key_mode_text ) ) ? Settings::get_settings( $db_key_mode_text ) : get_bloginfo( 'name' ),
         );
     }
 
@@ -489,7 +489,7 @@ class Form_Options extends Form {
             '<input type="hidden" name="%1$s" id="%1$s" value="%2$s" />
             <a href="#" id="ipdf-color-picker" data-color="%2$s"></a>',
             Settings::get_field_font_color(),
-            $db_value_font_color ?: '#000000',
+            ! empty( $db_value_font_color ) ? $db_value_font_color : '#000000',
         );
     }
 
@@ -671,7 +671,7 @@ class Form_Options extends Form {
             case 'text':
                 $value_watermark = sprintf(
                     '<p style="%2$s %3$s">%1$s</p><img src="%4$s" style="%3$s" hidden="true"/>',
-                    $db_value_text ?: get_bloginfo( 'name' ),
+                    ! empty( $db_value_text ) ? $db_value_text : get_bloginfo( 'name' ),
                     $style,
                     $style_common,
                     $db_value_image,
