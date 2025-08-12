@@ -655,7 +655,7 @@ class Form_Options extends Form {
         $all_position          = self::value_readeable_position();
         $position              = implode( ';', $all_position['position'] );
 
-        $style_common = "transform: {$all_position['transform']} rotate({$db_value_rotation}deg); opacity: {$db_value_transparency}%; {$position}";
+        $style_common = "transform: {$all_position['transform']} rotate(calc({$db_value_rotation} * -1deg)); opacity: {$db_value_transparency}%; {$position}";
 
         $db_value_text        = Settings::get_settings( Settings::get_field_text_mode() );
         $db_value_font_family = Settings::get_settings( Settings::get_field_font_family() );
