@@ -50,14 +50,12 @@ class Form_Register extends Form {
      *
      * @since 3.0.0
      * @return string HTML markup for the name input field.
-     * TODO: implementar: si el registro falla, mostrar el valor que el usuario ingresó en el campo de nombre.
      */
     private static function create_field_name() {
         return sprintf(
-            '<input class="ipdf-input ipdf-input--name" type="text" name="%1$s" id="%1$s" placeholder="%2$s" value="%3$s" class="ilovepdf_field_name" required />',
+            '<input class="ipdf-input ipdf-input--name" type="text" name="%1$s" id="%1$s" placeholder="%2$s" value="" class="ilovepdf_field_name" required />',
             User_Account::get_field_name(),
             esc_html_x( 'Name', 'input placeholder', 'ilove-pdf' ),
-            '',
         );
     }
 
