@@ -68,9 +68,16 @@ class Form_Register extends Form {
      * @return string HTML markup for the button.
      */
     private static function create_btn_goto_login() {
+        if ( isset( $_GET['_wpnonce'] ) && ! wp_verify_nonce( sanitize_key( wp_unslash( $_GET['_wpnonce'] ) ), 'ilove-pdf-goto-register' ) ) {
+            return '';
+        }
+
+        $nonce = wp_create_nonce( 'ilove-pdf-goto-login' );
+
         $url = add_query_arg(
             array(
-				'page' => $_GET['page'],
+				'page'     => isset( $_GET['page'] ) ? sanitize_text_field( wp_unslash( $_GET['page'] ) ) : '',
+                '_wpnonce' => $nonce,
             ),
             admin_url( 'admin.php' )
         );

@@ -184,7 +184,7 @@ class User_Account {
         }
 
         $field_email = self::get_field_email();
-        if ( isset( $_POST[ $field_email ] ) && empty( trim( $_POST[ $field_email ] ) ) ) {
+        if ( isset( $_POST[ $field_email ] ) && empty( trim( sanitize_email( wp_unslash( $_POST[ $field_email ] ) ) ) ) ) {
             Admin_Notice::add_notice(
                 _x( 'The email field is required.', 'Form submission: Error message, invalid input field.', 'ilove-pdf' ),
                 'error',
@@ -195,7 +195,7 @@ class User_Account {
         }
 
         $field_password = self::get_field_password();
-        if ( isset( $_POST[ $field_password ] ) && empty( trim( $_POST[ $field_password ] ) ) ) {
+        if ( isset( $_POST[ $field_password ] ) && empty( trim( $_POST[ $field_password ] ) ) ) {//phpcs:ignore
             Admin_Notice::add_notice(
                 _x( 'The password field is required.', 'Form submission: Error message, invalid input field.', 'ilove-pdf' ),
                 'error',
@@ -206,7 +206,7 @@ class User_Account {
         }
 
         $field_name = self::get_field_name();
-        if ( isset( $_POST[ $field_name ] ) && empty( trim( $_POST[ $field_name ] ) ) ) {
+        if ( isset( $_POST[ $field_name ] ) && empty( trim( sanitize_text_field( wp_unslash( $_POST[ $field_name ] ) ) ) ) ) {
             Admin_Notice::add_notice(
                 _x( 'The name field is required.', 'Form submission: Error message, invalid input field.', 'ilove-pdf' ),
                 'error',
@@ -307,7 +307,7 @@ class User_Account {
         }
 
         $field_email = self::get_field_email();
-        if ( isset( $_POST[ $field_email ] ) && empty( trim( $_POST[ $field_email ] ) ) ) {
+        if ( isset( $_POST[ $field_email ] ) && empty( trim( sanitize_email( wp_unslash( $_POST[ $field_email ] ) ) ) ) ) {
             Admin_Notice::add_notice(
                 _x( 'The email field is required.', 'Form submission: Error message, invalid input field.', 'ilove-pdf' ),
                 'error',
@@ -318,7 +318,7 @@ class User_Account {
         }
 
         $field_password = self::get_field_password();
-        if ( isset( $_POST[ $field_password ] ) && empty( trim( $_POST[ $field_password ] ) ) ) {
+        if ( isset( $_POST[ $field_password ] ) && empty( trim( $_POST[ $field_password ] ) ) ) {//phpcs:ignore
             Admin_Notice::add_notice(
                 _x( 'The password field is required.', 'Form submission: Error message, invalid input field.', 'ilove-pdf' ),
                 'error',

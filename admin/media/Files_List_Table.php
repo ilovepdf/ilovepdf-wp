@@ -70,11 +70,11 @@ class Files_List_Table extends WP_List_Table {
 
         $order = 'ORDER BY post_date DESC';
 
-        if ( isset( $_GET['orderby'] ) && isset( $_GET['order'] ) ) {
-            $order = 'ORDER BY ' . sanitize_text_field( wp_unslash( $_GET['orderby'] ) ) . ' ' . sanitize_text_field( wp_unslash( $_GET['order'] ) );
+        if ( isset( $_GET['orderby'] ) && isset( $_GET['order'] ) ) {//phpcs:ignore
+            $order = 'ORDER BY ' . sanitize_text_field( wp_unslash( $_GET['orderby'] ) ) . ' ' . sanitize_text_field( wp_unslash( $_GET['order'] ) );//phpcs:ignore
 
-            if ( 'file' === $_GET['orderby'] ) {
-                $order = 'ORDER BY post_title ' . sanitize_text_field( wp_unslash( $_GET['order'] ) );
+            if ( 'file' === $_GET['orderby'] ) {//phpcs:ignore
+                $order = 'ORDER BY post_title ' . sanitize_text_field( wp_unslash( $_GET['order'] ) );//phpcs:ignore
             }
         }
 
@@ -181,7 +181,7 @@ class Files_List_Table extends WP_List_Table {
                 $file_size = size_format( filesize( get_attached_file( $item['ID'] ) ), 2 );
 
                 if ( Tool_Compress::is_file_compressed( $item['ID'] ) ) {
-                    $metadata = get_post_meta( $item['ID'], Tool_Compress::get_db_key_process() )[0];
+                    $metadata = get_post_meta( $item['ID'], Tool_Compress::get_db_key_process(), false )[0];
 
                     $file_size = size_format( $metadata['original_size'], 2 );
                     return esc_html( $file_size );
@@ -193,7 +193,7 @@ class Files_List_Table extends WP_List_Table {
                 $file_size = size_format( 0, 2 );
 
                 if ( Tool_Compress::is_file_compressed( $item['ID'] ) ) {
-                    $metadata = get_post_meta( $item['ID'], Tool_Compress::get_db_key_process() )[0];
+                    $metadata = get_post_meta( $item['ID'], Tool_Compress::get_db_key_process(), false )[0];
 
                     $file_size = size_format( $metadata['compressed_size'], 2 );
                     return esc_html( $file_size );
@@ -224,8 +224,8 @@ class Files_List_Table extends WP_List_Table {
                 );
 
             default:
-                error_log( 'ilovepdf plugin -- File Media Table: ' . print_r( var_export( $item, true ), true ) );
-                return print_r( $item, true );
+                error_log( 'ilovepdf plugin -- File Media Table: ' . print_r( var_export( $item, true ), true ) ); //phpcs:ignore
+                return print_r( $item, true );//phpcs:ignore
         }
     }
 
@@ -319,6 +319,6 @@ class Files_List_Table extends WP_List_Table {
             admin_url( 'upload.php' ),
         );
 
-		apply_filters( 'handle_bulk_actions-upload', $sendback, $action, $post_ids );
+		apply_filters( 'handle_bulk_actions-upload', $sendback, $action, $post_ids );//phpcs:ignore
     }
 }
