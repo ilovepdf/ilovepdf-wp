@@ -138,7 +138,6 @@ class Tool_Compress {
      * @throws   AuthException If the API keys are not set.
      */
 	public function compress_process( $post_id ) {
-        // TODO: en la respuesta enviar un true en caso de que el archivo tenga un backup y se pueda restaurar.
         $options   = Compress_Settings::get_compress_settings();
         $file_name = basename( get_attached_file( $post_id ) );
 
@@ -265,6 +264,7 @@ class Tool_Compress {
                     'average_reduction' => Statistics::get_average_reduction(),
                     'space_saved'       => Statistics::get_space_saved(),
                     'total_resume'      => Statistics::get_resume(),
+                    'backup'            => true,
                 ),
             );
 

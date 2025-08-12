@@ -14,8 +14,7 @@ export const compressFile = (container, btnTrigger) => {
 	const statusFail = container.querySelector('.ipdf-item-status-fail');
 	statusFail.classList.remove('ipdf-item-status-active');
 
-	// TODO: revisar que la respuesta tenga un true en caso de que el archivo tenga un backup y se pueda restaurar.
-	//const btnRestoreFile = container.querySelector('.ipdf-btn--media-action-restore');
+	const btnRestoreFile = container.parentElement.querySelector('.ipdf-btn--media-action-restore');
 
 	const loading = container.querySelector('.ipdf-item-status-compressing');
 	loading?.classList.add('ipdf-item-status-active');
@@ -61,6 +60,10 @@ export const compressFile = (container, btnTrigger) => {
 							setAverageReduction(data.data.average_reduction);
 							setSpaceSaved(data.data.space_saved);
 							setResume(data.data.total_resume);
+						}
+
+						if (data.data.backup) {
+							btnRestoreFile.classList.add('ipdf-btn--media-action-restore-active');
 						}
 
 						showAdminNotice(data.message);

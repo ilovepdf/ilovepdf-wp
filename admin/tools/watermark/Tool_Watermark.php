@@ -253,6 +253,7 @@ class Tool_Watermark {
                 'data'        => array(
                     'files_protected' => Statistics::get_protected_files(),
                     'resume'          => Statistics::get_resume(),
+                    'backup'          => true,
                 ),
             );
 
