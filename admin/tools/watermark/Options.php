@@ -337,6 +337,11 @@ class Options {
         return self::$field_font_color;
     }
 
+    /**
+     * Returns the field position key.
+     *
+     * @return string
+     */
     public static function get_field_position() {
         return self::$field_position;
     }

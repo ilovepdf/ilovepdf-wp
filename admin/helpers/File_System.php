@@ -177,6 +177,19 @@ class File_System {
      * @return void
      */
 	public static function migrate_legacy_directories() {
+		/** Filesystem @var \WP_Filesystem_Base $wp_filesystem */
+		global $wp_filesystem;
+
+		if ( ! WP_Filesystem() ) {
+
+            Admin_Notice::add_notice(
+                esc_html_x( 'Unable to connect to the filesystem', '', 'ilove-pdf' ),
+                'error',
+            );
+
+            return;
+        }
+
 		$upload_dir = wp_upload_dir();
 
 		foreach ( self::$legacy_directories as $directory ) {
@@ -188,15 +201,15 @@ class File_System {
 				foreach ( $files as $file ) {
 					$filename    = basename( $file );
 					$destination = $upload_dir['basedir'] . '/' . self::$folder_backup . '/' . $filename;
-					rename( $file, $destination );
+					$wp_filesystem->move( $file, $destination );
 				}
 
-				rmdir( $directory );
+				$wp_filesystem->rmdir( $directory );
 			}
 		}
 
 		if ( file_exists( $upload_dir['basedir'] . '/pdf' ) ) {
-			rmdir( $upload_dir['basedir'] . '/pdf' );
+			$wp_filesystem->rmdir( $upload_dir['basedir'] . '/pdf' );
 		}
 	}
 }

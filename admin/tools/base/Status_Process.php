@@ -31,7 +31,7 @@ trait Status_Process {
      * Sets the status 'in_process' and saves it in the database under the provided key.
      *
      * @param int    $file_id File ID.
-     * @param string $db_key Key where the status will be stored in the database
+     * @param string $db_key Key where the status will be stored in the database.
      */
     protected function set_status_in_process( $file_id, $db_key ) {
         update_post_meta( $file_id, $db_key, $this->allowed_status[0] );
@@ -41,7 +41,7 @@ trait Status_Process {
      * Sets the status 'ready' and saves it in the database under the provided key.
      *
      * @param int    $file_id File ID.
-     * @param string $db_key Key where the status will be stored in the database
+     * @param string $db_key Key where the status will be stored in the database.
      */
     protected function set_status_ready( $file_id, $db_key ) {
         update_post_meta( $file_id, $db_key, $this->allowed_status[1] );

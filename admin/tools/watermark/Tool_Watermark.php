@@ -109,6 +109,7 @@ class Tool_Watermark {
      * @param int $post_id The ID of the post (attachment) to be watermarked.
      * @return array
      * @throws Exception If an error occurs during the watermarking process.
+     * @throws AuthException If authentication fails.
      * @since 3.0.0
      */
     public function watermark_process( $post_id ) {
@@ -147,7 +148,7 @@ class Tool_Watermark {
                 throw new Exception( $message );
             }
 
-            /** @var \WP_Filesystem_Base $wp_filesystem */
+            /** Filesystem @var \WP_Filesystem_Base $wp_filesystem */
             global $wp_filesystem;
 
             if ( ! WP_Filesystem() ) {
@@ -216,7 +217,7 @@ class Tool_Watermark {
                 File_System::create_dir( $tmp_folder );
             }
 
-            // and finally download file. If no path is set, it will be downloaded on current folder
+            // and finally download file. If no path is set, it will be downloaded on current folder.
             $main_task->download( $tmp_folder );
 
             $watermarked_file = $tmp_folder . $file_name;
@@ -237,6 +238,8 @@ class Tool_Watermark {
 
             $this->set_status_ready( $post_id, $this->db_key_status );
 
+            Statistics::reset_statistics();
+
             $message = sprintf(
                 /* translators: %1$s The file name */
                 _x( 'The watermark was applied successfully to %1$s.', 'Watermark PDF: Success message.', 'ilove-pdf' ),
@@ -247,12 +250,16 @@ class Tool_Watermark {
                 'error'       => false,
                 'type_notice' => 'success',
                 'message'     => $message,
-                'data'        => array(),
+                'data'        => array(
+                    'files_protected' => Statistics::get_protected_files(),
+                    'resume'          => Statistics::get_resume(),
+                    'backup'          => true,
+                ),
             );
 
         } catch ( Exception $e ) {
             $this->set_status_error( $post_id, $this->db_key_status );
-            throw new Exception( $e->getMessage() );
+            throw new Exception( esc_html( $e->getMessage() ) );
         }
     }
 
@@ -269,15 +276,7 @@ class Tool_Watermark {
 
         $status = get_post_meta( $file_id, self::get_db_key_status(), true );
 
-        if ( empty( $status ) ) {
-            return false;
-        }
-
-        if ( $status === 'error' ) {
-            return false;
-        }
-
-        if ( $status === 'in_progress' ) {
+        if ( 'ready' !== $status ) {
             return false;
         }
 
@@ -305,7 +304,7 @@ class Tool_Watermark {
         foreach ( $attachments as $attachment_id ) {
             $status = get_post_meta( $attachment_id, $instance->legacy_db_key_status, true );
 
-            if ( ! empty( $status ) && (int) $status === 1 ) {
+            if ( ! empty( $status ) && 1 === (int) $status ) {
                 $instance->set_status_in_process( $attachment_id, self::get_db_key_status() );
                 delete_post_meta( $attachment_id, $instance->legacy_db_key_status );
             }

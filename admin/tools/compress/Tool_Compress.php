@@ -138,7 +138,6 @@ class Tool_Compress {
      * @throws   AuthException If the API keys are not set.
      */
 	public function compress_process( $post_id ) {
-        // TODO: en la respuesta enviar un true en caso de que el archivo tenga un backup y se pueda restaurar.
         $options   = Compress_Settings::get_compress_settings();
         $file_name = basename( get_attached_file( $post_id ) );
 
@@ -253,18 +252,25 @@ class Tool_Compress {
                 basename( $attachment_file ),
             );
 
+            Statistics::reset_statistics();
+
             return array(
                 'error'       => false,
                 'type_notice' => 'success',
                 'message'     => $message,
                 'data'        => array(
-                    'percentage' => self::get_compressed_reabable_percentage( $original_size, $compressed_size ),
+                    'percentage'        => self::get_compressed_reabable_percentage( $original_size, $compressed_size ),
+                    'files_processed'   => Statistics::get_files_processed(),
+                    'average_reduction' => Statistics::get_average_reduction(),
+                    'space_saved'       => Statistics::get_space_saved(),
+                    'total_resume'      => Statistics::get_resume(),
+                    'backup'            => true,
                 ),
             );
 
         } catch ( Exception $e ) {
             $this->set_status_error( $post_id, $this->db_key_status );
-            throw new Exception( $e->getMessage() );
+            throw new Exception( esc_html( $e->getMessage() ) );
         }
 	}
 
@@ -280,15 +286,7 @@ class Tool_Compress {
 
         $status = get_post_meta( $file_id, self::get_db_key_status(), true );
 
-        if ( empty( $status ) ) {
-            return false;
-        }
-
-        if ( $status === 'error' ) {
-            return false;
-        }
-
-        if ( $status === 'in_progress' ) {
+        if ( 'ready' !== $status ) {
             return false;
         }
 
@@ -306,6 +304,7 @@ class Tool_Compress {
     public static function get_compressed_reabable_percentage( $original, $compressed ) {
         if ( $original === $compressed ) {
             return sprintf(
+                /* translators: %d: compression percentage */
                 _x( 'Compressed (%d%%)', 'Compress PDF: Compressed percentage.', 'ilove-pdf' ),
                 0,
             );
@@ -319,6 +318,7 @@ class Tool_Compress {
         $percentage = ( $percentage > 100 ) ? 100 : number_format( $percentage, 2 );
 
         return sprintf(
+            /* translators: %1$s: compression percentage */
             _x( 'Compressed (-%1$s%%)', 'Compress PDF: Compressed percentage.', 'ilove-pdf' ),
             $percentage,
         );
@@ -333,52 +333,62 @@ class Tool_Compress {
      * @since 3.0.0
      */
     public static function migrate_metadata() {
-        $instance = new self();
+        global $wpdb;
 
-        $query_args  = array(
-            'post_type'      => 'attachment',
-            'post_status'    => 'inherit',
-            'post_mime_type' => 'application/pdf',
-            'meta_query'     => array(
-                'relation' => 'AND',
-                array(
-                    'key'     => $instance->legacy_db_key_original_size,
-                    'compare' => 'EXISTS',
-                ),
-                array(
-                    'key'     => $instance->legacy_db_key_compressed_size,
-                    'compare' => 'EXISTS',
-                ),
-            ),
-            'posts_per_page' => -1,
-            'fields'         => 'ids',
-        );
-        $query_files = get_posts( $query_args );
+        $instance    = new self();
+        $batch_size  = 300;
+        $legacy_orig = $instance->legacy_db_key_original_size;
+        $legacy_comp = $instance->legacy_db_key_compressed_size;
 
-        if ( empty( $query_files ) ) {
-            return;
-        }
+        do {
+            $ids = $wpdb->get_col(// phpcs:ignore WordPress.DB.DirectDatabaseQuery
+                $wpdb->prepare(
+                    "
+                    SELECT p.ID
+                    FROM {$wpdb->posts} p
+                    INNER JOIN {$wpdb->postmeta} m1
+                        ON m1.post_id = p.ID AND m1.meta_key = %s
+                    INNER JOIN {$wpdb->postmeta} m2
+                        ON m2.post_id = p.ID AND m2.meta_key = %s
+                    WHERE p.post_type = 'attachment'
+                      AND p.post_mime_type = 'application/pdf'
+                    ORDER BY p.ID ASC
+                    LIMIT %d
+                    ",
+                    $legacy_orig,
+                    $legacy_comp,
+                    $batch_size
+                )
+            );
 
-        foreach ( $query_files as $file_id ) {
-            $original_size   = get_post_meta( $file_id, $instance->legacy_db_key_original_size, true );
-            $compressed_size = get_post_meta( $file_id, $instance->legacy_db_key_compressed_size, true );
+            $ids_count = is_array( $ids ) ? count( $ids ) : 0;
+            if ( 0 === $ids_count ) {
+                break;
+            }
 
-            if ( ! empty( $original_size ) && ! empty( $compressed_size ) ) {
+            foreach ( $ids as $file_id ) {
+                $original_size   = get_post_meta( $file_id, $legacy_orig, true );
+                $compressed_size = get_post_meta( $file_id, $legacy_comp, true );
+
+                if ( '' === $original_size || '' === $compressed_size ) {
+                    continue;
+                }
+
                 $instance->set_status_ready( $file_id, $instance->db_key_status );
                 update_post_meta(
                     $file_id,
                     self::get_db_key_process(),
                     array(
-						'original_size'   => $original_size,
-						'compressed_size' => $compressed_size,
+                        'original_size'   => (int) $original_size,
+                        'compressed_size' => (int) $compressed_size,
                     )
                 );
 
                 delete_post_meta( $file_id, $instance->legacy_db_key_process );
-                delete_post_meta( $file_id, $instance->legacy_db_key_original_size );
-                delete_post_meta( $file_id, $instance->legacy_db_key_compressed_size );
+                delete_post_meta( $file_id, $legacy_orig );
+                delete_post_meta( $file_id, $legacy_comp );
             }
-        }
+		} while ( $ids_count === $batch_size );
     }
 
     /**

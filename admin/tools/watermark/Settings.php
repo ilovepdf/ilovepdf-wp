@@ -2,6 +2,7 @@
 
 namespace Ilove_Pdf_WP\Tools\Watermark;
 
+use Ilove_Pdf_WP\Helpers\Admin_Notice;
 use Ilove_Pdf_WP\Helpers\DB_Handler;
 use Ilove_Pdf_WP\Tools\Watermark\Options;
 use Ilove_Pdf_WP\Helpers\HTTP_Handler;
@@ -60,25 +61,23 @@ class Settings extends Options {
      */
     public function handle_action_save() {
         if ( ! ( current_user_can( 'manage_options' ) ) ) {
-            self::redirect(
-                array(
-                    'ilovepdf_notice' => array(
-                        'type'    => 'error',
-                        'message' => _x( 'You do not have permission to edit the options.', 'Form submission: Error message, user without permissions.', 'ilove-pdf' ),
-                    ),
-                )
+            Admin_Notice::add_notice(
+                _x( 'You do not have permission to edit the options.', 'Error message, user without permissions.', 'ilove-pdf' ),
+                'error',
             );
+
+            wp_safe_redirect( wp_get_referer() );
+            exit;
         }
 
-        if ( isset( $_POST['_wpnonce'] ) && ! wp_verify_nonce( $_POST['_wpnonce'] ) ) {
-            self::redirect(
-                array(
-                    'ilovepdf_notice' => array(
-                        'type'    => 'error',
-                        'message' => _x( 'There was a problem validating the nonce code, please try again later.', 'Form submission: Error message, invalid nonce code.', 'ilove-pdf' ),
-                    ),
-                )
+        if ( isset( $_POST['_wpnonce'] ) && ! wp_verify_nonce( sanitize_key( wp_unslash( $_POST['_wpnonce'] ) ) ) ) {
+            Admin_Notice::add_notice(
+                _x( 'There was a problem validating the nonce code, please try again later.', 'Error message, invalid nonce code.', 'ilove-pdf' ),
+                'error',
             );
+
+            wp_safe_redirect( wp_get_referer() );
+            exit;
         }
 
         $posts_value = array();
@@ -91,14 +90,13 @@ class Settings extends Options {
 
         DB_Handler::update_option( self::$db_key_settings, $posts_value );
 
-        self::redirect(
-            array(
-				'ilovepdf_notice' => array(
-					'type'    => 'success',
-					'message' => _x( 'Changes were saved successfully.', 'Form submission: Success message', 'ilove-pdf' ),
-				),
-			)
+        Admin_Notice::add_notice(
+            _x( 'Watermark settings saved successfully.', 'Form submission: Success message', 'ilove-pdf' ),
+            'success',
         );
+
+        wp_safe_redirect( wp_get_referer() );
+        exit;
     }
 
     /**
@@ -137,10 +135,11 @@ class Settings extends Options {
      * Retrieves the watermark settings from the database.
      *
      * @param string $option_name Optional. The specific option key to retrieve.
+     * @param mixed  $default_value     Optional. Default value to return if the option is not set.
      * @return mixed An option value or the full settings array.
      */
-    public static function get_settings( $option_name = '', $default = array() ) {
-        $settings = get_option( self::$db_key_settings, $default );
+    public static function get_settings( $option_name = '', $default_value = array() ) {
+        $settings = get_option( self::$db_key_settings, $default_value );
 
         if ( ! empty( $option_name ) ) {
             return isset( $settings[ $option_name ] ) ? $settings[ $option_name ] : '';

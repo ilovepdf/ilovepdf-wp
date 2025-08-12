@@ -15,6 +15,8 @@ class Form_Project {
      * Renders the account projects form.
      *
      * @since 3.0.0
+     *
+     * phpcs:disable WordPress.Security.EscapeOutput.OutputNotEscaped
      */
     public static function render() {
         printf(

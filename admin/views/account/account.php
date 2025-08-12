@@ -21,7 +21,7 @@ use Ilove_Pdf_WP\Account\User_Account;
                 <?php
                 require_once 'components/banner-logout.php';
 
-                if ( isset( $_GET['section'] ) && 'register' === $_GET['section'] ) {
+                if ( isset( $_GET['section'] ) && 'register' === $_GET['section'] ) {//phpcs:ignore
                     require_once 'form-register.php';
                 } else {
                     require_once 'form-login.php';

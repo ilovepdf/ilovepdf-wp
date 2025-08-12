@@ -42,6 +42,10 @@ body {
 			&:hover {
 				color: $primary_color;
 			}
+
+			&:focus {
+				box-shadow: none;
+			}
 		}
 
 		button {

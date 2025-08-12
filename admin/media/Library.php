@@ -54,6 +54,8 @@ class Library {
      * @since 1.0.0
      * @param string $column_name Column Name.
      * @param int    $post_id     File ID.
+     *
+     * phpcs:disable WordPress.Security.EscapeOutput.OutputNotEscaped
      */
     public function add_tools_action( $column_name, $post_id ) {
         if ( $this->column_name === $column_name ) {

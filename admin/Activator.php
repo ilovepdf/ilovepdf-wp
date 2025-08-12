@@ -63,7 +63,7 @@ class Activator {
         }
 
 		if ( ! isset( $settings['ipdf_option_mode_text'] ) ) {
-			$settings['ipdf_option_mode_text'] = get_bloginfo( 'name' ) ?: 'iLovePDF';
+			$settings['ipdf_option_mode_text'] = ! empty( get_bloginfo( 'name' ) ) ? get_bloginfo( 'name' ) : 'iLovePDF';
         }
 
 		if ( ! isset( $settings['ipdf_option_font_size'] ) ) {

@@ -12,30 +12,31 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 use Ilove_Pdf_WP\Submenu_Page;
 
-$current_page = '';
-$extra_params = '';
+$ilove_pdf_current_page = '';
+$ilove_pdf_extra_params = '';
 
+//phpcs:disable WordPress.Security.NonceVerification.Recommended
 if ( isset( $_GET['page'] ) ) {
-    $current_page = $_GET['page'];
+    $ilove_pdf_current_page = sanitize_text_field( wp_unslash( $_GET['page'] ) );
 }
 
 if ( isset( $_GET['section'] ) ) {
-    $extra_params .= $_GET['section'];
+    $ilove_pdf_extra_params .= sanitize_text_field( wp_unslash( $_GET['section'] ) );
 }
 
-$general_class   = 'ilovepdf-settings__main__menu-item';
-$compress_class  = 'ilovepdf-settings__main__menu-item';
-$watermark_class = 'ilovepdf-settings__main__menu-item';
+$ilove_pdf_general_class   = 'ilovepdf-settings__main__menu-item';
+$ilove_pdf_compress_class  = 'ilovepdf-settings__main__menu-item';
+$ilove_pdf_watermark_class = 'ilovepdf-settings__main__menu-item';
 
-switch ( $current_page ) {
+switch ( $ilove_pdf_current_page ) {
     case Submenu_Page::$parent_slug:
-        $general_class .= ' ilovepdf-settings__main__menu-item-active';
+        $ilove_pdf_general_class .= ' ilovepdf-settings__main__menu-item-active';
         break;
     case Submenu_Page::$compress_slug:
-        $compress_class .= ' ilovepdf-settings__main__menu-item-active';
+        $ilove_pdf_compress_class .= ' ilovepdf-settings__main__menu-item-active';
         break;
     case Submenu_Page::$watermark_slug:
-        $watermark_class .= ' ilovepdf-settings__main__menu-item-active';
+        $ilove_pdf_watermark_class .= ' ilovepdf-settings__main__menu-item-active';
         break;
 }
 
@@ -43,14 +44,14 @@ switch ( $current_page ) {
 
 <nav class="ilovepdf-settings__main__menu">
     <ul>
-        <li class="<?php echo $general_class; ?>">
+        <li class="<?php echo esc_html( $ilove_pdf_general_class ); ?>">
             <a href="
             <?php
             echo esc_url(
                 add_query_arg(
                     array(
 						'page'    => Submenu_Page::$parent_slug,
-						'section' => $extra_params,
+						'section' => $ilove_pdf_extra_params,
                     ),
                     admin_url( 'admin.php' )
                 )
@@ -61,14 +62,14 @@ switch ( $current_page ) {
                 <span><?php echo esc_html_x( 'General settings', 'link menu', 'ilove-pdf' ); ?></span>
             </a>
         </li>
-        <li class="<?php echo $compress_class; ?>">
+        <li class="<?php echo esc_html( $ilove_pdf_compress_class ); ?>">
             <a href="
             <?php
             echo esc_url(
                 add_query_arg(
                     array(
 						'page'    => Submenu_Page::$compress_slug,
-						'section' => $extra_params,
+						'section' => $ilove_pdf_extra_params,
                     ),
                     admin_url( 'admin.php' )
                 )
@@ -79,14 +80,14 @@ switch ( $current_page ) {
                 <span><?php echo esc_html_x( 'Compress settings', 'link menu', 'ilove-pdf' ); ?></span>
             </a>
         </li>
-        <li class="<?php echo $watermark_class; ?>">
+        <li class="<?php echo esc_html( $ilove_pdf_watermark_class ); ?>">
             <a href="
             <?php
             echo esc_url(
                 add_query_arg(
                     array(
 						'page'    => Submenu_Page::$watermark_slug,
-						'section' => $extra_params,
+						'section' => $ilove_pdf_extra_params,
                     ),
                     admin_url( 'admin.php' )
                 )

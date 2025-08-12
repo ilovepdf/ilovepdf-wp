@@ -70,23 +70,23 @@ class Files_List_Table extends WP_List_Table {
 
         $order = 'ORDER BY post_date DESC';
 
-        if ( isset( $_GET['orderby'] ) && isset( $_GET['order'] ) ) {
-            $order = 'ORDER BY ' . sanitize_text_field( wp_unslash( $_GET['orderby'] ) ) . ' ' . sanitize_text_field( wp_unslash( $_GET['order'] ) );
+        if ( isset( $_GET['orderby'] ) && isset( $_GET['order'] ) ) {//phpcs:ignore
+            $order = 'ORDER BY ' . sanitize_text_field( wp_unslash( $_GET['orderby'] ) ) . ' ' . sanitize_text_field( wp_unslash( $_GET['order'] ) );//phpcs:ignore
 
-            if ( 'file' === $_GET['orderby'] ) {
-                $order = 'ORDER BY post_title ' . sanitize_text_field( wp_unslash( $_GET['order'] ) );
+            if ( 'file' === $_GET['orderby'] ) {//phpcs:ignore
+                $order = 'ORDER BY post_title ' . sanitize_text_field( wp_unslash( $_GET['order'] ) );//phpcs:ignore
             }
         }
 
-        $db_results = $wpdb->get_results(
+        $db_results = $wpdb->get_results(// phpcs:ignore WordPress.DB.DirectDatabaseQuery
             $wpdb->prepare(
                 "SELECT ID, post_title AS file, post_author, post_date, post_status AS status
                 FROM {$wpdb->posts}
                 WHERE post_type = %s AND post_mime_type LIKE %s
-                $order",
+                ",
                 'attachment',
                 'application/pdf',
-            ),
+            ) . " {$order}",
             ARRAY_A
         );
 
@@ -140,8 +140,8 @@ class Files_List_Table extends WP_List_Table {
     protected function column_cb( $item ) {
         return sprintf(
             '<input type="checkbox" name="%1$s[]" value="%2$s" />',
-            /*$1%s*/ $this->_args['singular'],  // Let's simply repurpose the table's singular label ("movie")
-            /*$2%s*/ $item['ID']                // The value of the checkbox should be the record's id
+            /*$1%s*/ $this->_args['singular'],  // Let's simply repurpose the table's singular label ("movie").
+            /*$2%s*/ $item['ID']                // The value of the checkbox should be the record's id.
         );
     }
 
@@ -150,11 +150,11 @@ class Files_List_Table extends WP_List_Table {
      *
      * @return array The array of sortable columns.
      * @since 3.0.0
-     * @see WP_List_Table::get_sortable_columns()
+     * @see WP_List_Table::get_sortable_columns().
      */
     protected function get_sortable_columns() {
         return array(
-            'file'        => array( 'file', false ),     // true means it's already sorted
+            'file'        => array( 'file', false ),     // true means it's already sorted.
             'post_author' => array( 'post_author', false ),
             'post_date'   => array( 'post_date', false ),
         );
@@ -181,7 +181,7 @@ class Files_List_Table extends WP_List_Table {
                 $file_size = size_format( filesize( get_attached_file( $item['ID'] ) ), 2 );
 
                 if ( Tool_Compress::is_file_compressed( $item['ID'] ) ) {
-                    $metadata = get_post_meta( $item['ID'], Tool_Compress::get_db_key_process() )[0];
+                    $metadata = get_post_meta( $item['ID'], Tool_Compress::get_db_key_process(), false )[0];
 
                     $file_size = size_format( $metadata['original_size'], 2 );
                     return esc_html( $file_size );
@@ -193,7 +193,7 @@ class Files_List_Table extends WP_List_Table {
                 $file_size = size_format( 0, 2 );
 
                 if ( Tool_Compress::is_file_compressed( $item['ID'] ) ) {
-                    $metadata = get_post_meta( $item['ID'], Tool_Compress::get_db_key_process() )[0];
+                    $metadata = get_post_meta( $item['ID'], Tool_Compress::get_db_key_process(), false )[0];
 
                     $file_size = size_format( $metadata['compressed_size'], 2 );
                     return esc_html( $file_size );
@@ -224,8 +224,8 @@ class Files_List_Table extends WP_List_Table {
                 );
 
             default:
-                error_log( 'ilovepdf plugin -- File Media Table: ' . print_r( var_export( $item, true ), true ) );
-                return print_r( $item, true );
+                error_log( 'ilovepdf plugin -- File Media Table: ' . print_r( var_export( $item, true ), true ) ); //phpcs:ignore
+                return print_r( $item, true );//phpcs:ignore
         }
     }
 
@@ -234,7 +234,7 @@ class Files_List_Table extends WP_List_Table {
      *
      * @return array The array of bulk actions.
      * @since 3.0.0
-     * @see WP_List_Table::get_bulk_actions()
+     * @see WP_List_Table::get_bulk_actions().
      */
     protected function get_bulk_actions() {
         $this->ipdf_actions = array(
@@ -319,6 +319,6 @@ class Files_List_Table extends WP_List_Table {
             admin_url( 'upload.php' ),
         );
 
-		apply_filters( 'handle_bulk_actions-upload', $sendback, $action, $post_ids );
+		apply_filters( 'handle_bulk_actions-upload', $sendback, $action, $post_ids );//phpcs:ignore
     }
 }

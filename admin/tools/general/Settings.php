@@ -2,6 +2,7 @@
 
 namespace Ilove_Pdf_WP\Tools\General;
 
+use Ilove_Pdf_WP\Helpers\Admin_Notice;
 use Ilove_Pdf_WP\Helpers\DB_Handler;
 use Ilove_Pdf_WP\Helpers\HTTP_Handler;
 
@@ -58,25 +59,23 @@ class Settings {
      */
     public function handle_action_save() {
         if ( ! ( current_user_can( 'manage_options' ) ) ) {
-            self::redirect(
-                array(
-                    'ilovepdf_notice' => array(
-                        'type'    => 'error',
-                        'message' => _x( 'You do not have permission to edit the options.', 'Form submission: Error message, user without permissions.', 'ilove-pdf' ),
-                    ),
-                )
+            Admin_Notice::add_notice(
+                _x( 'You do not have permission to edit the options.', 'Error message, user without permissions.', 'ilove-pdf' ),
+                'error',
             );
+
+            wp_safe_redirect( wp_get_referer() );
+            exit;
         }
 
-        if ( isset( $_POST['_wpnonce'] ) && ! wp_verify_nonce( $_POST['_wpnonce'] ) ) {
-            self::redirect(
-                array(
-                    'ilovepdf_notice' => array(
-                        'type'    => 'error',
-                        'message' => _x( 'There was a problem validating the nonce code, please try again later.', 'Form submission: Error message, invalid nonce code.', 'ilove-pdf' ),
-                    ),
-                )
+        if ( isset( $_POST['_wpnonce'] ) && ! wp_verify_nonce( sanitize_key( wp_unslash( $_POST['_wpnonce'] ) ) ) ) {
+            Admin_Notice::add_notice(
+                _x( 'There was a problem validating the nonce code, please try again later.', 'Error message, invalid nonce code.', 'ilove-pdf' ),
+                'error',
             );
+
+            wp_safe_redirect( wp_get_referer() );
+            exit;
         }
 
         $posts_value = array();
@@ -89,14 +88,13 @@ class Settings {
 
         DB_Handler::update_option( self::$db_key_general_settings, $posts_value );
 
-        self::redirect(
-            array(
-				'ilovepdf_notice' => array(
-					'type'    => 'success',
-					'message' => _x( 'Changes were saved successfully.', 'Form submission: Success message', 'ilove-pdf' ),
-				),
-			)
+        Admin_Notice::add_notice(
+            _x( 'General settings saved successfully.', 'Form submission: Success message', 'ilove-pdf' ),
+            'success',
         );
+
+        wp_safe_redirect( wp_get_referer() );
+        exit;
     }
 
     /**

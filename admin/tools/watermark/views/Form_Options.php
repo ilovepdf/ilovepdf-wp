@@ -20,6 +20,8 @@ class Form_Options extends Form {
      * This method generates the HTML for the watermark options form.
      *
      * @since 3.0.0
+     *
+     * phpcs:disable WordPress.Security.EscapeOutput.OutputNotEscaped
      */
     public static function render() {
         printf(
@@ -50,7 +52,7 @@ class Form_Options extends Form {
             </form>',
             esc_html( admin_url( 'admin-post.php' ) ),
             Settings::get_action_key(),
-            wp_nonce_field(),
+            wp_nonce_field( -1, '_wpnonce', true, false ),
             self::create_submit_button(),
             esc_html_x( 'Watermark Settings', 'form title', 'ilove-pdf' ),
             self::create_field_watermark_active(),
@@ -189,7 +191,7 @@ class Form_Options extends Form {
             self::create_field_font_color(),
             self::create_field_font_size(),
             self::create_field_mode_text(),
-            $value_mode_checked === Settings::get_mode_values( 'text' ) ? 'ipdf-option-selected' : '',
+            Settings::get_mode_values( 'text' ) === $value_mode_checked ? 'ipdf-option-selected' : '',
         );
     }
 
@@ -290,7 +292,7 @@ class Form_Options extends Form {
      */
     private static function create_field_position() {
         $db_key_position  = Settings::get_field_position();
-        $position_checked = Settings::get_settings( $db_key_position ) ?: 'center middle';
+        $position_checked = ! empty( Settings::get_settings( $db_key_position ) ) ? Settings::get_settings( $db_key_position ) : 'center middle';
 
         return sprintf(
             '<label for="%1$s">%2$s</label>
@@ -361,7 +363,7 @@ class Form_Options extends Form {
         $layer_above_value = Settings::get_layer_values( 'above' );
         $layer_below_value = Settings::get_layer_values( 'below' );
 
-        $layer_value_checked = Settings::get_settings( $db_key_layer ) ?: $layer_above_value;
+        $layer_value_checked = ! empty( Settings::get_settings( $db_key_layer ) ) ? Settings::get_settings( $db_key_layer ) : $layer_above_value;
 
         return sprintf(
             '<p>Layer</p>
@@ -419,7 +421,7 @@ class Form_Options extends Form {
             esc_html_x( 'Opacity', 'input range field label', 'ilove-pdf' ),
             Settings::get_transparency_values( false, 'min' ),
             Settings::get_transparency_values( false, 'max' ),
-            Settings::get_settings( $db_key_transparency ) ?: Settings::get_transparency_values( false, 'max' )
+            ! empty( Settings::get_settings( $db_key_transparency ) ) ? Settings::get_settings( $db_key_transparency ) : Settings::get_transparency_values( false, 'max' ),
         );
     }
 
@@ -449,7 +451,7 @@ class Form_Options extends Form {
             esc_html_x( 'Rotation', 'input range field label', 'ilove-pdf' ),
             Settings::get_rotation_values( false, 'min' ),
             Settings::get_rotation_values( false, 'max' ),
-            Settings::get_settings( $db_key_rotation ) ?: Settings::get_rotation_values( false, 'min' )
+            ! empty( Settings::get_settings( $db_key_rotation ) ) ? Settings::get_settings( $db_key_rotation ) : Settings::get_rotation_values( false, 'min' ),
         );
     }
 
@@ -468,7 +470,7 @@ class Form_Options extends Form {
             '<input type="text" name="%1$s" id="%1$s" placeholder="%2$s" value="%3$s" />',
             $db_key_mode_text,
             esc_html_x( 'Text to stamp', 'input text: placeholder', 'ilove-pdf' ),
-            Settings::get_settings( $db_key_mode_text ) ?: get_bloginfo( 'name' ),
+            ! empty( Settings::get_settings( $db_key_mode_text ) ) ? Settings::get_settings( $db_key_mode_text ) : get_bloginfo( 'name' ),
         );
     }
 
@@ -487,7 +489,7 @@ class Form_Options extends Form {
             '<input type="hidden" name="%1$s" id="%1$s" value="%2$s" />
             <a href="#" id="ipdf-color-picker" data-color="%2$s"></a>',
             Settings::get_field_font_color(),
-            $db_value_font_color ?: '#000000',
+            ! empty( $db_value_font_color ) ? $db_value_font_color : '#000000',
         );
     }
 
@@ -615,7 +617,7 @@ class Form_Options extends Form {
             $db_key_mode_image,
             Settings::get_settings( $db_key_mode_image ),
             esc_html_x( 'Image URL', 'input text: placeholder', 'ilove-pdf' ),
-            $value_mode_checked === Settings::get_mode_values( 'image' ) ? 'ipdf-option-selected' : '',
+            Settings::get_mode_values( 'image' ) === $value_mode_checked ? 'ipdf-option-selected' : '',
         );
     }
 
@@ -660,8 +662,8 @@ class Form_Options extends Form {
         $db_value_font_color  = Settings::get_settings( Settings::get_field_font_color() );
         $db_value_font_size   = Settings::get_settings( Settings::get_field_font_size() );
         $db_value_font_style  = Settings::get_settings( Settings::get_field_font_style(), null );
-        $style_bold           = $db_value_font_style === Settings::get_font_style_values( 'Bold' ) ? $db_value_font_style : 'normal';
-        $style_italic         = $db_value_font_style === Settings::get_font_style_values( 'Italic' ) ? $db_value_font_style : 'normal';
+        $style_bold           = Settings::get_font_style_values( 'Bold' ) === $db_value_font_style ? $db_value_font_style : 'normal';
+        $style_italic         = Settings::get_font_style_values( 'Italic' ) === $db_value_font_style ? $db_value_font_style : 'normal';
 
         $style = "font-family: '$db_value_font_family'; color: $db_value_font_color; font-size: {$db_value_font_size}px; font-style: $style_italic; font-weight: $style_bold;";
 
@@ -669,7 +671,7 @@ class Form_Options extends Form {
             case 'text':
                 $value_watermark = sprintf(
                     '<p style="%2$s %3$s">%1$s</p><img src="%4$s" style="%3$s" hidden="true"/>',
-                    $db_value_text ?: get_bloginfo( 'name' ),
+                    ! empty( $db_value_text ) ? $db_value_text : get_bloginfo( 'name' ),
                     $style,
                     $style_common,
                     $db_value_image,
@@ -771,8 +773,8 @@ class Form_Options extends Form {
         }
 
         foreach ( $styles as $key => $value ) {
-            if ( $value !== null ) {
-                if ( $key !== 'transform' ) {
+            if ( null !== $value ) {
+                if ( 'transform' !== $key ) {
                     $inline_styles['position'][ $key ] = "$key: $value";
                 } else {
                     $inline_styles['transform'] = $value;
