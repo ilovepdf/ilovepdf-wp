@@ -2,15 +2,15 @@
 
 namespace Ilove_Pdf_WP;
 
-use Ilove_Pdf_WP\Helpers\File_System;
-use Ilove_Pdf_WP\Helpers\DB_Handler;
-use Ilove_Pdf_WP\Account\User_Account;
 use Ilove_Pdf_WP\Tools\Backup;
+use Ilove_Pdf_WP\Helpers\DB_Handler;
+use Ilove_Pdf_WP\Helpers\File_System;
+use Ilove_Pdf_WP\Account\User_Account;
+use Ilove_Pdf_WP\Tools\Compress\Tool_Compress;
+use Ilove_Pdf_WP\Tools\Watermark\Tool_Watermark;
 use Ilove_Pdf_WP\Tools\General\Settings as General_Settings;
 use Ilove_Pdf_WP\Tools\Compress\Settings as Compress_Settings;
-use Ilove_Pdf_WP\Tools\Compress\Tool_Compress;
 use Ilove_Pdf_WP\Tools\Watermark\Settings as Watermark_Settings;
-use Ilove_Pdf_WP\Tools\Watermark\Tool_Watermark;
 
 /**
  * Fired during plugin activation.

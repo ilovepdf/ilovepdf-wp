@@ -3,14 +3,14 @@
 namespace Ilove_Pdf_WP\Tools;
 
 use Exception;
-use Ilove_Pdf_WP\Helpers\Admin_Notice;
-use Ilove_Pdf_WP\Helpers\File_System;
 use Ilove_Pdf_WP\Helpers\DB_Handler;
+use Ilove_Pdf_WP\Helpers\File_System;
+use Ilove_Pdf_WP\Helpers\Admin_Notice;
 use Ilove_Pdf_WP\Helpers\Media_Handler;
+use Ilove_Pdf_WP\Tools\Compress\Tool_Compress;
+use Ilove_Pdf_WP\Tools\General\Settings as General_Settings;
 use Ilove_Pdf_WP\Tools\Compress\Statistics as Compress_Statistics;
 use Ilove_Pdf_WP\Tools\Watermark\Statistics as Watermark_Statistics;
-use Ilove_Pdf_WP\Tools\General\Settings as General_Settings;
-use Ilove_Pdf_WP\Tools\Compress\Tool_Compress;
 
 /**
  * Handles backup and restoration of PDF files in the WordPress media library.

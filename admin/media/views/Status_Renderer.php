@@ -3,8 +3,8 @@
 namespace Ilove_Pdf_WP\Media\Views;
 
 use Ilove_Pdf_WP\Tools\Compress\Tool_Compress;
-use Ilove_Pdf_WP\Tools\Compress\Views\Actions as Compress_Actions;
 use Ilove_Pdf_WP\Tools\Watermark\Tool_Watermark;
+use Ilove_Pdf_WP\Tools\Compress\Views\Actions as Compress_Actions;
 use Ilove_Pdf_WP\Tools\Watermark\Views\Actions as Watermark_Actions;
 
 /**
