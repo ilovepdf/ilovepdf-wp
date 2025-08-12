@@ -98,6 +98,8 @@ document.addEventListener('DOMContentLoaded', function () {
 		}
 
 		if (targetName === 'ipdf_option_rotation') {
+			const rotateValue = `rotate(calc(${target.value} * -1deg))`;
+
 			if (isMosaicActive()) {
 				const { texts, images } = getPreview('', true);
 				const elements = new Set([...texts, ...images]);
@@ -105,7 +107,7 @@ document.addEventListener('DOMContentLoaded', function () {
 					element.style.transform = updateTransform(
 						element,
 						'rotate',
-						`rotate(${target.value}deg)`
+						rotateValue,
 					);
 				});
 			}
@@ -116,13 +118,13 @@ document.addEventListener('DOMContentLoaded', function () {
 			previewText.style.transform = updateTransform(
 				previewText,
 				'rotate',
-				`rotate(${target.value}deg)`
+				rotateValue,
 			);
 
 			previewImage.style.transform = updateTransform(
 				previewImage,
 				'rotate',
-				`rotate(${target.value}deg)`
+				rotateValue,
 			);
 		}
 
