@@ -154,3 +154,14 @@ export const updateTextColor = (preview) => {
 		});
 	});
 };
+
+/**
+ * Updates the text content of an element.
+ *
+ * @param {HTMLElement} element - The element whose text content will be updated.
+ * @param {string} value - The new text content to set.
+ * @returns {void}
+ */
+export const updateTextPreview = (element, value) => {
+	element.textContent = value;
+};
