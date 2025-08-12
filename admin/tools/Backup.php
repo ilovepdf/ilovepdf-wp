@@ -64,7 +64,6 @@ class Backup {
      *
      * Validates nonce and required POST data, then restores the file,
      * updates media metadata, and cleans related post meta and backup references.
-     * TODO: revisar si la metadata del archivo restaurado se actualiza correctamente.
      *
      * @since 3.0.0
      * @throws Exception If the file restoration fails.
