@@ -3,6 +3,7 @@
 namespace Ilove_Pdf_WP\Media\Views;
 
 use Ilove_Pdf_WP\Tools\Compress\Tool_Compress;
+use Ilove_Pdf_WP\Tools\Watermark\Tool_Watermark;
 use Ilove_Pdf_WP\Tools\Compress\Views\Actions as Compress_Actions;
 use Ilove_Pdf_WP\Tools\Watermark\Views\Actions as Watermark_Actions;
 
@@ -49,7 +50,7 @@ class Status_Renderer {
             $instance->status_watermark_processing(),
             $instance->status_watermark_applied( $post_id ),
             $instance->status_fail(),
-            Tool_Compress::is_file_compressed( $post_id ) ? 'ipdf-status-process' : '',
+            ( Tool_Compress::is_file_compressed( $post_id ) || Tool_Watermark::is_file_watermarked( $post_id ) ) ? 'ipdf-status-process' : '',
             $instance->status_restore_processing(),
             $instance->status_restored(),
         );

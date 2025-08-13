@@ -3,8 +3,8 @@
 namespace Ilove_Pdf_WP\Tools\Compress\Views;
 
 use Ilove_Pdf_WP\Account\User_Account;
-use Ilove_Pdf_WP\Tools\Base\Actions as Base_Actions;
 use Ilove_Pdf_WP\Tools\Compress\Tool_Compress;
+use Ilove_Pdf_WP\Tools\Base\Actions as Base_Actions;
 
 /**
  * Provides actions for the iLovePDF Compress tool in the WordPress admin.

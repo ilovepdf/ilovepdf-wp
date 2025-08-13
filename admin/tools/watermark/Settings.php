@@ -2,10 +2,10 @@
 
 namespace Ilove_Pdf_WP\Tools\Watermark;
 
-use Ilove_Pdf_WP\Helpers\Admin_Notice;
 use Ilove_Pdf_WP\Helpers\DB_Handler;
-use Ilove_Pdf_WP\Tools\Watermark\Options;
+use Ilove_Pdf_WP\Helpers\Admin_Notice;
 use Ilove_Pdf_WP\Helpers\HTTP_Handler;
+use Ilove_Pdf_WP\Tools\Watermark\Options;
 
 /**
  * Handles tool watermark settings.

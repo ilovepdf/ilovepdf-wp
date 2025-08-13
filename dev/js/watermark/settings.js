@@ -3,6 +3,7 @@ import {
 	updateFontSize,
 	updateFontStyle,
 	updateTextColor,
+	updateTextPreview,
 	updatedFontFamily
 } from './mode_text/toolbar';
 import { updateElementCoordinates, updateTransform, updateTooltipValue } from './common/transform';
@@ -49,6 +50,19 @@ document.addEventListener('DOMContentLoaded', function () {
 
 		if (targetName === 'ipdf_option_mode_image') {
 			setImageUrl(target.value);
+		}
+
+		if (targetName === 'ipdf_option_mode_text') {
+			const textValue = target.value;
+
+			if (isMosaicActive()) {
+				const { texts } = getPreview('', true);
+				texts.forEach((element) => {
+					updateTextPreview(element, textValue);
+				});
+			}
+
+			updateTextPreview(getPreview(), textValue);
 		}
 
 		if (targetName === 'ipdf_option_font_family') {
@@ -104,28 +118,16 @@ document.addEventListener('DOMContentLoaded', function () {
 				const { texts, images } = getPreview('', true);
 				const elements = new Set([...texts, ...images]);
 				elements.forEach((element) => {
-					element.style.transform = updateTransform(
-						element,
-						'rotate',
-						rotateValue,
-					);
+					element.style.transform = updateTransform(element, 'rotate', rotateValue);
 				});
 			}
 
 			const previewText = getPreview();
 			const previewImage = getPreview('image');
 
-			previewText.style.transform = updateTransform(
-				previewText,
-				'rotate',
-				rotateValue,
-			);
+			previewText.style.transform = updateTransform(previewText, 'rotate', rotateValue);
 
-			previewImage.style.transform = updateTransform(
-				previewImage,
-				'rotate',
-				rotateValue,
-			);
+			previewImage.style.transform = updateTransform(previewImage, 'rotate', rotateValue);
 		}
 
 		if (targetName === 'ipdf_option_position') {
