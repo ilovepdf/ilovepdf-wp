@@ -353,6 +353,11 @@ msgctxt "Link item: appears in the plugins list."
 msgid "Watermark Settings"
 msgstr ""
 
+#: admin/Submenu_Page.php:185
+msgctxt "Link item: appears in the plugins list."
+msgid "Media Optimization"
+msgstr ""
+
 #: admin/tools/Backup.php:87
 #: admin/tools/compress/Tool_Compress.php:108
 #: admin/tools/watermark/Tool_Watermark.php:80

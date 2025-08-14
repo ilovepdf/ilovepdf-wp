@@ -179,7 +179,13 @@ class Submenu_Page {
 			esc_html_x( 'Watermark Settings', 'Link item: appears in the plugins list.', 'ilove-pdf' )
 		);
 
-		$actions = array_merge( $actions, $general_settings, $compress_settings, $watermark_settings );
+		$media_list[] = sprintf(
+			'<a href="%1$s">%2$s</a>',
+			esc_url( add_query_arg( 'page', self::$media_slug, get_admin_url() . 'upload.php' ) ),
+			esc_html_x( 'Media Optimization', 'Link item: appears in the plugins list.', 'ilove-pdf' )
+		);
+
+		$actions = array_merge( $actions, $general_settings, $compress_settings, $watermark_settings, $media_list );
 
 		return $actions;
 	}
