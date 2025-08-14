@@ -60,7 +60,7 @@ class Form_Project {
             <select class="ipdf-select" name="%2$s" id="%2$s">
                 %3$s
             </select></div>',
-            _x( 'Select your working proyect', 'Input Project Select label', 'ilove-pdf' ),
+            _x( 'Select your proyect', 'Input Project Select label', 'ilove-pdf' ),
             User_Account::get_db_user_projects_key(),
             $options,
         );
@@ -81,7 +81,7 @@ class Form_Project {
                     %1$s
                 </button>
             </div>',
-            esc_html_x( 'Change', 'Form change project: submit button', 'ilove-pdf' ),
+            esc_html_x( 'Change project', 'Form change project: submit button', 'ilove-pdf' ),
         );
     }
 }

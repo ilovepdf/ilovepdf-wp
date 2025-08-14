@@ -12,7 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 ?>
 <article class="ilovepdf-settings__main__account-info">
-    <h3><?php esc_html_e( 'The power of iLovePDF in your WordPress!', 'ilove-pdf' ); ?></h3>
-    <p><?php esc_html_e( 'Speed up your site and keep your PDFs safe. Compress your PDF files to save space and improve loading times. Add text or image watermarks to protect your documents and keep things looking professional.', 'ilove-pdf' ); ?></p>
-    <p><?php esc_html_e( 'Enjoy 2500 free credits and start using iLovePDF directly on your WordPress site today!', 'ilove-pdf' ); ?></p>
+    <h3><?php esc_html_e( 'The power of iLovePDF, built right into WordPress!', 'ilove-pdf' ); ?></h3>
+    <p><?php esc_html_e( 'Compress and watermark your PDFs directly in WordPress. Save space, speed up loading, and protect your content, all without leaving your site.', 'ilove-pdf' ); ?></p>
+    <p><?php esc_html_e( 'Enjoy 2500 free credits and start using iLovePDF directly from WordPress today!', 'ilove-pdf' ); ?></p>
 </article>

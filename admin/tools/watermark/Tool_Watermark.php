@@ -73,7 +73,7 @@ class Tool_Watermark {
      */
     public function handler_action_watermark() {
         if ( ! isset( $_POST['_wpnonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_wpnonce'] ) ), 'ilovepdf_action_watermark' ) ) {
-            wp_send_json_error( __( 'Error processing your request. Invalid Nonce code', 'ilove-pdf' ), 401 );
+            wp_send_json_error( _x( 'There was a problem validating the nonce code, please try again later.', 'Error message, invalid nonce code.', 'ilove-pdf' ), 401 );
         }
 
         if ( ! isset( $_POST['post_id'] ) ) {
@@ -141,7 +141,7 @@ class Tool_Watermark {
             if ( get_post_mime_type( $post_id ) !== 'application/pdf' ) {
                 $message = sprintf(
                     /* translators: %1$s The file name */
-                    _x( 'The file %1$s is not a PDF.', 'Watermark PDF: Error message.', 'ilove-pdf' ),
+                    _x( 'The file %1$s is not a PDF.', 'Error message.', 'ilove-pdf' ),
                     $file_name,
                 );
 
@@ -153,7 +153,7 @@ class Tool_Watermark {
 
             if ( ! WP_Filesystem() ) {
                 throw new Exception(
-                    esc_html_x( 'Unable to connect to the filesystem', '', 'ilove-pdf' )
+                    esc_html_x( 'Unable to connect to the filesystem', 'Error message: Unable to connect to the core WordPress function.', 'ilove-pdf' )
                 );
             }
 

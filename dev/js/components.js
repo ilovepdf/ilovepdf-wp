@@ -4,23 +4,25 @@ import { _x } from '@wordpress/i18n';
  * Create the component for the dialog box.
  *
  * @param {string} content content of the dialog box.
+ * @param {string} title title of the dialog box.
+ * @param {string} buttonActionText text for the action button.
  * @returns {string} HTML component of the dialog box.
  */
-export const createDialogComponent = (content) => {
+export const createDialogComponent = (content, title, buttonActionText) => {
 	const dialogComponent = `<dialog id="ipdf-restore-dialog" class="ipdf-restore-dialog"><h2 class="ilovepdf-title-dialog">${_x(
-		'Attention!',
+		title,
 		'title dialog box',
 		'ilove-pdf'
 	)}</h2>
                 <p class="ilovepdf-content-dialog">${content}</p>
                 <div class="ilovepdf-btn-groups">
                     <button id="ilovepdf-dialog-aceptted" class="ipdf-btn ipdf-btn--primary">${_x(
-						'Yes',
+						buttonActionText,
 						'button dialog box',
 						'ilove-pdf'
 					)}</button>
                     <button id="ilovepdf-dialog-close" class="ipdf-btn ipdf-btn--secondary">${_x(
-						'Close',
+						'Cancel',
 						'button dialog box',
 						'ilove-pdf'
 					)}</button>

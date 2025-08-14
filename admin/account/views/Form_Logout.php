@@ -47,7 +47,7 @@ class Form_Logout {
                     %1$s
                 </button>
             </div>',
-            esc_html_x( 'Logout', 'button link', 'ilove-pdf' ),
+            esc_html_x( 'Log out', 'button link', 'ilove-pdf' ),
         );
     }
 }

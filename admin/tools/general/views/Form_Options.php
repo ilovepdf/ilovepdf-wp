@@ -46,7 +46,7 @@ class Form_Options extends Form {
             Settings::get_action_key(),
             wp_nonce_field( -1, '_wpnonce', true, false ),
             self::create_submit_button(),
-            esc_html_x( 'General Options', 'form title', 'ilove-pdf' ),
+            esc_html_x( 'General Settings', 'form title', 'ilove-pdf' ),
             self::create_field_backup(),
             self::create_section_restore_files()
         );
@@ -64,8 +64,8 @@ class Form_Options extends Form {
     protected static function create_field_backup() {
         $backup_folder = sprintf(
             wp_kses_post(
-                            /* translators: %s: backup folder path */
-                __( 'Backup files will be stored at: %s', 'ilove-pdf' )
+                /* translators: %s: backup folder path */
+                __( 'Backup files are stored at: %s', 'ilove-pdf' )
             ),
             '<code>wp-content/uploads' . File_System::$folder_backup . '</code>'
         );
@@ -81,7 +81,7 @@ class Form_Options extends Form {
             Settings::get_field_backup(),
             Settings::get_general_settings( Settings::get_field_backup() ) ? 'checked' : '',
             esc_html_x( 'Backup original Files', 'checkbox field label', 'ilove-pdf' ),
-            esc_html__( 'Enable this option to make a backup of your files before being compress or watermarked. These backups will allow you to restore your original files at cost of taking server memory space.', 'ilove-pdf' ),
+            esc_html__( 'Enable backups to save a copy before compressing or watermarking. Backups can be restored later but use server space.', 'ilove-pdf' ),
             $backup_folder
         );
     }
@@ -99,7 +99,7 @@ class Form_Options extends Form {
         $message_warning_restore = sprintf(
             wp_kses_post(
                 /* translators: %1$s and %2$s: html tags */
-                __( 'All backup files can be restored. This will restore the original files as they were before compression or watermarking. %1$s Warning: Any changes made AFTER Watermark/Compress would be also restored. %2$s', 'ilove-pdf' )
+                __( 'You can restore original files from backup. Restoring will return files to their state before any changes were made. %1$s Warning: This will remove all modifications applied using the tools. %2$s', 'ilove-pdf' )
             ),
             '<span style="color: red;">',
             '</span>'
@@ -108,7 +108,7 @@ class Form_Options extends Form {
         $message_warning_clear = sprintf(
             wp_kses_post(
                 /* translators: %1$s and %2$s: html tags */
-                __( 'You can also clear all your backup files to free memory space. %1$s Warning: Clear backups will prevent you to restore original files. %2$s', 'ilove-pdf' )
+                __( 'You can delete all backup files to free up space. %1$s Warning: This will remove your ability to restore files. %2$s', 'ilove-pdf' )
             ),
             '<span style="color: red;">',
             '</span>'
@@ -132,7 +132,7 @@ class Form_Options extends Form {
                 %5$s
             </div>
             ',
-            esc_html_x( 'Restore Original Files', 'section title', 'ilove-pdf' ),
+            esc_html_x( 'Restore Backup Files', 'section title', 'ilove-pdf' ),
             $message_warning_restore,
             $message_warning_clear,
             self::create_restoreall_button(),
@@ -151,7 +151,7 @@ class Form_Options extends Form {
         return sprintf(
             '<button type="button" class="ipdf-btn--outline-primary" id="ilovepdf_restore_all" %1$s>%2$s</button>',
             self::state_button(),
-            esc_html_x( 'Restore All', 'button', 'ilove-pdf' )
+            esc_html_x( 'Restore all', 'button', 'ilove-pdf' )
         );
     }
 

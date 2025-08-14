@@ -36,7 +36,7 @@ class Form_Login extends Form {
             esc_html( admin_url( 'admin-post.php' ) ),
             User_Account::get_action_login_key(),
             wp_nonce_field( -1, '_wpnonce_login', true, false ),
-            esc_html_x( 'Login to your account', 'form title', 'ilove-pdf' ),
+            esc_html_x( 'Log in to your account', 'form title', 'ilove-pdf' ),
             self::create_field_email(),
             self::create_field_password(),
             self::create_btn_forget_password(),
@@ -84,7 +84,7 @@ class Form_Login extends Form {
         return sprintf(
             '<a class="ipdf-btn--inline-secondary" href="%1$s">%2$s</a>',
             esc_url( $url ),
-            esc_html_x( 'Register as iLoveAPI developer', 'button link', 'ilove-pdf' ),
+            esc_html_x( 'Create an iLovePDF developer account', 'button link', 'ilove-pdf' ),
         );
     }
 
@@ -103,7 +103,7 @@ class Form_Login extends Form {
                     %1$s
                 </button>
             </div>',
-            esc_html_x( 'Login', 'button link', 'ilove-pdf' ),
+            esc_html_x( 'Log in', 'button link', 'ilove-pdf' ),
         );
     }
 }

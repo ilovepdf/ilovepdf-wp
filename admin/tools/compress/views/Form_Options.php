@@ -80,7 +80,7 @@ class Form_Options extends Form {
             Settings::get_field_compress_active(),
             Settings::get_compress_settings( Settings::get_field_compress_active() ) ? 'checked' : '',
             esc_html_x( 'Compress Activated', 'checkbox field label', 'ilove-pdf' ),
-            esc_html__( 'Activate this tool in your WordPress dashboard. Activation will work only once you have registered and login as an iLoveAPI developer.', 'ilove-pdf' ),
+            esc_html_x( 'Reduce the file size of your PDFs for easy sharing and storage.', 'help text for checkbox field', 'ilove-pdf' ),
         );
     }
 
@@ -103,8 +103,8 @@ class Form_Options extends Form {
             <p>%4$s</p>',
             Settings::get_field_auto_compress(),
             Settings::get_compress_settings( Settings::get_field_auto_compress() ) ? 'checked' : '',
-            esc_html_x( 'Enable Autocompress Files', 'checkbox field label', 'ilove-pdf' ),
-            esc_html__( 'With auto-compression enabled, any file uploaded to the Media folder will be automatically compressed. However, you can compress uncompressed files from Media.', 'ilove-pdf' ),
+            esc_html_x( 'Automatically apply to uploaded files', 'checkbox field label', 'ilove-pdf' ),
+            esc_html_x( 'With auto-compression enabled, any file uploaded to the Media folder will be automatically compressed.', 'help text for checkbox field', 'ilove-pdf' ),
         );
     }
 
@@ -148,11 +148,11 @@ class Form_Options extends Form {
             esc_html__( 'You can choose the appropriate compression level for your files. By default, it will be recommended.', 'ilove-pdf' ),
             Settings::get_field_compression_level(),
             Settings::get_compress_level( 'extreme' ),
-            esc_html_x( 'Extreme: Less quality, high compression', 'radio button field label', 'ilove-pdf' ),
+            esc_html_x( 'Extreme: High compression, less quality', 'radio button field label', 'ilove-pdf' ),
             Settings::get_compress_level( 'recommended' ),
-            esc_html_x( 'Recommended: Good quality, good compression', 'radio button field label', 'ilove-pdf' ),
+            esc_html_x( 'Recommended: Good compression, good quality, ', 'radio button field label', 'ilove-pdf' ),
             Settings::get_compress_level( 'low' ),
-            esc_html_x( 'Low: High quality, less compression', 'radio button field label', 'ilove-pdf' ),
+            esc_html_x( 'Low: Less compression, high quality', 'radio button field label', 'ilove-pdf' ),
             checked( $db_compression_level, Settings::get_compress_level( 'extreme' ), false ),
             checked( $db_compression_level, Settings::get_compress_level( 'recommended' ), false ),
             checked( $db_compression_level, Settings::get_compress_level( 'low' ), false ),
