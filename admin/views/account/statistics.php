@@ -16,6 +16,10 @@ use Ilove_Pdf_WP\Account\User_Account;
 
 <article class="ilovepdf__account-credits-section ilovepdf-base__layout-flex ilovepdf-base__layout-flex-wrap ilovepdf-base__layout-flex-1">
     <div class="ilovepdf__account-statistics-wrapper ilovepdf-base__layout-flex-1">
+        <h3 class="ipdf-title">
+            <?php echo esc_html_x( 'Remaining Credits', 'title account statistics', 'ilove-pdf' ); ?>
+        </h3>
+        <hr class="ipdf-divisor">
         <div class="ilovepdf__account-info-inner ilovepdf__account-free">
             <h5 class="ipdf-subtitle">
                 <?php echo esc_html_x( 'Free.', 'subtitle package section', 'ilove-pdf' ); ?>
@@ -74,7 +78,7 @@ use Ilove_Pdf_WP\Account\User_Account;
             ?>
         </p>
         <a class="ipdf-btn ipdf-btn--secondary" href="https://iloveapi.com/pricing" target="_blank">
-            <?php echo esc_html_x( 'Buy more credits', 'button link', 'ilove-pdf' ); ?>
+            <?php echo esc_html_x( 'Buy credits', 'button link', 'ilove-pdf' ); ?>
         </a>
     </div>
 </article>

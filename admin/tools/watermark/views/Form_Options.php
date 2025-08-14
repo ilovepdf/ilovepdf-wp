@@ -215,7 +215,7 @@ class Form_Options extends Form {
             Settings::get_field_watermark_active(),
             checked( Settings::get_settings( Settings::get_field_watermark_active() ), 'on', false ),
             esc_html_x( 'Watermark Activated', 'checkbox field label', 'ilove-pdf' ),
-            esc_html__( 'Activate this tool in your WordPress dashboard. Activation will work only once you have registered and login as an iLoveAPI developer.', 'ilove-pdf' ),
+            esc_html_x( 'Apply watermark to PDF files to protect them from unauthorized use.', 'help text for checkbox field', 'ilove-pdf' ),
         );
     }
 
@@ -238,7 +238,7 @@ class Form_Options extends Form {
             <p>%4$s</p>',
             Settings::get_field_auto_watermark(),
             checked( Settings::get_settings( Settings::get_field_auto_watermark() ), 'on', false ),
-            esc_html_x( 'Enable Auto Watermark', 'checkbox field label', 'ilove-pdf' ),
+            esc_html_x( 'Automatically apply watermark to uploaded files', 'checkbox field label', 'ilove-pdf' ),
             esc_html__( 'With Auto Watermark enabled, any file uploaded to the Media folder will be automatically stamped with your choosen watermark. Still, you will be able to watermark non stamped images from Media.', 'ilove-pdf' ),
         );
     }
@@ -274,10 +274,10 @@ class Form_Options extends Form {
             $db_key_mode . $mode_value_text,
             $db_key_mode,
             $mode_value_text,
-            esc_html_x( 'Watermark Text', 'radio button label', 'ilove-pdf' ),
+            esc_html_x( 'Place Text', 'radio button label', 'ilove-pdf' ),
             $db_key_mode . $mode_value_image,
             $mode_value_image,
-            esc_html_x( 'Watermark Image', 'radio button label', 'ilove-pdf' ),
+            esc_html_x( 'Place Image', 'radio button label', 'ilove-pdf' ),
             checked( $value_mode_checked, $mode_value_text, false ),
             checked( $value_mode_checked, $mode_value_image, false ),
         );

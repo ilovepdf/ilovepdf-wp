@@ -29,7 +29,7 @@ trait Actions {
                 </span>
             </button>',
             '<svg xmlns="http://www.w3.org/2000/svg" width="26px" height="26px" viewBox="0 0 50 50"><path d="M8.012 0h33.977c2.785 0 3.797.29 4.813.836a5.65 5.65 0 0 1 2.363 2.363C49.71 4.215 50 5.227 50 8.012v33.977c0 2.785-.29 3.797-.836 4.813a5.65 5.65 0 0 1-2.363 2.363c-1.016.547-2.027.836-4.812.836H8.012c-2.785 0-3.797-.29-4.816-.836S1.38 47.82.836 46.8 0 44.773 0 41.988V8.012C0 5.227.29 4.215.836 3.2A5.65 5.65 0 0 1 3.199.836C4.215.29 5.227 0 8.012 0zm0 0" fill-rule="evenodd" fill="rgb(67.058824%,41.176471%,57.647059%)"></path><path d="M22.7 22.523c0 .863-1.094 3.023-2.11 4.668a.68.68 0 0 0-.078.523c.078.277.328.47.61.47h7.75a.63.63 0 0 0 .566-.352.65.65 0 0 0-.055-.672c-1.445-1.97-2.1-3.398-2.1-4.633s.645-2.66 2.094-4.637c.664-.937 1.012-2.043 1.012-3.195 0-3.02-2.422-5.477-5.398-5.477s-5.398 2.45-5.398 5.473a5.49 5.49 0 0 0 1.02 3.203c1.44 1.97 2.086 3.398 2.086 4.63zm14.02 6.55H13.266a.64.64 0 0 0-.633.645v6.465c0 .352.285.645.633.645H36.72a.64.64 0 0 0 .633-.645V29.72c0-.352-.285-.645-.633-.645zm-3.582 8.7H16.863a.64.64 0 0 0-.633.645v.727c0 .352.285.645.633.645h16.273a.64.64 0 0 0 .633-.645v-.727c0-.352-.285-.645-.633-.645zm0 0" fill="#fff"></path></svg>',
-            User_Account::is_user_logged_in() ? esc_html( _x( 'Add Watermark', '', 'ilove-pdf' ) ) : esc_html( _x( 'Register or login with us to add watermark', 'tooltip: Appears when the user is not logged in.', 'ilove-pdf' ) ),
+            User_Account::is_user_logged_in() ? esc_html( _x( 'Apply Watermark', 'Button action', 'ilove-pdf' ) ) : esc_html( _x( 'Register or login with us to add watermark', 'tooltip: Appears when the user is not logged in.', 'ilove-pdf' ) ),
             esc_attr( wp_create_nonce( 'ilovepdf_action_watermark' ) ),
             $post_id,
             'ilovepdf_action_watermark',
@@ -52,7 +52,7 @@ trait Actions {
                 <span class="">%2$s</span>
             </div>',
             Tool_Watermark::is_file_watermarked( $post_id ) ? '' : 'ipdf-item-status-active',
-            esc_html_x( 'No watermark applied', '', 'ilove-pdf' ),
+            esc_html_x( 'No watermark applied', 'Status: No watermark applied', 'ilove-pdf' ),
         );
     }
 
@@ -70,7 +70,7 @@ trait Actions {
                 <span>%2$s</span>
             </div>',
             Tool_Watermark::is_file_watermarked( $post_id ) ? 'ipdf-item-status-active' : '',
-            esc_html_x( 'Watermark applied', '', 'ilove-pdf' ),
+            esc_html_x( 'Watermark applied', 'Status: Watermark applied', 'ilove-pdf' ),
         );
     }
 
@@ -87,7 +87,7 @@ trait Actions {
                 <span class="">%2$s</span>
             </div>',
             $this->get_loading(),
-            esc_html_x( 'Processing watermark...', '', 'ilove-pdf' ),
+            esc_html_x( 'Processing watermark...', 'Status: Processing watermark', 'ilove-pdf' ),
         );
     }
 }

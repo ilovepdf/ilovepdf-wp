@@ -1,4 +1,4 @@
-import { _x, sprintf } from '@wordpress/i18n';
+import { _x } from '@wordpress/i18n';
 import { createDialogComponent, showAdminNotice } from '../../components';
 
 const btnClearBackup = document.getElementById('ilovepdf_clear_backup');
@@ -7,15 +7,18 @@ btnClearBackup?.addEventListener('click', function (e) {
 	e.preventDefault();
 
 	const currentTarget = e.currentTarget;
-	const contentDialog = sprintf(
-		_x(
-			'All files inside %1$s folder will be deleted. Do you want to continue?',
-			'body content dialog box',
-			'ilove-pdf'
-		),
-		'wp-content/uploads/ilovepdf/backup'
+	const titleDialog = _x(
+		'Are you sure you want to clear all backups?',
+		'title dialog box',
+		'ilove-pdf'
 	);
-	const dialogComponent = createDialogComponent(contentDialog);
+	const contentDialog = _x(
+		'This will delete all backups. Do you want to continue?',
+		'body content dialog box',
+		'ilove-pdf'
+	);
+	const buttonActionText = _x('Clear backups', 'button dialog box', 'ilove-pdf');
+	const dialogComponent = createDialogComponent(contentDialog, titleDialog, buttonActionText);
 
 	currentTarget.insertAdjacentHTML('afterend', dialogComponent);
 

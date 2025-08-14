@@ -101,7 +101,7 @@ class Tool_Compress {
 	public function handler_compress_action() {
 
 		if ( ! isset( $_POST['_wpnonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_wpnonce'] ) ), 'ilovepdf_action_compress' ) ) {
-            wp_send_json_error( __( 'Error processing your request. Invalid Nonce code', 'ilove-pdf' ), 401 );
+            wp_send_json_error( _x( 'There was a problem validating the nonce code, please try again later.', 'Error message, invalid nonce code.', 'ilove-pdf' ), 401 );
         }
 
         if ( ! isset( $_POST['post_id'] ) ) {
@@ -166,7 +166,7 @@ class Tool_Compress {
             if ( get_post_mime_type( $post_id ) !== 'application/pdf' ) {
                 $message = sprintf(
                     /* translators: %1$s The file name */
-                    _x( 'The file %1$s is not a PDF.', 'Compress PDF: Error message.', 'ilove-pdf' ),
+                    _x( 'The file %1$s is not a PDF.', 'Error message.', 'ilove-pdf' ),
                     $file_name,
                 );
 
@@ -178,7 +178,7 @@ class Tool_Compress {
 
             if ( ! WP_Filesystem() ) {
                 throw new Exception(
-                    esc_html_x( 'Unable to connect to the filesystem', '', 'ilove-pdf' ),
+                    esc_html_x( 'Unable to connect to the filesystem', 'Error message: Unable to connect to the core WordPress function.', 'ilove-pdf' ),
                 );
             }
 
@@ -304,8 +304,8 @@ class Tool_Compress {
     public static function get_compressed_reabable_percentage( $original, $compressed ) {
         if ( $original === $compressed ) {
             return sprintf(
-                /* translators: %d: compression percentage */
-                _x( 'Compressed (%d%%)', 'Compress PDF: Compressed percentage.', 'ilove-pdf' ),
+                /* translators: %1$s: compression percentage */
+                _x( 'Compressed (%1$s%%)', 'Compress PDF: Compressed percentage.', 'ilove-pdf' ),
                 0,
             );
         }
@@ -319,8 +319,8 @@ class Tool_Compress {
 
         return sprintf(
             /* translators: %1$s: compression percentage */
-            _x( 'Compressed (-%1$s%%)', 'Compress PDF: Compressed percentage.', 'ilove-pdf' ),
-            $percentage,
+            _x( 'Compressed (%1$s%%)', 'Compress PDF: Compressed percentage.', 'ilove-pdf' ),
+            '-' . $percentage,
         );
     }
 

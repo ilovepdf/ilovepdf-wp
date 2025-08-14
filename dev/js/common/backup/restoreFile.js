@@ -30,12 +30,18 @@ export const restoreFile = (btnTrigger) => {
 	const statusFail = statusContainer.querySelector('.ipdf-item-status-fail');
 	const loading = statusContainer.querySelector('.ipdf-item-status-processing-restore');
 
+	const titleDialog = _x(
+		'Are you sure you want to restore this file?',
+		'body title dialog box',
+		'ilove-pdf'
+	);
 	const contentDialog = _x(
-		'The changes applied by all the tools will be lost. Do you want to continue?',
+		'This will undo all changes made to the file. Do you want to continue?',
 		'body content dialog box',
 		'ilove-pdf'
 	);
-	const dialogComponent = createDialogComponent(contentDialog);
+	const buttonActionText = _x('Restore', 'button action', 'ilove-pdf');
+	const dialogComponent = createDialogComponent(contentDialog, titleDialog, buttonActionText);
 
 	statusContainer.insertAdjacentHTML('afterend', dialogComponent);
 

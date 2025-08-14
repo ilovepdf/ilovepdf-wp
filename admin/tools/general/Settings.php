@@ -89,7 +89,7 @@ class Settings {
         DB_Handler::update_option( self::$db_key_general_settings, $posts_value );
 
         Admin_Notice::add_notice(
-            _x( 'General settings saved successfully.', 'Form submission: Success message', 'ilove-pdf' ),
+            _x( 'Changes saved.', 'Form submission: Success message', 'ilove-pdf' ),
             'success',
         );
 

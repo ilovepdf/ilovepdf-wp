@@ -82,7 +82,7 @@ class Settings extends Options {
         DB_Handler::update_option( self::$db_key_compress_settings, $posts_value );
 
         Admin_Notice::add_notice(
-            _x( 'Compress settings saved successfully.', 'Form submission: Success message', 'ilove-pdf' ),
+            _x( 'Changes saved.', 'Form submission: Success message', 'ilove-pdf' ),
             'success',
         );
 

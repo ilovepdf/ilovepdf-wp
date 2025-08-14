@@ -32,7 +32,7 @@ class Form {
                 </button>
             </div>',
             ! User_Account::is_user_logged_in() ? 'disabled' : '',
-            esc_html_x( 'Save Changes', 'button link', 'ilove-pdf' ),
+            esc_html_x( 'Save', 'button link', 'ilove-pdf' ),
             esc_html_x( 'Register and login with us to save settings changes', 'tooltip: Appears when the user is not logged in.', 'ilove-pdf' )
         );
     }

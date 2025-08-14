@@ -269,7 +269,7 @@ class Files_List_Table extends WP_List_Table {
         if ( isset( $_POST['_wpnonce'] ) && ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_wpnonce'] ) ), 'bulk-' . $this->_args['plural'] ) ) {
 
             Admin_Notice::add_notice(
-                _x( 'Nonce verification failed.', '', 'ilove-pdf' ),
+                _x( 'There was a problem validating the nonce code, please try again later.', 'Error message, invalid nonce code.', 'ilove-pdf' ),
                 'error'
             );
 

@@ -64,7 +64,7 @@ class Submenu_Page {
 
         // Add page menu to WordPress dashboard.
         add_menu_page(
-            _x( 'General Settings', 'submenu link', 'ilove-pdf' ),
+            _x( 'General Settings', 'Link element: This appears in the WordPress side menu.', 'ilove-pdf' ),
 			'iLovePDF',
 			'manage_options',
 			self::$parent_slug,
@@ -78,8 +78,8 @@ class Submenu_Page {
 		// Add general settings.
         add_submenu_page(
 			self::$parent_slug,
-			_x( 'General Settings', 'submenu link', 'ilove-pdf' ),
-			_x( 'General Settings', 'submenu link', 'ilove-pdf' ),
+			_x( 'General Settings', 'Link element: This appears in the WordPress side menu.', 'ilove-pdf' ),
+			_x( 'General Settings', 'Link element: This appears in the WordPress side menu.', 'ilove-pdf' ),
 			'manage_options',
 			self::$parent_slug,
 			array(
@@ -91,8 +91,8 @@ class Submenu_Page {
 		// Add compress settings.
         add_submenu_page(
 			self::$parent_slug,
-			_x( 'Compress settings', 'submenu link', 'ilove-pdf' ),
-			_x( 'Compress settings', 'submenu link', 'ilove-pdf' ),
+			_x( 'Compress settings', 'Link element: This appears in the WordPress side menu.', 'ilove-pdf' ),
+			_x( 'Compress settings', 'Link element: This appears in the WordPress side menu.', 'ilove-pdf' ),
 			'manage_options',
 			self::$compress_slug,
 			array(
@@ -104,8 +104,8 @@ class Submenu_Page {
 		// Add watermark settings.
 		add_submenu_page(
 			self::$parent_slug,
-			_x( 'Watermark settings', 'submenu link', 'ilove-pdf' ),
-			_x( 'Watermark settings', 'submenu link', 'ilove-pdf' ),
+			_x( 'Watermark settings', 'Link element: This appears in the WordPress side menu.', 'ilove-pdf' ),
+			_x( 'Watermark settings', 'Link element: This appears in the WordPress side menu.', 'ilove-pdf' ),
 			'manage_options',
 			self::$watermark_slug,
 			array(
@@ -164,19 +164,19 @@ class Submenu_Page {
 		$general_settings[] = sprintf(
 			'<a href="%1$s">%2$s</a>',
 			esc_url( add_query_arg( 'page', self::$parent_slug, get_admin_url() . 'admin.php' ) ),
-			esc_html_x( 'General Settings', 'Link item', 'ilove-pdf' )
+			esc_html_x( 'General Settings', 'Link item: appears in the plugins list.', 'ilove-pdf' )
 		);
 
 		$compress_settings[] = sprintf(
 			'<a href="%1$s">%2$s</a>',
 			esc_url( add_query_arg( 'page', self::$compress_slug, get_admin_url() . 'admin.php' ) ),
-			esc_html_x( 'Compress Settings', 'Link item', 'ilove-pdf' )
+			esc_html_x( 'Compress Settings', 'Link item: appears in the plugins list.', 'ilove-pdf' )
 		);
 
 		$watermark_settings[] = sprintf(
 			'<a href="%1$s">%2$s</a>',
 			esc_url( add_query_arg( 'page', self::$watermark_slug, get_admin_url() . 'admin.php' ) ),
-			esc_html_x( 'Watermark Settings', 'Link item', 'ilove-pdf' )
+			esc_html_x( 'Watermark Settings', 'Link item: appears in the plugins list.', 'ilove-pdf' )
 		);
 
 		$actions = array_merge( $actions, $general_settings, $compress_settings, $watermark_settings );

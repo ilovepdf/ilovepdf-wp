@@ -7,12 +7,18 @@ btnRestoreAll?.addEventListener('click', function (e) {
 	e.preventDefault();
 
 	const currentTarget = e.currentTarget;
+	const titleDialog = _x(
+		'Are you sure you want to restore all files?',
+		'title dialog box',
+		'ilove-pdf'
+	);
 	const contentDialog = _x(
-		'The changes applied by all the tools will be lost. Do you want to continue?',
+		'This will undo all changes made to the files. Do you want to continue?',
 		'body content dialog box',
 		'ilove-pdf'
 	);
-	const dialogComponent = createDialogComponent(contentDialog);
+	const buttonActionText = _x('Restore files', 'button dialog box', 'ilove-pdf');
+	const dialogComponent = createDialogComponent(contentDialog, titleDialog, buttonActionText);
 
 	currentTarget.insertAdjacentHTML('afterend', dialogComponent);
 

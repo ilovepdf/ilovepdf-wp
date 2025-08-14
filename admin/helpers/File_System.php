@@ -183,8 +183,8 @@ class File_System {
 		if ( ! WP_Filesystem() ) {
 
             Admin_Notice::add_notice(
-                esc_html_x( 'Unable to connect to the filesystem', '', 'ilove-pdf' ),
-                'error',
+                esc_html_x( 'Unable to connect to the filesystem', 'Error message: Unable to connect to the core WordPress function.', 'ilove-pdf' ),
+				'error',
             );
 
             return;
