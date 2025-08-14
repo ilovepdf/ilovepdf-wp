@@ -23,6 +23,7 @@
 			font-size: 18px;
 			font-weight: 500;
 			color: $secondary_color;
+			text-align: center;
 		}
 
 		.ilovepdf-btn-groups {
@@ -42,6 +43,40 @@
 
 		&[open] {
 			animation: openDialog 300ms ease-in-out 0s 1 normal forwards;
+		}
+	}
+}
+
+@mixin popup-credits {
+	#TB_window {
+		border-radius: 10px;
+		box-sizing: border-box;
+
+		.ipdf-popup-buymore-content-box {
+			figure {
+				margin: 0;
+			}
+
+			p,
+			h3 {
+				text-align: center;
+			}
+
+			h3 {
+				margin: 10px 0 15px 0;
+			}
+
+			.ipdf-btn {
+				text-decoration: none;
+
+				&.ipdf-btn--primary {
+					@extend %button-primary;
+				}
+
+				&.ipdf-btn--secondary {
+					@extend %button-secondary;
+				}
+			}
 		}
 	}
 }
