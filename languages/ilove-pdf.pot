@@ -217,7 +217,7 @@ msgstr ""
 
 #: admin/account/views/Form_Project.php:63
 msgctxt "Input Project Select label"
-msgid "Select your proyect"
+msgid "Select your project"
 msgstr ""
 
 #: admin/account/views/Form_Project.php:84
