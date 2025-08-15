@@ -150,7 +150,7 @@ class Form_Options extends Form {
             Settings::get_compress_level( 'extreme' ),
             esc_html_x( 'Extreme: High compression, less quality', 'radio button field label', 'ilove-pdf' ),
             Settings::get_compress_level( 'recommended' ),
-            esc_html_x( 'Recommended: Good compression, good quality, ', 'radio button field label', 'ilove-pdf' ),
+            esc_html_x( 'Recommended: Good compression, good quality', 'radio button field label', 'ilove-pdf' ),
             Settings::get_compress_level( 'low' ),
             esc_html_x( 'Low: Less compression, high quality', 'radio button field label', 'ilove-pdf' ),
             checked( $db_compression_level, Settings::get_compress_level( 'extreme' ), false ),

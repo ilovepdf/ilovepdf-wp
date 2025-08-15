@@ -571,7 +571,7 @@ msgstr ""
 
 #: admin/tools/compress/views/Form_Options.php:153
 msgctxt "radio button field label"
-msgid "Recommended: Good compression, good quality, "
+msgid "Recommended: Good compression, good quality"
 msgstr ""
 
 #: admin/tools/compress/views/Form_Options.php:155
