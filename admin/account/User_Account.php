@@ -475,7 +475,7 @@ class User_Account {
 
         if ( ! array_key_exists( self::$user_projects, $_POST ) ) {
             Admin_Notice::add_notice(
-                _x( 'The projects field is required.', 'Error message, invalid input field.', 'ilove-pdf' ),
+                _x( 'The project field is required.', 'Error message, invalid input field.', 'ilove-pdf' ),
                 'error',
             );
 

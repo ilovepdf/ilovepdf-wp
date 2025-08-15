@@ -124,7 +124,7 @@ msgstr ""
 
 #: admin/account/User_Account.php:478
 msgctxt "Error message, invalid input field."
-msgid "The projects field is required."
+msgid "The project field is required."
 msgstr ""
 
 #: admin/account/User_Account.php:492
