@@ -533,14 +533,13 @@ class Form_Options extends Form {
 
         return sprintf(
             '<div class="ipdf-number-group">
-                <input type="number" name="%1$s" id="%1$s" min="%3$s" max="%4$s" value="%5$s" />
+                <input type="number" name="%1$s" id="%1$s" min="%2$s" max="%3$s" value="%4$s" />
                 <span class="prefix">px</span>
             </div>',
             $db_key_font_size,
-            esc_html_x( 'Scale', 'input range field label', 'ilove-pdf' ),
             Settings::get_font_size_values( false, 'min' ),
             Settings::get_font_size_values( false, 'max' ),
-            Settings::get_settings( $db_key_font_size )
+            Settings::get_settings( $db_key_font_size ),
         );
     }
 
