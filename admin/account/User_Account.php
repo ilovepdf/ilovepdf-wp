@@ -832,6 +832,10 @@ class User_Account {
      * @since 3.0.0
      */
     public static function has_credits() {
+        if ( ! self::is_user_logged_in() ) {
+            return true;
+        }
+
         $user_credits = array(
             'free'        => array(
                 'used'  => self::get_credits( 'free', 'used' ),
