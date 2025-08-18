@@ -35,48 +35,9 @@ require_once plugin_dir_path( __FILE__ ) . '/vendor/autoload.php';
 use Ilove_Pdf_WP\Activator;
 use Ilove_Pdf_WP\Deactivator;
 use Ilove_Pdf_WP\Ilove_Pdf_Plugin;
-use Ilove_Pdf_WP\Helpers\Admin_Notice;
-use Ilove_Pdf_WP\Tools\General\Settings as General_Settings;
-use Ilove_Pdf_WP\Tools\Compress\Settings as Compress_Settings;
-use Ilove_Pdf_WP\Tools\Watermark\Settings as Watermark_Settings;
 
 register_activation_hook( __FILE__, array( Activator::class, 'activate' ) );
 
 register_deactivation_hook( __FILE__, array( Deactivator::class, 'deactivate' ) );
 
-/**
- * Plugin update.
- *
- * Fires when the upgrader process is complete.
- *
- * @since    2.1.2
- *
- * @param object $upgrader_object Reference to the plugin upgrader object.
- * @param array  $options {
- *     Array of plugin update options.
- *
- *     @type string $action Type of action. Default 'update'.
- *     @type string $type Type of plugin being updated. Default 'plugin'.
- *     @type string $slug Slug of the plugin being updated. Default ''.
- * }
- */
-function ilove_pdf_upgrade_plugin( $upgrader_object, $options ) {
-	if ( 'update' === $options['action'] && 'plugin' === $options['type'] ) {
-		foreach ( $options['plugins'] as $each_plugin ) {
-			if ( Ilove_Pdf_Plugin::get_plugin_basename() === $each_plugin ) {
-
-				try {
-					General_Settings::migrate();
-					Compress_Settings::migrate();
-					Watermark_Settings::migrate();
-				} catch ( \Error $e ) {
-					if ( ! empty( $e->getMessage() ) ) {
-						Admin_Notice::render( $e->getMessage(), 'error' );
-					}
-				}
-			}
-		}
-	}
-}
-add_action( 'upgrader_process_complete', 'ilove_pdf_upgrade_plugin', 10, 2 );
 new Ilove_Pdf_Plugin( '3.0.0', plugin_basename( __FILE__ ) );
