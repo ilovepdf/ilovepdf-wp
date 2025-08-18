@@ -91,7 +91,7 @@ class Backup {
 			$files_restore = get_option( $this->db_key_all_files_backup, array() );
 			$key_founded   = array_search( $attachment_id, $files_restore, true );
 
-			if ( ! in_array( $attachment_id, $files_restore, true ) ) {
+			if ( ! $key_founded ) {
 				wp_send_json_error( __( 'Sorry. There is no backup for this file', 'ilove-pdf' ), 404 );
 			}
 
@@ -108,11 +108,9 @@ class Backup {
 			delete_post_meta( $attachment_id, Tool_Compress::get_db_key_process() );
 			delete_post_meta( $attachment_id, $this->db_key_file_backup );
 
-			if ( false !== $key_founded ) {
-				unset( $files_restore[ $key_founded ] );
-				wp_delete_file( $file_backup_path );
-				DB_Handler::update_option( $this->db_key_all_files_backup, $files_restore );
-			}
+            unset( $files_restore[ $key_founded ] );
+            wp_delete_file( $file_backup_path );
+            DB_Handler::update_option( $this->db_key_all_files_backup, $files_restore );
 
             Compress_Statistics::reset_statistics();
             Watermark_Statistics::reset_statistics();
@@ -394,7 +392,7 @@ class Backup {
             }
 
             if ( ! in_array( $file_id, $files_restore, true ) ) {
-                $files_restore[] = $file_id;
+                $files_restore[] = (int) $file_id;
                 DB_Handler::update_option( $instance->db_key_all_files_backup, $files_restore );
             }
 
@@ -491,7 +489,7 @@ class Backup {
             }
 
             foreach ( $ids as $post_id ) {
-                $file_path = get_post_meta( $post_id, $instance->legacy_db_key_file_backup, true );
+                $file_path = get_post_meta( $post_id, $legacy_db_key_file_backup, true );
 
                 if ( empty( $file_path ) ) {
                     continue;
@@ -504,12 +502,12 @@ class Backup {
                 }
 
                 if ( ! in_array( $post_id, $files_restore, true ) ) {
-                    $files_restore[] = $post_id;
+                    $files_restore[] = (int) $post_id;
                     DB_Handler::update_option( $instance->db_key_all_files_backup, $files_restore );
                 }
 
                 update_post_meta( $post_id, $instance->db_key_file_backup, $file_path ); // Update the post meta to use the new key.
-                delete_post_meta( $post_id, $instance->legacy_db_key_file_backup ); // Remove the old post meta.
+                delete_post_meta( $post_id, $legacy_db_key_file_backup ); // Remove the old post meta.
             }
 		} while ( $ids_count === $batch_size );
     }
