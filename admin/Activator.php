@@ -11,6 +11,8 @@ use Ilove_Pdf_WP\Tools\Watermark\Tool_Watermark;
 use Ilove_Pdf_WP\Tools\General\Settings as General_Settings;
 use Ilove_Pdf_WP\Tools\Compress\Settings as Compress_Settings;
 use Ilove_Pdf_WP\Tools\Watermark\Settings as Watermark_Settings;
+use Ilove_Pdf_WP\Tools\Compress\Statistics as Compress_Statistics;
+use Ilove_Pdf_WP\Tools\Watermark\Statistics as Watermark_Statistics;
 
 /**
  * Fired during plugin activation.
@@ -30,6 +32,9 @@ class Activator {
 		Backup::migrate_file_backup();
 		Tool_Compress::migrate_metadata();
 		Tool_Watermark::migrate_watermark_status();
+
+		Compress_Statistics::reset_statistics();
+		Watermark_Statistics::reset_statistics();
 
 		User_Account::create_wordpress_id();
 		User_Account::migrate_account_settings();
