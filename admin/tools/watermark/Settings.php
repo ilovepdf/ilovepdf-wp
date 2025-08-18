@@ -217,13 +217,13 @@ class Settings extends Options {
 
                 switch ( $legacy_watermark_settings_format['ilove_pdf_format_watermark_horizontal'] ) {
                     case 0:
-                        $position_vertical = 'left';
+                        $position_horizontal = 'left';
                         break;
                     case 1:
-                        $position_vertical = 'right';
+                        $position_horizontal = 'right';
                         break;
                     case 2:
-                        $position_vertical = 'center';
+                        $position_horizontal = 'center';
                         break;
                 }
 
