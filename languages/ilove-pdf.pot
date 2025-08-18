@@ -490,8 +490,9 @@ msgstr ""
 
 #. translators: %1$s The file name
 #: admin/tools/compress/Tool_Compress.php:224
+#: admin/tools/watermark/Tool_Watermark.php:228
 #, php-format
-msgctxt "Compress PDF: Error message."
+msgctxt "Process Error"
 msgid "The %1$s file could not be found inside the temporary download folder."
 msgstr ""
 
@@ -675,13 +676,6 @@ msgstr ""
 #: admin/tools/watermark/Tool_Watermark.php:138
 msgctxt "Watermark PDF: Error message."
 msgid "The watermark tool is not activated."
-msgstr ""
-
-#. translators: %1$s The file name
-#: admin/tools/watermark/Tool_Watermark.php:228
-#, php-format
-msgctxt "Watermark PDF: Error message."
-msgid "The %1$s file could not be found inside the temporary download folder."
 msgstr ""
 
 #. translators: %1$s The file name

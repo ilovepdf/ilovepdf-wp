@@ -221,7 +221,7 @@ class Tool_Compress {
             if ( ! $wp_filesystem->exists( $compressed_file ) ) {
                 $message = sprintf(
                     /* translators: %1$s The file name */
-                    _x( 'The %1$s file could not be found inside the temporary download folder.', 'Compress PDF: Error message.', 'ilove-pdf' ),
+                    _x( 'The %1$s file could not be found inside the temporary download folder.', 'Process Error', 'ilove-pdf' ),
                     $file_name,
                 );
 
