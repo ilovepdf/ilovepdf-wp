@@ -91,8 +91,8 @@ class Tool_Watermark {
         } catch ( Exception $e ) {
             wp_send_json_error(
                 sprintf(
-                    /* translators: %s Additional process error  */
-                    _x( 'Watermark PDF error: %s', 'Watermark PDF: Error message.', 'ilove-pdf' ),
+                    /* translators: %1$s Additional process error  */
+                    _x( 'Watermark PDF error: %1$s', 'Watermark PDF: Error message.', 'ilove-pdf' ),
                     $e->getMessage()
                 ),
                 500

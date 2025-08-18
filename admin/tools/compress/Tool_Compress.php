@@ -119,8 +119,8 @@ class Tool_Compress {
         } catch ( Exception $e ) {
             wp_send_json_error(
                 sprintf(
-                    /* translators: %s Additional process error  */
-                    _x( 'Compress PDF error: %s', 'Compress PDF: Error message.', 'ilove-pdf' ),
+                    /* translators: %1$s Additional process error  */
+                    _x( 'Compress PDF error: %1$s', 'Compress PDF: Error message.', 'ilove-pdf' ),
                     $e->getMessage()
                 ),
                 500

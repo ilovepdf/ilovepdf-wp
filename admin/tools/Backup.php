@@ -129,7 +129,7 @@ class Backup {
             wp_send_json_error(
                 sprintf(
                     /* translators: %1$s: error message */
-                    __( 'Error restoring file: %s', 'ilove-pdf' ),
+                    __( 'Error restoring file: %1$s', 'ilove-pdf' ),
                     $e->getMessage(),
                 ),
                 $e->getCode(),

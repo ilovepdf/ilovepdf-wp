@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "POT-Creation-Date: 2025-02-10T12:04:09+00:00\n"
-"PO-Revision-Date: 2025-08-15\n"
+"PO-Revision-Date: 2025-08-18 \n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: ilove-pdf\n"
 
@@ -378,7 +378,7 @@ msgstr ""
 #. translators: %1$s: error message
 #: admin/tools/Backup.php:132
 #, php-format
-msgid "Error restoring file: %s"
+msgid "Error restoring file: %1$s"
 msgstr ""
 
 #: admin/tools/Backup.php:166
@@ -455,11 +455,11 @@ msgctxt "Compress Overview: Tool Resume."
 msgid "Your files, summary: Original size: %1$s → After compression: %2$s"
 msgstr ""
 
-#. translators: %s Additional process error
+#. translators: %1$s Additional process error
 #: admin/tools/compress/Tool_Compress.php:123
 #, php-format
 msgctxt "Compress PDF: Error message."
-msgid "Compress PDF error: %s"
+msgid "Compress PDF error: %1$s"
 msgstr ""
 
 #. translators: %1$s The file name
@@ -658,11 +658,11 @@ msgstr ""
 msgid "Your files, summary: Total files %1$d → Protected files %2$d"
 msgstr ""
 
-#. translators: %s Additional process error
+#. translators: %1$s Additional process error
 #: admin/tools/watermark/Tool_Watermark.php:95
 #, php-format
 msgctxt "Watermark PDF: Error message."
-msgid "Watermark PDF error: %s"
+msgid "Watermark PDF error: %1$s"
 msgstr ""
 
 #. translators: %1$s The file name
