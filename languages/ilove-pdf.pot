@@ -295,13 +295,13 @@ msgid "Actions"
 msgstr ""
 
 #: admin/media/Files_List_Table.php:241
-#: admin/tools/compress/Tool_Compress.php:404
+#: admin/tools/compress/Tool_Compress.php:405
 msgctxt "Bulk action button"
 msgid "Compress PDF"
 msgstr ""
 
 #: admin/media/Files_List_Table.php:242
-#: admin/tools/watermark/Tool_Watermark.php:324
+#: admin/tools/watermark/Tool_Watermark.php:325
 msgctxt "Bulk action button"
 msgid "Apply Watermark"
 msgstr ""
@@ -504,8 +504,8 @@ msgid "The file %1$s was compressed successfully."
 msgstr ""
 
 #. translators: %1$s: compression percentage
-#: admin/tools/compress/Tool_Compress.php:308
-#: admin/tools/compress/Tool_Compress.php:322
+#: admin/tools/compress/Tool_Compress.php:309
+#: admin/tools/compress/Tool_Compress.php:323
 #, php-format
 msgctxt "Compress PDF: Compressed percentage."
 msgid "Compressed (%1$s%%)"
@@ -679,7 +679,7 @@ msgid "The watermark tool is not activated."
 msgstr ""
 
 #. translators: %1$s The file name
-#: admin/tools/watermark/Tool_Watermark.php:245
+#: admin/tools/watermark/Tool_Watermark.php:246
 #, php-format
 msgctxt "Watermark PDF: Success message."
 msgid "The watermark was applied successfully to %1$s."

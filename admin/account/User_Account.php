@@ -824,4 +824,35 @@ class User_Account {
             esc_html_x( 'Cancel', 'credits popup: button action', 'ilove-pdf' ),
         );
     }
+
+    /**
+     * Checks if the user has any credits available.
+     *
+     * @return bool True if the user has credits, false otherwise.
+     * @since 3.0.0
+     */
+    public static function has_credits() {
+        $user_credits = array(
+            'free'        => array(
+                'used'  => self::get_credits( 'free', 'used' ),
+                'limit' => self::get_credits( 'free', 'limit' ),
+            ),
+            'package'     => array(
+                'used'  => self::get_credits( 'package', 'used' ),
+                'limit' => self::get_credits( 'package', 'limit' ),
+            ),
+            'suscription' => array(
+                'used'  => self::get_credits( 'suscription', 'used' ),
+                'limit' => self::get_credits( 'suscription', 'limit' ),
+            ),
+        );
+
+        foreach ( $user_credits as $type => $credits ) {
+            if ( $credits['used'] < $credits['limit'] ) {
+                return true;
+            }
+        }
+
+        return false;
+    }
 }

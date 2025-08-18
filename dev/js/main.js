@@ -3,18 +3,14 @@ import { restoreFile } from './common/backup/restoreFile';
 import { compressFile } from './compress';
 import { applyWatermark } from './watermark';
 import { addAnimationToBtnSaveChanges, getStatusContainer } from './common/DOMElements';
+import { userHasCredits } from './common/Account/user';
 
 import '../scss/app.scss';
 
 window.addEventListener('load', function () {
 	addAnimationToBtnSaveChanges();
 
-	//TODO: implementar modal para cuando el usuario agoto los creditos disponibles
-	// tb_show(
-	// 	'IPDF',
-	// 	'#TB_inline?height=245&amp;width=425&amp;inlineId=ipdf-popup-buymore&amp;modal=true',
-	// 	null
-	// );
+	userHasCredits();
 
 	document.addEventListener('click', function (event) {
 		const btnTrigger = event.target;

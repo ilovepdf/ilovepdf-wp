@@ -138,9 +138,11 @@ class Ilove_Pdf_Plugin {
 				$js_key_name,
 				sprintf(
 					'const IlovePdfData = {
-						logoUrl: "%s"
+						logoUrl: "%s",
+						userHasCredits: %s,
 					};',
 					esc_url( $logo_url ),
+					wp_json_encode( User_Account::has_credits() ),
 				)
 			);
 		}
