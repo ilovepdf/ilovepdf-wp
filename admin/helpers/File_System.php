@@ -195,7 +195,7 @@ class File_System {
 		foreach ( self::$legacy_directories as $directory ) {
 			$directory = $upload_dir['basedir'] . $directory;
 
-			if ( file_exists( $directory ) ) {
+			if ( $wp_filesystem->exists( $directory ) ) {
 				$files = glob( $directory . '/*' );
 
 				foreach ( $files as $file ) {
@@ -208,7 +208,7 @@ class File_System {
 			}
 		}
 
-		if ( file_exists( $upload_dir['basedir'] . '/pdf' ) ) {
+		if ( $wp_filesystem->exists( $upload_dir['basedir'] . '/pdf' ) ) {
 			$wp_filesystem->rmdir( $upload_dir['basedir'] . '/pdf' );
 		}
 	}
