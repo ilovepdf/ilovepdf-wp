@@ -428,22 +428,21 @@ class Tool_Compress {
             return $redirect_to;
         }
 
-		foreach ( $post_ids as $id ) {
-			$process = $this->compress_process( $id );
+        foreach ( $post_ids as $id ) {
+            try {
+                $process = $this->compress_process( $id );
 
-			if ( ! empty( $process['error'] ) ) {
-                Admin_Notice::add_notice(
-                    $process['message'],
-                    'error'
-                );
-
-			} else {
                 Admin_Notice::add_notice(
                     $process['message'],
                     $process['type_notice'] ?? 'success',
                 );
-			}
-		}
+            } catch ( Exception $e ) {
+                Admin_Notice::add_notice(
+                    $e->getMessage(),
+                    'error',
+                );
+            }
+        }
 
         wp_safe_redirect( $redirect_to );
         exit;
