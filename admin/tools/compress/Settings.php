@@ -139,37 +139,39 @@ class Settings extends Options {
      * This function checks if legacy settings exist, and if so, transfers them
      * to the current option key and deletes the legacy option to avoid redundancy.
      */
-    public static function migrate_compress_settings() {
+    public static function migrate() {
         $legacy_compress_settings = get_option( self::$legacy_db_key_compress_settings, array() );
 
-        if ( ! empty( $legacy_compress_settings ) ) {
-            $values_migrated = array();
-
-            if ( isset( $legacy_compress_settings['ilove_pdf_compress_active'] ) ) {
-                $values_migrated['ipdf_option_compress_active'] = 'on';
-            }
-
-            if ( isset( $legacy_compress_settings['ilove_pdf_compress_autocompress_new'] ) ) {
-                $values_migrated['ipdf_option_auto_compress'] = 'on';
-            }
-
-            if ( isset( $legacy_compress_settings['ilove_pdf_compress_quality'] ) ) {
-
-                switch ( $legacy_compress_settings['ilove_pdf_compress_quality'] ) {
-                    case 0:
-                        $values_migrated['ipdf_option_compression_level'] = 'low';
-                        break;
-                    case 1:
-                        $values_migrated['ipdf_option_compression_level'] = 'recommended';
-                        break;
-                    case 2:
-                        $values_migrated['ipdf_option_compression_level'] = 'extreme';
-                        break;
-                }
-            }
-
-            DB_Handler::update_option( self::$db_key_compress_settings, $values_migrated );
-            delete_option( self::$legacy_db_key_compress_settings );
+        if ( empty( $legacy_compress_settings ) ) {
+            return;
         }
+
+        $values_migrated = array();
+
+        if ( isset( $legacy_compress_settings['ilove_pdf_compress_active'] ) ) {
+            $values_migrated['ipdf_option_compress_active'] = 'on';
+        }
+
+        if ( isset( $legacy_compress_settings['ilove_pdf_compress_autocompress_new'] ) ) {
+            $values_migrated['ipdf_option_auto_compress'] = 'on';
+        }
+
+        if ( isset( $legacy_compress_settings['ilove_pdf_compress_quality'] ) ) {
+
+            switch ( $legacy_compress_settings['ilove_pdf_compress_quality'] ) {
+                case 0:
+                    $values_migrated['ipdf_option_compression_level'] = 'low';
+                    break;
+                case 1:
+                    $values_migrated['ipdf_option_compression_level'] = 'recommended';
+                    break;
+                case 2:
+                    $values_migrated['ipdf_option_compression_level'] = 'extreme';
+                    break;
+            }
+        }
+
+        DB_Handler::update_option( self::$db_key_compress_settings, $values_migrated );
+        delete_option( self::$legacy_db_key_compress_settings );
     }
 }

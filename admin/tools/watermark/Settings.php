@@ -154,7 +154,7 @@ class Settings extends Options {
      * This function checks if legacy settings exist, and if so, transfers them
      * to the current option key and deletes the legacy option to avoid redundancy.
      */
-    public static function migrate_watermark_settings() {
+    public static function migrate() {
         $legacy_watermark_settings        = get_option( self::$legacy_db_key_settings, array() );
         $legacy_watermark_settings_format = get_option( self::$legacy_db_key_settings_format, array() );
         $values_migrated                  = array();

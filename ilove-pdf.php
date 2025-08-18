@@ -66,9 +66,9 @@ function ilove_pdf_upgrade_plugin( $upgrader_object, $options ) {
 			if ( Ilove_Pdf_Plugin::get_plugin_basename() === $each_plugin ) {
 
 				try {
-					General_Settings::migrate_general_settings();
-					Compress_Settings::migrate_compress_settings();
-					Watermark_Settings::migrate_watermark_settings();
+					General_Settings::migrate();
+					Compress_Settings::migrate();
+					Watermark_Settings::migrate();
 				} catch ( \Error $e ) {
 					if ( ! empty( $e->getMessage() ) ) {
 						Admin_Notice::render( $e->getMessage(), 'error' );

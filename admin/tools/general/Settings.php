@@ -155,13 +155,13 @@ class Settings {
      * This function checks if legacy settings exist, and if so, transfers them
      * to the current option key and deletes the legacy option to avoid redundancy.
      */
-    public static function migrate_general_settings() {
+    public static function migrate() {
         $legacy_general_settings = get_option( self::$legacy_db_key_general_settings, array() );
         $values_migrated         = array();
 
         if ( ! empty( $legacy_general_settings ) ) {
-            if ( ! isset( $legacy_general_settings['ilove_pdf_general_backup'] ) ) {
-                $values_migrated['ilovepdf_general_settings'] = 'on';
+            if ( isset( $legacy_general_settings['ilove_pdf_general_backup'] ) ) {
+                $values_migrated[ self::$field_backup ] = 'on';
             }
 
             DB_Handler::update_option( self::$db_key_general_settings, $values_migrated );
