@@ -32,6 +32,7 @@ class Activator {
 		Tool_Watermark::migrate_watermark_status();
 
 		User_Account::create_wordpress_id();
+		User_Account::migrate_account_settings();
 
 		self::set_default_values_watermark_settings();
 		self::set_default_values_compress_settings();
