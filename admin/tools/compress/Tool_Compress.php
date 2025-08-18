@@ -253,6 +253,7 @@ class Tool_Compress {
             );
 
             Statistics::reset_statistics();
+            delete_transient( User_Account::get_transient_key() );
 
             return array(
                 'error'       => false,

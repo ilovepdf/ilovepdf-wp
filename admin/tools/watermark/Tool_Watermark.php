@@ -239,6 +239,7 @@ class Tool_Watermark {
             $this->set_status_ready( $post_id, $this->db_key_status );
 
             Statistics::reset_statistics();
+            delete_transient( User_Account::get_transient_key() );
 
             $message = sprintf(
                 /* translators: %1$s The file name */
