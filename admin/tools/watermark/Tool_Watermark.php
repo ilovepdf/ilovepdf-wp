@@ -180,7 +180,16 @@ class Tool_Watermark {
                     $main_task->setMode( 'image' );
 
                     if ( isset( $options[ Watermark_Settings::get_field_image_mode() ] ) ) {
-                        $image = $main_task->addFile( $options[ Watermark_Settings::get_field_image_mode() ] );
+
+                        $image_url     = $options[ Watermark_Settings::get_field_image_mode() ];
+                        $attachment_id = attachment_url_to_postid( $image_url );
+
+                        if ( $attachment_id ) {
+                            $image = $main_task->addFile( get_attached_file( $attachment_id ) );
+                        } else {
+                            $image = $main_task->addFileFromUrl( $image_url );
+                        }
+
                         $main_task->setImage( $image->getServerFilename() );
                     }
 
