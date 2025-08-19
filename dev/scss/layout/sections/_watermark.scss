@@ -107,7 +107,9 @@
 								.ilovepdf_settings__options__texts-toolbar {
 									margin-bottom: 10px;
 									display: flex;
+									flex-wrap: wrap;
 									align-items: center;
+									gap: 10px;
 
 									input[type='color'] {
 										display: none;
@@ -181,6 +183,7 @@
 										box-shadow: none;
 										padding: 0;
 										border: 0;
+										width: 100%;
 
 										&:focus {
 											outline: none;
@@ -466,6 +469,25 @@
 
 							.ipdf-option-selected {
 								display: block;
+							}
+						}
+					}
+				}
+			}
+		}
+
+		@media (min-width: 768px) {
+			.ilovepdf-settings__main__form_fields {
+				.ilovepdf-settings__main__form_fields_inner_field {
+					.ilovepdf_options-preview-wrapper {
+						.ilovepdf_option-col-wrapper {
+							&.ilovepdf_option-settings-wrapper {
+								.ilovepdf_option-settings-text {
+									.ilovepdf_settings__options__texts-toolbar {
+										flex-wrap: nowrap;
+										gap: 0;
+									}
+								}
 							}
 						}
 					}
