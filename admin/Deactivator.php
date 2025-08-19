@@ -2,7 +2,7 @@
 
 namespace Ilove_Pdf_WP;
 
-use Ilove_Pdf_WP\Helpers\DB_Handler;
+use Ilove_Pdf_WP\Account\User_Account;
 
 /**
  * Fired during plugin deactivation.
@@ -20,7 +20,7 @@ class Deactivator {
 	 */
 	public static function deactivate() {
 		delete_option( 'ilovepdf_initial_pdf_files_size' );
-		DB_Handler::update_option( 'ilovepdf_compressed_files', 0 );
-		DB_Handler::update_option( 'ilovepdf_watermarked_files', 0 );
+		delete_option( 'ilovepdf_compressed_files' );
+		delete_option( 'ilovepdf_watermarked_files' );
 	}
 }
