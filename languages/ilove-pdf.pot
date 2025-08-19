@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "POT-Creation-Date: 2025-02-10T12:04:09+00:00\n"
-"PO-Revision-Date: 2025-08-18 \n"
+"PO-Revision-Date: 2025-08-19 \n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: ilove-pdf\n"
 
@@ -39,11 +39,11 @@ msgstr ""
 msgid "https://ilovepdf.com/"
 msgstr ""
 
-#: admin/account/User_Account.php:158
-#: admin/account/User_Account.php:281
-#: admin/account/User_Account.php:392
-#: admin/account/User_Account.php:448
-#: admin/account/User_Account.php:746
+#: admin/account/User_Auth.php:50
+#: admin/account/User_Auth.php:173
+#: admin/account/User_Auth.php:284
+#: admin/account/User_Auth.php:340
+#: admin/account/User_Data.php:407
 #: admin/tools/compress/Settings.php:56
 #: admin/tools/general/Settings.php:63
 #: admin/tools/watermark/Settings.php:65
@@ -51,131 +51,131 @@ msgctxt "Error message, user without permissions."
 msgid "You do not have permission to edit the options."
 msgstr ""
 
-#: admin/account/User_Account.php:168
-#: admin/account/User_Account.php:291
-#: admin/account/User_Account.php:402
-#: admin/account/User_Account.php:458
+#: admin/account/User_Auth.php:60
+#: admin/account/User_Auth.php:183
+#: admin/account/User_Auth.php:294
+#: admin/account/User_Auth.php:350
 #: admin/media/Files_List_Table.php:272
 #: admin/tools/Backup.php:77
-#: admin/tools/Backup.php:162
-#: admin/tools/Backup.php:281
+#: admin/tools/Backup.php:160
+#: admin/tools/Backup.php:279
 #: admin/tools/compress/Settings.php:66
-#: admin/tools/compress/Tool_Compress.php:104
+#: admin/tools/compress/Tool_Compress.php:105
 #: admin/tools/general/Settings.php:73
 #: admin/tools/watermark/Settings.php:75
-#: admin/tools/watermark/Tool_Watermark.php:76
+#: admin/tools/watermark/Tool_Watermark.php:77
 msgctxt "Error message, invalid nonce code."
 msgid "There was a problem validating the nonce code, please try again later."
 msgstr ""
 
-#: admin/account/User_Account.php:178
-#: admin/account/User_Account.php:245
+#: admin/account/User_Auth.php:70
+#: admin/account/User_Auth.php:137
 msgctxt "Error message: account creation failed."
 msgid "There was a problem creating your account. Please try again later."
 msgstr ""
 
-#: admin/account/User_Account.php:189
-#: admin/account/User_Account.php:312
+#: admin/account/User_Auth.php:81
+#: admin/account/User_Auth.php:204
 msgctxt "Form submission: Error message, invalid input field."
 msgid "The email field is required."
 msgstr ""
 
-#: admin/account/User_Account.php:200
-#: admin/account/User_Account.php:323
+#: admin/account/User_Auth.php:92
+#: admin/account/User_Auth.php:215
 msgctxt "Form submission: Error message, invalid input field."
 msgid "The password field is required."
 msgstr ""
 
-#: admin/account/User_Account.php:211
+#: admin/account/User_Auth.php:103
 msgctxt "Form submission: Error message, invalid input field."
 msgid "The name field is required."
 msgstr ""
 
-#: admin/account/User_Account.php:262
+#: admin/account/User_Auth.php:154
 msgctxt "Form submission: Success message."
 msgid "User created successfully."
 msgstr ""
 
-#: admin/account/User_Account.php:301
-#: admin/account/User_Account.php:357
+#: admin/account/User_Auth.php:193
+#: admin/account/User_Auth.php:249
 msgctxt "Error message, login failed."
 msgid "There was a problem logging in. Please try again later."
 msgstr ""
 
-#: admin/account/User_Account.php:374
+#: admin/account/User_Auth.php:266
 msgctxt "Form submission: Success message."
 msgid "You have successfully logged in."
 msgstr ""
 
-#: admin/account/User_Account.php:412
+#: admin/account/User_Auth.php:304
 msgctxt "Form submission: Error message, invalid action."
 msgid "There was a problem trying to log out. Please try again later."
 msgstr ""
 
-#: admin/account/User_Account.php:431
+#: admin/account/User_Auth.php:323
 msgctxt "Form submission: Success message."
 msgid "You have successfully logged out."
 msgstr ""
 
-#: admin/account/User_Account.php:468
+#: admin/account/User_Auth.php:360
 msgctxt "Error message."
 msgid "There was a problem changing the project. Please try again later."
 msgstr ""
 
-#: admin/account/User_Account.php:478
+#: admin/account/User_Auth.php:370
 msgctxt "Error message, invalid input field."
 msgid "The project field is required."
 msgstr ""
 
-#: admin/account/User_Account.php:492
+#: admin/account/User_Auth.php:384
 msgctxt "Form submission: Error message, invalid input field."
 msgid "The selected project is not valid."
 msgstr ""
 
-#: admin/account/User_Account.php:509
+#: admin/account/User_Auth.php:401
 msgctxt "Form submission: Success message."
 msgid "Project changed successfully."
 msgstr ""
 
-#: admin/account/User_Account.php:780
-msgctxt "User Account: Error message."
-msgid "There was a problem trying to get the user data. Please try again later."
-msgstr ""
-
-#: admin/account/User_Account.php:821
+#: admin/account/User_Data.php:365
 msgctxt "credits popup: title"
 msgid "You have no more credits!"
 msgstr ""
 
-#: admin/account/User_Account.php:822
+#: admin/account/User_Data.php:366
 msgctxt "credits popup: content"
 msgid "You can purchase more credits to continue processing files, or you can wait until your free credits are restored."
 msgstr ""
 
-#: admin/account/User_Account.php:823
+#: admin/account/User_Data.php:367
 msgctxt "credits popup: button link"
 msgid "Buy credits"
 msgstr ""
 
-#: admin/account/User_Account.php:824
+#: admin/account/User_Data.php:368
 msgctxt "credits popup: button action"
 msgid "Cancel"
 msgstr ""
 
+#: admin/account/User_Data.php:441
+msgctxt "User Account: Error message."
+msgid "There was a problem trying to get the user data. Please try again later."
+msgstr ""
+
 #. translators: %1$s: used credits, %2$s: total credits
-#: admin/account/User_Statistics.php:27
-#: admin/account/User_Statistics.php:36
-#: admin/account/User_Statistics.php:45
+#: admin/account/User_Statistics.php:25
+#: admin/account/User_Statistics.php:34
+#: admin/account/User_Statistics.php:43
 #, php-format
 msgid "%1$s / %2$s credits used this month."
 msgstr ""
 
-#: admin/account/User_Statistics.php:82
+#: admin/account/User_Statistics.php:80
 msgctxt "subtitle suscription section"
 msgid "Monthly plan."
 msgstr ""
 
-#: admin/account/User_Statistics.php:86
+#: admin/account/User_Statistics.php:84
 msgctxt "subtitle suscription section"
 msgid "Yearly plan."
 msgstr ""
@@ -215,12 +215,12 @@ msgctxt "button link"
 msgid "Log out"
 msgstr ""
 
-#: admin/account/views/Form_Project.php:63
+#: admin/account/views/Form_Project.php:64
 msgctxt "Input Project Select label"
 msgid "Select your project"
 msgstr ""
 
-#: admin/account/views/Form_Project.php:84
+#: admin/account/views/Form_Project.php:85
 msgctxt "Form change project: submit button"
 msgid "Change project"
 msgstr ""
@@ -247,14 +247,14 @@ msgstr ""
 
 #: admin/helpers/File_System.php:186
 #: admin/tools/Backup.php:82
-#: admin/tools/Backup.php:157
-#: admin/tools/Backup.php:276
-#: admin/tools/Backup.php:331
-#: admin/tools/Backup.php:378
-#: admin/tools/Backup.php:423
-#: admin/tools/Backup.php:453
-#: admin/tools/compress/Tool_Compress.php:181
-#: admin/tools/watermark/Tool_Watermark.php:156
+#: admin/tools/Backup.php:155
+#: admin/tools/Backup.php:274
+#: admin/tools/Backup.php:329
+#: admin/tools/Backup.php:376
+#: admin/tools/Backup.php:421
+#: admin/tools/Backup.php:451
+#: admin/tools/compress/Tool_Compress.php:182
+#: admin/tools/watermark/Tool_Watermark.php:157
 msgctxt "Error message: Unable to connect to the core WordPress function."
 msgid "Unable to connect to the filesystem"
 msgstr ""
@@ -295,13 +295,13 @@ msgid "Actions"
 msgstr ""
 
 #: admin/media/Files_List_Table.php:241
-#: admin/tools/compress/Tool_Compress.php:405
+#: admin/tools/compress/Tool_Compress.php:406
 msgctxt "Bulk action button"
 msgid "Compress PDF"
 msgstr ""
 
 #: admin/media/Files_List_Table.php:242
-#: admin/tools/watermark/Tool_Watermark.php:325
+#: admin/tools/watermark/Tool_Watermark.php:326
 msgctxt "Bulk action button"
 msgid "Apply Watermark"
 msgstr ""
@@ -359,8 +359,8 @@ msgid "Media Optimization"
 msgstr ""
 
 #: admin/tools/Backup.php:87
-#: admin/tools/compress/Tool_Compress.php:108
-#: admin/tools/watermark/Tool_Watermark.php:80
+#: admin/tools/compress/Tool_Compress.php:109
+#: admin/tools/watermark/Tool_Watermark.php:81
 msgid "Error processing your request. The file ID must be sent"
 msgstr ""
 
@@ -369,44 +369,44 @@ msgid "Sorry. There is no backup for this file"
 msgstr ""
 
 #. translators: %1$s: file name
-#: admin/tools/Backup.php:123
-#: admin/tools/Backup.php:247
+#: admin/tools/Backup.php:121
+#: admin/tools/Backup.php:245
 #, php-format
 msgid "The %1$s file was restored successfully"
 msgstr ""
 
 #. translators: %1$s: error message
-#: admin/tools/Backup.php:132
+#: admin/tools/Backup.php:130
 #, php-format
 msgid "Error restoring file: %1$s"
 msgstr ""
 
-#: admin/tools/Backup.php:166
-#: admin/tools/Backup.php:285
+#: admin/tools/Backup.php:164
+#: admin/tools/Backup.php:283
 msgid "Sorry. No backup folder found."
 msgstr ""
 
-#: admin/tools/Backup.php:172
+#: admin/tools/Backup.php:170
 msgid "Sorry. No files found to restore."
 msgstr ""
 
 #. translators: %1$s: file ID
-#: admin/tools/Backup.php:187
+#: admin/tools/Backup.php:185
 #, php-format
 msgid "The original file ID %1$s was not found"
 msgstr ""
 
 #. translators: %1$s: file ID
-#: admin/tools/Backup.php:203
+#: admin/tools/Backup.php:201
 #, php-format
 msgid "The backup file ID %1$s was not found"
 msgstr ""
 
-#: admin/tools/Backup.php:306
+#: admin/tools/Backup.php:304
 msgid "Backup folder deleted successfully"
 msgstr ""
 
-#: admin/tools/Backup.php:393
+#: admin/tools/Backup.php:391
 msgid "Failed to create a backup of the file."
 msgstr ""
 
@@ -456,56 +456,56 @@ msgid "Your files, summary: Original size: %1$s → After compression: %2$s"
 msgstr ""
 
 #. translators: %1$s Additional process error
-#: admin/tools/compress/Tool_Compress.php:123
+#: admin/tools/compress/Tool_Compress.php:124
 #, php-format
 msgctxt "Compress PDF: Error message."
 msgid "Compress PDF error: %1$s"
 msgstr ""
 
 #. translators: %1$s The file name
-#: admin/tools/compress/Tool_Compress.php:149
+#: admin/tools/compress/Tool_Compress.php:150
 #, php-format
 msgctxt "Compress PDF: File already processed."
 msgid "The file %1$s is already compressed."
 msgstr ""
 
-#: admin/tools/compress/Tool_Compress.php:163
+#: admin/tools/compress/Tool_Compress.php:164
 msgctxt "Compress PDF: Error message."
 msgid "The compress tool is not activated. Please check your settings."
 msgstr ""
 
 #. translators: %1$s The file name
-#: admin/tools/compress/Tool_Compress.php:169
-#: admin/tools/watermark/Tool_Watermark.php:144
+#: admin/tools/compress/Tool_Compress.php:170
+#: admin/tools/watermark/Tool_Watermark.php:145
 #, php-format
 msgctxt "Error message."
 msgid "The file %1$s is not a PDF."
 msgstr ""
 
-#: admin/tools/compress/Tool_Compress.php:190
-#: admin/tools/watermark/Tool_Watermark.php:165
+#: admin/tools/compress/Tool_Compress.php:191
+#: admin/tools/watermark/Tool_Watermark.php:166
 msgctxt "Auth: Error message."
 msgid "The API Keys are not set. Please check your settings."
 msgstr ""
 
 #. translators: %1$s The file name
-#: admin/tools/compress/Tool_Compress.php:224
-#: admin/tools/watermark/Tool_Watermark.php:228
+#: admin/tools/compress/Tool_Compress.php:225
+#: admin/tools/watermark/Tool_Watermark.php:229
 #, php-format
 msgctxt "Process Error"
 msgid "The %1$s file could not be found inside the temporary download folder."
 msgstr ""
 
 #. translators: %1$s The file name
-#: admin/tools/compress/Tool_Compress.php:251
+#: admin/tools/compress/Tool_Compress.php:252
 #, php-format
 msgctxt "Compress PDF: Success message."
 msgid "The file %1$s was compressed successfully."
 msgstr ""
 
 #. translators: %1$s: compression percentage
-#: admin/tools/compress/Tool_Compress.php:309
-#: admin/tools/compress/Tool_Compress.php:323
+#: admin/tools/compress/Tool_Compress.php:310
+#: admin/tools/compress/Tool_Compress.php:324
 #, php-format
 msgctxt "Compress PDF: Compressed percentage."
 msgid "Compressed (%1$s%%)"
@@ -660,26 +660,26 @@ msgid "Your files, summary: Total files %1$d → Protected files %2$d"
 msgstr ""
 
 #. translators: %1$s Additional process error
-#: admin/tools/watermark/Tool_Watermark.php:95
+#: admin/tools/watermark/Tool_Watermark.php:96
 #, php-format
 msgctxt "Watermark PDF: Error message."
 msgid "Watermark PDF error: %1$s"
 msgstr ""
 
 #. translators: %1$s The file name
-#: admin/tools/watermark/Tool_Watermark.php:124
+#: admin/tools/watermark/Tool_Watermark.php:125
 #, php-format
 msgctxt "Watermark PDF: Info message."
 msgid "The file %1$s already has a watermark applied."
 msgstr ""
 
-#: admin/tools/watermark/Tool_Watermark.php:138
+#: admin/tools/watermark/Tool_Watermark.php:139
 msgctxt "Watermark PDF: Error message."
 msgid "The watermark tool is not activated."
 msgstr ""
 
 #. translators: %1$s The file name
-#: admin/tools/watermark/Tool_Watermark.php:246
+#: admin/tools/watermark/Tool_Watermark.php:247
 #, php-format
 msgctxt "Watermark PDF: Success message."
 msgid "The watermark was applied successfully to %1$s."

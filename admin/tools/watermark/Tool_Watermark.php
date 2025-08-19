@@ -5,8 +5,9 @@ namespace Ilove_Pdf_WP\Tools\Watermark;
 use Exception;
 use Ilovepdf\WatermarkTask;
 use Ilove_Pdf_WP\Tools\Backup;
+use Ilove_Pdf_WP\Account\User_Auth;
+use Ilove_Pdf_WP\Account\User_Data;
 use Ilove_Pdf_WP\Helpers\File_System;
-use Ilove_Pdf_WP\Account\User_Account;
 use Ilove_Pdf_WP\Helpers\Admin_Notice;
 use Ilovepdf\Exceptions\AuthException;
 use Ilove_Pdf_WP\Helpers\Media_Handler;
@@ -157,8 +158,8 @@ class Tool_Watermark {
                 );
             }
 
-            $public_key  = User_Account::get_settings( User_Account::get_db_user_publickey_key(), '' );
-            $private_key = User_Account::get_settings( User_Account::get_db_user_privatekey_key(), '' );
+            $public_key  = User_Data::get_settings( User_Data::get_db_user_publickey_key(), '' );
+            $private_key = User_Data::get_settings( User_Data::get_db_user_privatekey_key(), '' );
 
             if ( empty( $public_key ) || empty( $private_key ) ) {
                 throw new AuthException(
@@ -239,7 +240,7 @@ class Tool_Watermark {
             $this->set_status_ready( $post_id, $this->db_key_status );
 
             Statistics::reset_statistics();
-            delete_transient( User_Account::get_transient_key() );
+            delete_transient( User_Data::get_transient_key() );
 
             $message = sprintf(
                 /* translators: %1$s The file name */
@@ -379,7 +380,7 @@ class Tool_Watermark {
     public function handle_auto_watermark( $post_id ) {
         $options = Watermark_Settings::get_settings();
 
-        if ( ! User_Account::is_user_logged_in() ) {
+        if ( ! User_Auth::is_user_logged_in() ) {
             return;
         }
 

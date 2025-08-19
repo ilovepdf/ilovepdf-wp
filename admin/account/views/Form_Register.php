@@ -2,7 +2,7 @@
 
 namespace Ilove_Pdf_WP\Account\Views;
 
-use Ilove_Pdf_WP\Account\User_Account;
+use Ilove_Pdf_WP\Account\User_Auth;
 use Ilove_Pdf_WP\Account\Views\Base\Form;
 
 /**
@@ -34,7 +34,7 @@ class Form_Register extends Form {
                 %9$s
             </form>',
             esc_html( admin_url( 'admin-post.php' ) ),
-            User_Account::get_action_register_key(),
+            User_Auth::get_action_register_key(),
             wp_nonce_field( -1, '_wpnonce_register', true, false ),
             esc_html_x( 'Create your iLovePDF developer account', 'form title', 'ilove-pdf' ),
             self::create_field_name(),
@@ -54,7 +54,7 @@ class Form_Register extends Form {
     private static function create_field_name() {
         return sprintf(
             '<input class="ipdf-input ipdf-input--name" type="text" name="%1$s" id="%1$s" placeholder="%2$s" value="" class="ilovepdf_field_name" required />',
-            User_Account::get_field_name(),
+            User_Auth::get_field_name(),
             esc_html_x( 'Full Name', 'input placeholder', 'ilove-pdf' ),
         );
     }

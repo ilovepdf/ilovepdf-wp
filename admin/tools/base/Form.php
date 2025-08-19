@@ -2,7 +2,7 @@
 
 namespace Ilove_Pdf_WP\Tools\Base;
 
-use Ilove_Pdf_WP\Account\User_Account;
+use Ilove_Pdf_WP\Account\User_Auth;
 
 /**
  * Base class for forms in the iLovePDF WordPress plugin.
@@ -31,7 +31,7 @@ class Form {
                     </span>
                 </button>
             </div>',
-            ! User_Account::is_user_logged_in() ? 'disabled' : '',
+            ! User_Auth::is_user_logged_in() ? 'disabled' : '',
             esc_html_x( 'Save', 'button link', 'ilove-pdf' ),
             esc_html_x( 'Register and login with us to save settings changes', 'tooltip: Appears when the user is not logged in.', 'ilove-pdf' )
         );

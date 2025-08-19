@@ -2,8 +2,6 @@
 
 namespace Ilove_Pdf_WP\Account;
 
-use Ilove_Pdf_WP\Account\User_Account;
-
 /**
  * Handles user statistics for the account user.
  *
@@ -59,7 +57,7 @@ trait User_Statistics {
      */
     public static function get_percent_credits_used( $account_type ) {
         $percent   = 0;
-        $user_data = User_Account::get_user_data();
+        $user_data = User_Data::get_user_data();
 
         if ( ! isset( $user_data[ $account_type . '_files_used' ], $user_data[ $account_type . '_files_limit' ] ) ) {
             return $percent;
@@ -76,7 +74,7 @@ trait User_Statistics {
      * @return string Readable subscription type.
      */
     public static function get_readable_suscription_type() {
-        $user_data = User_Account::get_user_data();
+        $user_data = User_Data::get_user_data();
 
         if ( 'month' === $user_data['subscription']['period'] ) {
             return esc_html_x( 'Monthly plan.', 'subtitle suscription section', 'ilove-pdf' );
@@ -96,7 +94,7 @@ trait User_Statistics {
      * @return bool True if the user has the specified account type, false otherwise.
      */
     public static function user_has( $account_type ) {
-        $user_data = User_Account::get_user_data();
+        $user_data = User_Data::get_user_data();
 
         if ( ! isset( $user_data[ $account_type . '_files_limit' ] ) ) {
             return false;
@@ -115,7 +113,7 @@ trait User_Statistics {
     private static function get_credits( $account_type, $quantity_key ) {
 
         $credits_limit = 0;
-        $user_data     = User_Account::get_user_data();
+        $user_data     = User_Data::get_user_data();
 
         if ( ! isset( $user_data[ $account_type . '_files_' . $quantity_key ] ) ) {
             return $credits_limit;

@@ -6,8 +6,9 @@ use Ilove_Pdf_WP\I18n;
 use Ilove_Pdf_WP\Submenu_Page;
 use Ilove_Pdf_WP\Tools\Backup;
 use Ilove_Pdf_WP\Media\Library;
+use Ilove_Pdf_WP\Account\User_Auth;
+use Ilove_Pdf_WP\Account\User_Data;
 use Ilove_Pdf_WP\Helpers\File_System;
-use Ilove_Pdf_WP\Account\User_Account;
 use Ilove_Pdf_WP\Helpers\Admin_Notice;
 use Ilove_Pdf_WP\Media\Edit_File_Page;
 use Ilove_Pdf_WP\Tools\Compress\Tool_Compress;
@@ -79,9 +80,7 @@ class Ilove_Pdf_Plugin {
 		new Admin_Notice();
 
 		new Backup();
-		$user_account = new User_Account();
-		$user_account->init_hooks();
-
+		new User_Auth();
 		new Library();
 
 		new General_Settings();
@@ -93,6 +92,7 @@ class Ilove_Pdf_Plugin {
 
         // Enqueue scripts for the admin area.
         add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_resources' ) );
+		add_action( 'admin_footer', array( User_Data::class, 'popup_buymore_action' ) );
     }
 
 	/**
@@ -142,7 +142,7 @@ class Ilove_Pdf_Plugin {
 						userHasCredits: %s,
 					};',
 					esc_url( $logo_url ),
-					wp_json_encode( User_Account::has_credits() ),
+					wp_json_encode( User_Data::has_credits() ),
 				)
 			);
 		}

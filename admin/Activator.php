@@ -3,9 +3,9 @@
 namespace Ilove_Pdf_WP;
 
 use Ilove_Pdf_WP\Tools\Backup;
+use Ilove_Pdf_WP\Account\User_Data;
 use Ilove_Pdf_WP\Helpers\DB_Handler;
 use Ilove_Pdf_WP\Helpers\File_System;
-use Ilove_Pdf_WP\Account\User_Account;
 use Ilove_Pdf_WP\Tools\Compress\Tool_Compress;
 use Ilove_Pdf_WP\Tools\Watermark\Tool_Watermark;
 use Ilove_Pdf_WP\Tools\General\Settings as General_Settings;
@@ -36,8 +36,8 @@ class Activator {
 		Compress_Statistics::reset_statistics();
 		Watermark_Statistics::reset_statistics();
 
-		User_Account::create_wordpress_id();
-		User_Account::migrate_account_settings();
+		User_Data::create_wordpress_id();
+		User_Data::migrate_account_settings();
 
 		self::set_default_values_watermark_settings();
 		self::set_default_values_compress_settings();

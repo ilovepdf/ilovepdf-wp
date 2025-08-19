@@ -2,7 +2,8 @@
 
 namespace Ilove_Pdf_WP\Account\Views;
 
-use Ilove_Pdf_WP\Account\User_Account;
+use Ilove_Pdf_WP\Account\User_Auth;
+use Ilove_Pdf_WP\Account\User_Data;
 
 /**
  * Handles the rendering of the project selection form.
@@ -27,7 +28,7 @@ class Form_Project {
                 %5$s
             </form>',
             esc_html( admin_url( 'admin-post.php' ) ),
-            User_Account::get_action_change_project_key(),
+            User_Auth::get_action_change_project_key(),
             wp_nonce_field( -1, '_wpnonce_project', true, false ),
             self::create_field_projects(),
             self::create_submit_button(),
@@ -42,8 +43,8 @@ class Form_Project {
      */
     private static function create_field_projects() {
         $options             = '';
-        $db_projects_value   = User_Account::get_settings( User_Account::get_db_user_projects_key() );
-        $db_public_key_value = User_Account::get_settings( User_Account::get_db_user_publickey_key() );
+        $db_projects_value   = User_Data::get_settings( User_Data::get_db_user_projects_key() );
+        $db_public_key_value = User_Data::get_settings( User_Data::get_db_user_publickey_key() );
 
         foreach ( $db_projects_value as $project ) {
             $options .= sprintf(
@@ -61,7 +62,7 @@ class Form_Project {
                 %3$s
             </select></div>',
             _x( 'Select your project', 'Input Project Select label', 'ilove-pdf' ),
-            User_Account::get_db_user_projects_key(),
+            User_Data::get_db_user_projects_key(),
             $options,
         );
     }

@@ -10,12 +10,12 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
 
-use Ilove_Pdf_WP\Account\User_Account;
+use Ilove_Pdf_WP\Account\User_Auth;
 
 ?>
 
 <section class="ilovepdf-settings__main__account">
-    <?php if ( ! User_Account::is_user_logged_in() ) : ?>
+    <?php if ( ! User_Auth::is_user_logged_in() ) : ?>
         <div class="ilovepdf-settings__main__account-inner ilovepdf-settings__main__account-user-logout">
             <div class="ilovepdf-base__layout-flex ilovepdf-base__layout-flex-wrap ilovepdf-base__layout-gap--normal">
                 <?php

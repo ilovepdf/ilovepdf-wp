@@ -2,7 +2,7 @@
 
 namespace Ilove_Pdf_WP\Account\Views;
 
-use Ilove_Pdf_WP\Account\User_Account;
+use Ilove_Pdf_WP\Account\User_Auth;
 use Ilove_Pdf_WP\Account\Views\Base\Form;
 
 /**
@@ -34,7 +34,7 @@ class Form_Login extends Form {
                 %9$s
             </form>',
             esc_html( admin_url( 'admin-post.php' ) ),
-            User_Account::get_action_login_key(),
+            User_Auth::get_action_login_key(),
             wp_nonce_field( -1, '_wpnonce_login', true, false ),
             esc_html_x( 'Log in to your account', 'form title', 'ilove-pdf' ),
             self::create_field_email(),

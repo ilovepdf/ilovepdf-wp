@@ -2,7 +2,7 @@
 
 namespace Ilove_Pdf_WP\Account\Views;
 
-use Ilove_Pdf_WP\Account\User_Account;
+use Ilove_Pdf_WP\Account\User_Auth;
 
 /**
  * Handles the rendering of the logout form.
@@ -26,7 +26,7 @@ class Form_Logout {
                 %4$s
             </form>',
             esc_html( admin_url( 'admin-post.php' ) ),
-            User_Account::get_action_logout_key(),
+            User_Auth::get_action_logout_key(),
             wp_nonce_field( -1, '_wpnonce_logout', true, false ),
             self::create_submit_button(),
         );

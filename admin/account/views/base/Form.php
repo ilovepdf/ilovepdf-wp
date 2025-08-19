@@ -2,7 +2,7 @@
 
 namespace Ilove_Pdf_WP\Account\Views\Base;
 
-use Ilove_Pdf_WP\Account\User_Account;
+use Ilove_Pdf_WP\Account\User_Auth;
 
 /**
  * Base class for forms in account sections.
@@ -22,7 +22,7 @@ class Form {
     protected static function create_field_email() {
         return sprintf(
             '<input class="ipdf-input ipdf-input--email" type="email" name="%1$s" id="%1$s" placeholder="%2$s" value="%3$s" required />',
-            User_Account::get_field_email(),
+            User_Auth::get_field_email(),
             esc_html_x( 'Email', 'input placeholder', 'ilove-pdf' ),
             '',
         );
@@ -37,7 +37,7 @@ class Form {
     protected static function create_field_password() {
         return sprintf(
             '<input class="ipdf-input ipdf-input--password" type="password" name="%1$s" id="%1$s" placeholder="%2$s" value="" autocomplete="true" required />',
-            User_Account::get_field_password(),
+            User_Auth::get_field_password(),
             esc_html_x( 'Password', 'input placeholder', 'ilove-pdf' ),
         );
     }

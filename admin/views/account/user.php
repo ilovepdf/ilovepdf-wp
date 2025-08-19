@@ -11,7 +11,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 use Ilove_Pdf_WP\Account\Views\Form_Logout;
-use Ilove_Pdf_WP\Account\User_Account;
+use Ilove_Pdf_WP\Account\User_Data;
 
 ?>
 
@@ -20,11 +20,11 @@ use Ilove_Pdf_WP\Account\User_Account;
         <?php echo esc_html_x( 'Account', 'title section', 'ilove-pdf' ); ?>
     </h4>
     <p class="ilovepdf__account-logged-user-name">
-        <?php echo esc_html( User_Account::get_settings( User_Account::get_db_user_name_key() ) ); ?>
+        <?php echo esc_html( User_Data::get_settings( User_Data::get_db_user_name_key() ) ); ?>
     </p>
     <div class="ilovepdf__account-logged-content">
         <p class="ilovepdf__account-logged-user-email">
-            <?php echo esc_html( User_Account::get_settings( User_Account::get_db_user_email_key() ) ); ?>
+            <?php echo esc_html( User_Data::get_settings( User_Data::get_db_user_email_key() ) ); ?>
         </p>
     </div>
 
