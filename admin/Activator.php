@@ -56,48 +56,48 @@ class Activator {
 
 		$settings = get_option( Watermark_Settings::get_db_key_settings(), array() );
 
-		if ( ! isset( $settings['ipdf_option_watermark_active'] ) ) {
-			$settings['ipdf_option_watermark_active'] = 'on';
+		if ( ! isset( $settings[ Watermark_Settings::get_field_watermark_active() ] ) ) {
+			$settings[ Watermark_Settings::get_field_watermark_active() ] = 'on';
         }
 
-		if ( ! isset( $settings['ipdf_option_mode_watermark'] ) ) {
-			$settings['ipdf_option_mode_watermark'] = 'text';
+		if ( ! isset( $settings[ Watermark_Settings::get_field_mode() ] ) ) {
+			$settings[ Watermark_Settings::get_field_mode() ] = 'text';
         }
 
-		if ( ! isset( $settings['ipdf_option_position'] ) ) {
-			$settings['ipdf_option_position'] = 'center middle';
+		if ( ! isset( $settings[ Watermark_Settings::get_field_position() ] ) ) {
+			$settings[ Watermark_Settings::get_field_position() ] = 'center middle';
         }
 
-		if ( ! isset( $settings['ipdf_option_mode_text'] ) ) {
-			$settings['ipdf_option_mode_text'] = ! empty( get_bloginfo( 'name' ) ) ? get_bloginfo( 'name' ) : 'iLovePDF';
+		if ( ! isset( $settings[ Watermark_Settings::get_field_text_mode() ] ) ) {
+			$settings[ Watermark_Settings::get_field_text_mode() ] = ! empty( get_bloginfo( 'name' ) ) ? get_bloginfo( 'name' ) : 'iLovePDF';
         }
 
-		if ( ! isset( $settings['ipdf_option_font_size'] ) ) {
-			$settings['ipdf_option_font_size'] = 33;
+		if ( ! isset( $settings[ Watermark_Settings::get_field_font_size() ] ) ) {
+			$settings[ Watermark_Settings::get_field_font_size() ] = 33;
 		}
 
-		if ( ! isset( $settings['ipdf_option_font_style'] ) ) {
-			$settings['ipdf_option_font_style'] = null;
+		if ( ! isset( $settings[ Watermark_Settings::get_field_font_style() ] ) ) {
+			$settings[ Watermark_Settings::get_field_font_style() ] = null;
 		}
 
-		if ( ! isset( $settings['ipdf_option_font_family'] ) ) {
-			$settings['ipdf_option_font_family'] = 'Arial Unicode MS';
+		if ( ! isset( $settings[ Watermark_Settings::get_field_font_family() ] ) ) {
+			$settings[ Watermark_Settings::get_field_font_family() ] = 'Arial Unicode MS';
 		}
 
-		if ( ! isset( $settings['ipdf_option_font_color'] ) ) {
-			$settings['ipdf_option_font_color'] = '#dd3333';
+		if ( ! isset( $settings[ Watermark_Settings::get_field_font_color() ] ) ) {
+			$settings[ Watermark_Settings::get_field_font_color() ] = '#dd3333';
 		}
 
-		if ( ! isset( $settings['ipdf_option_transparency'] ) ) {
-			$settings['ipdf_option_transparency'] = 100;
+		if ( ! isset( $settings[ Watermark_Settings::get_field_transparency() ] ) ) {
+			$settings[ Watermark_Settings::get_field_transparency() ] = 100;
 		}
 
-		if ( ! isset( $settings['ipdf_option_rotation'] ) ) {
-			$settings['ipdf_option_rotation'] = 0;
+		if ( ! isset( $settings[ Watermark_Settings::get_field_rotation() ] ) ) {
+			$settings[ Watermark_Settings::get_field_rotation() ] = 0;
 		}
 
-		if ( ! isset( $settings['ipdf_option_layer'] ) ) {
-			$settings['ipdf_option_layer'] = 'above';
+		if ( ! isset( $settings[ Watermark_Settings::get_field_layer() ] ) ) {
+			$settings[ Watermark_Settings::get_field_layer() ] = 'above';
 		}
 
 		DB_Handler::update_option( Watermark_Settings::get_db_key_settings(), $settings );
@@ -115,8 +115,8 @@ class Activator {
 
 		$get_options = get_option( General_Settings::get_db_key_general_settings(), array() );
 
-		if ( ! isset( $get_options['ipdf_option_backup'] ) ) {
-			$get_options['ipdf_option_backup'] = 'on';
+		if ( ! isset( $get_options[ General_Settings::get_field_backup() ] ) ) {
+			$get_options[ General_Settings::get_field_backup() ] = 'on';
 		}
 
 		DB_Handler::update_option( General_Settings::get_db_key_general_settings(), $get_options );
@@ -134,12 +134,12 @@ class Activator {
 
 		$get_options = get_option( Compress_Settings::get_db_key_compress_settings(), array() );
 
-		if ( ! isset( $get_options['ipdf_option_compress_active'] ) ) {
-			$get_options['ipdf_option_compress_active'] = 'on';
+		if ( ! isset( $get_options[ Compress_Settings::get_field_compress_active() ] ) ) {
+			$get_options[ Compress_Settings::get_field_compress_active() ] = 'on';
 		}
 
-		if ( ! isset( $get_options['ipdf_option_compression_level'] ) ) {
-			$get_options['ipdf_option_compression_level'] = 'recommended';
+		if ( ! isset( $get_options[ Compress_Settings::get_field_compression_level() ] ) ) {
+			$get_options[ Compress_Settings::get_field_compression_level() ] = 'recommended';
 		}
 
 		DB_Handler::update_option( Compress_Settings::get_db_key_compress_settings(), $get_options );

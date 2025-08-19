@@ -25,7 +25,7 @@ class Backup {
      * @var string
      * @since 3.0.0
      */
-    private $db_key_file_backup = '_ipdf_attachment_backup';
+    private static $db_key_file_backup = '_ipdf_attachment_backup';
 
     /**
      * Option key used to store all attachments that have a backup available.
@@ -106,7 +106,7 @@ class Backup {
 			delete_post_meta( $attachment_id, '_ipdf_attachment_watermark_status' );
 			delete_post_meta( $attachment_id, Tool_Compress::get_db_key_status() );
 			delete_post_meta( $attachment_id, Tool_Compress::get_db_key_process() );
-			delete_post_meta( $attachment_id, $this->db_key_file_backup );
+			delete_post_meta( $attachment_id, self::$db_key_file_backup );
 
             unset( $files_restore[ $key_founded ] );
             wp_delete_file( $file_backup_path );
@@ -213,7 +213,7 @@ class Backup {
 				delete_post_meta( $value, '_ipdf_attachment_watermark_status' );
 				delete_post_meta( $value, Tool_Compress::get_db_key_status() );
 				delete_post_meta( $value, Tool_Compress::get_db_key_process() );
-				delete_post_meta( $value, $this->db_key_file_backup );
+				delete_post_meta( $value, self::$db_key_file_backup );
 
 				wp_delete_file( $file_backup_path );
 				unset( $files_restore[ $key ] );
@@ -290,7 +290,7 @@ class Backup {
                     $attached_file = get_attached_file( $file_id );
 
                     if ( $attached_file ) {
-                        delete_post_meta( $file_id, $this->db_key_file_backup );
+                        delete_post_meta( $file_id, self::$db_key_file_backup );
                     }
                 }
             }
@@ -337,7 +337,7 @@ class Backup {
             $files_restore = get_option( $this->db_key_all_files_backup, array() );
             $key_founded   = array_search( $attachment_id, $files_restore, true );
 
-            delete_post_meta( $attachment_id, $this->db_key_file_backup );
+            delete_post_meta( $attachment_id, self::$db_key_file_backup );
             delete_post_meta( $attachment_id, Tool_Compress::get_db_key_status() );
             delete_post_meta( $attachment_id, Tool_Compress::get_db_key_process() );
             delete_post_meta( $attachment_id, '_ipdf_attachment_watermark_status' );
@@ -398,7 +398,7 @@ class Backup {
 
             update_post_meta(
                 $file_id,
-                $instance->db_key_file_backup,
+                self::$db_key_file_backup,
                 $file_path,
             );
         }
@@ -422,7 +422,7 @@ class Backup {
             );
         }
 
-        $file_path = get_post_meta( $file_id, '_ipdf_attachment_backup', true );
+        $file_path = get_post_meta( $file_id, self::$db_key_file_backup, true );
         if ( empty( $file_path ) ) {
             return false;
         }
@@ -506,7 +506,7 @@ class Backup {
                     DB_Handler::update_option( $instance->db_key_all_files_backup, $files_restore );
                 }
 
-                update_post_meta( $post_id, $instance->db_key_file_backup, $file_path ); // Update the post meta to use the new key.
+                update_post_meta( $post_id, self::$db_key_file_backup, $file_path ); // Update the post meta to use the new key.
                 delete_post_meta( $post_id, $legacy_db_key_file_backup ); // Remove the old post meta.
             }
 		} while ( $ids_count === $batch_size );

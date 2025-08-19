@@ -149,24 +149,24 @@ class Settings extends Options {
         $values_migrated = array();
 
         if ( isset( $legacy_compress_settings['ilove_pdf_compress_active'] ) ) {
-            $values_migrated['ipdf_option_compress_active'] = 'on';
+            $values_migrated[ self::get_field_compress_active() ] = 'on';
         }
 
         if ( isset( $legacy_compress_settings['ilove_pdf_compress_autocompress_new'] ) ) {
-            $values_migrated['ipdf_option_auto_compress'] = 'on';
+            $values_migrated[ self::get_field_auto_compress() ] = 'on';
         }
 
         if ( isset( $legacy_compress_settings['ilove_pdf_compress_quality'] ) ) {
 
             switch ( $legacy_compress_settings['ilove_pdf_compress_quality'] ) {
                 case 0:
-                    $values_migrated['ipdf_option_compression_level'] = 'low';
+                    $values_migrated[ self::get_field_compression_level() ] = 'low';
                     break;
                 case 1:
-                    $values_migrated['ipdf_option_compression_level'] = 'recommended';
+                    $values_migrated[ self::get_field_compression_level() ] = 'recommended';
                     break;
                 case 2:
-                    $values_migrated['ipdf_option_compression_level'] = 'extreme';
+                    $values_migrated[ self::get_field_compression_level() ] = 'extreme';
                     break;
             }
         }

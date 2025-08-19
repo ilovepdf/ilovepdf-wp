@@ -162,11 +162,11 @@ class Settings extends Options {
         if ( ! empty( $legacy_watermark_settings ) ) {
 
             if ( isset( $legacy_watermark_settings['ilove_pdf_watermark_active'] ) ) {
-                $values_migrated['ipdf_option_watermark_active'] = 'on';
+                $values_migrated[ self::get_field_watermark_active() ] = 'on';
             }
 
             if ( isset( $legacy_watermark_settings['ilove_pdf_watermark_auto'] ) ) {
-                $values_migrated['ipdf_option_auto_watermark'] = 'on';
+                $values_migrated[ self::get_field_auto_watermark() ] = 'on';
             }
 
             DB_Handler::update_option( self::$db_key_settings, $values_migrated );
@@ -176,27 +176,27 @@ class Settings extends Options {
         if ( ! empty( $legacy_watermark_settings_format ) ) {
 
             if ( isset( $legacy_watermark_settings_format['ilove_pdf_format_watermark_mode'] ) ) {
-                $values_migrated['ipdf_option_mode_watermark'] = $legacy_watermark_settings_format['ilove_pdf_format_watermark_mode'];
+                $values_migrated[ self::get_field_mode() ] = $legacy_watermark_settings_format['ilove_pdf_format_watermark_mode'];
             }
 
             if ( isset( $legacy_watermark_settings_format['ilove_pdf_format_watermark_text'] ) ) {
-                $values_migrated['ipdf_option_mode_text'] = $legacy_watermark_settings_format['ilove_pdf_format_watermark_text'];
+                $values_migrated[ self::get_field_text_mode() ] = $legacy_watermark_settings_format['ilove_pdf_format_watermark_text'];
             }
 
             if ( isset( $legacy_watermark_settings_format['ilove_pdf_format_watermark_text_size'] ) ) {
-                $values_migrated['ipdf_option_font_size'] = $legacy_watermark_settings_format['ilove_pdf_format_watermark_text_size'];
+                $values_migrated[ self::get_field_font_size() ] = $legacy_watermark_settings_format['ilove_pdf_format_watermark_text_size'];
             }
 
             if ( isset( $legacy_watermark_settings_format['ilove_pdf_format_watermark_font_family'] ) ) {
-                $values_migrated['ipdf_option_font_family'] = $legacy_watermark_settings_format['ilove_pdf_format_watermark_font_family'];
+                $values_migrated[ self::get_field_font_family() ] = $legacy_watermark_settings_format['ilove_pdf_format_watermark_font_family'];
             }
 
             if ( isset( $legacy_watermark_settings_format['ilove_pdf_format_watermark_text_color'] ) ) {
-                $values_migrated['ipdf_option_font_color'] = $legacy_watermark_settings_format['ilove_pdf_format_watermark_text_color'];
+                $values_migrated[ self::get_field_font_color() ] = $legacy_watermark_settings_format['ilove_pdf_format_watermark_text_color'];
             }
 
             if ( isset( $legacy_watermark_settings_format['ilove_pdf_format_watermark_image'] ) ) {
-                $values_migrated['ipdf_option_mode_image'] = $legacy_watermark_settings_format['ilove_pdf_format_watermark_image'];
+                $values_migrated[ self::get_field_image_mode() ] = $legacy_watermark_settings_format['ilove_pdf_format_watermark_image'];
             }
 
             if ( isset( $legacy_watermark_settings_format['ilove_pdf_format_watermark_vertical'] ) && isset( $legacy_watermark_settings_format['ilove_pdf_format_watermark_horizontal'] ) ) {
@@ -227,15 +227,15 @@ class Settings extends Options {
                         break;
                 }
 
-                $values_migrated['ipdf_option_position'] = "$position_horizontal $position_vertical";
+                $values_migrated[ self::get_field_position() ] = "$position_horizontal $position_vertical";
             }
 
             if ( isset( $legacy_watermark_settings_format['ilove_pdf_format_watermark_opacity'] ) ) {
-                $values_migrated['ipdf_option_transparency'] = $legacy_watermark_settings_format['ilove_pdf_format_watermark_opacity'];
+                $values_migrated[ self::get_field_transparency() ] = $legacy_watermark_settings_format['ilove_pdf_format_watermark_opacity'];
             }
 
             if ( isset( $legacy_watermark_settings_format['ilove_pdf_format_watermark_rotation'] ) ) {
-                $values_migrated['ipdf_option_rotation'] = $legacy_watermark_settings_format['ilove_pdf_format_watermark_rotation'];
+                $values_migrated[ self::get_field_rotation() ] = $legacy_watermark_settings_format['ilove_pdf_format_watermark_rotation'];
             }
 
             if ( isset( $legacy_watermark_settings_format['ilove_pdf_format_watermark_layer'] ) ) {
@@ -250,11 +250,11 @@ class Settings extends Options {
                         break;
                 }
 
-                $values_migrated['ipdf_option_layer'] = $layer;
+                $values_migrated[ self::get_field_layer() ] = $layer;
             }
 
             if ( isset( $legacy_watermark_settings_format['ilove_pdf_format_watermark_mosaic'] ) ) {
-                $values_migrated['ipdf_option_mosaic'] = 'on';
+                $values_migrated[ self::get_field_mosaic() ] = 'on';
             }
 
             DB_Handler::update_option( self::$db_key_settings, $values_migrated );
