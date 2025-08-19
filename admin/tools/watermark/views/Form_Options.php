@@ -664,7 +664,7 @@ class Form_Options extends Form {
         $style_bold           = Settings::get_font_style_values( 'Bold' ) === $db_value_font_style ? $db_value_font_style : 'normal';
         $style_italic         = Settings::get_font_style_values( 'Italic' ) === $db_value_font_style ? $db_value_font_style : 'normal';
 
-        $style = "font-family: '$db_value_font_family'; color: $db_value_font_color; font-size: {$db_value_font_size}px; font-style: $style_italic; font-weight: $style_bold;";
+        $style = "font-family: '$db_value_font_family'; color: $db_value_font_color; font-size: {$db_value_font_size}px; font-style: $style_italic; font-weight: $style_bold; min-width: max-content;";
 
         switch ( $value_mode_checked ) {
             case 'text':
@@ -678,9 +678,11 @@ class Form_Options extends Form {
                 break;
             case 'image':
                 $value_watermark = sprintf(
-                    '<img src="%1$s" /><p style="%2$s" hidden="true"></p>',
+                    '<img src="%1$s" style="%2$s" /><p style="%3$s" hidden="true">%4$s</p>',
                     $db_value_image,
-                    $style_common . ' ' . $style
+                    $style_common,
+                    $style_common . '; ' . $style,
+                    $db_value_text,
                 );
                 break;
         }
