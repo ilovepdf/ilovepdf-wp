@@ -6,7 +6,7 @@ namespace Ilove_Pdf_WP\Helpers;
  * Database management and related operations.
  *
  * @since 3.0.0
- * @package Ilove_Pdf_WP
+ * @package Ilove_Pdf_WP\Helpers
  */
 class DB_Handler {
     /**

@@ -15,7 +15,7 @@ use Ilove_Pdf_WP\Tools\Compress\Settings as Compress_Settings;
 /**
  * Manages the compression process.
  *
- * @package Ilove_Pdf_WP
+ * @package Ilove_Pdf_WP\Tools\Compress
  * @since 3.0.0
  */
 class Tool_Compress {

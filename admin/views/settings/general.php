@@ -2,7 +2,7 @@
 /**
  * View: General settings page
  *
- * @package Ilove_Pdf\views\settings
+ * @package Ilove_Pdf_WP\views\settings
  * @since 3.0.0
  */
 

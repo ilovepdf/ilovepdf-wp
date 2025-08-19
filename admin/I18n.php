@@ -9,7 +9,7 @@ namespace Ilove_Pdf_WP;
  * so that it is ready for translation.
  *
  * @since 1.0.0
- * @package Ilove_Pdf
+ * @package Ilove_Pdf_WP
  */
 class I18n {
 

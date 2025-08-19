@@ -16,7 +16,7 @@ use Ilove_Pdf_WP\Tools\Watermark\Settings as Watermark_Settings;
 /**
  * Manages the watermark process.
  *
- * @package Ilove_Pdf_WP
+ * @package Ilove_Pdf_WP\Tools\Watermark
  * @since 3.0.0
  */
 class Tool_Watermark {
