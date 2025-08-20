@@ -444,12 +444,12 @@ class User_Data {
         $data         = json_decode( $response['body'], true );
         $wordpress_id = self::get_settings( self::$wordpress_id, false );
         $new_data     = array(
-            self::$user_name     => $data['name'],
-            self::$user_email    => $data['email'],
-            self::$user_token    => $user_token,
-            self::$user_id       => $user_id,
-            self::$user_projects => $data['projects'],
-            self::$wordpress_id  => $wordpress_id,
+            'name'         => $data['name'],
+            'email'        => $data['email'],
+            'token'        => $user_token,
+            'id'           => $user_id,
+            'projects'     => $data['projects'],
+            'wordpress_id' => $wordpress_id,
         );
 
         self::update_user_data( $new_data );
