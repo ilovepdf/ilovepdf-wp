@@ -209,7 +209,7 @@ class File_System {
 		}
 
 		if ( $wp_filesystem->exists( $upload_dir['basedir'] . '/pdf' ) ) {
-			$wp_filesystem->rmdir( $upload_dir['basedir'] . '/pdf' );
+			$wp_filesystem->delete( $upload_dir['basedir'] . '/pdf', true );
 		}
 	}
 }
