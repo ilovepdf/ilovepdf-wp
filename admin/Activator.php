@@ -2,12 +2,9 @@
 
 namespace Ilove_Pdf_WP;
 
-use Ilove_Pdf_WP\Tools\Backup;
 use Ilove_Pdf_WP\Account\User_Data;
 use Ilove_Pdf_WP\Helpers\DB_Handler;
 use Ilove_Pdf_WP\Helpers\File_System;
-use Ilove_Pdf_WP\Tools\Compress\Tool_Compress;
-use Ilove_Pdf_WP\Tools\Watermark\Tool_Watermark;
 use Ilove_Pdf_WP\Tools\General\Settings as General_Settings;
 use Ilove_Pdf_WP\Tools\Compress\Settings as Compress_Settings;
 use Ilove_Pdf_WP\Tools\Watermark\Settings as Watermark_Settings;
@@ -28,16 +25,11 @@ class Activator {
 	 */
 	public static function activate() {
 		File_System::create_ilovepdf_directories();
-		File_System::migrate_legacy_directories();
-		Backup::migrate_file_backup();
-		Tool_Compress::migrate_metadata();
-		Tool_Watermark::migrate_watermark_status();
 
 		Compress_Statistics::reset_statistics();
 		Watermark_Statistics::reset_statistics();
 
 		User_Data::create_wordpress_id();
-		User_Data::migrate_account_settings();
 
 		self::set_default_values_watermark_settings();
 		self::set_default_values_compress_settings();

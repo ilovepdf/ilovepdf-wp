@@ -42,14 +42,6 @@ class User_Data {
     );
 
     /**
-     * Database key for user migration status.
-     *
-     * @since 3.0.0
-     * @var string
-     */
-    private static $user_migrated = 'user_migrated';
-
-    /**
      * Database key for user public key.
      *
      * @since 3.0.0
@@ -293,8 +285,6 @@ class User_Data {
         }
 
         if ( ! empty( $values_migrated ) ) {
-
-            $values_migrated[ self::$user_migrated ] = true;
 
             DB_Handler::update_option( self::$db_key_account, $values_migrated );
 

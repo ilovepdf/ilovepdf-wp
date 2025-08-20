@@ -2,6 +2,7 @@
 
 namespace Ilove_Pdf_WP;
 
+use Exception;
 use Ilove_Pdf_WP\I18n;
 use Ilove_Pdf_WP\Submenu_Page;
 use Ilove_Pdf_WP\Tools\Backup;
@@ -10,6 +11,7 @@ use Ilove_Pdf_WP\Account\User_Auth;
 use Ilove_Pdf_WP\Account\User_Data;
 use Ilove_Pdf_WP\Helpers\File_System;
 use Ilove_Pdf_WP\Helpers\Admin_Notice;
+use Ilove_Pdf_WP\Helpers\DB_Handler;
 use Ilove_Pdf_WP\Media\Edit_File_Page;
 use Ilove_Pdf_WP\Tools\Compress\Tool_Compress;
 use Ilove_Pdf_WP\Tools\Watermark\Tool_Watermark;
@@ -48,6 +50,14 @@ class Ilove_Pdf_Plugin {
 	 * @var   string $version The current version of this plugin.
 	 */
 	public $version;
+
+	/**
+	 * The database key for user migration.
+	 *
+	 * @since 3.0.0
+	 * @var   string
+	 */
+	private $db_key_user_migration = 'ilovepdf_user_migration';
 
 	/**
 	 * Init Plugin
@@ -89,6 +99,8 @@ class Ilove_Pdf_Plugin {
 		new Tool_Compress();
 		new Tool_Watermark();
 		new Edit_File_Page();
+
+		$this->migrate_settings();
 
         // Enqueue scripts for the admin area.
         add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_resources' ) );
@@ -146,5 +158,24 @@ class Ilove_Pdf_Plugin {
 				)
 			);
 		}
+	}
+
+	/**
+	 * Migrate settings from older versions.
+	 *
+	 * @since 3.0.0
+	 */
+	public function migrate_settings() {
+		if ( get_option( $this->db_key_user_migration, false ) ) {
+			return;
+		}
+
+		File_System::migrate_legacy_directories();
+		Backup::migrate_file_backup();
+		Tool_Compress::migrate_metadata();
+		Tool_Watermark::migrate_watermark_status();
+		User_Data::migrate_account_settings();
+
+		DB_Handler::update_option( $this->db_key_user_migration, true );
 	}
 }
