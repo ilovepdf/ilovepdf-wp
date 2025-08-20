@@ -169,6 +169,7 @@ class Ilove_Pdf_Plugin {
 			return;
 		}
 
+		General_Settings::migrate();
 		File_System::migrate_legacy_directories();
 		Backup::migrate_file_backup();
 		Tool_Compress::migrate_metadata();
