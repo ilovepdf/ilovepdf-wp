@@ -2,7 +2,6 @@
 
 namespace Ilove_Pdf_WP;
 
-use Exception;
 use Ilove_Pdf_WP\I18n;
 use Ilove_Pdf_WP\Submenu_Page;
 use Ilove_Pdf_WP\Tools\Backup;
@@ -131,6 +130,9 @@ class Ilove_Pdf_Plugin {
 		$js_key_name  = $this->plugin_name . '-js';
 		$logo_url     = File_System::get_assets_url( 'img/logo_ilovepdf.svg' );
 
+		wp_enqueue_style( $css_key_name, plugins_url( '/assets/build/main.css', __DIR__ ), array(), $asset_file['version'], 'all' );
+		wp_style_add_data( $css_key_name, 'rtl', true ); // RTL stylesheet is available.
+
 		if ( (
 			'upload.php' === $pagenow ||
 			'toplevel_page_ilovepdf-admin-page' === $hook_suffix ||
@@ -139,9 +141,6 @@ class Ilove_Pdf_Plugin {
 			'media-new.php' === $pagenow ||
 			'post.php' === $pagenow
 			) && get_current_screen()->post_type !== 'product' ) {
-
-			wp_enqueue_style( $css_key_name, plugins_url( '/assets/build/main.css', __DIR__ ), array(), $asset_file['version'], 'all' );
-			wp_style_add_data( $css_key_name, 'rtl', true ); // RTL stylesheet is available.
 
 			wp_enqueue_media();
 			wp_enqueue_script( $js_key_name, plugins_url( '/assets/build/main.min.js', __DIR__ ), array_merge( $asset_file['dependencies'], array() ), $asset_file['version'], true );
@@ -173,7 +172,9 @@ class Ilove_Pdf_Plugin {
 		File_System::migrate_legacy_directories();
 		Backup::migrate_file_backup();
 		Tool_Compress::migrate_metadata();
+		Compress_Settings::migrate();
 		Tool_Watermark::migrate_watermark_status();
+		Watermark_Settings::migrate();
 		User_Data::migrate_account_settings();
 
 		DB_Handler::update_option( $this->db_key_user_migration, true );
