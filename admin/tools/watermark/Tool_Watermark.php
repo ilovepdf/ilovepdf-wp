@@ -316,7 +316,7 @@ class Tool_Watermark {
             $status = get_post_meta( $attachment_id, $instance->legacy_db_key_status, true );
 
             if ( ! empty( $status ) && 1 === (int) $status ) {
-                $instance->set_status_in_process( $attachment_id, self::get_db_key_status() );
+                $instance->set_status_ready( $attachment_id, self::get_db_key_status() );
                 delete_post_meta( $attachment_id, $instance->legacy_db_key_status );
             }
         }
