@@ -122,7 +122,7 @@ class User_Data {
      * @since 3.0.0
      */
     public static function create_wordpress_id() {
-        $wordpress_id = self::get_settings( self::get_db_wordpress_id_key() );
+        $wordpress_id = self::get_settings( self::$wordpress_id, false );
 
         if ( ! $wordpress_id ) {
             $wordpress_id = md5( get_option( 'siteurl' ) . get_option( 'admin_email' ) );
@@ -281,12 +281,14 @@ class User_Data {
             $values_migrated[ self::$user_token ] = get_option( 'ilovepdf_user_token' );
         }
         if ( get_option( 'ilovepdf_wordpress_id' ) ) {
-            $values_migrated[ self::get_db_wordpress_id_key() ] = get_option( 'ilovepdf_wordpress_id' );
+            $values_migrated[ self::$wordpress_id ] = get_option( 'ilovepdf_wordpress_id' );
         }
 
         if ( ! empty( $values_migrated ) ) {
 
+            delete_transient( self::get_transient_key() );
             DB_Handler::update_option( self::$db_key_account, $values_migrated );
+            self::get_user_data();
 
             foreach ( self::$legacy_db_account_keys as $key ) {
                 delete_option( $key );
@@ -369,14 +371,14 @@ class User_Data {
      */
     public static function update_user_data( $user_data ) {
         $data = array(
-            self::get_db_user_name_key()       => $user_data['name'],
-            self::get_db_user_email_key()      => $user_data['email'],
-            self::get_db_user_token_key()      => $user_data['token'],
-            self::get_db_user_publickey_key()  => $user_data['projects'][0]['public_key'],
-            self::get_db_user_privatekey_key() => $user_data['projects'][0]['secret_key'],
-            self::get_db_user_id_key()         => $user_data['id'],
-            self::get_db_user_projects_key()   => $user_data['projects'],
-            self::get_db_wordpress_id_key()    => $user_data['wordpress_id'],
+            self::$user_name        => $user_data['name'],
+            self::$user_email       => $user_data['email'],
+            self::$user_token       => $user_data['token'],
+            self::$user_public_key  => $user_data['projects'][0]['public_key'],
+            self::$user_private_key => $user_data['projects'][0]['secret_key'],
+            self::$user_id          => $user_data['id'],
+            self::$user_projects    => $user_data['projects'],
+            self::$wordpress_id     => $user_data['wordpress_id'],
         );
 
         DB_Handler::update_option( self::get_db_key_account(), $data );
@@ -439,8 +441,18 @@ class User_Data {
             exit;
         }
 
-        $data = json_decode( $response['body'], true );
+        $data         = json_decode( $response['body'], true );
+        $wordpress_id = self::get_settings( self::$wordpress_id, false );
+        $new_data     = array(
+            self::$user_name     => $data['name'],
+            self::$user_email    => $data['email'],
+            self::$user_token    => $user_token,
+            self::$user_id       => $user_id,
+            self::$user_projects => $data['projects'],
+            self::$wordpress_id  => $wordpress_id,
+        );
 
+        self::update_user_data( $new_data );
         set_transient( self::get_transient_key(), $data, DAY_IN_SECONDS );
 
         return $data;
