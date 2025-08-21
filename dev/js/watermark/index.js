@@ -12,6 +12,7 @@ import { setFilesProtected, setResume } from './statistics';
  */
 export const applyWatermark = (container, btnTrigger) => {
 	const statusWatermarkNotApplied = container.querySelector('.ipdf-item-status-not-watermarked');
+	statusWatermarkNotApplied?.classList.remove('ipdf-item-status-active');
 	const statusSuccess = container.querySelector('.ipdf-item-status-watermark-applied');
 	const statusFail = container.querySelector('.ipdf-item-status-fail');
 	statusFail.classList.remove('ipdf-item-status-active');
@@ -37,13 +38,13 @@ export const applyWatermark = (container, btnTrigger) => {
 
 			if (!success && typeof data === 'string') {
 				statusFail?.classList.add('ipdf-item-status-active');
+				statusWatermarkNotApplied?.classList.add('ipdf-item-status-active');
 				btnTrigger.classList.remove('ipdf-btn--media-action-trigger');
 				showAdminNotice(data, 'error');
 			}
 
 			if (success) {
 				statusSuccess?.classList.add('ipdf-item-status-active');
-				statusWatermarkNotApplied?.classList.remove('ipdf-item-status-active');
 
 				switch (typeof data) {
 					case 'string':

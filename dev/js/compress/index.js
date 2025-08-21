@@ -10,6 +10,7 @@ import { setFilesProcessed, setAverageReduction, setSpaceSaved, setResume } from
  */
 export const compressFile = (container, btnTrigger) => {
 	const statusNotCompressed = container.querySelector('.ipdf-item-status-not-compressed');
+	statusNotCompressed?.classList.remove('ipdf-item-status-active');
 	const statusSuccess = container.querySelector('.ipdf-item-status-compressed');
 	const statusFail = container.querySelector('.ipdf-item-status-fail');
 	statusFail.classList.remove('ipdf-item-status-active');
@@ -34,6 +35,7 @@ export const compressFile = (container, btnTrigger) => {
 			loading?.classList.remove('ipdf-item-status-active');
 
 			if (!success && typeof data === 'string') {
+				statusNotCompressed?.classList.add('ipdf-item-status-active');
 				statusFail?.classList.add('ipdf-item-status-active');
 				btnTrigger.classList.remove('ipdf-btn--media-action-trigger');
 				showAdminNotice(data, 'error');
@@ -41,7 +43,6 @@ export const compressFile = (container, btnTrigger) => {
 
 			if (success) {
 				statusSuccess?.classList.add('ipdf-item-status-active');
-				statusNotCompressed?.classList.remove('ipdf-item-status-active');
 
 				switch (typeof data) {
 					case 'string':
