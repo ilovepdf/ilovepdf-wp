@@ -247,12 +247,17 @@ class Tool_Watermark {
 
             $wp_filesystem->move( $watermarked_file, $attachment_file, true );
 
+            $original_size   = '';
+            $compressed_size = '';
+
             // When applying a watermark, the file may end up increasing in size than the original.
             // If the file was compressed, we make sure to reapply the process to mitigate the increase in size.
             if ( Tool_Compress::is_file_compressed( $post_id ) ) {
                 $compress = new Tool_Compress();
                 delete_post_meta( $post_id, $compress->get_db_key_status() );
-                $compress->compress_process( $post_id );
+                $file_compressed = $compress->compress_process( $post_id );
+                $original_size   = $file_compressed['data']['original_size'];
+                $compressed_size = $file_compressed['data']['compressed_size'];
             } else {
                 Compress_Statistics::reset_statistics();
             }
@@ -275,9 +280,19 @@ class Tool_Watermark {
                 'type_notice' => 'success',
                 'message'     => $message,
                 'data'        => array(
-                    'files_protected' => Watermark_Statistics::get_protected_files(),
-                    'resume'          => Watermark_Statistics::get_resume(),
-                    'backup'          => true,
+                    'files_protected'     => Watermark_Statistics::get_protected_files(),
+                    'resume'              => Watermark_Statistics::get_resume(),
+                    'backup'              => true,
+                    'file_is_compressed'  => Tool_Compress::is_file_compressed( $post_id ),
+                    'compress_statistics' => array(
+                        'percentage'        => Tool_Compress::get_compressed_reabable_percentage( $original_size, $compressed_size ),
+                        'files_processed'   => Compress_Statistics::get_files_processed(),
+                        'average_reduction' => Compress_Statistics::get_average_reduction(),
+                        'space_saved'       => Compress_Statistics::get_space_saved(),
+                        'total_resume'      => Compress_Statistics::get_resume(),
+                        'original_size'     => size_format( $original_size, 2 ),
+                        'compressed_size'   => size_format( $compressed_size, 2 ),
+                    ),
                 ),
             );
 

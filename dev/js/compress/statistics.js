@@ -53,3 +53,14 @@ export const setResume = (resume) => {
 		elementResume.textContent = resume;
 	}
 };
+
+/**
+ * Update the UI with the original size.
+ * @param {string} size - The size in bytes.
+ * @param {HTMLElement} element - The element to update.
+ */
+export const setSize = (size, element) => {
+	if (element) {
+		element.textContent = size;
+	}
+};

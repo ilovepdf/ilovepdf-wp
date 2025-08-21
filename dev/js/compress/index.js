@@ -1,6 +1,12 @@
 import { showAdminNotice } from '../components';
-import { getFormData } from '../common/DOMElements';
-import { setFilesProcessed, setAverageReduction, setSpaceSaved, setResume } from './statistics';
+import { getFormData, getRowCompressedSize, getRowOriginalSize } from '../common/DOMElements';
+import {
+	setFilesProcessed,
+	setAverageReduction,
+	setSpaceSaved,
+	setResume,
+	setSize
+} from './statistics';
 
 /**
  * Compress a file by sending a request to the server.
@@ -14,6 +20,8 @@ export const compressFile = (container, btnTrigger) => {
 	const statusSuccess = container.querySelector('.ipdf-item-status-compressed');
 	const statusFail = container.querySelector('.ipdf-item-status-fail');
 	statusFail.classList.remove('ipdf-item-status-active');
+	const colCompressedSize = getRowCompressedSize(container);
+	const colOriginalSize = getRowOriginalSize(container);
 
 	const btnRestoreFile = container.parentElement.querySelector('.ipdf-btn--media-action-restore');
 
@@ -57,10 +65,21 @@ export const compressFile = (container, btnTrigger) => {
 						const params = new URL(window.location.href).searchParams;
 
 						if (params.get('page') === 'ipdf-media-optimization') {
-							setFilesProcessed(data.data.files_processed);
-							setAverageReduction(data.data.average_reduction);
-							setSpaceSaved(data.data.space_saved);
-							setResume(data.data.total_resume);
+							const {
+								files_processed,
+								average_reduction,
+								space_saved,
+								total_resume,
+								compressed_size,
+								original_size
+							} = data.data;
+
+							setFilesProcessed(files_processed);
+							setAverageReduction(average_reduction);
+							setSpaceSaved(space_saved);
+							setResume(total_resume);
+							setSize(compressed_size, colCompressedSize);
+							setSize(original_size, colOriginalSize);
 						}
 
 						if (data.data.backup) {

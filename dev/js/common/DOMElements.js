@@ -72,3 +72,33 @@ export const addAnimationToBtnSaveChanges = () => {
 		});
 	});
 };
+
+/**
+ * Get the compressed size column element from the container.
+ *
+ * @param {HTMLElement} container - The container element.
+ * @returns {HTMLElement|null} - The compressed size column element or null if not found.
+ * @since 3.0.0
+ */
+export const getRowCompressedSize = (container) => {
+	if (!container) {
+		return null;
+	}
+
+	return container.querySelector('.column-size_compressed');
+};
+
+/**
+ * Get the original size column element from the container.
+ *
+ * @param {HTMLElement} container - The container element.
+ * @returns {HTMLElement|null} - The original size column element or null if not found.
+ * @since 3.0.0
+ */
+export const getRowOriginalSize = (container) => {
+	if (!container) {
+		return null;
+	}
+
+	return container.querySelector('.column-size');
+};

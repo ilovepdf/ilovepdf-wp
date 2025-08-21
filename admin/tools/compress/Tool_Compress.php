@@ -267,6 +267,8 @@ class Tool_Compress {
                     'space_saved'       => Statistics::get_space_saved(),
                     'total_resume'      => Statistics::get_resume(),
                     'backup'            => true,
+                    'original_size'     => size_format( $original_size, 2 ),
+                    'compressed_size'   => size_format( $compressed_size, 2 ),
                 ),
             );
 

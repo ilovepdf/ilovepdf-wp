@@ -1,7 +1,14 @@
 import './settings';
-import { getFormData } from '../common/DOMElements';
+import { getFormData, getRowCompressedSize, getRowOriginalSize } from '../common/DOMElements';
 import { showAdminNotice } from '../components';
 import { setFilesProtected, setResume } from './statistics';
+import {
+	setAverageReduction,
+	setSize,
+	setFilesProcessed,
+	setSpaceSaved,
+	setResume as setCompressResume
+} from '../compress/statistics';
 
 /**
  * Apply a watermark to a file by sending a request to the server.
@@ -14,8 +21,11 @@ export const applyWatermark = (container, btnTrigger) => {
 	const statusWatermarkNotApplied = container.querySelector('.ipdf-item-status-not-watermarked');
 	statusWatermarkNotApplied?.classList.remove('ipdf-item-status-active');
 	const statusSuccess = container.querySelector('.ipdf-item-status-watermark-applied');
+	const statusCompressed = container.querySelector('.ipdf-item-status-compressed');
 	const statusFail = container.querySelector('.ipdf-item-status-fail');
 	statusFail.classList.remove('ipdf-item-status-active');
+	const colCompressedSize = getRowCompressedSize(container);
+	const colOriginalSize = getRowOriginalSize(container);
 
 	const btnRestoreFile = container.parentElement.querySelector('.ipdf-btn--media-action-restore');
 
@@ -55,8 +65,30 @@ export const applyWatermark = (container, btnTrigger) => {
 						const params = new URL(window.location.href).searchParams;
 
 						if (params.get('page') === 'ipdf-media-optimization') {
-							setFilesProtected(data.data.files_protected);
-							setResume(data.data.resume);
+							const { files_protected, resume, file_is_compressed } = data.data;
+							setFilesProtected(files_protected);
+							setResume(resume);
+
+							if (file_is_compressed) {
+								const {
+									files_processed,
+									average_reduction,
+									space_saved,
+									total_resume,
+									compressed_size,
+									original_size,
+									percentage
+								} = data.data.compress_statistics;
+
+								statusCompressed.querySelector('span').textContent = percentage;
+
+								setFilesProcessed(files_processed);
+								setAverageReduction(average_reduction);
+								setSpaceSaved(space_saved);
+								setCompressResume(total_resume);
+								setSize(compressed_size, colCompressedSize);
+								setSize(original_size, colOriginalSize);
+							}
 						}
 
 						if (data.data.backup) {
