@@ -2,6 +2,8 @@
 
 namespace Ilove_Pdf_WP\Helpers;
 
+use Exception;
+
 /**
  * File system management.
  *
@@ -177,39 +179,73 @@ class File_System {
      * @return void
      */
 	public static function migrate_legacy_directories() {
-		/** Filesystem @var \WP_Filesystem_Base $wp_filesystem */
-		global $wp_filesystem;
 
-		if ( ! WP_Filesystem() ) {
+		try {
+			if ( ! WP_Filesystem() ) {
 
-            Admin_Notice::add_notice(
-                esc_html_x( 'Unable to connect to the filesystem', 'Error message: Unable to connect to the core WordPress function.', 'ilove-pdf' ),
-				'error',
-            );
+				Admin_Notice::add_notice(
+                    esc_html_x( 'Unable to connect to the filesystem', 'Error message: Unable to connect to the core WordPress function.', 'ilove-pdf' ),
+                    'error',
+				);
 
-            return;
-        }
-
-		$upload_dir = wp_upload_dir();
-
-		foreach ( self::$legacy_directories as $directory ) {
-			$directory = $upload_dir['basedir'] . $directory;
-
-			if ( $wp_filesystem->exists( $directory ) ) {
-				$files = glob( $directory . '/*' );
-
-				foreach ( $files as $file ) {
-					$filename    = basename( $file );
-					$destination = $upload_dir['basedir'] . '/' . self::$folder_backup . '/' . $filename;
-					$wp_filesystem->move( $file, $destination );
-				}
-
-				$wp_filesystem->rmdir( $directory );
+				return;
 			}
-		}
 
-		if ( $wp_filesystem->exists( $upload_dir['basedir'] . '/pdf' ) ) {
-			$wp_filesystem->delete( $upload_dir['basedir'] . '/pdf', true );
+			/** Filesystem @var WP_Filesystem_Base $wp_filesystem */
+			global $wp_filesystem;
+
+			$upload_dir = wp_upload_dir();
+
+			if ( ! $wp_filesystem->exists( self::get_full_path_backup_folder() ) ) {
+				self::create_dir( self::get_full_path_backup_folder() );
+			}
+
+			foreach ( self::$legacy_directories as $directory ) {
+				$directory = $upload_dir['basedir'] . $directory;
+
+				if ( $wp_filesystem->exists( $directory ) ) {
+					$files = glob( $directory . '/*' );
+
+					foreach ( $files as $file ) {
+						$filename    = basename( $file );
+						$destination = $upload_dir['basedir'] . '/' . self::$folder_backup . '/' . $filename;
+
+						if ( $wp_filesystem->move( $file, $destination, true ) ) {
+							Admin_Notice::add_notice(
+								sprintf(
+									/* translators: %1$s: File name. */
+									esc_html_x( 'File %1$s moved to the new backup folder.', 'This happened during the migration process.', 'ilove-pdf' ),
+									esc_html( $filename ),
+								),
+								'success',
+							);
+							continue;
+						}
+
+						Admin_Notice::add_notice(
+							sprintf(
+								/* translators: %1$s: File name. */
+								esc_html_x( 'Error moving file %1$s to the new backup folder.', 'This happened during the migration process.', 'ilove-pdf' ),
+								esc_html( $filename ),
+							),
+							'warning',
+						);
+
+					}
+
+					$wp_filesystem->delete( $directory, true );
+				}
+			}
+
+			if ( $wp_filesystem->exists( $upload_dir['basedir'] . '/pdf' ) ) {
+				$wp_filesystem->delete( $upload_dir['basedir'] . '/pdf', true );
+			}
+		} catch ( Exception $e ) {
+			Admin_Notice::add_notice(
+				esc_html( $e->getMessage() ),
+				'error',
+			);
+			error_log( 'iLovePDF: create_ilovepdf_directories method error: ' . print_r( var_export( $e, true ), true ) );//phpcs:ignore
 		}
 	}
 }

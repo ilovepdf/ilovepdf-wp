@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "POT-Creation-Date: 2025-02-10T12:04:09+00:00\n"
-"PO-Revision-Date: 2025-08-19 \n"
+"PO-Revision-Date: 2025-08-21 \n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: ilove-pdf\n"
 
@@ -43,7 +43,7 @@ msgstr ""
 #: admin/account/User_Auth.php:173
 #: admin/account/User_Auth.php:284
 #: admin/account/User_Auth.php:340
-#: admin/account/User_Data.php:407
+#: admin/account/User_Data.php:399
 #: admin/tools/compress/Settings.php:56
 #: admin/tools/general/Settings.php:63
 #: admin/tools/watermark/Settings.php:65
@@ -137,27 +137,27 @@ msgctxt "Form submission: Success message."
 msgid "Project changed successfully."
 msgstr ""
 
-#: admin/account/User_Data.php:365
+#: admin/account/User_Data.php:357
 msgctxt "credits popup: title"
 msgid "You have no more credits!"
 msgstr ""
 
-#: admin/account/User_Data.php:366
+#: admin/account/User_Data.php:358
 msgctxt "credits popup: content"
 msgid "You can purchase more credits to continue processing files, or you can wait until your free credits are restored."
 msgstr ""
 
-#: admin/account/User_Data.php:367
+#: admin/account/User_Data.php:359
 msgctxt "credits popup: button link"
 msgid "Buy credits"
 msgstr ""
 
-#: admin/account/User_Data.php:368
+#: admin/account/User_Data.php:360
 msgctxt "credits popup: button action"
 msgid "Cancel"
 msgstr ""
 
-#: admin/account/User_Data.php:441
+#: admin/account/User_Data.php:433
 msgctxt "User Account: Error message."
 msgid "There was a problem trying to get the user data. Please try again later."
 msgstr ""
@@ -245,7 +245,7 @@ msgctxt "button link"
 msgid "Create account"
 msgstr ""
 
-#: admin/helpers/File_System.php:186
+#: admin/helpers/File_System.php:187
 #: admin/tools/Backup.php:82
 #: admin/tools/Backup.php:155
 #: admin/tools/Backup.php:274
@@ -257,6 +257,20 @@ msgstr ""
 #: admin/tools/watermark/Tool_Watermark.php:157
 msgctxt "Error message: Unable to connect to the core WordPress function."
 msgid "Unable to connect to the filesystem"
+msgstr ""
+
+#. translators: %1$s: File name.
+#: admin/helpers/File_System.php:217
+#, php-format
+msgctxt "This happened during the migration process."
+msgid "File %1$s moved to the new backup folder."
+msgstr ""
+
+#. translators: %1$s: File name.
+#: admin/helpers/File_System.php:228
+#, php-format
+msgctxt "This happened during the migration process."
+msgid "Error moving file %1$s to the new backup folder."
 msgstr ""
 
 #: admin/media/Files_List_Table.php:123
@@ -301,7 +315,7 @@ msgid "Compress PDF"
 msgstr ""
 
 #: admin/media/Files_List_Table.php:242
-#: admin/tools/watermark/Tool_Watermark.php:326
+#: admin/tools/watermark/Tool_Watermark.php:335
 msgctxt "Bulk action button"
 msgid "Apply Watermark"
 msgstr ""
@@ -490,7 +504,7 @@ msgstr ""
 
 #. translators: %1$s The file name
 #: admin/tools/compress/Tool_Compress.php:225
-#: admin/tools/watermark/Tool_Watermark.php:229
+#: admin/tools/watermark/Tool_Watermark.php:238
 #, php-format
 msgctxt "Process Error"
 msgid "The %1$s file could not be found inside the temporary download folder."
@@ -679,7 +693,7 @@ msgid "The watermark tool is not activated."
 msgstr ""
 
 #. translators: %1$s The file name
-#: admin/tools/watermark/Tool_Watermark.php:247
+#: admin/tools/watermark/Tool_Watermark.php:256
 #, php-format
 msgctxt "Watermark PDF: Success message."
 msgid "The watermark was applied successfully to %1$s."
