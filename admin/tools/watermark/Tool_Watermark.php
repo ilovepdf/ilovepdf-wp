@@ -12,7 +12,10 @@ use Ilove_Pdf_WP\Helpers\Admin_Notice;
 use Ilovepdf\Exceptions\AuthException;
 use Ilove_Pdf_WP\Helpers\Media_Handler;
 use Ilove_Pdf_WP\Tools\Base\Status_Process;
+use Ilove_Pdf_WP\Tools\Compress\Tool_Compress;
 use Ilove_Pdf_WP\Tools\Watermark\Settings as Watermark_Settings;
+use Ilove_Pdf_WP\Tools\Compress\Statistics as Compress_Statistics;
+use Ilove_Pdf_WP\Tools\Watermark\Statistics as Watermark_Statistics;
 
 /**
  * Manages the watermark process.
@@ -244,11 +247,21 @@ class Tool_Watermark {
 
             $wp_filesystem->move( $watermarked_file, $attachment_file, true );
 
+            // When applying a watermark, the file may end up increasing in size than the original.
+            // If the file was compressed, we make sure to reapply the process to mitigate the increase in size.
+            if ( Tool_Compress::is_file_compressed( $post_id ) ) {
+                $compress = new Tool_Compress();
+                delete_post_meta( $post_id, $compress->get_db_key_status() );
+                $compress->compress_process( $post_id );
+            } else {
+                Compress_Statistics::reset_statistics();
+            }
+
             Media_Handler::regenerate_attachment_data( $post_id );
 
             $this->set_status_ready( $post_id, $this->db_key_status );
 
-            Statistics::reset_statistics();
+            Watermark_Statistics::reset_statistics();
             delete_transient( User_Data::get_transient_key() );
 
             $message = sprintf(
@@ -262,8 +275,8 @@ class Tool_Watermark {
                 'type_notice' => 'success',
                 'message'     => $message,
                 'data'        => array(
-                    'files_protected' => Statistics::get_protected_files(),
-                    'resume'          => Statistics::get_resume(),
+                    'files_protected' => Watermark_Statistics::get_protected_files(),
+                    'resume'          => Watermark_Statistics::get_resume(),
                     'backup'          => true,
                 ),
             );
