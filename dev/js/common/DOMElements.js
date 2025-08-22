@@ -1,28 +1,28 @@
 import { pulseAnimation } from '../utils';
 
 /**
- * Get the status container element based on the button trigger.
+ * Get the container element based on the button trigger.
  *
  * @param {HTMLElement} btnTrigger - The button element that triggered the action.
- * @returns {HTMLElement|null} - The status container element or null if not found.
+ * @returns {HTMLElement|null} - The container element or null if not found.
  * @since 3.0.0
  */
-export const getStatusContainer = (btnTrigger) => {
+export const getActionsContainer = (btnTrigger) => {
 	if (!btnTrigger) {
 		return null;
 	}
 
-	const container = btnTrigger.parentElement.nextElementSibling ?? btnTrigger.closest('tr');
+	const container = btnTrigger.closest('tr');
 
 	if (!container) {
 		return null;
 	}
 
-	if (container.nodeName === 'TR' || container.classList.contains('ipdf-status-process')) {
-		return container;
+	if (container.nodeName !== 'TR') {
+		return null;
 	}
 
-	container.classList.add('ipdf-status-process');
+	container.querySelector('.ipdf-status')?.classList.add('ipdf-status-process');
 	return container;
 };
 

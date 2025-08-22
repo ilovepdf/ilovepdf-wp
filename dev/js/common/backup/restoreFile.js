@@ -1,5 +1,5 @@
 import { _x } from '@wordpress/i18n';
-import { getFormData, getStatusContainer } from '../DOMElements';
+import { getFormData, getActionsContainer } from '../DOMElements';
 import { createDialogComponent, showAdminNotice } from '../../components';
 
 /**
@@ -8,7 +8,7 @@ import { createDialogComponent, showAdminNotice } from '../../components';
  * @since 3.0.0
  */
 const removeAllStatus = (btnTrigger) => {
-	const statusContainer = getStatusContainer(btnTrigger);
+	const statusContainer = getActionsContainer(btnTrigger);
 	const allStatus = statusContainer.querySelectorAll('.ipdf-item-status');
 
 	allStatus?.forEach((status) => {
@@ -24,7 +24,7 @@ const removeAllStatus = (btnTrigger) => {
 export const restoreFile = (btnTrigger) => {
 	btnTrigger.classList.remove('ipdf-btn--media-action-restore-active');
 
-	const statusContainer = getStatusContainer(btnTrigger);
+	const statusContainer = getActionsContainer(btnTrigger);
 
 	const statusSuccess = statusContainer.querySelector('.ipdf-item-status-restored');
 	const statusFail = statusContainer.querySelector('.ipdf-item-status-fail');

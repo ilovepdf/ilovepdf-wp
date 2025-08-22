@@ -27,7 +27,7 @@ export const applyWatermark = (container, btnTrigger) => {
 	const colCompressedSize = getRowCompressedSize(container);
 	const colOriginalSize = getRowOriginalSize(container);
 
-	const btnRestoreFile = container.parentElement.querySelector('.ipdf-btn--media-action-restore');
+	const btnRestoreFile = container.querySelector('.ipdf-btn--media-action-restore');
 
 	const loading = container.querySelector('.ipdf-item-status-watermark-processing');
 	loading?.classList.add('ipdf-item-status-active');
@@ -46,11 +46,23 @@ export const applyWatermark = (container, btnTrigger) => {
 
 			loading?.classList.remove('ipdf-item-status-active');
 
-			if (!success && typeof data === 'string') {
+			if (!success) {
+				switch (typeof data) {
+					case 'string':
+						showAdminNotice(data, 'error');
+						break;
+
+					case 'object':
+						if (data.message) {
+							showAdminNotice(data.message, 'error');
+						}
+
+						break;
+				}
+
 				statusFail?.classList.add('ipdf-item-status-active');
 				statusWatermarkNotApplied?.classList.add('ipdf-item-status-active');
 				btnTrigger.classList.remove('ipdf-btn--media-action-trigger');
-				showAdminNotice(data, 'error');
 			}
 
 			if (success) {

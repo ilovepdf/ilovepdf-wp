@@ -2,7 +2,7 @@ import './common/backup';
 import { restoreFile } from './common/backup/restoreFile';
 import { compressFile } from './compress';
 import { applyWatermark } from './watermark';
-import { addAnimationToBtnSaveChanges, getStatusContainer } from './common/DOMElements';
+import { addAnimationToBtnSaveChanges, getActionsContainer } from './common/DOMElements';
 import { userHasCredits } from './common/Account/user';
 
 import '../scss/app.scss';
@@ -19,7 +19,7 @@ window.addEventListener('load', function () {
 			event.preventDefault();
 
 			btnTrigger.classList.add('ipdf-btn--media-action-trigger');
-			const statusContainer = getStatusContainer(btnTrigger);
+			const statusContainer = getActionsContainer(btnTrigger);
 
 			compressFile(statusContainer, btnTrigger);
 		}
@@ -28,7 +28,7 @@ window.addEventListener('load', function () {
 			event.preventDefault();
 
 			btnTrigger.classList.add('ipdf-btn--media-action-trigger');
-			const statusContainer = getStatusContainer(btnTrigger);
+			const statusContainer = getActionsContainer(btnTrigger);
 
 			applyWatermark(statusContainer, btnTrigger);
 		}
