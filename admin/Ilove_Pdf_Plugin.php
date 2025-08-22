@@ -150,9 +150,11 @@ class Ilove_Pdf_Plugin {
 				sprintf(
 					'const IlovePdfData = {
 						logoUrl: "%s",
+						userIsLoggued: %s,
 						userHasCredits: %s,
 					};',
 					esc_url( $logo_url ),
+					wp_json_encode( User_Auth::is_user_logged_in() ),
 					wp_json_encode( User_Data::has_credits() ),
 				)
 			);
@@ -169,14 +171,17 @@ class Ilove_Pdf_Plugin {
 			return;
 		}
 
-		General_Settings::migrate();
 		File_System::migrate_legacy_directories();
 		Backup::migrate_file_backup();
-		Tool_Compress::migrate_metadata();
-		Compress_Settings::migrate();
-		Tool_Watermark::migrate_watermark_status();
-		Watermark_Settings::migrate();
+
 		User_Data::migrate_account_settings();
+
+		General_Settings::migrate();
+		Compress_Settings::migrate();
+		Watermark_Settings::migrate();
+
+		Tool_Compress::migrate_metadata();
+		Tool_Watermark::migrate_watermark_status();
 
 		DB_Handler::update_option( $this->db_key_user_migration, true );
 	}
