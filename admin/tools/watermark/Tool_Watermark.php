@@ -204,7 +204,7 @@ class Tool_Watermark {
                     $main_task->setText( $options[ Watermark_Settings::get_field_text_mode() ] );
                     $main_task->setFontFamily( $options[ Watermark_Settings::get_field_font_family() ] );
                     $main_task->setFontSize( $options[ Watermark_Settings::get_field_font_size() ] );
-                    $main_task->setFontStyle( $options[ Watermark_Settings::get_field_font_style() ] );
+                    $main_task->setFontStyle( (string) $options[ Watermark_Settings::get_field_font_style() ] );
                     $main_task->setFontColor( $options[ Watermark_Settings::get_field_font_color() ] );
 
                     break;
