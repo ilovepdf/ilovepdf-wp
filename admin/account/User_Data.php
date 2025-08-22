@@ -423,10 +423,6 @@ class User_Data {
      * @return array|false User data if successful, false if not logged in or an error occurs.
      */
     public static function get_user_data() {
-        if ( ! User_Auth::is_user_logged_in() ) {
-            return false;
-        }
-
         if ( ! ( current_user_can( 'manage_options' ) ) ) {
             Admin_Notice::add_notice(
                 _x( 'You do not have permission to edit the options.', 'Error message, user without permissions.', 'ilove-pdf' ),

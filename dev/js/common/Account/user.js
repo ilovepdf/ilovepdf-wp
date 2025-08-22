@@ -3,8 +3,9 @@
  */
 export const userHasCredits = () => {
 	const userHasCredits = IlovePdfData.userHasCredits;
+	const userIsLoggued = IlovePdfData.userIsLoggued;
 
-	if (userHasCredits) {
+	if (userHasCredits || !userIsLoggued) {
 		return;
 	}
 
