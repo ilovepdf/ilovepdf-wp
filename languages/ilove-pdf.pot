@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "POT-Creation-Date: 2025-02-10T12:04:09+00:00\n"
-"PO-Revision-Date: 2025-08-21 \n"
+"PO-Revision-Date: 2025-08-22 \n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: ilove-pdf\n"
 
@@ -43,7 +43,7 @@ msgstr ""
 #: admin/account/User_Auth.php:173
 #: admin/account/User_Auth.php:284
 #: admin/account/User_Auth.php:340
-#: admin/account/User_Data.php:399
+#: admin/account/User_Data.php:428
 #: admin/tools/compress/Settings.php:56
 #: admin/tools/general/Settings.php:63
 #: admin/tools/watermark/Settings.php:65
@@ -63,7 +63,7 @@ msgstr ""
 #: admin/tools/compress/Tool_Compress.php:105
 #: admin/tools/general/Settings.php:73
 #: admin/tools/watermark/Settings.php:75
-#: admin/tools/watermark/Tool_Watermark.php:77
+#: admin/tools/watermark/Tool_Watermark.php:80
 msgctxt "Error message, invalid nonce code."
 msgid "There was a problem validating the nonce code, please try again later."
 msgstr ""
@@ -137,29 +137,30 @@ msgctxt "Form submission: Success message."
 msgid "Project changed successfully."
 msgstr ""
 
-#: admin/account/User_Data.php:357
+#: admin/account/User_Data.php:300
+#: admin/account/User_Data.php:462
+msgctxt "User Account: Error message."
+msgid "There was a problem trying to get the user data. Please try again later."
+msgstr ""
+
+#: admin/account/User_Data.php:390
 msgctxt "credits popup: title"
 msgid "You have no more credits!"
 msgstr ""
 
-#: admin/account/User_Data.php:358
+#: admin/account/User_Data.php:391
 msgctxt "credits popup: content"
 msgid "You can purchase more credits to continue processing files, or you can wait until your free credits are restored."
 msgstr ""
 
-#: admin/account/User_Data.php:359
+#: admin/account/User_Data.php:392
 msgctxt "credits popup: button link"
 msgid "Buy credits"
 msgstr ""
 
-#: admin/account/User_Data.php:360
+#: admin/account/User_Data.php:393
 msgctxt "credits popup: button action"
 msgid "Cancel"
-msgstr ""
-
-#: admin/account/User_Data.php:433
-msgctxt "User Account: Error message."
-msgid "There was a problem trying to get the user data. Please try again later."
 msgstr ""
 
 #. translators: %1$s: used credits, %2$s: total credits
@@ -254,7 +255,7 @@ msgstr ""
 #: admin/tools/Backup.php:421
 #: admin/tools/Backup.php:451
 #: admin/tools/compress/Tool_Compress.php:182
-#: admin/tools/watermark/Tool_Watermark.php:157
+#: admin/tools/watermark/Tool_Watermark.php:160
 msgctxt "Error message: Unable to connect to the core WordPress function."
 msgid "Unable to connect to the filesystem"
 msgstr ""
@@ -309,13 +310,13 @@ msgid "Actions"
 msgstr ""
 
 #: admin/media/Files_List_Table.php:241
-#: admin/tools/compress/Tool_Compress.php:406
+#: admin/tools/compress/Tool_Compress.php:408
 msgctxt "Bulk action button"
 msgid "Compress PDF"
 msgstr ""
 
 #: admin/media/Files_List_Table.php:242
-#: admin/tools/watermark/Tool_Watermark.php:335
+#: admin/tools/watermark/Tool_Watermark.php:363
 msgctxt "Bulk action button"
 msgid "Apply Watermark"
 msgstr ""
@@ -374,7 +375,7 @@ msgstr ""
 
 #: admin/tools/Backup.php:87
 #: admin/tools/compress/Tool_Compress.php:109
-#: admin/tools/watermark/Tool_Watermark.php:81
+#: admin/tools/watermark/Tool_Watermark.php:84
 msgid "Error processing your request. The file ID must be sent"
 msgstr ""
 
@@ -490,21 +491,21 @@ msgstr ""
 
 #. translators: %1$s The file name
 #: admin/tools/compress/Tool_Compress.php:170
-#: admin/tools/watermark/Tool_Watermark.php:145
+#: admin/tools/watermark/Tool_Watermark.php:148
 #, php-format
 msgctxt "Error message."
 msgid "The file %1$s is not a PDF."
 msgstr ""
 
 #: admin/tools/compress/Tool_Compress.php:191
-#: admin/tools/watermark/Tool_Watermark.php:166
+#: admin/tools/watermark/Tool_Watermark.php:169
 msgctxt "Auth: Error message."
 msgid "The API Keys are not set. Please check your settings."
 msgstr ""
 
 #. translators: %1$s The file name
 #: admin/tools/compress/Tool_Compress.php:225
-#: admin/tools/watermark/Tool_Watermark.php:238
+#: admin/tools/watermark/Tool_Watermark.php:241
 #, php-format
 msgctxt "Process Error"
 msgid "The %1$s file could not be found inside the temporary download folder."
@@ -518,8 +519,8 @@ msgid "The file %1$s was compressed successfully."
 msgstr ""
 
 #. translators: %1$s: compression percentage
-#: admin/tools/compress/Tool_Compress.php:310
-#: admin/tools/compress/Tool_Compress.php:324
+#: admin/tools/compress/Tool_Compress.php:312
+#: admin/tools/compress/Tool_Compress.php:326
 #, php-format
 msgctxt "Compress PDF: Compressed percentage."
 msgid "Compressed (%1$s%%)"
@@ -674,26 +675,26 @@ msgid "Your files, summary: Total files %1$d → Protected files %2$d"
 msgstr ""
 
 #. translators: %1$s Additional process error
-#: admin/tools/watermark/Tool_Watermark.php:96
+#: admin/tools/watermark/Tool_Watermark.php:99
 #, php-format
 msgctxt "Watermark PDF: Error message."
 msgid "Watermark PDF error: %1$s"
 msgstr ""
 
 #. translators: %1$s The file name
-#: admin/tools/watermark/Tool_Watermark.php:125
+#: admin/tools/watermark/Tool_Watermark.php:128
 #, php-format
 msgctxt "Watermark PDF: Info message."
 msgid "The file %1$s already has a watermark applied."
 msgstr ""
 
-#: admin/tools/watermark/Tool_Watermark.php:139
+#: admin/tools/watermark/Tool_Watermark.php:142
 msgctxt "Watermark PDF: Error message."
 msgid "The watermark tool is not activated."
 msgstr ""
 
 #. translators: %1$s The file name
-#: admin/tools/watermark/Tool_Watermark.php:256
+#: admin/tools/watermark/Tool_Watermark.php:274
 #, php-format
 msgctxt "Watermark PDF: Success message."
 msgid "The watermark was applied successfully to %1$s."
