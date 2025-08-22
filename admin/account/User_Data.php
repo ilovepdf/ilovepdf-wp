@@ -2,6 +2,7 @@
 
 namespace Ilove_Pdf_WP\Account;
 
+use Exception;
 use Ilove_Pdf_WP\Helpers\DB_Handler;
 use Ilove_Pdf_WP\Helpers\Admin_Notice;
 use Ilove_Pdf_WP\Helpers\HTTP_Handler;
@@ -259,40 +260,72 @@ class User_Data {
      * to the current option key and deletes the legacy option to avoid redundancy.
      */
     public static function migrate_account_settings() {
-        $values_migrated = array();
 
-        if ( get_option( 'ilovepdf_user_email' ) ) {
-            $values_migrated[ self::$user_email ] = get_option( 'ilovepdf_user_email' );
-        }
+        try {
+            $values_migrated = array();
 
-        if ( get_option( 'ilovepdf_user_id' ) ) {
-            $values_migrated[ self::$user_id ] = get_option( 'ilovepdf_user_id' );
-        }
-
-        if ( get_option( 'ilovepdf_user_public_key' ) ) {
-            $values_migrated[ self::$user_public_key ] = get_option( 'ilovepdf_user_public_key' );
-        }
-
-        if ( get_option( 'ilovepdf_user_private_key' ) ) {
-            $values_migrated[ self::$user_private_key ] = get_option( 'ilovepdf_user_private_key' );
-        }
-
-        if ( get_option( 'ilovepdf_user_token' ) ) {
-            $values_migrated[ self::$user_token ] = get_option( 'ilovepdf_user_token' );
-        }
-        if ( get_option( 'ilovepdf_wordpress_id' ) ) {
-            $values_migrated[ self::$wordpress_id ] = get_option( 'ilovepdf_wordpress_id' );
-        }
-
-        if ( ! empty( $values_migrated ) ) {
-
-            delete_transient( self::get_transient_key() );
-            DB_Handler::update_option( self::$db_key_account, $values_migrated );
-            self::get_user_data();
-
-            foreach ( self::$legacy_db_account_keys as $key ) {
-                delete_option( $key );
+            if ( get_option( 'ilovepdf_user_token' ) ) {
+                $values_migrated[ self::$user_token ] = get_option( 'ilovepdf_user_token' );
             }
+
+            if ( get_option( 'ilovepdf_user_id' ) ) {
+                $values_migrated[ self::$user_id ] = get_option( 'ilovepdf_user_id' );
+            }
+
+            if ( get_option( 'ilovepdf_wordpress_id' ) ) {
+                $values_migrated[ self::$wordpress_id ] = get_option( 'ilovepdf_wordpress_id' );
+            }
+
+            if ( ! empty( $values_migrated ) ) {
+
+                $response = wp_remote_get(
+                    User_Auth::$ilove_api_url . '/' . $values_migrated[ self::$user_id ],
+                    array(
+						'headers' => array( 'Authorization' => 'Bearer ' . $values_migrated[ self::$user_token ] ),
+                    )
+				);
+
+				if ( is_wp_error( $response ) ) {
+					Admin_Notice::add_notice(
+						$response->get_error_message(),
+						'error',
+					);
+
+					wp_safe_redirect( wp_get_referer() );
+					exit;
+				}
+
+				if ( 200 !== $response['response']['code'] ) {
+					$error_body    = json_decode( $response['body'], true );
+					$error_message = self::get_message_error( $error_body, _x( 'There was a problem trying to get the user data. Please try again later.', 'User Account: Error message.', 'ilove-pdf' ) );
+
+					Admin_Notice::add_notice(
+						$error_message,
+						'error',
+					);
+
+					wp_safe_redirect( wp_get_referer() );
+					exit;
+				}
+
+				$data                 = json_decode( $response['body'], true );
+                $data['token']        = $values_migrated[ self::$user_token ];
+                $data['wordpress_id'] = $values_migrated[ self::$wordpress_id ];
+
+                self::update_user_data( $data );
+
+                delete_transient( self::get_transient_key() );
+
+                foreach ( self::$legacy_db_account_keys as $key ) {
+                    delete_option( $key );
+                }
+            }
+		} catch ( Exception $e ) {
+            Admin_Notice::add_notice(
+                $e->getMessage(),
+                'error',
+            );
+            error_log( 'iLovePDF - User_Data::migrate_account_settings error: ' . print_r( var_export( $e, true ), true ) );//phpcs:ignore
         }
     }
 
@@ -441,18 +474,8 @@ class User_Data {
             exit;
         }
 
-        $data         = json_decode( $response['body'], true );
-        $wordpress_id = self::get_settings( self::$wordpress_id, false );
-        $new_data     = array(
-            'name'         => $data['name'],
-            'email'        => $data['email'],
-            'token'        => $user_token,
-            'id'           => $user_id,
-            'projects'     => $data['projects'],
-            'wordpress_id' => $wordpress_id,
-        );
+        $data = json_decode( $response['body'], true );
 
-        self::update_user_data( $new_data );
         set_transient( self::get_transient_key(), $data, DAY_IN_SECONDS );
 
         return $data;
