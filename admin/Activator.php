@@ -105,13 +105,13 @@ class Activator {
 	 */
 	public static function set_default_values_general_settings() {
 
-		$get_options = get_option( General_Settings::get_db_key_general_settings(), array() );
+		$get_options = get_option( General_Settings::get_db_key_settings(), array() );
 
 		if ( ! isset( $get_options[ General_Settings::get_field_backup() ] ) ) {
 			$get_options[ General_Settings::get_field_backup() ] = 'on';
 		}
 
-		DB_Handler::update_option( General_Settings::get_db_key_general_settings(), $get_options );
+		DB_Handler::update_option( General_Settings::get_db_key_settings(), $get_options );
 	}
 
 	/**
@@ -124,7 +124,7 @@ class Activator {
 	 */
 	public static function set_default_values_compress_settings() {
 
-		$get_options = get_option( Compress_Settings::get_db_key_compress_settings(), array() );
+		$get_options = get_option( Compress_Settings::get_db_key_settings(), array() );
 
 		if ( ! isset( $get_options[ Compress_Settings::get_field_compress_active() ] ) ) {
 			$get_options[ Compress_Settings::get_field_compress_active() ] = 'on';
@@ -134,6 +134,6 @@ class Activator {
 			$get_options[ Compress_Settings::get_field_compression_level() ] = 'recommended';
 		}
 
-		DB_Handler::update_option( Compress_Settings::get_db_key_compress_settings(), $get_options );
+		DB_Handler::update_option( Compress_Settings::get_db_key_settings(), $get_options );
 	}
 }
