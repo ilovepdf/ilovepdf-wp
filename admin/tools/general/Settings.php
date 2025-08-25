@@ -140,7 +140,7 @@ class Settings {
      * @return mixed An option value or the full settings array.
      */
     public static function get_general_settings( $option_name = '' ) {
-        $general_settings = get_option( self::$db_key_general_settings, array() );
+        $general_settings = DB_Handler::get_option( self::$db_key_general_settings, array() );
 
         if ( ! empty( $option_name ) ) {
             return isset( $general_settings[ $option_name ] ) ? $general_settings[ $option_name ] : '';
@@ -156,8 +156,8 @@ class Settings {
      * to the current option key and deletes the legacy option to avoid redundancy.
      */
     public static function migrate() {
-        $settings                = get_option( self::$db_key_general_settings, array() );
-        $legacy_general_settings = get_option( self::$legacy_db_key_general_settings, array() );
+        $settings                = DB_Handler::get_option( self::$db_key_general_settings, array() );
+        $legacy_general_settings = DB_Handler::get_option( self::$legacy_db_key_general_settings, array() );
         $values_migrated         = array();
 
         if ( ! empty( $legacy_general_settings ) ) {

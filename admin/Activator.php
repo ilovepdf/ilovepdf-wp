@@ -46,7 +46,7 @@ class Activator {
 	 */
 	public static function set_default_values_watermark_settings() {
 
-		$settings = get_option( Watermark_Settings::get_db_key_settings(), array() );
+		$settings = DB_Handler::get_option( Watermark_Settings::get_db_key_settings(), array() );
 
 		if ( ! isset( $settings[ Watermark_Settings::get_field_watermark_active() ] ) ) {
 			$settings[ Watermark_Settings::get_field_watermark_active() ] = 'on';
@@ -105,7 +105,7 @@ class Activator {
 	 */
 	public static function set_default_values_general_settings() {
 
-		$get_options = get_option( General_Settings::get_db_key_settings(), array() );
+		$get_options = DB_Handler::get_option( General_Settings::get_db_key_settings(), array() );
 
 		if ( ! isset( $get_options[ General_Settings::get_field_backup() ] ) ) {
 			$get_options[ General_Settings::get_field_backup() ] = 'on';
@@ -124,7 +124,7 @@ class Activator {
 	 */
 	public static function set_default_values_compress_settings() {
 
-		$get_options = get_option( Compress_Settings::get_db_key_settings(), array() );
+		$get_options = DB_Handler::get_option( Compress_Settings::get_db_key_settings(), array() );
 
 		if ( ! isset( $get_options[ Compress_Settings::get_field_compress_active() ] ) ) {
 			$get_options[ Compress_Settings::get_field_compress_active() ] = 'on';

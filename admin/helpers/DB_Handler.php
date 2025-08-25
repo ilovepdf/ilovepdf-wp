@@ -51,6 +51,22 @@ class DB_Handler {
         delete_site_option( $option );
     }
 
+    /**
+     * Get option, works with multisite if enabled
+     *
+     * @since  3.0.0
+     * @param  string $option Name of the option to get.
+     * @param  mixed  $default_value Optional. Default value to return if the option does not exist.
+     * @return mixed Value set for the option.
+     */
+    public static function get_option( $option, $default_value = false ) {
+        if ( ! is_multisite() ) {
+            return get_option( $option, $default_value );
+        }
+
+        return get_site_option( $option, $default_value );
+    }
+
 	/**
      * Switch to blog and update option
      *

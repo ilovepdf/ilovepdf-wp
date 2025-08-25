@@ -99,7 +99,7 @@ class Backup {
 			}
 
 			$attachment_id = intval( $_POST['post_id'] );
-			$files_restore = get_option( self::$db_key_all_files_backup, array() );
+			$files_restore = DB_Handler::get_option( self::$db_key_all_files_backup, array() );
 			$key_founded   = array_search( $attachment_id, $files_restore, true );
 
 			if ( false === $key_founded ) {
@@ -175,7 +175,7 @@ class Backup {
 				wp_send_json_error( __( 'Sorry. No backup folder found.', 'ilove-pdf' ), 404 );
 			}
 
-			$files_restore = get_option( self::$db_key_all_files_backup, array() );
+			$files_restore = DB_Handler::get_option( self::$db_key_all_files_backup, array() );
 
 			if ( empty( $files_restore ) ) {
 				wp_send_json_error( __( 'Sorry. No files found to restore.', 'ilove-pdf' ), 404 );
@@ -294,7 +294,7 @@ class Backup {
                 wp_send_json_error( __( 'Sorry. No backup folder found.', 'ilove-pdf' ), 404 );
             }
 
-            $files_backup = get_option( self::$db_key_all_files_backup, array() );
+            $files_backup = DB_Handler::get_option( self::$db_key_all_files_backup, array() );
 
             if ( ! empty( $files_backup ) ) {
                 foreach ( $files_backup as $file_id ) {
@@ -345,7 +345,7 @@ class Backup {
             }
 
             $file_name     = basename( get_attached_file( $attachment_id ) );
-            $files_restore = get_option( self::$db_key_all_files_backup, array() );
+            $files_restore = DB_Handler::get_option( self::$db_key_all_files_backup, array() );
             $key_founded   = array_search( $attachment_id, $files_restore, true );
 
             delete_post_meta( $attachment_id, self::$db_key_file_backup );
@@ -388,7 +388,7 @@ class Backup {
                 );
             }
 
-            $files_restore = get_option( self::$db_key_all_files_backup, array() );
+            $files_restore = DB_Handler::get_option( self::$db_key_all_files_backup, array() );
             $backup_folder = File_System::get_full_path_backup_folder();
 
             if ( ! $wp_filesystem->exists( $backup_folder ) ) {
@@ -465,7 +465,7 @@ class Backup {
             return;
         }
 
-        $files_restore = get_option( self::$db_key_all_files_backup, array() );
+        $files_restore = DB_Handler::get_option( self::$db_key_all_files_backup, array() );
 
         if ( ! $wp_filesystem->exists( File_System::get_full_path_backup_folder() ) ) {
             File_System::create_ilovepdf_directories();

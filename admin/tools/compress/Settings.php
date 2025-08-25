@@ -124,7 +124,7 @@ class Settings extends Options {
      * @return mixed An option value or the full settings array.
      */
     public static function get_compress_settings( $option_name = '' ) {
-        $compress_settings = get_option( self::$db_key_compress_settings, array() );
+        $compress_settings = DB_Handler::get_option( self::$db_key_compress_settings, array() );
 
         if ( ! empty( $option_name ) ) {
             return isset( $compress_settings[ $option_name ] ) ? $compress_settings[ $option_name ] : '';
@@ -140,8 +140,8 @@ class Settings extends Options {
      * to the current option key and deletes the legacy option to avoid redundancy.
      */
     public static function migrate() {
-        $settings                 = get_option( self::$db_key_compress_settings, array() );
-        $legacy_compress_settings = get_option( self::$legacy_db_key_compress_settings, array() );
+        $settings                 = DB_Handler::get_option( self::$db_key_compress_settings, array() );
+        $legacy_compress_settings = DB_Handler::get_option( self::$legacy_db_key_compress_settings, array() );
 
         if ( empty( $legacy_compress_settings ) ) {
             return;

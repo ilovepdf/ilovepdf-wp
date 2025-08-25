@@ -167,7 +167,7 @@ class Ilove_Pdf_Plugin {
 	 * @since 3.0.0
 	 */
 	public function migrate_settings() {
-		if ( get_option( self::$db_key_user_migration, false ) ) {
+		if ( DB_Handler::get_option( self::$db_key_user_migration, false ) ) {
 			return;
 		}
 

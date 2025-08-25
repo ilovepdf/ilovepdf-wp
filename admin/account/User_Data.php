@@ -126,7 +126,7 @@ class User_Data {
         $wordpress_id = self::get_settings( self::$wordpress_id, false );
 
         if ( ! $wordpress_id ) {
-            $wordpress_id = md5( get_option( 'siteurl' ) . get_option( 'admin_email' ) );
+            $wordpress_id = md5( DB_Handler::get_option( 'siteurl' ) . DB_Handler::get_option( 'admin_email' ) );
             DB_Handler::update_option(
                 self::$db_key_account,
                 array(
@@ -244,7 +244,7 @@ class User_Data {
      * @return mixed An option value or the full settings array.
      */
     public static function get_settings( $option_name = '', $default_value = array() ) {
-        $settings = get_option( self::$db_key_account, $default_value );
+        $settings = DB_Handler::get_option( self::$db_key_account, $default_value );
 
         if ( ! empty( $option_name ) ) {
             return isset( $settings[ $option_name ] ) ? $settings[ $option_name ] : $default_value;
@@ -264,16 +264,16 @@ class User_Data {
         try {
             $values_migrated = array();
 
-            if ( get_option( 'ilovepdf_user_token' ) ) {
-                $values_migrated[ self::$user_token ] = get_option( 'ilovepdf_user_token' );
+            if ( DB_Handler::get_option( 'ilovepdf_user_token' ) ) {
+                $values_migrated[ self::$user_token ] = DB_Handler::get_option( 'ilovepdf_user_token' );
             }
 
-            if ( get_option( 'ilovepdf_user_id' ) ) {
-                $values_migrated[ self::$user_id ] = get_option( 'ilovepdf_user_id' );
+            if ( DB_Handler::get_option( 'ilovepdf_user_id' ) ) {
+                $values_migrated[ self::$user_id ] = DB_Handler::get_option( 'ilovepdf_user_id' );
             }
 
-            if ( get_option( 'ilovepdf_wordpress_id' ) ) {
-                $values_migrated[ self::$wordpress_id ] = get_option( 'ilovepdf_wordpress_id' );
+            if ( DB_Handler::get_option( 'ilovepdf_wordpress_id' ) ) {
+                $values_migrated[ self::$wordpress_id ] = DB_Handler::get_option( 'ilovepdf_wordpress_id' );
             }
 
             if ( ! empty( $values_migrated ) ) {

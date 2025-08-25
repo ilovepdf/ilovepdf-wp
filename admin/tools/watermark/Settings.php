@@ -139,7 +139,7 @@ class Settings extends Options {
      * @return mixed An option value or the full settings array.
      */
     public static function get_settings( $option_name = '', $default_value = array() ) {
-        $settings = get_option( self::$db_key_settings, $default_value );
+        $settings = DB_Handler::get_option( self::$db_key_settings, $default_value );
 
         if ( ! empty( $option_name ) ) {
             return isset( $settings[ $option_name ] ) ? $settings[ $option_name ] : '';
@@ -155,9 +155,9 @@ class Settings extends Options {
      * to the current option key and deletes the legacy option to avoid redundancy.
      */
     public static function migrate() {
-        $settings                         = get_option( self::$db_key_settings, array() );
-        $legacy_watermark_settings        = get_option( self::$legacy_db_key_settings, array() );
-        $legacy_watermark_settings_format = get_option( self::$legacy_db_key_settings_format, array() );
+        $settings                         = DB_Handler::get_option( self::$db_key_settings, array() );
+        $legacy_watermark_settings        = DB_Handler::get_option( self::$legacy_db_key_settings, array() );
+        $legacy_watermark_settings_format = DB_Handler::get_option( self::$legacy_db_key_settings_format, array() );
         $values_migrated                  = array();
 
         if ( ! empty( $legacy_watermark_settings ) ) {

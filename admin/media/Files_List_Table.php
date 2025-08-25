@@ -3,6 +3,7 @@
 namespace Ilove_Pdf_WP\Media;
 
 use WP_List_Table;
+use Ilove_Pdf_WP\Helpers\DB_Handler;
 use Ilove_Pdf_WP\Helpers\Admin_Notice;
 use Ilove_Pdf_WP\Media\Views\Status_Renderer;
 use Ilove_Pdf_WP\Tools\Compress\Tool_Compress;
@@ -206,7 +207,7 @@ class Files_List_Table extends WP_List_Table {
                 return $author ? esc_html( $author->display_name ) : '';
 
             case 'post_date':
-                return esc_html( date_i18n( get_option( 'date_format' ), strtotime( $item['post_date'] ) ) );
+                return esc_html( date_i18n( DB_Handler::get_option( 'date_format' ), strtotime( $item['post_date'] ) ) );
 
             case 'status':
                 return Status_Renderer::create( $item['ID'], true );
