@@ -310,8 +310,8 @@ class User_Auth {
         }
 
         $wordpress_id = User_Data::get_settings( User_Data::get_db_wordpress_id_key(), '' );
-        delete_option( User_Data::get_db_key_account() );
-        delete_transient( User_Data::get_transient_key() );
+        DB_Handler::delete_option( User_Data::get_db_key_account() );
+        DB_Handler::delete_transient( User_Data::get_transient_key() );
         DB_Handler::update_option(
             User_Data::get_db_key_account(),
             array(
@@ -395,7 +395,7 @@ class User_Auth {
 
         DB_Handler::update_option( User_Data::get_db_key_account(), $settings );
 
-        delete_transient( User_Data::get_transient_key() );
+        DB_Handler::delete_transient( User_Data::get_transient_key() );
 
         Admin_Notice::add_notice(
             _x( 'Project changed successfully.', 'Form submission: Success message.', 'ilove-pdf' ),

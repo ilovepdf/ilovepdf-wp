@@ -7,6 +7,7 @@ use Ilovepdf\CompressTask;
 use Ilove_Pdf_WP\Tools\Backup;
 use Ilove_Pdf_WP\Account\User_Auth;
 use Ilove_Pdf_WP\Account\User_Data;
+use Ilove_Pdf_WP\Helpers\DB_Handler;
 use Ilove_Pdf_WP\Helpers\File_System;
 use Ilove_Pdf_WP\Helpers\Admin_Notice;
 use Ilovepdf\Exceptions\AuthException;
@@ -254,7 +255,7 @@ class Tool_Compress {
             );
 
             Statistics::reset_statistics();
-            delete_transient( User_Data::get_transient_key() );
+            DB_Handler::delete_transient( User_Data::get_transient_key() );
 
             return array(
                 'error'       => false,

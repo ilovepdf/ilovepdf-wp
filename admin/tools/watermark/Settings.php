@@ -171,7 +171,7 @@ class Settings extends Options {
             }
 
             DB_Handler::update_option( self::$db_key_settings, array_merge( $settings, $values_migrated ) );
-            delete_option( self::$legacy_db_key_settings );
+            DB_Handler::delete_option( self::$legacy_db_key_settings );
         }
 
         if ( ! empty( $legacy_watermark_settings_format ) ) {
@@ -270,7 +270,7 @@ class Settings extends Options {
             }
 
             DB_Handler::update_option( self::$db_key_settings, array_merge( $settings, $values_migrated ) );
-            delete_option( self::$legacy_db_key_settings_format );
+            DB_Handler::delete_option( self::$legacy_db_key_settings_format );
         }
     }
 }

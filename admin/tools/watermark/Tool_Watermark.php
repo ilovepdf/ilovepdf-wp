@@ -7,6 +7,7 @@ use Ilovepdf\WatermarkTask;
 use Ilove_Pdf_WP\Tools\Backup;
 use Ilove_Pdf_WP\Account\User_Auth;
 use Ilove_Pdf_WP\Account\User_Data;
+use Ilove_Pdf_WP\Helpers\DB_Handler;
 use Ilove_Pdf_WP\Helpers\File_System;
 use Ilove_Pdf_WP\Helpers\Admin_Notice;
 use Ilovepdf\Exceptions\AuthException;
@@ -267,7 +268,7 @@ class Tool_Watermark {
             $this->set_status_ready( $post_id, $this->db_key_status );
 
             Watermark_Statistics::reset_statistics();
-            delete_transient( User_Data::get_transient_key() );
+            DB_Handler::delete_transient( User_Data::get_transient_key() );
 
             $message = sprintf(
                 /* translators: %1$s The file name */

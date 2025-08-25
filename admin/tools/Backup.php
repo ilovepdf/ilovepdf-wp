@@ -307,7 +307,7 @@ class Backup {
             }
 
             $wp_filesystem->rmdir( File_System::get_full_path_backup_folder(), true );
-            delete_option( self::$db_key_all_files_backup );
+            DB_Handler::delete_option( self::$db_key_all_files_backup );
 
             Compress_Statistics::reset_statistics();
             Watermark_Statistics::reset_statistics();

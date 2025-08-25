@@ -2,6 +2,8 @@
 
 namespace Ilove_Pdf_WP\Tools\Watermark;
 
+use Ilove_Pdf_WP\Helpers\DB_Handler;
+
 /**
  * Handles watermark statistics for PDF files.
  *
@@ -41,8 +43,8 @@ class Statistics {
      * @return array
      */
     private static function compute_stats() {
-        if ( get_transient( self::$transient_key ) ) {
-            return get_transient( self::$transient_key );
+        if ( DB_Handler::get_transient( self::$transient_key ) ) {
+            return DB_Handler::get_transient( self::$transient_key );
         }
 
         $attachments = get_posts( self::get_query_args() );
@@ -61,7 +63,7 @@ class Statistics {
             'watermarked' => $total_watermarked,
         );
 
-        set_transient( self::$transient_key, $stats, DAY_IN_SECONDS );
+        DB_Handler::set_transient( self::$transient_key, $stats, DAY_IN_SECONDS );
 
         return $stats;
     }
@@ -100,6 +102,6 @@ class Statistics {
      * @since 3.0.0
      */
     public static function reset_statistics() {
-        delete_transient( self::$transient_key );
+        DB_Handler::delete_transient( self::$transient_key );
     }
 }

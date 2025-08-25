@@ -59,7 +59,7 @@ class Admin_Notice {
      * @since 3.0.0
      */
     public function show_notice_admin() {
-        $notices = get_transient( $this->transient_name );
+        $notices = DB_Handler::get_transient( $this->transient_name );
 
         if ( $notices ) {
 
@@ -71,7 +71,7 @@ class Admin_Notice {
                 self::render( $notice['message'], $notice['type'] );
             }
 
-            delete_transient( $this->transient_name );
+            DB_Handler::delete_transient( $this->transient_name );
         }
     }
 
@@ -84,7 +84,7 @@ class Admin_Notice {
      */
     public static function add_notice( $message, $type = 'info' ) {
         $instance = new self();
-        $notices  = get_transient( $instance->transient_name );
+        $notices  = DB_Handler::get_transient( $instance->transient_name );
 
         if ( ! is_array( $notices ) ) {
             $notices = array();
@@ -98,6 +98,6 @@ class Admin_Notice {
             )
         );
 
-        set_transient( $instance->transient_name, $notices, MINUTE_IN_SECONDS * 5 );
+        DB_Handler::set_transient( $instance->transient_name, $notices, MINUTE_IN_SECONDS * 5 );
     }
 }

@@ -171,6 +171,24 @@ class Ilove_Pdf_Plugin {
 			return;
 		}
 
+		if ( ! is_multisite() ) {
+			$this->perform_migration();
+			DB_Handler::update_option( self::$db_key_user_migration, true );
+			return;
+		}
+
+		switch_to_blog( get_current_blog_id() );
+		$this->perform_migration();
+		update_option( self::$db_key_user_migration, true );
+		restore_current_blog();
+	}
+
+	/**
+	 * Performs the migration of settings and data.
+	 *
+	 * @since 3.0.0
+	 */
+	private function perform_migration() {
 		File_System::migrate_legacy_directories();
 		Backup::migrate_file_backup();
 
@@ -182,8 +200,6 @@ class Ilove_Pdf_Plugin {
 
 		Tool_Compress::migrate_metadata();
 		Tool_Watermark::migrate_watermark_status();
-
-		DB_Handler::update_option( self::$db_key_user_migration, true );
 	}
 
 	/**

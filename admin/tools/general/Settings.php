@@ -166,7 +166,7 @@ class Settings {
             }
 
             DB_Handler::update_option( self::$db_key_general_settings, array_merge( $settings, $values_migrated ) );
-            delete_option( self::$legacy_db_key_general_settings );
+            DB_Handler::delete_option( self::$legacy_db_key_general_settings );
         }
     }
 }

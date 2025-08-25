@@ -159,8 +159,8 @@ class File_System {
 			return 0;
 		}
 
-		if ( get_transient( 'dirsize_cache' ) ) {
-			delete_transient( 'dirsize_cache' );
+		if ( DB_Handler::get_transient( 'dirsize_cache' ) ) {
+			DB_Handler::delete_transient( 'dirsize_cache' );
 		}
 
         $size_bytes_folder = get_dirsize( self::get_full_path_backup_folder() );

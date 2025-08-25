@@ -314,10 +314,10 @@ class User_Data {
 
                 self::update_user_data( $data );
 
-                delete_transient( self::get_transient_key() );
+                DB_Handler::delete_transient( self::get_transient_key() );
 
                 foreach ( self::$legacy_db_account_keys as $key ) {
-                    delete_option( $key );
+                    DB_Handler::delete_option( $key );
                 }
             }
 		} catch ( Exception $e ) {
@@ -433,8 +433,8 @@ class User_Data {
             exit;
         }
 
-        if ( false !== get_transient( self::get_transient_key() ) ) {
-            return get_transient( self::get_transient_key() );
+        if ( false !== DB_Handler::get_transient( self::get_transient_key() ) ) {
+            return DB_Handler::get_transient( self::get_transient_key() );
         }
 
         $user_id    = self::get_settings( self::get_db_user_id_key(), false );
@@ -472,7 +472,7 @@ class User_Data {
 
         $data = json_decode( $response['body'], true );
 
-        set_transient( self::get_transient_key(), $data, DAY_IN_SECONDS );
+        DB_Handler::set_transient( self::get_transient_key(), $data, DAY_IN_SECONDS );
 
         return $data;
     }
