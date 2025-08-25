@@ -397,8 +397,10 @@ class Backup {
 
             $backup_file = $backup_folder . basename( $file_path );
 
-            if ( ! $wp_filesystem->copy( $file_path, $backup_file ) ) {
-                throw new Exception( esc_html__( 'Failed to create a backup of the file.', 'ilove-pdf' ) );
+            if ( ! $wp_filesystem->exists( $backup_file ) ) {
+                if ( ! $wp_filesystem->copy( $file_path, $backup_file ) ) {
+                    throw new Exception( esc_html__( 'Failed to create a backup of the file.', 'ilove-pdf' ) );
+                }
             }
 
             if ( ! in_array( $file_id, $files_restore, true ) ) {
