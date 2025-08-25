@@ -15,3 +15,9 @@
 if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
 	exit;
 }
+
+require_once plugin_dir_path( __FILE__ ) . '/vendor/autoload.php';
+
+use Ilove_Pdf_WP\Ilove_Pdf_Plugin;
+
+Ilove_Pdf_Plugin::uninstall_plugin();

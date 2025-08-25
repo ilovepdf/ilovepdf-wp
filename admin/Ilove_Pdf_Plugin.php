@@ -56,7 +56,7 @@ class Ilove_Pdf_Plugin {
 	 * @since 3.0.0
 	 * @var   string
 	 */
-	private $db_key_user_migration = 'ilovepdf_user_migration';
+	private static $db_key_user_migration = 'ilovepdf_user_migration';
 
 	/**
 	 * Init Plugin
@@ -167,7 +167,7 @@ class Ilove_Pdf_Plugin {
 	 * @since 3.0.0
 	 */
 	public function migrate_settings() {
-		if ( get_option( $this->db_key_user_migration, false ) ) {
+		if ( get_option( self::$db_key_user_migration, false ) ) {
 			return;
 		}
 
@@ -183,6 +183,22 @@ class Ilove_Pdf_Plugin {
 		Tool_Compress::migrate_metadata();
 		Tool_Watermark::migrate_watermark_status();
 
-		DB_Handler::update_option( $this->db_key_user_migration, true );
+		DB_Handler::update_option( self::$db_key_user_migration, true );
+	}
+
+	/**
+	 * Uninstall the plugin.
+	 *
+	 * Deletes all options and data related to the plugin.
+	 *
+	 * @since 3.0.0
+	 */
+	public static function uninstall_plugin() {
+		DB_Handler::delete_option( self::$db_key_user_migration );
+		DB_Handler::delete_option( User_Data::get_db_key_account() );
+		DB_Handler::delete_option( Backup::get_db_key_all_files_backup() );
+		DB_Handler::delete_option( General_Settings::get_db_key_settings() );
+		DB_Handler::delete_option( Compress_Settings::get_db_key_settings() );
+		DB_Handler::delete_option( Watermark_Settings::get_db_key_settings() );
 	}
 }
