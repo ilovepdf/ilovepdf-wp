@@ -8,6 +8,7 @@ use Ilove_Pdf_WP\Helpers\File_System;
 use Ilove_Pdf_WP\Helpers\Admin_Notice;
 use Ilove_Pdf_WP\Helpers\Media_Handler;
 use Ilove_Pdf_WP\Tools\Compress\Tool_Compress;
+use Ilove_Pdf_WP\Tools\Watermark\Tool_Watermark;
 use Ilove_Pdf_WP\Tools\General\Settings as General_Settings;
 use Ilove_Pdf_WP\Tools\Compress\Statistics as Compress_Statistics;
 use Ilove_Pdf_WP\Tools\Watermark\Statistics as Watermark_Statistics;
@@ -33,7 +34,7 @@ class Backup {
      * @var string
      * @since 3.0.0
      */
-    private $db_key_all_files_backup = 'ilovepdf_files_to_restore';
+    private static $db_key_all_files_backup = 'ilovepdf_files_to_restore';
 
     /**
      * Legacy post meta key used to store individual attachment backups.
@@ -43,7 +44,7 @@ class Backup {
      * @var string
      * @since 3.0.0
      */
-    private $legacy_db_key_file_backup = '_wp_attached_file_backup';
+    private static $legacy_db_key_file_backup = '_wp_attached_file_backup';
 
     /**
      * Initializes AJAX actions related to file processing.
@@ -57,6 +58,16 @@ class Backup {
         add_action( 'wp_ajax_ilovepdf_clear_backup', array( $this, 'clear_backup' ) );
 
         add_filter( 'delete_attachment', array( $this, 'handle_delete_file' ) );
+    }
+
+    /**
+     * Returns the database key for all files that have a backup available.
+     *
+     * @since 3.0.0
+     * @return string The database key for all files backup.
+     */
+    public static function get_db_key_all_files_backup() {
+        return self::$db_key_all_files_backup;
     }
 
     /**
@@ -88,10 +99,10 @@ class Backup {
 			}
 
 			$attachment_id = intval( $_POST['post_id'] );
-			$files_restore = get_option( $this->db_key_all_files_backup, array() );
+			$files_restore = get_option( self::$db_key_all_files_backup, array() );
 			$key_founded   = array_search( $attachment_id, $files_restore, true );
 
-			if ( ! $key_founded ) {
+			if ( false === $key_founded ) {
 				wp_send_json_error( __( 'Sorry. There is no backup for this file', 'ilove-pdf' ), 404 );
 			}
 
@@ -103,14 +114,14 @@ class Backup {
 
 			Media_Handler::regenerate_attachment_data( $attachment_id );
 
-			delete_post_meta( $attachment_id, '_ipdf_attachment_watermark_status' );
+			delete_post_meta( $attachment_id, Tool_Watermark::get_db_key_status() );
 			delete_post_meta( $attachment_id, Tool_Compress::get_db_key_status() );
 			delete_post_meta( $attachment_id, Tool_Compress::get_db_key_process() );
 			delete_post_meta( $attachment_id, self::$db_key_file_backup );
 
             unset( $files_restore[ $key_founded ] );
             wp_delete_file( $file_backup_path );
-            DB_Handler::update_option( $this->db_key_all_files_backup, $files_restore );
+            DB_Handler::update_option( self::$db_key_all_files_backup, $files_restore );
 
             Compress_Statistics::reset_statistics();
             Watermark_Statistics::reset_statistics();
@@ -164,7 +175,7 @@ class Backup {
 				wp_send_json_error( __( 'Sorry. No backup folder found.', 'ilove-pdf' ), 404 );
 			}
 
-			$files_restore = get_option( $this->db_key_all_files_backup, array() );
+			$files_restore = get_option( self::$db_key_all_files_backup, array() );
 
 			if ( empty( $files_restore ) ) {
 				wp_send_json_error( __( 'Sorry. No files found to restore.', 'ilove-pdf' ), 404 );
@@ -210,14 +221,14 @@ class Backup {
 
 				Media_Handler::regenerate_attachment_data( $value );
 
-				delete_post_meta( $value, '_ipdf_attachment_watermark_status' );
+				delete_post_meta( $value, Tool_Watermark::get_db_key_status() );
 				delete_post_meta( $value, Tool_Compress::get_db_key_status() );
 				delete_post_meta( $value, Tool_Compress::get_db_key_process() );
 				delete_post_meta( $value, self::$db_key_file_backup );
 
 				wp_delete_file( $file_backup_path );
 				unset( $files_restore[ $key ] );
-				DB_Handler::update_option( $this->db_key_all_files_backup, $files_restore );
+				DB_Handler::update_option( self::$db_key_all_files_backup, $files_restore );
 
 				$files_restored[] = $file_name;
 			}
@@ -283,7 +294,7 @@ class Backup {
                 wp_send_json_error( __( 'Sorry. No backup folder found.', 'ilove-pdf' ), 404 );
             }
 
-            $files_backup = get_option( $this->db_key_all_files_backup, array() );
+            $files_backup = get_option( self::$db_key_all_files_backup, array() );
 
             if ( ! empty( $files_backup ) ) {
                 foreach ( $files_backup as $file_id ) {
@@ -296,7 +307,7 @@ class Backup {
             }
 
             $wp_filesystem->rmdir( File_System::get_full_path_backup_folder(), true );
-            delete_option( $this->db_key_all_files_backup );
+            delete_option( self::$db_key_all_files_backup );
 
             Compress_Statistics::reset_statistics();
             Watermark_Statistics::reset_statistics();
@@ -334,20 +345,20 @@ class Backup {
             }
 
             $file_name     = basename( get_attached_file( $attachment_id ) );
-            $files_restore = get_option( $this->db_key_all_files_backup, array() );
+            $files_restore = get_option( self::$db_key_all_files_backup, array() );
             $key_founded   = array_search( $attachment_id, $files_restore, true );
 
             delete_post_meta( $attachment_id, self::$db_key_file_backup );
             delete_post_meta( $attachment_id, Tool_Compress::get_db_key_status() );
             delete_post_meta( $attachment_id, Tool_Compress::get_db_key_process() );
-            delete_post_meta( $attachment_id, '_ipdf_attachment_watermark_status' );
+            delete_post_meta( $attachment_id, Tool_Watermark::get_db_key_status() );
 
             if ( $wp_filesystem->exists( File_System::get_full_path_backup_folder() . $file_name ) ) {
                 wp_delete_file( File_System::get_full_path_backup_folder() . $file_name );
 
-                if ( $key_founded ) {
+                if ( false !== $key_founded ) {
                     unset( $files_restore[ $key_founded ] );
-                    DB_Handler::update_option( $this->db_key_all_files_backup, $files_restore );
+                    DB_Handler::update_option( self::$db_key_all_files_backup, $files_restore );
                 }
             }
 
@@ -377,12 +388,11 @@ class Backup {
                 );
             }
 
-            $instance      = new self();
-            $files_restore = get_option( $instance->db_key_all_files_backup, array() );
+            $files_restore = get_option( self::$db_key_all_files_backup, array() );
             $backup_folder = File_System::get_full_path_backup_folder();
 
             if ( ! $wp_filesystem->exists( $backup_folder ) ) {
-                File_System::create_dir( $backup_folder );
+                File_System::create_ilovepdf_directories();
             }
 
             $backup_file = $backup_folder . basename( $file_path );
@@ -393,7 +403,7 @@ class Backup {
 
             if ( ! in_array( $file_id, $files_restore, true ) ) {
                 $files_restore[] = (int) $file_id;
-                DB_Handler::update_option( $instance->db_key_all_files_backup, $files_restore );
+                DB_Handler::update_option( self::$db_key_all_files_backup, $files_restore );
             }
 
             update_post_meta(
@@ -455,15 +465,14 @@ class Backup {
             return;
         }
 
-        $instance      = new self();
-        $files_restore = get_option( $instance->db_key_all_files_backup, array() );
+        $files_restore = get_option( self::$db_key_all_files_backup, array() );
 
         if ( ! $wp_filesystem->exists( File_System::get_full_path_backup_folder() ) ) {
-            File_System::create_dir( File_System::get_full_path_backup_folder() );
+            File_System::create_ilovepdf_directories();
         }
 
         $batch_size                = 300;
-        $legacy_db_key_file_backup = $instance->legacy_db_key_file_backup;
+        $legacy_db_key_file_backup = self::$legacy_db_key_file_backup;
 
         do {
             $ids = $wpdb->get_col(// phpcs:ignore WordPress.DB.DirectDatabaseQuery
@@ -503,7 +512,7 @@ class Backup {
 
                 if ( ! in_array( $post_id, $files_restore, true ) ) {
                     $files_restore[] = (int) $post_id;
-                    DB_Handler::update_option( $instance->db_key_all_files_backup, $files_restore );
+                    DB_Handler::update_option( self::$db_key_all_files_backup, $files_restore );
                 }
 
                 update_post_meta( $post_id, self::$db_key_file_backup, $file_path ); // Update the post meta to use the new key.

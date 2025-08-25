@@ -155,6 +155,7 @@ class Settings extends Options {
      * to the current option key and deletes the legacy option to avoid redundancy.
      */
     public static function migrate() {
+        $settings                         = get_option( self::$db_key_settings, array() );
         $legacy_watermark_settings        = get_option( self::$legacy_db_key_settings, array() );
         $legacy_watermark_settings_format = get_option( self::$legacy_db_key_settings_format, array() );
         $values_migrated                  = array();
@@ -169,14 +170,25 @@ class Settings extends Options {
                 $values_migrated[ self::get_field_auto_watermark() ] = 'on';
             }
 
-            DB_Handler::update_option( self::$db_key_settings, $values_migrated );
+            DB_Handler::update_option( self::$db_key_settings, array_merge( $settings, $values_migrated ) );
             delete_option( self::$legacy_db_key_settings );
         }
 
         if ( ! empty( $legacy_watermark_settings_format ) ) {
 
             if ( isset( $legacy_watermark_settings_format['ilove_pdf_format_watermark_mode'] ) ) {
-                $values_migrated[ self::get_field_mode() ] = $legacy_watermark_settings_format['ilove_pdf_format_watermark_mode'];
+                $legacy_value = 'text';
+
+                switch ( (int) $legacy_watermark_settings_format['ilove_pdf_format_watermark_mode'] ) {
+                    case 0:
+                        $legacy_value = 'text';
+                        break;
+                    case 1:
+                        $legacy_value = 'image';
+                        break;
+                }
+
+                $values_migrated[ self::get_field_mode() ] = $legacy_value;
             }
 
             if ( isset( $legacy_watermark_settings_format['ilove_pdf_format_watermark_text'] ) ) {
@@ -257,7 +269,7 @@ class Settings extends Options {
                 $values_migrated[ self::get_field_mosaic() ] = 'on';
             }
 
-            DB_Handler::update_option( self::$db_key_settings, $values_migrated );
+            DB_Handler::update_option( self::$db_key_settings, array_merge( $settings, $values_migrated ) );
             delete_option( self::$legacy_db_key_settings_format );
         }
     }

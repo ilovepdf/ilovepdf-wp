@@ -36,6 +36,21 @@ class DB_Handler {
         }
 	}
 
+    /**
+     * Delete option, works with multisite if enabled
+     *
+     * @since  3.0.0
+     * @param  string $option Name of the option to delete.
+     */
+    public static function delete_option( $option ) {
+        if ( ! is_multisite() ) {
+            delete_option( $option );
+            return;
+        }
+
+        delete_site_option( $option );
+    }
+
 	/**
      * Switch to blog and update option
      *

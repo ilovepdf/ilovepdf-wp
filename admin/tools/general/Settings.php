@@ -120,7 +120,7 @@ class Settings {
      *
      * @return string
      */
-    public static function get_db_key_general_settings() {
+    public static function get_db_key_settings() {
         return self::$db_key_general_settings;
     }
 
@@ -156,6 +156,7 @@ class Settings {
      * to the current option key and deletes the legacy option to avoid redundancy.
      */
     public static function migrate() {
+        $settings                = get_option( self::$db_key_general_settings, array() );
         $legacy_general_settings = get_option( self::$legacy_db_key_general_settings, array() );
         $values_migrated         = array();
 
@@ -164,7 +165,7 @@ class Settings {
                 $values_migrated[ self::$field_backup ] = 'on';
             }
 
-            DB_Handler::update_option( self::$db_key_general_settings, $values_migrated );
+            DB_Handler::update_option( self::$db_key_general_settings, array_merge( $settings, $values_migrated ) );
             delete_option( self::$legacy_db_key_general_settings );
         }
     }

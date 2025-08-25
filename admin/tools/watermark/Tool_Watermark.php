@@ -227,7 +227,7 @@ class Tool_Watermark {
             $tmp_folder = File_System::get_full_path_tmp_watermark_folder();
 
             if ( ! $wp_filesystem->exists( $tmp_folder ) ) {
-                File_System::create_dir( $tmp_folder );
+                File_System::create_ilovepdf_directories();
             }
 
             // and finally download file. If no path is set, it will be downloaded on current folder.

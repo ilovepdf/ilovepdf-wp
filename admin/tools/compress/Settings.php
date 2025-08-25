@@ -104,7 +104,7 @@ class Settings extends Options {
      *
      * @return string
      */
-    public static function get_db_key_compress_settings() {
+    public static function get_db_key_settings() {
         return self::$db_key_compress_settings;
     }
 
@@ -140,6 +140,7 @@ class Settings extends Options {
      * to the current option key and deletes the legacy option to avoid redundancy.
      */
     public static function migrate() {
+        $settings                 = get_option( self::$db_key_compress_settings, array() );
         $legacy_compress_settings = get_option( self::$legacy_db_key_compress_settings, array() );
 
         if ( empty( $legacy_compress_settings ) ) {
@@ -171,7 +172,7 @@ class Settings extends Options {
             }
         }
 
-        DB_Handler::update_option( self::$db_key_compress_settings, $values_migrated );
+        DB_Handler::update_option( self::$db_key_compress_settings, array_merge( $settings, $values_migrated ) );
         delete_option( self::$legacy_db_key_compress_settings );
     }
 }

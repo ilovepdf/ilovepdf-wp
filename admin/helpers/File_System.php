@@ -197,7 +197,7 @@ class File_System {
 			$upload_dir = wp_upload_dir();
 
 			if ( ! $wp_filesystem->exists( self::get_full_path_backup_folder() ) ) {
-				self::create_dir( self::get_full_path_backup_folder() );
+				self::create_ilovepdf_directories();
 			}
 
 			foreach ( self::$legacy_directories as $directory ) {
@@ -208,7 +208,7 @@ class File_System {
 
 					foreach ( $files as $file ) {
 						$filename    = basename( $file );
-						$destination = $upload_dir['basedir'] . '/' . self::$folder_backup . '/' . $filename;
+						$destination = $upload_dir['basedir'] . self::$folder_backup . '/' . $filename;
 
 						if ( $wp_filesystem->move( $file, $destination, true ) ) {
 							Admin_Notice::add_notice(
