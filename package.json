@@ -14,7 +14,7 @@
   "devDependencies": {
     "@wordpress/i18n": "^6.2",
     "@wordpress/scripts": "^30.22",
-    "eslint": "^9.33",
+    "eslint": "^9.34",
     "eslint-config-prettier": "^10.1",
     "prettier": "^3.6"
   }
