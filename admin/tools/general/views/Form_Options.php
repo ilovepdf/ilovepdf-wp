@@ -62,12 +62,16 @@ class Form_Options extends Form {
      * @return string HTML markup for the backup option field.
      */
     protected static function create_field_backup() {
+        $wp_upload_dir      = wp_upload_dir();
+        $parse_url          = wp_parse_url( $wp_upload_dir['baseurl'] );
+        $path_folder_backup = $parse_url['path'] . File_System::$folder_backup;
+
         $backup_folder = sprintf(
             wp_kses_post(
                 /* translators: %s: backup folder path */
                 __( 'Backup files are stored at: %s', 'ilove-pdf' )
             ),
-            '<code>wp-content/uploads' . File_System::$folder_backup . '</code>'
+            '<code>' . $path_folder_backup . '</code>'
         );
 
         return sprintf(
