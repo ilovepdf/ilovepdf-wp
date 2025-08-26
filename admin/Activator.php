@@ -26,10 +26,23 @@ class Activator {
 	public static function activate() {
 		File_System::create_ilovepdf_directories();
 
-		Compress_Statistics::reset_statistics();
-		Watermark_Statistics::reset_statistics();
+		if ( is_multisite() ) {
+			$blogs = get_sites( array( 'fields' => 'ids' ) );
 
-		User_Data::create_wordpress_id();
+			foreach ( $blogs as $blog_id ) {
+				switch_to_blog( $blog_id );
+				Compress_Statistics::reset_statistics();
+				Watermark_Statistics::reset_statistics();
+
+				User_Data::create_wordpress_id();
+				restore_current_blog();
+			}
+		} else {
+			Compress_Statistics::reset_statistics();
+			Watermark_Statistics::reset_statistics();
+
+			User_Data::create_wordpress_id();
+		}
 
 		self::set_default_values_watermark_settings();
 		self::set_default_values_compress_settings();

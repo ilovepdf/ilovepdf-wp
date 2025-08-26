@@ -19,8 +19,20 @@ class Deactivator {
 	 * @since 1.0.0
 	 */
 	public static function deactivate() {
-		DB_Handler::delete_option( 'ilovepdf_initial_pdf_files_size' );
-		DB_Handler::delete_option( 'ilovepdf_compressed_files' );
-		DB_Handler::delete_option( 'ilovepdf_watermarked_files' );
+		if ( ! is_multisite() ) {
+			DB_Handler::delete_option( 'ilovepdf_initial_pdf_files_size' );
+			DB_Handler::delete_option( 'ilovepdf_compressed_files' );
+			DB_Handler::delete_option( 'ilovepdf_watermarked_files' );
+		} else {
+			$get_blogs = get_sites( array( 'fields' => 'ids' ) );
+
+			foreach ( $get_blogs as $blog_id ) {
+				switch_to_blog( $blog_id );
+				DB_Handler::delete_option( 'ilovepdf_initial_pdf_files_size' );
+				DB_Handler::delete_option( 'ilovepdf_compressed_files' );
+				DB_Handler::delete_option( 'ilovepdf_watermarked_files' );
+				restore_current_blog();
+			}
+		}
 	}
 }

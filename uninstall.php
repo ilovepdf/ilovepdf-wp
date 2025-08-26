@@ -16,9 +16,13 @@ require_once plugin_dir_path( __FILE__ ) . '/vendor/autoload.php';
 use Ilove_Pdf_WP\Ilove_Pdf_Plugin;
 
 if ( is_multisite() ) {
-	switch_to_blog( get_current_blog_id() );
-	Ilove_Pdf_Plugin::uninstall_plugin();
-	restore_current_blog();
+	$ilove_pdf_blogs = get_sites( array( 'fields' => 'ids' ) );
+
+	foreach ( $ilove_pdf_blogs as $ilove_pdf_site_id ) {
+		switch_to_blog( $ilove_pdf_site_id );
+		Ilove_Pdf_Plugin::uninstall_plugin();
+		restore_current_blog();
+	}
 	return;
 }
 
