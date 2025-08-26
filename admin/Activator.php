@@ -92,7 +92,7 @@ class Activator {
 			$settings[ Watermark_Settings::get_field_layer() ] = 'above';
 		}
 
-		DB_Handler::update_option( Watermark_Settings::get_db_key_settings(), $settings );
+		DB_Handler::update_option( Watermark_Settings::get_db_key_settings(), $settings, true );
 	}
 
 	/**
@@ -111,7 +111,7 @@ class Activator {
 			$get_options[ General_Settings::get_field_backup() ] = 'on';
 		}
 
-		DB_Handler::update_option( General_Settings::get_db_key_settings(), $get_options );
+		DB_Handler::update_option( General_Settings::get_db_key_settings(), $get_options, true );
 	}
 
 	/**
@@ -134,6 +134,6 @@ class Activator {
 			$get_options[ Compress_Settings::get_field_compression_level() ] = 'recommended';
 		}
 
-		DB_Handler::update_option( Compress_Settings::get_db_key_settings(), $get_options );
+		DB_Handler::update_option( Compress_Settings::get_db_key_settings(), $get_options, true );
 	}
 }
