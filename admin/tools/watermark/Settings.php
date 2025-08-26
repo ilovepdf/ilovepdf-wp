@@ -208,7 +208,8 @@ class Settings extends Options {
             }
 
             if ( isset( $legacy_watermark_settings_format['ilove_pdf_format_watermark_image'] ) ) {
-                $values_migrated[ self::get_field_image_mode() ] = $legacy_watermark_settings_format['ilove_pdf_format_watermark_image'];
+                $image_url                                       = wp_get_attachment_url( (int) $legacy_watermark_settings_format['ilove_pdf_format_watermark_image'] );
+                $values_migrated[ self::get_field_image_mode() ] = $image_url;
             }
 
             if ( isset( $legacy_watermark_settings_format['ilove_pdf_format_watermark_vertical'] ) && isset( $legacy_watermark_settings_format['ilove_pdf_format_watermark_horizontal'] ) ) {
