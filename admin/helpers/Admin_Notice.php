@@ -26,6 +26,7 @@ class Admin_Notice {
      */
     public function __construct() {
         add_action( 'admin_notices', array( $this, 'show_notice_admin' ) );
+        add_action( 'network_admin_notices', array( $this, 'show_notice_admin' ) );
     }
 
     /**
