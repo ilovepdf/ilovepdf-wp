@@ -258,74 +258,62 @@ class User_Data {
      *
      * This function checks if legacy settings exist, and if so, transfers them
      * to the current option key and deletes the legacy option to avoid redundancy.
+     *
+     * @since 3.0.0
+     * @throws Exception If the migration fails.
      */
-    public static function migrate_account_settings() {
+    public static function migrate_account() {
+
+        if ( ! DB_Handler::get_option( 'ilovepdf_user_token' ) && ! DB_Handler::get_option( 'ilovepdf_user_id' ) ) {
+            return;
+        }
 
         try {
-            $values_migrated = array();
+            $user_id      = DB_Handler::get_option( 'ilovepdf_user_id' );
+            $user_token   = DB_Handler::get_option( 'ilovepdf_user_token' );
+            $wordpress_id = DB_Handler::get_option( 'ilovepdf_wordpress_id' );
 
-            if ( DB_Handler::get_option( 'ilovepdf_user_token' ) ) {
-                $values_migrated[ self::$user_token ] = DB_Handler::get_option( 'ilovepdf_user_token' );
+            $response = wp_remote_get(
+                User_Auth::$ilove_api_url . '/' . $user_id,
+                array(
+                    'headers' => array( 'Authorization' => 'Bearer ' . $user_token ),
+                )
+            );
+
+            if ( is_wp_error( $response ) ) {
+                throw new Exception( $response->get_error_message() );
             }
 
-            if ( DB_Handler::get_option( 'ilovepdf_user_id' ) ) {
-                $values_migrated[ self::$user_id ] = DB_Handler::get_option( 'ilovepdf_user_id' );
+            if ( 200 !== $response['response']['code'] ) {
+                $error_body    = json_decode( $response['body'], true );
+                $error_message = self::get_message_error( $error_body, _x( 'There was a problem trying to get the user data. Please try again later.', 'User Account: Error message.', 'ilove-pdf' ) );
+
+                throw new Exception( $error_message );
             }
 
-            if ( DB_Handler::get_option( 'ilovepdf_wordpress_id' ) ) {
-                $values_migrated[ self::$wordpress_id ] = DB_Handler::get_option( 'ilovepdf_wordpress_id' );
+            $data                 = json_decode( $response['body'], true );
+            $data['token']        = $user_token;
+            $data['wordpress_id'] = $wordpress_id;
+
+            self::update_user_data( $data );
+
+            DB_Handler::delete_transient( self::get_transient_key() );
+
+            foreach ( self::$legacy_db_account_keys as $key ) {
+                DB_Handler::delete_option( $key );
             }
 
-            if ( ! empty( $values_migrated ) ) {
+            Admin_Notice::add_notice(
+                _x( 'Account settings migrated successfully.', 'User Account: Success message on migration.', 'ilove-pdf' ),
+                'success',
+            );
 
-                $response = wp_remote_get(
-                    User_Auth::$ilove_api_url . '/' . $values_migrated[ self::$user_id ],
-                    array(
-						'headers' => array( 'Authorization' => 'Bearer ' . $values_migrated[ self::$user_token ] ),
-                    )
-				);
-
-				if ( is_wp_error( $response ) ) {
-					Admin_Notice::add_notice(
-						$response->get_error_message(),
-						'error',
-					);
-
-					wp_safe_redirect( wp_get_referer() );
-					exit;
-				}
-
-				if ( 200 !== $response['response']['code'] ) {
-					$error_body    = json_decode( $response['body'], true );
-					$error_message = self::get_message_error( $error_body, _x( 'There was a problem trying to get the user data. Please try again later.', 'User Account: Error message.', 'ilove-pdf' ) );
-
-					Admin_Notice::add_notice(
-						$error_message,
-						'error',
-					);
-
-					wp_safe_redirect( wp_get_referer() );
-					exit;
-				}
-
-				$data                 = json_decode( $response['body'], true );
-                $data['token']        = $values_migrated[ self::$user_token ];
-                $data['wordpress_id'] = $values_migrated[ self::$wordpress_id ];
-
-                self::update_user_data( $data );
-
-                DB_Handler::delete_transient( self::get_transient_key() );
-
-                foreach ( self::$legacy_db_account_keys as $key ) {
-                    DB_Handler::delete_option( $key );
-                }
-            }
 		} catch ( Exception $e ) {
             Admin_Notice::add_notice(
                 $e->getMessage(),
                 'error',
             );
-            error_log( 'iLovePDF - User_Data::migrate_account_settings error: ' . print_r( var_export( $e, true ), true ) );//phpcs:ignore
+            error_log( 'iLovePDF - User_Data::migrate_account error: ' . print_r( var_export( $e, true ), true ) );//phpcs:ignore
         }
     }
 

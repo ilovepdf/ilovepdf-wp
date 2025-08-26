@@ -192,7 +192,7 @@ class Ilove_Pdf_Plugin {
 		File_System::migrate_legacy_directories();
 		Backup::migrate_file_backup();
 
-		User_Data::migrate_account_settings();
+		User_Data::migrate_account();
 
 		General_Settings::migrate();
 		Compress_Settings::migrate();
