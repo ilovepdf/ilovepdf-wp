@@ -21,6 +21,19 @@ document.addEventListener('DOMContentLoaded', function () {
 	const fieldFontFamily = document.querySelector(
 		'.ilovepdf-settings__main form #ipdf_option_font_family'
 	);
+
+	if (isMosaicActive()) {
+		const positionContainer = document.querySelector(
+			'.ilovepdf_option-settings-position-container'
+		);
+		const originalTextElement = getPreview();
+		const originalImageElement = getPreview('image');
+
+		positionContainer.classList.add('ilovepdf_option-settings-position-mode-mosaic');
+		generateMosaic(originalTextElement);
+		generateMosaic(originalImageElement);
+	}
+
 	updateModeWatermark(fieldModeWatermark.value);
 	updatedFontFamily(getPreview(), fieldFontFamily);
 
