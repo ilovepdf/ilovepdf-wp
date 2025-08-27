@@ -30,9 +30,9 @@ class DB_Handler {
             return;
         }
 
-        $sites = get_sites();
-        foreach ( $sites as $site ) {
-            self::switch_update_blog( (int) $site->blog_id, $option, $value, $autoload );
+        $blogs = get_sites( array( 'fields' => 'ids' ) );
+        foreach ( $blogs as $blog_id ) {
+            self::switch_update_blog( $blog_id, $option, $value, $autoload );
         }
 	}
 

@@ -101,9 +101,9 @@ class File_System {
 			return;
 		}
 
-		$sites = get_sites();
-        foreach ( $sites as $site ) {
-            switch_to_blog( (int) $site->blog_id );
+		$blogs = get_sites( array( 'fields' => 'ids' ) );
+        foreach ( $blogs as $blog_id ) {
+            switch_to_blog( (int) $blog_id );
 
 			foreach ( $directories as $directory ) {
 				$upload_dir = wp_upload_dir();
