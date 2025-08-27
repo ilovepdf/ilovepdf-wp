@@ -1,10 +1,14 @@
 import { _x } from '@wordpress/i18n';
 import { createDialogComponent, showAdminNotice } from '../../components';
+import { getRestoreBackupLoading } from '../DOMElements';
 
 const btnRestoreAll = document.getElementById('ilovepdf_restore_all');
 
 btnRestoreAll?.addEventListener('click', function (e) {
 	e.preventDefault();
+
+	const loadingIndicator = getRestoreBackupLoading();
+	loadingIndicator.style.display = 'block';
 
 	const currentTarget = e.currentTarget;
 	const titleDialog = _x(
@@ -68,9 +72,11 @@ btnRestoreAll?.addEventListener('click', function (e) {
 						}
 					}
 				}
+				loadingIndicator.style.display = 'none';
 			})
 			.catch((error) => {
 				showAdminNotice(error.data, 'error');
+				loadingIndicator.style.display = 'none';
 				console.error(error);
 			});
 	});
@@ -79,5 +85,6 @@ btnRestoreAll?.addEventListener('click', function (e) {
 		e.preventDefault();
 		dialogElem.close();
 		dialogElem.remove();
+		loadingIndicator.style.display = 'none';
 	});
 });

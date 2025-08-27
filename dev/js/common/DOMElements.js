@@ -102,3 +102,13 @@ export const getRowOriginalSize = (container) => {
 
 	return container.querySelector('.column-size');
 };
+
+/**
+ * Get the loading indicator element for the restore backup process.
+ *
+ * @returns {HTMLElement|null} - The loading indicator element or null if not found.
+ * @since 3.0.0
+ */
+export const getRestoreBackupLoading = () => {
+	return document.getElementById('ipdf-loading-backup');
+};

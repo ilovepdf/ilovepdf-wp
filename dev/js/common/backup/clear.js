@@ -1,10 +1,14 @@
 import { _x } from '@wordpress/i18n';
 import { createDialogComponent, showAdminNotice } from '../../components';
+import { getRestoreBackupLoading } from '../DOMElements';
 
 const btnClearBackup = document.getElementById('ilovepdf_clear_backup');
 
 btnClearBackup?.addEventListener('click', function (e) {
 	e.preventDefault();
+
+	const loadingIndicator = getRestoreBackupLoading();
+	loadingIndicator.style.display = 'block';
 
 	const currentTarget = e.currentTarget;
 	const titleDialog = _x(
@@ -56,9 +60,11 @@ btnClearBackup?.addEventListener('click', function (e) {
 				if (success) {
 					showAdminNotice(data);
 				}
+				loadingIndicator.style.display = 'none';
 			})
 			.catch((error) => {
 				showAdminNotice(error.data, 'error');
+				loadingIndicator.style.display = 'none';
 				console.error(error);
 			});
 	});
@@ -67,5 +73,6 @@ btnClearBackup?.addEventListener('click', function (e) {
 		e.preventDefault();
 		dialogElem.close();
 		dialogElem.remove();
+		loadingIndicator.style.display = 'none';
 	});
 });

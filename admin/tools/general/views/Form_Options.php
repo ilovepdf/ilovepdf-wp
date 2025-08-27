@@ -134,6 +134,7 @@ class Form_Options extends Form {
             <div class="ilovepdf-base__layout-flex ilovepdf-base__layout-items--center ilovepdf-base__layout-gap--small">
                 %4$s
                 %5$s
+                %7$s
             </div>
             ',
             esc_html_x( 'Restore Backup Files', 'section title', 'ilove-pdf' ),
@@ -141,7 +142,8 @@ class Form_Options extends Form {
             $message_warning_clear,
             self::create_restoreall_button(),
             self::create_clear_button(),
-            $backup_folder_size
+            $backup_folder_size,
+            '<svg id="ipdf-loading-backup" style="display: none;" height="22" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid" class="uil-ring-alt"><rect x="0" y="0" width="30" height="30" fill="none"></rect><circle cx="50" cy="50" r="40" stroke="#e5e5e5" fill="none" stroke-width="10" stroke-linecap="round"></circle><circle cx="50" cy="50" r="40" stroke="#E5322D" fill="none" stroke-width="6" stroke-linecap="round"><animate attributeName="stroke-dashoffset" dur="2s" repeatCount="indefinite" from="0" to="502"></animate><animate attributeName="stroke-dasharray" dur="2s" repeatCount="indefinite" values="150.6 100.4;1 250;150.6 100.4"></animate></circle></svg>',
         );
     }
 
