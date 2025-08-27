@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "POT-Creation-Date: 2025-02-10T12:04:09+00:00\n"
-"PO-Revision-Date: 2025-08-22 \n"
+"PO-Revision-Date: 2025-08-27 \n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: ilove-pdf\n"
 
@@ -43,7 +43,7 @@ msgstr ""
 #: admin/account/User_Auth.php:173
 #: admin/account/User_Auth.php:284
 #: admin/account/User_Auth.php:340
-#: admin/account/User_Data.php:428
+#: admin/account/User_Data.php:416
 #: admin/tools/compress/Settings.php:56
 #: admin/tools/general/Settings.php:63
 #: admin/tools/watermark/Settings.php:65
@@ -55,15 +55,15 @@ msgstr ""
 #: admin/account/User_Auth.php:183
 #: admin/account/User_Auth.php:294
 #: admin/account/User_Auth.php:350
-#: admin/media/Files_List_Table.php:272
-#: admin/tools/Backup.php:77
-#: admin/tools/Backup.php:160
-#: admin/tools/Backup.php:279
+#: admin/media/Files_List_Table.php:273
+#: admin/tools/Backup.php:88
+#: admin/tools/Backup.php:171
+#: admin/tools/Backup.php:290
 #: admin/tools/compress/Settings.php:66
-#: admin/tools/compress/Tool_Compress.php:105
+#: admin/tools/compress/Tool_Compress.php:106
 #: admin/tools/general/Settings.php:73
 #: admin/tools/watermark/Settings.php:75
-#: admin/tools/watermark/Tool_Watermark.php:80
+#: admin/tools/watermark/Tool_Watermark.php:81
 msgctxt "Error message, invalid nonce code."
 msgid "There was a problem validating the nonce code, please try again later."
 msgstr ""
@@ -137,28 +137,33 @@ msgctxt "Form submission: Success message."
 msgid "Project changed successfully."
 msgstr ""
 
-#: admin/account/User_Data.php:300
-#: admin/account/User_Data.php:462
+#: admin/account/User_Data.php:289
+#: admin/account/User_Data.php:450
 msgctxt "User Account: Error message."
 msgid "There was a problem trying to get the user data. Please try again later."
 msgstr ""
 
-#: admin/account/User_Data.php:390
+#: admin/account/User_Data.php:307
+msgctxt "User Account: Success message on migration."
+msgid "Account settings migrated successfully."
+msgstr ""
+
+#: admin/account/User_Data.php:378
 msgctxt "credits popup: title"
 msgid "You have no more credits!"
 msgstr ""
 
-#: admin/account/User_Data.php:391
+#: admin/account/User_Data.php:379
 msgctxt "credits popup: content"
 msgid "You can purchase more credits to continue processing files, or you can wait until your free credits are restored."
 msgstr ""
 
-#: admin/account/User_Data.php:392
+#: admin/account/User_Data.php:380
 msgctxt "credits popup: button link"
 msgid "Buy credits"
 msgstr ""
 
-#: admin/account/User_Data.php:393
+#: admin/account/User_Data.php:381
 msgctxt "credits popup: button action"
 msgid "Cancel"
 msgstr ""
@@ -247,15 +252,15 @@ msgid "Create account"
 msgstr ""
 
 #: admin/helpers/File_System.php:187
-#: admin/tools/Backup.php:82
-#: admin/tools/Backup.php:155
-#: admin/tools/Backup.php:274
-#: admin/tools/Backup.php:329
-#: admin/tools/Backup.php:376
-#: admin/tools/Backup.php:421
-#: admin/tools/Backup.php:451
-#: admin/tools/compress/Tool_Compress.php:182
-#: admin/tools/watermark/Tool_Watermark.php:160
+#: admin/tools/Backup.php:93
+#: admin/tools/Backup.php:166
+#: admin/tools/Backup.php:285
+#: admin/tools/Backup.php:340
+#: admin/tools/Backup.php:387
+#: admin/tools/Backup.php:433
+#: admin/tools/Backup.php:463
+#: admin/tools/compress/Tool_Compress.php:183
+#: admin/tools/watermark/Tool_Watermark.php:161
 msgctxt "Error message: Unable to connect to the core WordPress function."
 msgid "Unable to connect to the filesystem"
 msgstr ""
@@ -274,58 +279,58 @@ msgctxt "This happened during the migration process."
 msgid "Error moving file %1$s to the new backup folder."
 msgstr ""
 
-#: admin/media/Files_List_Table.php:123
+#: admin/media/Files_List_Table.php:124
 msgctxt "File List Table: column name"
 msgid "File"
 msgstr ""
 
-#: admin/media/Files_List_Table.php:124
+#: admin/media/Files_List_Table.php:125
 msgctxt "File List Table: column name"
 msgid "Original Size"
 msgstr ""
 
-#: admin/media/Files_List_Table.php:125
+#: admin/media/Files_List_Table.php:126
 msgctxt "File List Table: column name"
 msgid "Compressed Size"
 msgstr ""
 
-#: admin/media/Files_List_Table.php:126
+#: admin/media/Files_List_Table.php:127
 msgctxt "File List Table: column name"
 msgid "Author"
 msgstr ""
 
-#: admin/media/Files_List_Table.php:127
+#: admin/media/Files_List_Table.php:128
 msgctxt "File List Table: column name"
 msgid "Upload Date"
 msgstr ""
 
-#: admin/media/Files_List_Table.php:128
+#: admin/media/Files_List_Table.php:129
 msgctxt "File List Table: column name"
 msgid "Status"
 msgstr ""
 
-#: admin/media/Files_List_Table.php:129
+#: admin/media/Files_List_Table.php:130
 msgctxt "File List Table: column name"
 msgid "Actions"
 msgstr ""
 
-#: admin/media/Files_List_Table.php:241
-#: admin/tools/compress/Tool_Compress.php:408
+#: admin/media/Files_List_Table.php:242
+#: admin/tools/compress/Tool_Compress.php:409
 msgctxt "Bulk action button"
 msgid "Compress PDF"
 msgstr ""
 
-#: admin/media/Files_List_Table.php:242
-#: admin/tools/watermark/Tool_Watermark.php:363
+#: admin/media/Files_List_Table.php:243
+#: admin/tools/watermark/Tool_Watermark.php:364
 msgctxt "Bulk action button"
 msgid "Apply Watermark"
 msgstr ""
 
-#: admin/media/Files_List_Table.php:289
+#: admin/media/Files_List_Table.php:290
 msgid "No files selected for compression."
 msgstr ""
 
-#: admin/media/Files_List_Table.php:292
+#: admin/media/Files_List_Table.php:293
 msgid "No files selected for watermarking."
 msgstr ""
 
@@ -373,55 +378,55 @@ msgctxt "Link item: appears in the plugins list."
 msgid "Media Optimization"
 msgstr ""
 
-#: admin/tools/Backup.php:87
-#: admin/tools/compress/Tool_Compress.php:109
-#: admin/tools/watermark/Tool_Watermark.php:84
+#: admin/tools/Backup.php:98
+#: admin/tools/compress/Tool_Compress.php:110
+#: admin/tools/watermark/Tool_Watermark.php:85
 msgid "Error processing your request. The file ID must be sent"
 msgstr ""
 
-#: admin/tools/Backup.php:95
+#: admin/tools/Backup.php:106
 msgid "Sorry. There is no backup for this file"
 msgstr ""
 
 #. translators: %1$s: file name
-#: admin/tools/Backup.php:121
-#: admin/tools/Backup.php:245
+#: admin/tools/Backup.php:132
+#: admin/tools/Backup.php:256
 #, php-format
 msgid "The %1$s file was restored successfully"
 msgstr ""
 
 #. translators: %1$s: error message
-#: admin/tools/Backup.php:130
+#: admin/tools/Backup.php:141
 #, php-format
 msgid "Error restoring file: %1$s"
 msgstr ""
 
-#: admin/tools/Backup.php:164
-#: admin/tools/Backup.php:283
+#: admin/tools/Backup.php:175
+#: admin/tools/Backup.php:294
 msgid "Sorry. No backup folder found."
 msgstr ""
 
-#: admin/tools/Backup.php:170
+#: admin/tools/Backup.php:181
 msgid "Sorry. No files found to restore."
 msgstr ""
 
 #. translators: %1$s: file ID
-#: admin/tools/Backup.php:185
+#: admin/tools/Backup.php:196
 #, php-format
 msgid "The original file ID %1$s was not found"
 msgstr ""
 
 #. translators: %1$s: file ID
-#: admin/tools/Backup.php:201
+#: admin/tools/Backup.php:212
 #, php-format
 msgid "The backup file ID %1$s was not found"
 msgstr ""
 
-#: admin/tools/Backup.php:304
+#: admin/tools/Backup.php:315
 msgid "Backup folder deleted successfully"
 msgstr ""
 
-#: admin/tools/Backup.php:391
+#: admin/tools/Backup.php:402
 msgid "Failed to create a backup of the file."
 msgstr ""
 
@@ -464,63 +469,63 @@ msgid "Changes saved."
 msgstr ""
 
 #. translators: %1$s: Original size, %2$s: Compressed size
-#: admin/tools/compress/Statistics.php:137
+#: admin/tools/compress/Statistics.php:139
 #, php-format
 msgctxt "Compress Overview: Tool Resume."
 msgid "Your files, summary: Original size: %1$s → After compression: %2$s"
 msgstr ""
 
 #. translators: %1$s Additional process error
-#: admin/tools/compress/Tool_Compress.php:124
+#: admin/tools/compress/Tool_Compress.php:125
 #, php-format
 msgctxt "Compress PDF: Error message."
 msgid "Compress PDF error: %1$s"
 msgstr ""
 
 #. translators: %1$s The file name
-#: admin/tools/compress/Tool_Compress.php:150
+#: admin/tools/compress/Tool_Compress.php:151
 #, php-format
 msgctxt "Compress PDF: File already processed."
 msgid "The file %1$s is already compressed."
 msgstr ""
 
-#: admin/tools/compress/Tool_Compress.php:164
+#: admin/tools/compress/Tool_Compress.php:165
 msgctxt "Compress PDF: Error message."
 msgid "The compress tool is not activated. Please check your settings."
 msgstr ""
 
 #. translators: %1$s The file name
-#: admin/tools/compress/Tool_Compress.php:170
-#: admin/tools/watermark/Tool_Watermark.php:148
+#: admin/tools/compress/Tool_Compress.php:171
+#: admin/tools/watermark/Tool_Watermark.php:149
 #, php-format
 msgctxt "Error message."
 msgid "The file %1$s is not a PDF."
 msgstr ""
 
-#: admin/tools/compress/Tool_Compress.php:191
-#: admin/tools/watermark/Tool_Watermark.php:169
+#: admin/tools/compress/Tool_Compress.php:192
+#: admin/tools/watermark/Tool_Watermark.php:170
 msgctxt "Auth: Error message."
 msgid "The API Keys are not set. Please check your settings."
 msgstr ""
 
 #. translators: %1$s The file name
-#: admin/tools/compress/Tool_Compress.php:225
-#: admin/tools/watermark/Tool_Watermark.php:241
+#: admin/tools/compress/Tool_Compress.php:226
+#: admin/tools/watermark/Tool_Watermark.php:242
 #, php-format
 msgctxt "Process Error"
 msgid "The %1$s file could not be found inside the temporary download folder."
 msgstr ""
 
 #. translators: %1$s The file name
-#: admin/tools/compress/Tool_Compress.php:252
+#: admin/tools/compress/Tool_Compress.php:253
 #, php-format
 msgctxt "Compress PDF: Success message."
 msgid "The file %1$s was compressed successfully."
 msgstr ""
 
 #. translators: %1$s: compression percentage
-#: admin/tools/compress/Tool_Compress.php:312
-#: admin/tools/compress/Tool_Compress.php:326
+#: admin/tools/compress/Tool_Compress.php:313
+#: admin/tools/compress/Tool_Compress.php:327
 #, php-format
 msgctxt "Compress PDF: Compressed percentage."
 msgid "Compressed (%1$s%%)"
@@ -621,80 +626,80 @@ msgid "General Settings"
 msgstr ""
 
 #. translators: %s: backup folder path
-#: admin/tools/general/views/Form_Options.php:68
+#: admin/tools/general/views/Form_Options.php:72
 #, php-format
 msgid "Backup files are stored at: %s"
 msgstr ""
 
-#: admin/tools/general/views/Form_Options.php:83
+#: admin/tools/general/views/Form_Options.php:87
 msgctxt "checkbox field label"
 msgid "Backup original Files"
 msgstr ""
 
-#: admin/tools/general/views/Form_Options.php:84
+#: admin/tools/general/views/Form_Options.php:88
 msgid "Enable backups to save a copy before compressing or watermarking. Backups can be restored later but use server space."
 msgstr ""
 
 #. translators: %1$s and %2$s: html tags
-#: admin/tools/general/views/Form_Options.php:102
+#: admin/tools/general/views/Form_Options.php:106
 #, php-format
 msgid "You can restore original files from backup. Restoring will return files to their state before any changes were made. %1$s Warning: This will remove all modifications applied using the tools. %2$s"
 msgstr ""
 
 #. translators: %1$s and %2$s: html tags
-#: admin/tools/general/views/Form_Options.php:111
+#: admin/tools/general/views/Form_Options.php:115
 #, php-format
 msgid "You can delete all backup files to free up space. %1$s Warning: This will remove your ability to restore files. %2$s"
 msgstr ""
 
 #. translators: %s: backup size
-#: admin/tools/general/views/Form_Options.php:120
+#: admin/tools/general/views/Form_Options.php:124
 #, php-format
 msgid "Backup size: %s"
 msgstr ""
 
-#: admin/tools/general/views/Form_Options.php:135
+#: admin/tools/general/views/Form_Options.php:140
 msgctxt "section title"
 msgid "Restore Backup Files"
 msgstr ""
 
-#: admin/tools/general/views/Form_Options.php:154
+#: admin/tools/general/views/Form_Options.php:160
 msgctxt "button"
 msgid "Restore all"
 msgstr ""
 
-#: admin/tools/general/views/Form_Options.php:170
+#: admin/tools/general/views/Form_Options.php:176
 msgctxt "button"
 msgid "Clear backup"
 msgstr ""
 
 #. translators: %1$d: total files, %2$d: watermarked files
-#: admin/tools/watermark/Statistics.php:91
+#: admin/tools/watermark/Statistics.php:93
 #, php-format
 msgid "Your files, summary: Total files %1$d → Protected files %2$d"
 msgstr ""
 
 #. translators: %1$s Additional process error
-#: admin/tools/watermark/Tool_Watermark.php:99
+#: admin/tools/watermark/Tool_Watermark.php:100
 #, php-format
 msgctxt "Watermark PDF: Error message."
 msgid "Watermark PDF error: %1$s"
 msgstr ""
 
 #. translators: %1$s The file name
-#: admin/tools/watermark/Tool_Watermark.php:128
+#: admin/tools/watermark/Tool_Watermark.php:129
 #, php-format
 msgctxt "Watermark PDF: Info message."
 msgid "The file %1$s already has a watermark applied."
 msgstr ""
 
-#: admin/tools/watermark/Tool_Watermark.php:142
+#: admin/tools/watermark/Tool_Watermark.php:143
 msgctxt "Watermark PDF: Error message."
 msgid "The watermark tool is not activated."
 msgstr ""
 
 #. translators: %1$s The file name
-#: admin/tools/watermark/Tool_Watermark.php:274
+#: admin/tools/watermark/Tool_Watermark.php:275
 #, php-format
 msgctxt "Watermark PDF: Success message."
 msgid "The watermark was applied successfully to %1$s."
