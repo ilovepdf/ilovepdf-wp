@@ -59,6 +59,22 @@ class Ilove_Pdf_Plugin {
 	private static $db_key_user_migration = 'ilovepdf_user_migration';
 
 	/**
+	 * The database key for database version.
+	 *
+	 * @since 3.0.0
+	 * @var   string
+	 */
+	private static $db_key_version = 'ilovepdf_db_version';
+
+	/**
+	 * The database version.
+	 *
+	 * @since 3.0.0
+	 * @var   string
+	 */
+	private static $db_version = '3.0.0';
+
+	/**
 	 * Init Plugin
 	 *
 	 * Fires the corresponding hooks.
@@ -99,12 +115,38 @@ class Ilove_Pdf_Plugin {
 		new Tool_Watermark();
 		new Edit_File_Page();
 
+		$this->handle_plugin_upgrade();
 		$this->migrate_settings();
 
         // Enqueue scripts for the admin area.
         add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_resources' ) );
 		add_action( 'admin_footer', array( User_Data::class, 'popup_buymore_action' ) );
     }
+
+	/**
+	 * Handle plugin upgrade.
+	 *
+	 * @since 3.0.0
+	 */
+	public function handle_plugin_upgrade() {
+		$plugins = get_plugins();
+
+		foreach ( $plugins as $key => $plugin_data ) {
+			if ( self::$plugin_file_basename === $key ) {
+
+				$installed_version = DB_Handler::get_option( self::$db_key_version, '1.0.0' );
+
+				if ( version_compare( $installed_version, self::$db_version, '<' ) ) {
+					Activator::set_default_values_compress_settings();
+					Activator::set_default_values_watermark_settings();
+					Activator::set_default_values_general_settings();
+				}
+
+				DB_Handler::update_option( self::$db_key_version, self::$db_version, true );
+				break;
+			}
+		}
+	}
 
 	/**
 	 * Get Plugin Basename.
@@ -216,5 +258,6 @@ class Ilove_Pdf_Plugin {
 		DB_Handler::delete_option( General_Settings::get_db_key_settings() );
 		DB_Handler::delete_option( Compress_Settings::get_db_key_settings() );
 		DB_Handler::delete_option( Watermark_Settings::get_db_key_settings() );
+		DB_Handler::delete_option( self::$db_key_version );
 	}
 }
