@@ -153,6 +153,8 @@ class Settings extends Options {
      *
      * This function checks if legacy settings exist, and if so, transfers them
      * to the current option key and deletes the legacy option to avoid redundancy.
+     *
+     * @since 3.0.0
      */
     public static function migrate() {
         $settings                         = DB_Handler::get_option( self::$db_key_settings, array() );
@@ -169,9 +171,6 @@ class Settings extends Options {
             if ( isset( $legacy_watermark_settings['ilove_pdf_watermark_auto'] ) ) {
                 $values_migrated[ self::get_field_auto_watermark() ] = 'on';
             }
-
-            DB_Handler::update_option( self::$db_key_settings, array_merge( $settings, $values_migrated ) );
-            DB_Handler::delete_option( self::$legacy_db_key_settings );
         }
 
         if ( ! empty( $legacy_watermark_settings_format ) ) {
@@ -269,9 +268,10 @@ class Settings extends Options {
             if ( isset( $legacy_watermark_settings_format['ilove_pdf_format_watermark_mosaic'] ) ) {
                 $values_migrated[ self::get_field_mosaic() ] = 'on';
             }
-
-            DB_Handler::update_option( self::$db_key_settings, array_merge( $settings, $values_migrated ) );
-            DB_Handler::delete_option( self::$legacy_db_key_settings_format );
         }
+
+        DB_Handler::update_option( self::$db_key_settings, array_merge( $settings, $values_migrated ) );
+        DB_Handler::delete_option( self::$legacy_db_key_settings );
+        DB_Handler::delete_option( self::$legacy_db_key_settings_format );
     }
 }

@@ -138,16 +138,13 @@ class Settings extends Options {
      *
      * This function checks if legacy settings exist, and if so, transfers them
      * to the current option key and deletes the legacy option to avoid redundancy.
+     *
+     * @since 3.0.0
      */
     public static function migrate() {
         $settings                 = DB_Handler::get_option( self::$db_key_compress_settings, array() );
         $legacy_compress_settings = DB_Handler::get_option( self::$legacy_db_key_compress_settings, array() );
-
-        if ( empty( $legacy_compress_settings ) ) {
-            return;
-        }
-
-        $values_migrated = array();
+        $values_migrated          = array();
 
         if ( isset( $legacy_compress_settings['ilove_pdf_compress_active'] ) ) {
             $values_migrated[ self::get_field_compress_active() ] = 'on';
