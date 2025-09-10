@@ -29,6 +29,8 @@ btnClearBackup?.addEventListener('click', function (e) {
 	const dialogElem = document.getElementById('ipdf-restore-dialog');
 	const btnConfirmDialog = document.getElementById('ilovepdf-dialog-aceptted');
 	const btnCloseDialog = document.getElementById('ilovepdf-dialog-close');
+	const backupFolderSizeElem = document.getElementById('ipdf-backup-folder-size');
+	const btnRestoreAll = document.getElementById('ilovepdf_restore_all');
 
 	dialogElem.showModal();
 
@@ -59,6 +61,16 @@ btnClearBackup?.addEventListener('click', function (e) {
 
 				if (success) {
 					showAdminNotice(data);
+					this.disabled = true;
+					if (btnRestoreAll) {
+						btnRestoreAll.disabled = true;
+					}
+
+					if (backupFolderSizeElem) {
+						const contentOld = backupFolderSizeElem.textContent;
+						const contentSplit = contentOld.split(':');
+						backupFolderSizeElem.textContent = contentSplit[0] + ': 0';
+					}
 				}
 				loadingIndicator.style.display = 'none';
 			})
