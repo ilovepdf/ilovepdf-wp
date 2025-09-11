@@ -12,9 +12,9 @@
   "author": "ilovepdf",
   "license": "ISC",
   "devDependencies": {
-    "@wordpress/i18n": "^6.2",
-    "@wordpress/scripts": "^30.22",
-    "eslint": "^9.34",
+    "@wordpress/i18n": "^6.3",
+    "@wordpress/scripts": "^30.23",
+    "eslint": "^9.35",
     "eslint-config-prettier": "^10.1",
     "prettier": "^3.6"
   }
