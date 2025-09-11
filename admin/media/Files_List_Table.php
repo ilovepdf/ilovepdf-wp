@@ -237,7 +237,7 @@ class Files_List_Table extends WP_List_Table {
      * @since 3.0.0
      * @see WP_List_Table::get_bulk_actions().
      */
-    protected function get_bulk_actions() {
+    public function get_bulk_actions() {
         $this->ipdf_actions = array(
             'ilovepdf_compress'  => _x( 'Compress PDF', 'Bulk action button', 'ilove-pdf' ),
             'ilovepdf_watermark' => _x( 'Apply Watermark', 'Bulk action button', 'ilove-pdf' ),
@@ -278,11 +278,11 @@ class Files_List_Table extends WP_List_Table {
                 add_query_arg(
                     array(
                         'page' => 'ipdf-media-optimization',
-                        admin_url( 'upload.php' ),
-                    )
+                    ),
+                    admin_url( 'upload.php' ),
                 )
             );
-            exit();
+            exit;
         }
 
         $tools_message = array(
@@ -306,11 +306,11 @@ class Files_List_Table extends WP_List_Table {
                 add_query_arg(
                     array(
                         'page' => 'ipdf-media-optimization',
-                        admin_url( 'upload.php' ),
-                    )
+                    ),
+                    admin_url( 'upload.php' ),
                 )
             );
-            exit();
+            exit;
         }
 
         $sendback = add_query_arg(
@@ -320,6 +320,11 @@ class Files_List_Table extends WP_List_Table {
             admin_url( 'upload.php' ),
         );
 
-		apply_filters( 'handle_bulk_actions-upload', $sendback, $action, $post_ids );//phpcs:ignore
+		$redirect_to = apply_filters( 'handle_bulk_actions-upload', $sendback, $action, $post_ids );//phpcs:ignore
+
+        if ( isset( $redirect_to ) && is_string( $redirect_to ) && $redirect_to !== $sendback && ! headers_sent() ) {
+            wp_safe_redirect( $redirect_to );
+            exit;
+        }
     }
 }
