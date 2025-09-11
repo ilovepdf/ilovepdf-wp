@@ -3,6 +3,7 @@
 namespace Ilove_Pdf_WP\Tools\Watermark;
 
 use Ilove_Pdf_WP\Helpers\DB_Handler;
+use Ilove_Pdf_WP\Tools\Base\Status_Process;
 
 /**
  * Handles watermark statistics for PDF files.
@@ -11,6 +12,8 @@ use Ilove_Pdf_WP\Helpers\DB_Handler;
  * @package Ilove_Pdf_WP\Tools\Watermark
  */
 class Statistics {
+    use Status_Process;
+
     /**
      * Transient key for storing watermark statistics.
      *
@@ -53,7 +56,7 @@ class Statistics {
 
         foreach ( $attachments as $attachment_id ) {
             $watermarked = get_post_meta( $attachment_id, Tool_Watermark::get_db_key_status(), true );
-            if ( $watermarked ) {
+            if ( ( new self() )->get_ready_status() === $watermarked ) {
                 ++$total_watermarked;
             }
         }

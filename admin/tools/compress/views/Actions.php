@@ -25,7 +25,7 @@ trait Actions {
      */
     protected function render_compress_action( $post_id ) {
         return sprintf(
-            '<button id="ipdf-action-compress-" data-post-id="%4$s" data-action="%5$s" data-nonce="%1$s" class="ipdf-btn ipdf-tooltip ipdf-btn--media-action ipdf-btn--media-action-compress %6$s" %7$s>
+            '<button id="ipdf-action-compress" data-post-id="%4$s" data-action="%5$s" data-nonce="%1$s" class="ipdf-btn ipdf-tooltip ipdf-btn--media-action ipdf-btn--media-action-compress %6$s" %7$s>
                 %2$s
                 <span class="ipdf-tooltip-text">
                     %3$s

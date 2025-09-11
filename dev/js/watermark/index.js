@@ -28,6 +28,30 @@ export const applyWatermark = (container, btnTrigger) => {
 	const colOriginalSize = getRowOriginalSize(container);
 
 	const btnRestoreFile = container.querySelector('.ipdf-btn--media-action-restore');
+	let isFileBackup = false;
+
+	if (
+		btnRestoreFile &&
+		btnRestoreFile.classList.contains('ipdf-btn--media-action-restore-active')
+	) {
+		isFileBackup = true;
+	}
+
+	if (btnRestoreFile) {
+		btnRestoreFile.classList.remove('ipdf-btn--media-action-restore-active');
+	}
+
+	const btnCompress = container.querySelector('#ipdf-action-compress');
+	let isFileCompressed = false;
+
+	if (btnCompress && btnCompress.classList.contains('ipdf-btn--media-action-trigger')) {
+		isFileCompressed = true;
+	}
+
+	// Disable compress button if exists
+	if (btnCompress) {
+		btnCompress.classList.add('ipdf-btn--media-action-trigger');
+	}
 
 	const loading = container.querySelector('.ipdf-item-status-watermark-processing');
 	loading?.classList.add('ipdf-item-status-active');
@@ -115,9 +139,26 @@ export const applyWatermark = (container, btnTrigger) => {
 						break;
 				}
 			}
+
+			if (btnCompress && !isFileCompressed) {
+				btnCompress.classList.remove('ipdf-btn--media-action-trigger');
+			}
+
+			if (btnRestoreFile && isFileBackup) {
+				btnRestoreFile.classList.add('ipdf-btn--media-action-restore-active');
+			}
 		})
 		.catch((error) => {
 			showAdminNotice(error.data, 'error');
+			loading?.classList.remove('ipdf-item-status-active');
+
+			if (btnCompress && !isFileCompressed) {
+				btnCompress.classList.remove('ipdf-btn--media-action-trigger');
+			}
+
+			if (btnRestoreFile && isFileBackup) {
+				btnRestoreFile.classList.add('ipdf-btn--media-action-restore-active');
+			}
 			console.error(error);
 		});
 };

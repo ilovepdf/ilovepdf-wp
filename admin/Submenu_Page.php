@@ -2,6 +2,9 @@
 
 namespace Ilove_Pdf_WP;
 
+use Exception;
+use Ilove_Pdf_WP\Media\Files_List_Table;
+
 /**
  * Managing the iLovePDF plugin's submenu and pages.
  *
@@ -121,7 +124,7 @@ class Submenu_Page {
 	 * @since 3.0.0
 	 */
 	public function add_media_page() {
-		add_media_page(
+		$hook = add_media_page(
 			'iLovePDF',
 			'iLovePDF',
 			'manage_options',
@@ -131,6 +134,37 @@ class Submenu_Page {
 				'render_media_page',
 			)
 		);
+
+		// Process bulk actions early (before WP sends headers) to avoid "headers already sent" issues.
+		add_action( 'load-' . $hook, array( $this, 'maybe_process_media_bulk_actions' ) );
+	}
+
+	/**
+	 * Processes bulk actions from the media optimization page before any output is sent.
+	 *
+	 * This prevents header warnings when a redirect is performed after CSS (@font-face) or other outputs have been printed.
+	 *
+	 * @since 3.0.0
+	 */
+	public static function maybe_process_media_bulk_actions() {
+		if ( ! current_user_can( 'manage_options' ) ) {
+			return;
+		}
+
+		$maybe_action  = isset( $_REQUEST['action'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['action'] ) ) : '';// phpcs:ignore WordPress.Security.NonceVerification
+		$maybe_action2 = isset( $_REQUEST['action2'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['action2'] ) ) : '';// phpcs:ignore WordPress.Security.NonceVerification
+
+		if ( empty( $maybe_action ) && empty( $maybe_action2 ) ) {
+			return;
+		}
+
+		try {
+			$list_table = new Files_List_Table();
+			$list_table->get_bulk_actions();
+			$list_table->process_bulk_action();
+		} catch ( Exception $e ) {
+			error_log( 'iLovePDF bulk early process error: ' . print_r( var_export( $e->getMessage(), true ), true ) );// phpcs:ignore
+		}
 	}
 
     /**

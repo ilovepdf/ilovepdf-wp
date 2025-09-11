@@ -130,7 +130,7 @@ class Form_Options extends Form {
             '<h4>%1$s</h4>
             <p>%2$s</p>
             <p>%3$s</p>
-            <div class="ipdf-spacer"><span>%6$s</span></div>
+            <div class="ipdf-spacer"><span id="ipdf-backup-folder-size">%6$s</span></div>
             <div class="ilovepdf-base__layout-flex ilovepdf-base__layout-items--center ilovepdf-base__layout-gap--small">
                 %4$s
                 %5$s

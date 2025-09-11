@@ -28,6 +28,15 @@ trait Status_Process {
     );
 
     /**
+     * Retrieves the 'ready' status value.
+     *
+     * @return string
+     */
+    protected function get_ready_status() {
+        return $this->allowed_status[1];
+    }
+
+    /**
      * Sets the status 'in_process' and saves it in the database under the provided key.
      *
      * @param int    $file_id File ID.

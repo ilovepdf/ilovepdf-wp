@@ -307,6 +307,10 @@ class Tool_Compress {
      * @return string Readable percentage of compression.
      */
     public static function get_compressed_reabable_percentage( $original, $compressed ) {
+        if ( ! is_numeric( $original ) || ! is_numeric( $compressed ) ) { /*@phpstan-ignore-line*/
+            return '';
+        }
+
         if ( $original === $compressed ) {
             return sprintf(
                 /* translators: %1$s: compression percentage */

@@ -29,6 +29,13 @@ export const restoreFile = (btnTrigger) => {
 	const statusSuccess = statusContainer.querySelector('.ipdf-item-status-restored');
 	const statusFail = statusContainer.querySelector('.ipdf-item-status-fail');
 	const loading = statusContainer.querySelector('.ipdf-item-status-processing-restore');
+	const btnsToolsActionsActive = statusContainer.querySelectorAll(
+		'.ipdf-btn--media-action:not(.ipdf-btn--media-action-trigger)'
+	);
+
+	btnsToolsActionsActive.forEach((btn) => {
+		btn.classList.add('ipdf-btn--media-action-trigger');
+	});
 
 	const titleDialog = _x(
 		'Are you sure you want to restore this file?',
@@ -88,11 +95,18 @@ export const restoreFile = (btnTrigger) => {
 						location.reload();
 					}, 3000);
 				}
+
+				btnsToolsActionsActive.forEach((btn) => {
+					btn.classList.remove('ipdf-btn--media-action-trigger');
+				});
 			})
 			.catch((error) => {
 				statusFail?.classList.add('ipdf-item-status-active');
 				btnTrigger.classList.add('ipdf-btn--media-action-restore-active');
 				loading?.classList.remove('ipdf-item-status-active');
+				btnsToolsActionsActive.forEach((btn) => {
+					btn.classList.remove('ipdf-btn--media-action-trigger');
+				});
 				showAdminNotice(error.data, 'error');
 				console.error(error);
 			});
@@ -104,5 +118,8 @@ export const restoreFile = (btnTrigger) => {
 		dialogElem.remove();
 		loading?.classList.remove('ipdf-item-status-active');
 		btnTrigger.classList.add('ipdf-btn--media-action-restore-active');
+		btnsToolsActionsActive.forEach((btn) => {
+			btn.classList.remove('ipdf-btn--media-action-trigger');
+		});
 	});
 };
