@@ -79,10 +79,12 @@ class Statistics {
             $average_reduction = ( $total_saved / $total_original_size ) * 100;
         }
 
+        $after_compression_size = $total_original_size - $total_saved;
+
         $stats = array(
             'count'                 => count( $total_files_processed ),
             'total_original_size'   => $total_original_size,
-            'total_compressed_size' => $total_compressed_size,
+            'total_compressed_size' => $after_compression_size,
             'space_saved'           => size_format( $total_saved, 2 ),
             'average_reduction'     => round( $average_reduction, 2 ) . '%',
         );
