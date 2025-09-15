@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "POT-Creation-Date: 2025-02-10T12:04:09+00:00\n"
-"PO-Revision-Date: 2025-08-27 \n"
+"PO-Revision-Date: 2025-09-15 \n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: ilove-pdf\n"
 
@@ -315,13 +315,13 @@ msgid "Actions"
 msgstr ""
 
 #: admin/media/Files_List_Table.php:242
-#: admin/tools/compress/Tool_Compress.php:409
+#: admin/tools/compress/Tool_Compress.php:413
 msgctxt "Bulk action button"
 msgid "Compress PDF"
 msgstr ""
 
 #: admin/media/Files_List_Table.php:243
-#: admin/tools/watermark/Tool_Watermark.php:364
+#: admin/tools/watermark/Tool_Watermark.php:368
 msgctxt "Bulk action button"
 msgid "Apply Watermark"
 msgstr ""
@@ -339,41 +339,41 @@ msgctxt "Section Title"
 msgid "Overview"
 msgstr ""
 
-#: admin/Submenu_Page.php:67
-#: admin/Submenu_Page.php:81
-#: admin/Submenu_Page.php:82
+#: admin/Submenu_Page.php:70
+#: admin/Submenu_Page.php:84
+#: admin/Submenu_Page.php:85
 msgctxt "Link element: This appears in the WordPress side menu."
 msgid "General Settings"
 msgstr ""
 
-#: admin/Submenu_Page.php:94
-#: admin/Submenu_Page.php:95
+#: admin/Submenu_Page.php:97
+#: admin/Submenu_Page.php:98
 msgctxt "Link element: This appears in the WordPress side menu."
 msgid "Compress settings"
 msgstr ""
 
-#: admin/Submenu_Page.php:107
-#: admin/Submenu_Page.php:108
+#: admin/Submenu_Page.php:110
+#: admin/Submenu_Page.php:111
 msgctxt "Link element: This appears in the WordPress side menu."
 msgid "Watermark settings"
 msgstr ""
 
-#: admin/Submenu_Page.php:167
+#: admin/Submenu_Page.php:201
 msgctxt "Link item: appears in the plugins list."
 msgid "General Settings"
 msgstr ""
 
-#: admin/Submenu_Page.php:173
+#: admin/Submenu_Page.php:207
 msgctxt "Link item: appears in the plugins list."
 msgid "Compress Settings"
 msgstr ""
 
-#: admin/Submenu_Page.php:179
+#: admin/Submenu_Page.php:213
 msgctxt "Link item: appears in the plugins list."
 msgid "Watermark Settings"
 msgstr ""
 
-#: admin/Submenu_Page.php:185
+#: admin/Submenu_Page.php:219
 msgctxt "Link item: appears in the plugins list."
 msgid "Media Optimization"
 msgstr ""
@@ -469,7 +469,7 @@ msgid "Changes saved."
 msgstr ""
 
 #. translators: %1$s: Original size, %2$s: Compressed size
-#: admin/tools/compress/Statistics.php:139
+#: admin/tools/compress/Statistics.php:141
 #, php-format
 msgctxt "Compress Overview: Tool Resume."
 msgid "Your files, summary: Original size: %1$s → After compression: %2$s"
@@ -510,7 +510,7 @@ msgstr ""
 
 #. translators: %1$s The file name
 #: admin/tools/compress/Tool_Compress.php:226
-#: admin/tools/watermark/Tool_Watermark.php:242
+#: admin/tools/watermark/Tool_Watermark.php:246
 #, php-format
 msgctxt "Process Error"
 msgid "The %1$s file could not be found inside the temporary download folder."
@@ -524,8 +524,8 @@ msgid "The file %1$s was compressed successfully."
 msgstr ""
 
 #. translators: %1$s: compression percentage
-#: admin/tools/compress/Tool_Compress.php:313
-#: admin/tools/compress/Tool_Compress.php:327
+#: admin/tools/compress/Tool_Compress.php:317
+#: admin/tools/compress/Tool_Compress.php:331
 #, php-format
 msgctxt "Compress PDF: Compressed percentage."
 msgid "Compressed (%1$s%%)"
@@ -674,7 +674,7 @@ msgid "Clear backup"
 msgstr ""
 
 #. translators: %1$d: total files, %2$d: watermarked files
-#: admin/tools/watermark/Statistics.php:93
+#: admin/tools/watermark/Statistics.php:96
 #, php-format
 msgid "Your files, summary: Total files %1$d → Protected files %2$d"
 msgstr ""
@@ -699,7 +699,7 @@ msgid "The watermark tool is not activated."
 msgstr ""
 
 #. translators: %1$s The file name
-#: admin/tools/watermark/Tool_Watermark.php:275
+#: admin/tools/watermark/Tool_Watermark.php:279
 #, php-format
 msgctxt "Watermark PDF: Success message."
 msgid "The watermark was applied successfully to %1$s."
