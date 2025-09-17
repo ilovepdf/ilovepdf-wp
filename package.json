@@ -12,8 +12,8 @@
   "author": "ilovepdf",
   "license": "ISC",
   "devDependencies": {
-    "@wordpress/i18n": "^6.3",
-    "@wordpress/scripts": "^30.23",
+    "@wordpress/i18n": "^6.4",
+    "@wordpress/scripts": "^30.24",
     "eslint": "^9.35",
     "eslint-config-prettier": "^10.1",
     "prettier": "^3.6"
