@@ -11,7 +11,8 @@ use Ilove_Pdf_WP\Tools\Base\Status_Process;
  * @since 3.0.0
  * @package Ilove_Pdf_WP\Tools\Watermark
  */
-class Statistics {
+class Statistics
+{
     use Status_Process;
 
     /**
@@ -28,7 +29,8 @@ class Statistics {
      * @since 3.0.0
      * @return array
      */
-    private static function get_query_args() {
+    private static function get_query_args()
+    {
         return array(
             'post_type'      => 'attachment',
             'post_mime_type' => 'application/pdf',
@@ -45,28 +47,29 @@ class Statistics {
      * @since 3.0.0
      * @return array
      */
-    private static function compute_stats() {
-        if ( DB_Handler::get_transient( self::$transient_key ) ) {
-            return DB_Handler::get_transient( self::$transient_key );
+    private static function compute_stats()
+    {
+        if (DB_Handler::get_transient(self::$transient_key)) {
+            return DB_Handler::get_transient(self::$transient_key);
         }
 
-        $attachments = get_posts( self::get_query_args() );
+        $attachments = get_posts(self::get_query_args());
 
         $total_watermarked = 0;
 
-        foreach ( $attachments as $attachment_id ) {
-            $watermarked = get_post_meta( $attachment_id, Tool_Watermark::get_db_key_status(), true );
-            if ( ( new self() )->get_ready_status() === $watermarked ) {
+        foreach ($attachments as $attachment_id) {
+            $watermarked = get_post_meta($attachment_id, Tool_Watermark::get_db_key_status(), true);
+            if ((new self())->get_ready_status() === $watermarked) {
                 ++$total_watermarked;
             }
         }
 
         $stats = array(
-            'total'       => count( $attachments ),
+            'total'       => count($attachments),
             'watermarked' => $total_watermarked,
         );
 
-        DB_Handler::set_transient( self::$transient_key, $stats, DAY_IN_SECONDS );
+        DB_Handler::set_transient(self::$transient_key, $stats, DAY_IN_SECONDS);
 
         return $stats;
     }
@@ -77,7 +80,8 @@ class Statistics {
      * @since 3.0.0
      * @return int
      */
-    public static function get_protected_files() {
+    public static function get_protected_files()
+    {
         $stats = self::compute_stats();
         return $stats['watermarked'];
     }
@@ -88,12 +92,22 @@ class Statistics {
      * @since 3.0.0
      * @return string
      */
-    public static function get_resume() {
+    public static function get_resume()
+    {
         $stats = self::compute_stats();
+        /* translators: %1$d: Total files, %2$d: Protected files */
+        $line_scaped_summary = esc_html_x("Your files, summary:\nTotal files: %1\$d\nProtected files: %2\$d", 'Watermark Overview: Tool Resume.', 'ilove-pdf');
+        $formatted_summary = nl2br($line_scaped_summary);
+        $allowed_tags = array(
+            'br' => array(),
+            'br/' => array(),
+            'br /' => array(),
+        );
+        $output_html = wp_kses($formatted_summary, $allowed_tags);
 
         return sprintf(
             /* translators: %1$d: total files, %2$d: watermarked files */
-            esc_html__( 'Your files, summary: Total files %1$d → Protected files %2$d', 'ilove-pdf' ),
+            $output_html,
             $stats['total'],
             $stats['watermarked'],
         );
@@ -104,7 +118,8 @@ class Statistics {
      *
      * @since 3.0.0
      */
-    public static function reset_statistics() {
-        DB_Handler::delete_transient( self::$transient_key );
+    public static function reset_statistics()
+    {
+        DB_Handler::delete_transient(self::$transient_key);
     }
 }
