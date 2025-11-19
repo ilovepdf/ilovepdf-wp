@@ -11,6 +11,7 @@ use Ilove_Pdf_WP\Helpers\DB_Handler;
  * @package Ilove_Pdf_WP\Tools\Compress
  */
 class Statistics {
+
     /**
      * Transient key for storing compression statistics.
      *
@@ -65,7 +66,6 @@ class Statistics {
                 $total_saved           += $original - $compressed;
 
                 array_push( $total_files_processed, $attachment_id );
-
             } else {
                 $file                 = get_attached_file( $attachment_id );
                 $original_size        = filesize( $file );
@@ -136,9 +136,18 @@ class Statistics {
     public static function get_resume() {
         $stats = self::compute_stats();
 
+        /* translators: %1$s: Original size, %2$s: Compressed size */
+        $line_scaped_summary = esc_html_x( "Your files, summary:\nOriginal size: %1\$s\nAfter compression: %2\$s", 'Compress Overview: Tool Resume.', 'ilove-pdf' );
+        $formatted_summary   = nl2br( $line_scaped_summary );
+        $allowed_tags        = array(
+            'br'   => array(),
+            'br/'  => array(),
+            'br /' => array(),
+        );
+        $output_html         = wp_kses( $formatted_summary, $allowed_tags );
+
         return sprintf(
-            /* translators: %1$s: Original size, %2$s: Compressed size */
-            esc_html_x( 'Your files, summary: Original size: %1$s → After compression: %2$s', 'Compress Overview: Tool Resume.', 'ilove-pdf' ),
+            $output_html,
             size_format( $stats['total_original_size'], 2 ),
             size_format( $stats['total_compressed_size'], 2 ),
         );
