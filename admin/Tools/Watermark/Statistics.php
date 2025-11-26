@@ -12,6 +12,7 @@ use Ilove_Pdf_WP\Tools\Base\Status_Process;
  * @package Ilove_Pdf_WP\Tools\Watermark
  */
 class Statistics {
+
     use Status_Process;
 
     /**
@@ -90,10 +91,18 @@ class Statistics {
      */
     public static function get_resume() {
         $stats = self::compute_stats();
+        /* translators: %1$d: Total files, %2$d: Protected files */
+        $line_scaped_summary = esc_html_x( "Your files, summary:\nTotal files: %1\$d\nProtected files: %2\$d", 'Watermark Overview: Tool Resume.', 'ilove-pdf' );
+        $formatted_summary   = nl2br( $line_scaped_summary );
+        $allowed_tags        = array(
+            'br'   => array(),
+            'br/'  => array(),
+            'br /' => array(),
+        );
+        $output_html         = wp_kses( $formatted_summary, $allowed_tags );
 
         return sprintf(
-            /* translators: %1$d: total files, %2$d: watermarked files */
-            esc_html__( 'Your files, summary: Total files %1$d → Protected files %2$d', 'ilove-pdf' ),
+            $output_html,
             $stats['total'],
             $stats['watermarked'],
         );
