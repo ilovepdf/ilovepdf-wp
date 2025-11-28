@@ -122,8 +122,8 @@ class Files_List_Table extends WP_List_Table {
         return array(
             'cb'              => '<input type="checkbox" />',
             'file'            => _x( 'File', 'File List Table: column name', 'ilove-pdf' ),
-            'size'            => _x( 'Original Size', 'File List Table: column name', 'ilove-pdf' ),
-            'size_compressed' => _x( 'Compressed Size', 'File List Table: column name', 'ilove-pdf' ),
+            'size'            => _x( 'Original', 'File List Table: column name', 'ilove-pdf' ),
+            'size_compressed' => _x( 'Compressed', 'File List Table: column name', 'ilove-pdf' ),
             'post_author'     => _x( 'Author', 'File List Table: column name', 'ilove-pdf' ),
             'post_date'       => _x( 'Upload Date', 'File List Table: column name', 'ilove-pdf' ),
             'status'          => _x( 'Status', 'File List Table: column name', 'ilove-pdf' ),
@@ -270,7 +270,7 @@ class Files_List_Table extends WP_List_Table {
         if ( isset( $_POST['_wpnonce'] ) && ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_wpnonce'] ) ), 'bulk-' . $this->_args['plural'] ) ) {
 
             Admin_Notice::add_notice(
-                _x( 'There was a problem validating the nonce code, please try again later.', 'Error message, invalid nonce code.', 'ilove-pdf' ),
+                _x( 'Couldn\'t complete the request. Please refresh and try again.', 'Error message, invalid nonce code.', 'ilove-pdf' ),
                 'error'
             );
 
@@ -287,10 +287,10 @@ class Files_List_Table extends WP_List_Table {
 
         $tools_message = array(
             'ilovepdf_compress'  => array(
-                'no_files_selected' => __( 'No files selected for compression.', 'ilove-pdf' ),
+                'no_files_selected' => __( 'No files selected to compress.', 'ilove-pdf' ),
             ),
             'ilovepdf_watermark' => array(
-                'no_files_selected' => __( 'No files selected for watermarking.', 'ilove-pdf' ),
+                'no_files_selected' => __( 'No files selected to watermark.', 'ilove-pdf' ),
             ),
         );
 
