@@ -103,11 +103,11 @@ class Tool_Compress {
 	public function handler_compress_action() {
 
 		if ( ! isset( $_POST['_wpnonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_wpnonce'] ) ), 'ilovepdf_action_compress' ) ) {
-            wp_send_json_error( _x( 'There was a problem validating the nonce code, please try again later.', 'Error message, invalid nonce code.', 'ilove-pdf' ), 401 );
+            wp_send_json_error( _x( 'Couldn\'t complete the request. Please refresh and try again.', 'Error message, invalid nonce code.', 'ilove-pdf' ), 401 );
         }
 
         if ( ! isset( $_POST['post_id'] ) ) {
-            wp_send_json_error( __( 'Error processing your request. The file ID must be sent', 'ilove-pdf' ), 400 );
+            wp_send_json_error( __( 'Could not process the request. Missing file ID.', 'ilove-pdf' ), 400 );
         }
 
         try {
@@ -122,7 +122,7 @@ class Tool_Compress {
             wp_send_json_error(
                 sprintf(
                     /* translators: %1$s Additional process error  */
-                    _x( 'Compress PDF error: %1$s', 'Compress PDF: Error message.', 'ilove-pdf' ),
+                    _x( 'Could not compress file: %1$s', 'Compress PDF: Error message.', 'ilove-pdf' ),
                     $e->getMessage()
                 ),
                 500
@@ -148,7 +148,7 @@ class Tool_Compress {
             if ( $this->is_file_compressed( $post_id ) ) {
                 $message = sprintf(
                     /* translators: %1$s The file name */
-                    _x( 'The file %1$s is already compressed.', 'Compress PDF: File already processed.', 'ilove-pdf' ),
+                    _x( 'File is already compressed: %1$s', 'Compress PDF: File already processed.', 'ilove-pdf' ),
                     $file_name,
                 );
 
@@ -162,13 +162,13 @@ class Tool_Compress {
             $this->set_status_in_process( $post_id, $this->db_key_status );
 
             if ( ! isset( $options[ Compress_Settings::get_field_compress_active() ] ) ) {
-                throw new Exception( _x( 'The compress tool is not activated. Please check your settings.', 'Compress PDF: Error message.', 'ilove-pdf' ) );
+                throw new Exception( _x( 'Compress PDF is not enabled. Please check your settings.', 'Compress PDF: Error message.', 'ilove-pdf' ) );
             }
 
             if ( get_post_mime_type( $post_id ) !== 'application/pdf' ) {
                 $message = sprintf(
                     /* translators: %1$s The file name */
-                    _x( 'The file %1$s is not a PDF.', 'Error message.', 'ilove-pdf' ),
+                    _x( 'This is not a PDF file: %1$s', 'Error message.', 'ilove-pdf' ),
                     $file_name,
                 );
 
@@ -180,7 +180,7 @@ class Tool_Compress {
 
             if ( ! WP_Filesystem() ) {
                 throw new Exception(
-                    esc_html_x( 'Unable to connect to the filesystem', 'Error message: Unable to connect to the core WordPress function.', 'ilove-pdf' ),
+                    esc_html_x( 'Could not connect to the server.', 'Error message: Unable to connect to the core WordPress function.', 'ilove-pdf' ),
                 );
             }
 
@@ -189,7 +189,7 @@ class Tool_Compress {
 
             if ( empty( $public_key ) || empty( $private_key ) ) {
                 throw new AuthException(
-                    _x( 'The API Keys are not set. Please check your settings.', 'Auth: Error message.', 'ilove-pdf' ),
+                    _x( 'API key is missing. Please check your settings.', 'Auth: Error message.', 'ilove-pdf' ),
                 );
             }
 
@@ -223,7 +223,7 @@ class Tool_Compress {
             if ( ! $wp_filesystem->exists( $compressed_file ) ) {
                 $message = sprintf(
                     /* translators: %1$s The file name */
-                    _x( 'The %1$s file could not be found inside the temporary download folder.', 'Process Error', 'ilove-pdf' ),
+                    _x( 'Temporary file not found: %1$s', 'Process Error', 'ilove-pdf' ),
                     $file_name,
                 );
 
@@ -250,7 +250,7 @@ class Tool_Compress {
 
             $message = sprintf(
                 /* translators: %1$s The file name */
-                _x( 'The file %1$s was compressed successfully.', 'Compress PDF: Success message.', 'ilove-pdf' ),
+                _x( 'File compressed successfully: %1$s', 'Compress PDF: Success message.', 'ilove-pdf' ),
                 basename( $attachment_file ),
             );
 

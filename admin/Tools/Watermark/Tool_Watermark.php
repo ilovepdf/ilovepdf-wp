@@ -78,11 +78,11 @@ class Tool_Watermark {
      */
     public function handler_action_watermark() {
         if ( ! isset( $_POST['_wpnonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_wpnonce'] ) ), 'ilovepdf_action_watermark' ) ) {
-            wp_send_json_error( _x( 'There was a problem validating the nonce code, please try again later.', 'Error message, invalid nonce code.', 'ilove-pdf' ), 401 );
+            wp_send_json_error( _x( 'Couldn\'t complete the request. Please refresh and try again.', 'Error message, invalid nonce code.', 'ilove-pdf' ), 401 );
         }
 
         if ( ! isset( $_POST['post_id'] ) ) {
-            wp_send_json_error( __( 'Error processing your request. The file ID must be sent', 'ilove-pdf' ), 400 );
+            wp_send_json_error( __( 'Could not process the request. Missing file ID.', 'ilove-pdf' ), 400 );
         }
 
         try {
@@ -97,7 +97,7 @@ class Tool_Watermark {
             wp_send_json_error(
                 sprintf(
                     /* translators: %1$s Additional process error  */
-                    _x( 'Watermark PDF error: %1$s', 'Watermark PDF: Error message.', 'ilove-pdf' ),
+                    _x( 'Could not apply watermark: %1$s', 'Watermark PDF: Error message.', 'ilove-pdf' ),
                     $e->getMessage()
                 ),
                 500
@@ -126,7 +126,7 @@ class Tool_Watermark {
             if ( $this->is_file_watermarked( $post_id ) ) {
                 $message = sprintf(
                     /* translators: %1$s The file name */
-                    _x( 'The file %1$s already has a watermark applied.', 'Watermark PDF: Info message.', 'ilove-pdf' ),
+                    _x( 'File already watermarked: %1$s', 'Watermark PDF: Info message.', 'ilove-pdf' ),
                     $file_name,
                 );
 
@@ -140,13 +140,13 @@ class Tool_Watermark {
             $this->set_status_in_process( $post_id, $this->db_key_status );
 
             if ( ! isset( $options[ Watermark_Settings::get_field_watermark_active() ] ) ) {
-                throw new Exception( _x( 'The watermark tool is not activated.', 'Watermark PDF: Error message.', 'ilove-pdf' ) );
+                throw new Exception( _x( 'Watermark is not enabled. Please check your settings.', 'Watermark PDF: Error message.', 'ilove-pdf' ) );
             }
 
             if ( get_post_mime_type( $post_id ) !== 'application/pdf' ) {
                 $message = sprintf(
                     /* translators: %1$s The file name */
-                    _x( 'The file %1$s is not a PDF.', 'Error message.', 'ilove-pdf' ),
+                    _x( 'This is not a PDF file: %1$s', 'Error message.', 'ilove-pdf' ),
                     $file_name,
                 );
 
@@ -158,7 +158,7 @@ class Tool_Watermark {
 
             if ( ! WP_Filesystem() ) {
                 throw new Exception(
-                    esc_html_x( 'Unable to connect to the filesystem', 'Error message: Unable to connect to the core WordPress function.', 'ilove-pdf' )
+                    esc_html_x( 'Could not connect to the server.', 'Error message: Unable to connect to the core WordPress function.', 'ilove-pdf' )
                 );
             }
 
@@ -167,7 +167,7 @@ class Tool_Watermark {
 
             if ( empty( $public_key ) || empty( $private_key ) ) {
                 throw new AuthException(
-                    _x( 'The API Keys are not set. Please check your settings.', 'Auth: Error message.', 'ilove-pdf' ),
+                    _x( 'API key is missing. Please check your settings.', 'Auth: Error message.', 'ilove-pdf' ),
                 );
             }
 
@@ -243,7 +243,7 @@ class Tool_Watermark {
             if ( ! $wp_filesystem->exists( $watermarked_file ) ) {
                 $message = sprintf(
                     /* translators: %1$s The file name */
-                    _x( 'The %1$s file could not be found inside the temporary download folder.', 'Process Error', 'ilove-pdf' ),
+                    _x( 'Temporary file not found: %1$s', 'Process Error', 'ilove-pdf' ),
                     $file_name,
                 );
 
@@ -276,7 +276,7 @@ class Tool_Watermark {
 
             $message = sprintf(
                 /* translators: %1$s The file name */
-                _x( 'The watermark was applied successfully to %1$s.', 'Watermark PDF: Success message.', 'ilove-pdf' ),
+                _x( 'Watermark applied successfully: %1$s', 'Watermark PDF: Success message.', 'ilove-pdf' ),
                 $file_name,
             );
 
