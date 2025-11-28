@@ -53,7 +53,7 @@ class Settings extends Options {
     public function handle_action_save() {
         if ( ! ( current_user_can( 'manage_options' ) ) ) {
             Admin_Notice::add_notice(
-                _x( 'You do not have permission to edit the options.', 'Error message, user without permissions.', 'ilove-pdf' ),
+                _x( 'You do not have permission to edit these settings', 'Error message, user without permissions.', 'ilove-pdf' ),
                 'error',
             );
 
@@ -63,7 +63,7 @@ class Settings extends Options {
 
         if ( isset( $_POST['_wpnonce'] ) && ! wp_verify_nonce( sanitize_key( wp_unslash( $_POST['_wpnonce'] ) ) ) ) {
             Admin_Notice::add_notice(
-                _x( 'There was a problem validating the nonce code, please try again later.', 'Error message, invalid nonce code.', 'ilove-pdf' ),
+                _x( 'Couldn\'t complete the request. Please refresh and try again.', 'Error message, invalid nonce code.', 'ilove-pdf' ),
                 'error',
             );
 
