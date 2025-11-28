@@ -184,7 +184,7 @@ class File_System {
 			if ( ! WP_Filesystem() ) {
 
 				Admin_Notice::add_notice(
-                    esc_html_x( 'Unable to connect to the filesystem', 'Error message: Unable to connect to the core WordPress function.', 'ilove-pdf' ),
+                    esc_html_x( 'Could not connect to the server.', 'Error message: Unable to connect to the core WordPress function.', 'ilove-pdf' ),
                     'error',
 				);
 
@@ -214,7 +214,7 @@ class File_System {
 							Admin_Notice::add_notice(
 								sprintf(
 									/* translators: %1$s: File name. */
-									esc_html_x( 'File %1$s moved to the new backup folder.', 'This happened during the migration process.', 'ilove-pdf' ),
+									esc_html_x( 'File moved to new backup folder: %1$s', 'This happened during the migration process.', 'ilove-pdf' ),
 									esc_html( $filename ),
 								),
 								'success',
@@ -225,7 +225,7 @@ class File_System {
 						Admin_Notice::add_notice(
 							sprintf(
 								/* translators: %1$s: File name. */
-								esc_html_x( 'Error moving file %1$s to the new backup folder.', 'This happened during the migration process.', 'ilove-pdf' ),
+								esc_html_x( 'Could not move file to backup folder: %1$s', 'This happened during the migration process.', 'ilove-pdf' ),
 								esc_html( $filename ),
 							),
 							'warning',
