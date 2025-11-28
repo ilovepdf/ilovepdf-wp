@@ -87,7 +87,7 @@ class Overview {
                 <h3>%2$s</h3>
             </div>',
             Statistics::get_space_saved(),
-            esc_html_x( 'Space Saved', 'Compress Overview: Space Saved', 'ilove-pdf' ),
+            esc_html_x( 'Total Space Saved', 'Compress Overview: Total Space Saved', 'ilove-pdf' ),
         );
     }
 
