@@ -85,17 +85,17 @@ class Backup {
 
         try {
             if ( ! isset( $_POST['_wpnonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_wpnonce'] ) ), 'ilovepdf_restore_file' ) ) {
-				wp_send_json_error( _x( 'There was a problem validating the nonce code, please try again later.', 'Error message, invalid nonce code.', 'ilove-pdf' ), 401 );
+				wp_send_json_error( _x( 'Couldn\'t complete the request. Please refresh and try again.', 'Error message, invalid nonce code.', 'ilove-pdf' ), 401 );
 			}
 
             if ( ! WP_Filesystem() ) {
                 throw new Exception(
-                    esc_html_x( 'Unable to connect to the filesystem', 'Error message: Unable to connect to the core WordPress function.', 'ilove-pdf' )
+                    esc_html_x( 'Could not connect to the server.', 'Error message: Unable to connect to the core WordPress function.', 'ilove-pdf' )
                 );
 			}
 
 			if ( ! isset( $_POST['post_id'] ) ) {
-				wp_send_json_error( __( 'Error processing your request. The file ID must be sent', 'ilove-pdf' ), 400 );
+				wp_send_json_error( __( 'Could not process the request. Missing file ID.', 'ilove-pdf' ), 400 );
 			}
 
 			$attachment_id = intval( $_POST['post_id'] );
@@ -103,7 +103,7 @@ class Backup {
 			$key_founded   = array_search( $attachment_id, $files_restore, true );
 
 			if ( false === $key_founded ) {
-				wp_send_json_error( __( 'Sorry. There is no backup for this file', 'ilove-pdf' ), 404 );
+				wp_send_json_error( __( 'No backup found for this file', 'ilove-pdf' ), 404 );
 			}
 
 			$attached_file    = get_attached_file( $attachment_id );
@@ -129,7 +129,7 @@ class Backup {
 			wp_send_json_success(
                 sprintf(
                     /* translators: %1$s: file name */
-                    __( 'The %1$s file was restored successfully', 'ilove-pdf' ),
+                    __( 'File restored: %1$s', 'ilove-pdf' ),
                     $file_name,
                 ),
                 200
@@ -138,7 +138,7 @@ class Backup {
             wp_send_json_error(
                 sprintf(
                     /* translators: %1$s: error message */
-                    __( 'Error restoring file: %1$s', 'ilove-pdf' ),
+                    __( 'Could not restore file: %1$s', 'ilove-pdf' ),
                     $e->getMessage(),
                 ),
                 $e->getCode(),
@@ -163,22 +163,22 @@ class Backup {
         try {
 			if ( ! WP_Filesystem() ) {
                 throw new Exception(
-                    esc_html_x( 'Unable to connect to the filesystem', 'Error message: Unable to connect to the core WordPress function.', 'ilove-pdf' )
+                    esc_html_x( 'Could not connect to the server.', 'Error message: Unable to connect to the core WordPress function.', 'ilove-pdf' )
                 );
 			}
 
 			if ( ! isset( $_POST['_wpnonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_wpnonce'] ) ) ) ) {
-				wp_send_json_error( _x( 'There was a problem validating the nonce code, please try again later.', 'Error message, invalid nonce code.', 'ilove-pdf' ), 401 );
+				wp_send_json_error( _x( 'Couldn\'t complete the request. Please refresh and try again.', 'Error message, invalid nonce code.', 'ilove-pdf' ), 401 );
 			}
 
 			if ( ! $wp_filesystem->exists( File_System::get_full_path_backup_folder() ) ) {
-				wp_send_json_error( __( 'Sorry. No backup folder found.', 'ilove-pdf' ), 404 );
+				wp_send_json_error( __( 'No backup folder found.', 'ilove-pdf' ), 404 );
 			}
 
 			$files_restore = DB_Handler::get_option( self::$db_key_all_files_backup, array() );
 
 			if ( empty( $files_restore ) ) {
-				wp_send_json_error( __( 'Sorry. No files found to restore.', 'ilove-pdf' ), 404 );
+				wp_send_json_error( __( 'No files found.', 'ilove-pdf' ), 404 );
 			}
 
 			$files_restored = array();
@@ -193,7 +193,7 @@ class Backup {
 						'id'      => $value,
 						'message' => sprintf(
                             /* translators: %1$s: file ID */
-							__( 'The original file ID %1$s was not found', 'ilove-pdf' ),
+							__( 'Original file not found: %1$s', 'ilove-pdf' ),
 							$value
 						),
 					);
@@ -209,7 +209,7 @@ class Backup {
 						'id'      => $value,
 						'message' => sprintf(
                             /* translators: %1$s: file ID */
-							__( 'The backup file ID %1$s was not found', 'ilove-pdf' ),
+							__( 'Backup file not found: %1$s', 'ilove-pdf' ),
 							$value
 						),
 					);
@@ -253,7 +253,7 @@ class Backup {
 					'data'    => array(
 						'files_restored' => sprintf(
                             /* translators: %1$s: file name */
-							__( 'The %1$s file was restored successfully', 'ilove-pdf' ),
+							__( 'File restored: %1$s', 'ilove-pdf' ),
 							implode( ', ', $files_restored )
 						),
 						'files_errors'   => count( $files_errors ) ? $files_errors : false,
@@ -282,16 +282,16 @@ class Backup {
 
             if ( ! WP_Filesystem() ) {
                 throw new Exception(
-                    esc_html_x( 'Unable to connect to the filesystem', 'Error message: Unable to connect to the core WordPress function.', 'ilove-pdf' )
+                    esc_html_x( 'Could not connect to the server.', 'Error message: Unable to connect to the core WordPress function.', 'ilove-pdf' )
                 );
             }
 
             if ( ! isset( $_POST['_wpnonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_wpnonce'] ) ) ) ) {
-                wp_send_json_error( _x( 'There was a problem validating the nonce code, please try again later.', 'Error message, invalid nonce code.', 'ilove-pdf' ), 401 );
+                wp_send_json_error( _x( 'Couldn\'t complete the request. Please refresh and try again.', 'Error message, invalid nonce code.', 'ilove-pdf' ), 401 );
             }
 
             if ( ! $wp_filesystem->exists( File_System::get_full_path_backup_folder() ) ) {
-                wp_send_json_error( __( 'Sorry. No backup folder found.', 'ilove-pdf' ), 404 );
+                wp_send_json_error( __( 'No backup folder found.', 'ilove-pdf' ), 404 );
             }
 
             $files_backup = DB_Handler::get_option( self::$db_key_all_files_backup, array() );
@@ -337,7 +337,7 @@ class Backup {
 
             if ( ! WP_Filesystem() ) {
                 Admin_Notice::add_notice(
-                    esc_html_x( 'Unable to connect to the filesystem', 'Error message: Unable to connect to the core WordPress function.', 'ilove-pdf' ),
+                    esc_html_x( 'Could not connect to the server.', 'Error message: Unable to connect to the core WordPress function.', 'ilove-pdf' ),
                     'error',
                 );
 
@@ -384,7 +384,7 @@ class Backup {
         if ( $is_backup_activated && ! self::is_file_backup( $file_id ) ) {
             if ( ! WP_Filesystem() ) {
                 throw new Exception(
-                    esc_html_x( 'Unable to connect to the filesystem', 'Error message: Unable to connect to the core WordPress function.', 'ilove-pdf' )
+                    esc_html_x( 'Could not connect to the server.', 'Error message: Unable to connect to the core WordPress function.', 'ilove-pdf' )
                 );
             }
 
@@ -399,7 +399,7 @@ class Backup {
 
             if ( ! $wp_filesystem->exists( $backup_file ) ) {
                 if ( ! $wp_filesystem->copy( $file_path, $backup_file ) ) {
-                    throw new Exception( esc_html__( 'Failed to create a backup of the file.', 'ilove-pdf' ) );
+                    throw new Exception( esc_html__( 'Backup could not be created.', 'ilove-pdf' ) );
                 }
             }
 
@@ -430,7 +430,7 @@ class Backup {
 
         if ( ! WP_Filesystem() ) {
             throw new Exception(
-                esc_html_x( 'Unable to connect to the filesystem', 'Error message: Unable to connect to the core WordPress function.', 'ilove-pdf' )
+                esc_html_x( 'Could not connect to the server.', 'Error message: Unable to connect to the core WordPress function.', 'ilove-pdf' )
             );
         }
 
@@ -460,7 +460,7 @@ class Backup {
         if ( ! WP_Filesystem() ) {
 
             Admin_Notice::add_notice(
-                esc_html_x( 'Unable to connect to the filesystem', 'Error message: Unable to connect to the core WordPress function.', 'ilove-pdf' ),
+                esc_html_x( 'Could not connect to the server.', 'Error message: Unable to connect to the core WordPress function.', 'ilove-pdf' ),
                 'error',
             );
 
