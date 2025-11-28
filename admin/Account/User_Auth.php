@@ -13,6 +13,7 @@ use Ilove_Pdf_WP\Helpers\HTTP_Handler;
  * @since 3.0.0
  */
 class User_Auth {
+
     use User_Form_Options;
     use HTTP_Handler;
 
@@ -67,7 +68,7 @@ class User_Auth {
 
         if ( isset( $_POST['action'] ) && self::get_action_register_key() !== $_POST['action'] ) {
             Admin_Notice::add_notice(
-                _x( 'There was a problem creating your account. Please try again later.', 'Error message: account creation failed.', 'ilove-pdf' ),
+                _x( 'Account creation failed. Please try again.', 'Error message: account creation failed.', 'ilove-pdf' ),
                 'error',
             );
 
@@ -78,7 +79,7 @@ class User_Auth {
         $field_email = self::get_field_email();
         if ( isset( $_POST[ $field_email ] ) && empty( trim( sanitize_email( wp_unslash( $_POST[ $field_email ] ) ) ) ) ) {
             Admin_Notice::add_notice(
-                _x( 'The email field is required.', 'Form submission: Error message, invalid input field.', 'ilove-pdf' ),
+                _x( 'Email required.', 'Form submission: Error message, invalid input field.', 'ilove-pdf' ),
                 'error',
             );
 
@@ -87,9 +88,9 @@ class User_Auth {
         }
 
         $field_password = self::get_field_password();
-        if ( isset( $_POST[ $field_password ] ) && empty( trim( $_POST[ $field_password ] ) ) ) {//phpcs:ignore
+        if (isset($_POST[$field_password]) && empty(trim($_POST[$field_password]))) { //phpcs:ignore
             Admin_Notice::add_notice(
-                _x( 'The password field is required.', 'Form submission: Error message, invalid input field.', 'ilove-pdf' ),
+                _x( 'Password required.', 'Form submission: Error message, invalid input field.', 'ilove-pdf' ),
                 'error',
             );
 
@@ -100,7 +101,7 @@ class User_Auth {
         $field_name = self::get_field_name();
         if ( isset( $_POST[ $field_name ] ) && empty( trim( sanitize_text_field( wp_unslash( $_POST[ $field_name ] ) ) ) ) ) {
             Admin_Notice::add_notice(
-                _x( 'The name field is required.', 'Form submission: Error message, invalid input field.', 'ilove-pdf' ),
+                _x( 'Name required', 'Form submission: Error message, invalid input field.', 'ilove-pdf' ),
                 'error',
             );
 
@@ -134,7 +135,7 @@ class User_Auth {
 
         if ( 200 !== $response['response']['code'] ) {
             $error_body    = json_decode( $response['body'], true );
-            $error_message = self::get_message_error( $error_body, _x( 'There was a problem creating your account. Please try again later.', 'Error message: account creation failed.', 'ilove-pdf' ) );
+            $error_message = self::get_message_error( $error_body, _x( 'Account creation failed. Please try again.', 'Error message: account creation failed.', 'ilove-pdf' ) );
 
             Admin_Notice::add_notice(
                 $error_message,
@@ -190,7 +191,7 @@ class User_Auth {
 
         if ( isset( $_POST['action'] ) && self::get_action_login_key() !== $_POST['action'] ) {
             Admin_Notice::add_notice(
-                _x( 'There was a problem logging in. Please try again later.', 'Error message, login failed.', 'ilove-pdf' ),
+                _x( 'Login failed. Please try again', 'Error message, login failed.', 'ilove-pdf' ),
                 'error',
             );
 
@@ -201,7 +202,7 @@ class User_Auth {
         $field_email = self::get_field_email();
         if ( isset( $_POST[ $field_email ] ) && empty( trim( sanitize_email( wp_unslash( $_POST[ $field_email ] ) ) ) ) ) {
             Admin_Notice::add_notice(
-                _x( 'The email field is required.', 'Form submission: Error message, invalid input field.', 'ilove-pdf' ),
+                _x( 'Email required.', 'Form submission: Error message, invalid input field.', 'ilove-pdf' ),
                 'error',
             );
 
@@ -210,9 +211,9 @@ class User_Auth {
         }
 
         $field_password = self::get_field_password();
-        if ( isset( $_POST[ $field_password ] ) && empty( trim( $_POST[ $field_password ] ) ) ) {//phpcs:ignore
+        if (isset($_POST[$field_password]) && empty(trim($_POST[$field_password]))) { //phpcs:ignore
             Admin_Notice::add_notice(
-                _x( 'The password field is required.', 'Form submission: Error message, invalid input field.', 'ilove-pdf' ),
+                _x( 'Password required.', 'Form submission: Error message, invalid input field.', 'ilove-pdf' ),
                 'error',
             );
 
@@ -263,7 +264,7 @@ class User_Auth {
         User_Data::update_user_data( $user );
 
         Admin_Notice::add_notice(
-            _x( 'You have successfully logged in.', 'Form submission: Success message.', 'ilove-pdf' ),
+            _x( 'Logged in successfully.', 'Form submission: Success message.', 'ilove-pdf' ),
             'success',
         );
 
@@ -301,7 +302,7 @@ class User_Auth {
 
         if ( isset( $_POST['action'] ) && self::get_action_logout_key() !== $_POST['action'] ) {
             Admin_Notice::add_notice(
-                _x( 'There was a problem trying to log out. Please try again later.', 'Form submission: Error message, invalid action.', 'ilove-pdf' ),
+                _x( 'Logout failed. Please try again.', 'Form submission: Error message, invalid action.', 'ilove-pdf' ),
                 'error',
             );
 
@@ -320,7 +321,7 @@ class User_Auth {
         );
 
         Admin_Notice::add_notice(
-            _x( 'You have successfully logged out.', 'Form submission: Success message.', 'ilove-pdf' ),
+            _x( 'Logged out successfully.', 'Form submission: Success message.', 'ilove-pdf' ),
             'success',
         );
 
@@ -357,7 +358,7 @@ class User_Auth {
 
         if ( isset( $_POST['action'] ) && self::get_action_change_project_key() !== $_POST['action'] ) {
             Admin_Notice::add_notice(
-                _x( 'There was a problem changing the project. Please try again later.', 'Error message.', 'ilove-pdf' ),
+                _x( 'Could not change project. Please try again.', 'Error message.', 'ilove-pdf' ),
                 'error',
             );
 
@@ -367,7 +368,7 @@ class User_Auth {
 
         if ( ! array_key_exists( User_Data::get_db_user_projects_key(), $_POST ) ) {
             Admin_Notice::add_notice(
-                _x( 'The project field is required.', 'Error message, invalid input field.', 'ilove-pdf' ),
+                _x( 'Project field is required.', 'Error message, invalid input field.', 'ilove-pdf' ),
                 'error',
             );
 
