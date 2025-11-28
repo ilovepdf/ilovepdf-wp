@@ -16,6 +16,7 @@ use Ilove_Pdf_WP\Helpers\HTTP_Handler;
  * @since 3.0.0
  */
 class User_Data {
+
     use HTTP_Handler;
     use User_Statistics;
 
@@ -286,7 +287,7 @@ class User_Data {
 
             if ( 200 !== $response['response']['code'] ) {
                 $error_body    = json_decode( $response['body'], true );
-                $error_message = self::get_message_error( $error_body, _x( 'There was a problem trying to get the user data. Please try again later.', 'User Account: Error message.', 'ilove-pdf' ) );
+                $error_message = self::get_message_error( $error_body, _x( 'Unable to fetch user data. Please try again.', 'User Account: Error message.', 'ilove-pdf' ) );
 
                 throw new Exception( $error_message );
             }
@@ -307,13 +308,12 @@ class User_Data {
                 _x( 'Account settings migrated successfully.', 'User Account: Success message on migration.', 'ilove-pdf' ),
                 'success',
             );
-
-		} catch ( Exception $e ) {
+        } catch ( Exception $e ) {
             Admin_Notice::add_notice(
                 $e->getMessage(),
                 'error',
             );
-            error_log( 'iLovePDF - User_Data::migrate_account error: ' . print_r( var_export( $e, true ), true ) );//phpcs:ignore
+            error_log('iLovePDF - User_Data::migrate_account error: ' . print_r(var_export($e, true), true)); //phpcs:ignore
         }
     }
 
@@ -375,8 +375,8 @@ class User_Data {
                     </div>
                 </div>
             </div>',
-            esc_html_x( 'You have no more credits!', 'credits popup: title', 'ilove-pdf' ),
-            esc_html_x( 'You can purchase more credits to continue processing files, or you can wait until your free credits are restored.', 'credits popup: content', 'ilove-pdf' ),
+            esc_html_x( 'You\'re out of credits!', 'credits popup: title', 'ilove-pdf' ),
+            esc_html_x( 'Buy more credits to keep processing, or wait for your free credits to renew.', 'credits popup: content', 'ilove-pdf' ),
             esc_html_x( 'Buy credits', 'credits popup: button link', 'ilove-pdf' ),
             esc_html_x( 'Cancel', 'credits popup: button action', 'ilove-pdf' ),
         );
@@ -447,7 +447,7 @@ class User_Data {
 
         if ( 200 !== $response['response']['code'] ) {
             $error_body    = json_decode( $response['body'], true );
-            $error_message = self::get_message_error( $error_body, _x( 'There was a problem trying to get the user data. Please try again later.', 'User Account: Error message.', 'ilove-pdf' ) );
+            $error_message = self::get_message_error( $error_body, _x( 'Unable to fetch user data. Please try again.', 'User Account: Error message.', 'ilove-pdf' ) );
 
             Admin_Notice::add_notice(
                 $error_message,
