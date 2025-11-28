@@ -12,6 +12,7 @@ use Ilove_Pdf_WP\Account\Views\Base\Form;
  * @since 3.0.0
  */
 class Form_Login extends Form {
+
     /**
      * Renders the account login form.
      *
@@ -74,8 +75,8 @@ class Form_Login extends Form {
 
         $url = add_query_arg(
             array(
-				'page'     => isset( $_GET['page'] ) ? sanitize_text_field( wp_unslash( $_GET['page'] ) ) : '',
-				'section'  => 'register',
+                'page'     => isset( $_GET['page'] ) ? sanitize_text_field( wp_unslash( $_GET['page'] ) ) : '',
+                'section'  => 'register',
                 '_wpnonce' => $nonce,
             ),
             admin_url( 'admin.php' )
@@ -84,7 +85,7 @@ class Form_Login extends Form {
         return sprintf(
             '<a class="ipdf-btn--inline-secondary" href="%1$s">%2$s</a>',
             esc_url( $url ),
-            esc_html_x( 'Create an iLovePDF developer account', 'button link', 'ilove-pdf' ),
+            esc_html_x( 'Create an iLoveAPI account', 'button link', 'ilove-pdf' ),
         );
     }
 

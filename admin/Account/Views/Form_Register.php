@@ -12,6 +12,7 @@ use Ilove_Pdf_WP\Account\Views\Base\Form;
  * @since 3.0.0
  */
 class Form_Register extends Form {
+
     /**
      * Renders the account register form.
      *
@@ -36,7 +37,7 @@ class Form_Register extends Form {
             esc_html( admin_url( 'admin-post.php' ) ),
             User_Auth::get_action_register_key(),
             wp_nonce_field( -1, '_wpnonce_register', true, false ),
-            esc_html_x( 'Create your iLovePDF developer account', 'form title', 'ilove-pdf' ),
+            esc_html_x( 'Create an iLoveAPI account', 'form title', 'ilove-pdf' ),
             self::create_field_name(),
             self::create_field_email(),
             self::create_field_password(),
@@ -55,7 +56,7 @@ class Form_Register extends Form {
         return sprintf(
             '<input class="ipdf-input ipdf-input--name" type="text" name="%1$s" id="%1$s" placeholder="%2$s" value="" class="ilovepdf_field_name" required />',
             User_Auth::get_field_name(),
-            esc_html_x( 'Full Name', 'input placeholder', 'ilove-pdf' ),
+            esc_html_x( 'Name', 'input placeholder', 'ilove-pdf' ),
         );
     }
 
@@ -74,7 +75,7 @@ class Form_Register extends Form {
 
         $url = add_query_arg(
             array(
-				'page'     => isset( $_GET['page'] ) ? sanitize_text_field( wp_unslash( $_GET['page'] ) ) : '',
+                'page'     => isset( $_GET['page'] ) ? sanitize_text_field( wp_unslash( $_GET['page'] ) ) : '',
                 '_wpnonce' => $nonce,
             ),
             admin_url( 'admin.php' )
