@@ -48,7 +48,7 @@ class User_Auth {
 
         if ( ! ( current_user_can( 'manage_options' ) ) ) {
             Admin_Notice::add_notice(
-                _x( 'You do not have permission to edit the options.', 'Error message, user without permissions.', 'ilove-pdf' ),
+                _x( 'You do not have permission to edit these settings', 'Error message, user without permissions.', 'ilove-pdf' ),
                 'error',
             );
 
@@ -58,7 +58,7 @@ class User_Auth {
 
         if ( isset( $_POST['_wpnonce_register'] ) && ! wp_verify_nonce( sanitize_key( wp_unslash( $_POST['_wpnonce_register'] ) ) ) ) {
             Admin_Notice::add_notice(
-                _x( 'There was a problem validating the nonce code, please try again later.', 'Error message, invalid nonce code.', 'ilove-pdf' ),
+                _x( 'Couldn’t complete the request. Please refresh and try again.', 'Error message, invalid nonce code.', 'ilove-pdf' ),
                 'error',
             );
 
@@ -171,7 +171,7 @@ class User_Auth {
 
         if ( ! ( current_user_can( 'manage_options' ) ) ) {
             Admin_Notice::add_notice(
-                _x( 'You do not have permission to edit the options.', 'Error message, user without permissions.', 'ilove-pdf' ),
+                _x( 'You do not have permission to edit these settings', 'Error message, user without permissions.', 'ilove-pdf' ),
                 'error',
             );
 
@@ -181,7 +181,7 @@ class User_Auth {
 
         if ( isset( $_POST['_wpnonce_login'] ) && ! wp_verify_nonce( sanitize_key( wp_unslash( $_POST['_wpnonce_login'] ) ) ) ) {
             Admin_Notice::add_notice(
-                _x( 'There was a problem validating the nonce code, please try again later.', 'Error message, invalid nonce code.', 'ilove-pdf' ),
+                _x( 'Couldn’t complete the request. Please refresh and try again.', 'Error message, invalid nonce code.', 'ilove-pdf' ),
                 'error',
             );
 
@@ -282,7 +282,7 @@ class User_Auth {
     public function logout_action() {
         if ( ! ( current_user_can( 'manage_options' ) ) ) {
             Admin_Notice::add_notice(
-                _x( 'You do not have permission to edit the options.', 'Error message, user without permissions.', 'ilove-pdf' ),
+                _x( 'You do not have permission to edit these settings', 'Error message, user without permissions.', 'ilove-pdf' ),
                 'error',
             );
 
@@ -292,7 +292,7 @@ class User_Auth {
 
         if ( isset( $_POST['_wpnonce_logout'] ) && ! wp_verify_nonce( sanitize_key( wp_unslash( $_POST['_wpnonce_logout'] ) ) ) ) {
             Admin_Notice::add_notice(
-                _x( 'There was a problem validating the nonce code, please try again later.', 'Error message, invalid nonce code.', 'ilove-pdf' ),
+                _x( 'Couldn’t complete the request. Please refresh and try again.', 'Error message, invalid nonce code.', 'ilove-pdf' ),
                 'error',
             );
 
@@ -338,7 +338,7 @@ class User_Auth {
     public function change_project_action() {
         if ( ! ( current_user_can( 'manage_options' ) ) ) {
             Admin_Notice::add_notice(
-                _x( 'You do not have permission to edit the options.', 'Error message, user without permissions.', 'ilove-pdf' ),
+                _x( 'You do not have permission to edit these settings', 'Error message, user without permissions.', 'ilove-pdf' ),
                 'error',
             );
 
@@ -348,7 +348,7 @@ class User_Auth {
 
         if ( isset( $_POST['_wpnonce_project'] ) && ! wp_verify_nonce( sanitize_key( wp_unslash( $_POST['_wpnonce_project'] ) ) ) ) {
             Admin_Notice::add_notice(
-                _x( 'There was a problem validating the nonce code, please try again later.', 'Error message, invalid nonce code.', 'ilove-pdf' ),
+                _x( 'Couldn’t complete the request. Please refresh and try again.', 'Error message, invalid nonce code.', 'ilove-pdf' ),
                 'error',
             );
 

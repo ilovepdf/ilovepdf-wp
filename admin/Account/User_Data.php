@@ -413,7 +413,7 @@ class User_Data {
     public static function get_user_data() {
         if ( ! ( current_user_can( 'manage_options' ) ) ) {
             Admin_Notice::add_notice(
-                _x( 'You do not have permission to edit the options.', 'Error message, user without permissions.', 'ilove-pdf' ),
+                _x( 'You do not have permission to edit these settings', 'Error message, user without permissions.', 'ilove-pdf' ),
                 'error',
             );
 
