@@ -15,6 +15,7 @@ use Ilove_Pdf_WP\Tools\General\Settings;
  * @since 3.0.0
  */
 class Form_Options extends Form {
+
     /**
      * Renders the general options form.
      *
@@ -69,7 +70,7 @@ class Form_Options extends Form {
         $backup_folder = sprintf(
             wp_kses_post(
                 /* translators: %s: backup folder path */
-                __( 'Backup files are stored at: %s', 'ilove-pdf' )
+                __( 'Backups are stored at: %s', 'ilove-pdf' )
             ),
             '<code>' . $path_folder_backup . '</code>'
         );
@@ -84,8 +85,8 @@ class Form_Options extends Form {
             <p>%5$s</p>',
             Settings::get_field_backup(),
             Settings::get_general_settings( Settings::get_field_backup() ) ? 'checked' : '',
-            esc_html_x( 'Backup original Files', 'checkbox field label', 'ilove-pdf' ),
-            esc_html__( 'Enable backups to save a copy before compressing or watermarking. Backups can be restored later but use server space.', 'ilove-pdf' ),
+            esc_html_x( 'Back up original files', 'checkbox field label', 'ilove-pdf' ),
+            esc_html__( 'Save a backup before processing so you can restore the original later. Uses server space.', 'ilove-pdf' ),
             $backup_folder
         );
     }

@@ -79,7 +79,7 @@ class Form_Options extends Form {
             <p>%4$s</p>',
             Settings::get_field_compress_active(),
             Settings::get_compress_settings( Settings::get_field_compress_active() ) ? 'checked' : '',
-            esc_html_x( 'Compress Activated', 'checkbox field label', 'ilove-pdf' ),
+            esc_html_x( 'Compress enabled', 'checkbox field label', 'ilove-pdf' ),
             esc_html_x( 'Reduce the file size of your PDFs for easy sharing and storage.', 'help text for checkbox field', 'ilove-pdf' ),
         );
     }
@@ -145,7 +145,7 @@ class Form_Options extends Form {
                 <label for="%8$s">%9$s</label>
             </div>',
             esc_html_x( 'Compression level', 'subtitle section', 'ilove-pdf' ),
-            esc_html__( 'You can choose the appropriate compression level for your files. By default, it will be recommended.', 'ilove-pdf' ),
+            esc_html__( 'Choose a compression level. Recommended is selected by default.', 'ilove-pdf' ),
             Settings::get_field_compression_level(),
             Settings::get_compress_level( 'extreme' ),
             esc_html_x( 'Extreme: High compression, less quality', 'radio button field label', 'ilove-pdf' ),

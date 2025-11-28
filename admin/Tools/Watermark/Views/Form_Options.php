@@ -79,10 +79,10 @@ class Form_Options extends Form {
                 %6$s
             </div>
             ',
-            esc_html_x( 'Preview settings', 'subtitle for watermark options section', 'ilove-pdf' ),
-            esc_html_x( 'You can choose to watermark by editable text or by uploading your own image stamp.', 'Help text for the watermark options section', 'ilove-pdf' ),
+            esc_html_x( 'Watermark preview', 'subtitle for watermark options section', 'ilove-pdf' ),
+            esc_html_x( 'Use text or upload an image as your watermark.', 'Help text for the watermark options section', 'ilove-pdf' ),
             self::create_field_mode_watermark(),
-            esc_html_x( 'This font do not allow bold/italic styles for watermark', 'Warning message: for family font selector.', 'ilove-pdf' ),
+            esc_html_x( 'This font does not support bold or italic styles', 'Warning message: for family font selector.', 'ilove-pdf' ),
             self::create_subsection_file(),
             self::create_subsection_format_options(),
         );
@@ -214,8 +214,8 @@ class Form_Options extends Form {
             <p>%4$s</p>',
             Settings::get_field_watermark_active(),
             checked( Settings::get_settings( Settings::get_field_watermark_active() ), 'on', false ),
-            esc_html_x( 'Watermark Activated', 'checkbox field label', 'ilove-pdf' ),
-            esc_html_x( 'Apply watermark to PDF files to protect them from unauthorized use.', 'help text for checkbox field', 'ilove-pdf' ),
+            esc_html_x( 'Watermark enabled', 'checkbox field label', 'ilove-pdf' ),
+            esc_html_x( 'Add a watermark to protect PDFs from unauthorized use.', 'help text for checkbox field', 'ilove-pdf' ),
         );
     }
 
@@ -239,7 +239,7 @@ class Form_Options extends Form {
             Settings::get_field_auto_watermark(),
             checked( Settings::get_settings( Settings::get_field_auto_watermark() ), 'on', false ),
             esc_html_x( 'Automatically apply watermark to uploaded files', 'checkbox field label', 'ilove-pdf' ),
-            esc_html__( 'With Auto Watermark enabled, any file uploaded to the Media folder will be automatically stamped with your choosen watermark. Still, you will be able to watermark non stamped images from Media.', 'ilove-pdf' ),
+            esc_html__( 'Automatically stamp new Media uploads with your selected watermark. You can still apply it manually to other files.', 'ilove-pdf' ),
         );
     }
 
@@ -274,10 +274,10 @@ class Form_Options extends Form {
             $db_key_mode . $mode_value_text,
             $db_key_mode,
             $mode_value_text,
-            esc_html_x( 'Place Text', 'radio button label', 'ilove-pdf' ),
+            esc_html_x( 'Use text', 'radio button label', 'ilove-pdf' ),
             $db_key_mode . $mode_value_image,
             $mode_value_image,
-            esc_html_x( 'Place Image', 'radio button label', 'ilove-pdf' ),
+            esc_html_x( 'Use image', 'radio button label', 'ilove-pdf' ),
             checked( $value_mode_checked, $mode_value_text, false ),
             checked( $value_mode_checked, $mode_value_image, false ),
         );
@@ -347,7 +347,7 @@ class Form_Options extends Form {
             Settings::get_field_mosaic(),
             Settings::get_settings( Settings::get_field_mosaic() ) ? 'checked' : '',
             esc_html_x( 'Mosaic', 'checkbox field label', 'ilove-pdf' ),
-            esc_html__( 'If enabled, this field overrides the position and prints the image or text 9 times per page.', 'ilove-pdf' ),
+            esc_html__( 'If enabled, this overrides manual position settings to print image or text 9 times per page.', 'ilove-pdf' ),
         );
     }
 
@@ -386,10 +386,10 @@ class Form_Options extends Form {
             $db_key_layer . $layer_above_value,
             $db_key_layer,
             $layer_above_value,
-            esc_html_x( 'Over the PDF content', 'radio button label', 'ilove-pdf' ),
+            esc_html_x( 'Above PDF content', 'radio button label', 'ilove-pdf' ),
             $db_key_layer . $layer_below_value,
             $layer_below_value,
-            esc_html_x( 'Below the PDF content', 'radio button label', 'ilove-pdf' ),
+            esc_html_x( 'Below PDF content', 'radio button label', 'ilove-pdf' ),
             checked( $layer_value_checked, $layer_above_value, false ),
             checked( $layer_value_checked, $layer_below_value, false ),
         );
@@ -469,7 +469,7 @@ class Form_Options extends Form {
         return sprintf(
             '<input type="text" name="%1$s" id="%1$s" placeholder="%2$s" value="%3$s" />',
             $db_key_mode_text,
-            esc_html_x( 'Text to stamp', 'input text: placeholder', 'ilove-pdf' ),
+            esc_html_x( 'Enter text for watermark', 'input text: placeholder', 'ilove-pdf' ),
             ! empty( Settings::get_settings( $db_key_mode_text ) ) ? Settings::get_settings( $db_key_mode_text ) : get_bloginfo( 'name' ),
         );
     }
@@ -609,13 +609,13 @@ class Form_Options extends Form {
                 <span>%4$s</span>
                 <input type="url" name="%5$s" id="%5$s_url" value="%6$s" placeholder="%7$s" />
             </div>',
-            esc_html_x( 'Image stamp', 'subtitle for watermark image mode', 'ilove-pdf' ),
-            esc_html_x( 'Choose your image stamp from your Media or from an external URL. Then set the stamp position, scale, opacity and rotation.', 'Help text for image stamp', 'ilove-pdf' ),
+            esc_html_x( 'Watermark image', 'subtitle for watermark image mode', 'ilove-pdf' ),
+            esc_html_x( 'Select an image stamp from Media or a URL. Then adjust its position, size, opacity, and rotation', 'Help text for image stamp', 'ilove-pdf' ),
             esc_html_x( 'Add Image', 'button', 'ilove-pdf' ),
-            esc_html_x( 'or URL', 'before text: add image button, after text: input image URL', 'ilove-pdf' ),
+            esc_html_x( 'or enter an URL', 'before text: add image button, after text: input image URL', 'ilove-pdf' ),
             $db_key_mode_image,
             Settings::get_settings( $db_key_mode_image ),
-            esc_html_x( 'Image URL', 'input text: placeholder', 'ilove-pdf' ),
+            esc_html_x( 'Enter image URL', 'input text: placeholder', 'ilove-pdf' ),
             Settings::get_mode_values( 'image' ) === $value_mode_checked ? 'ipdf-option-selected' : '',
         );
     }
