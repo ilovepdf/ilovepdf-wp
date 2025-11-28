@@ -28,7 +28,7 @@ class Media_Overview {
                     %3$s
                 </div>
             </div>',
-            esc_html_x( 'Overview', 'Section Title', 'ilove-pdf' ),
+            esc_html_x( 'Summary', 'Section Title', 'ilove-pdf' ),
             Compress_Overview::render(),
             Watermark_Overview::render(),
         );
