@@ -7,12 +7,20 @@
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
-	exit;
+    exit;
 }
 
 ?>
 <article class="ilovepdf-settings__main__account-info">
-    <h3><?php esc_html_e( 'The power of iLovePDF, built right into WordPress!', 'ilove-pdf' ); ?></h3>
-    <p><?php esc_html_e( 'Compress and watermark your PDFs directly in WordPress. Save space, speed up loading, and protect your content, all without leaving your site.', 'ilove-pdf' ); ?></p>
-    <p><?php esc_html_e( 'Enjoy 2500 free credits and start using iLovePDF directly from WordPress today!', 'ilove-pdf' ); ?></p>
+    <h3><?php esc_html_e( 'Easily optimize your PDFs in WordPress!', 'ilove-pdf' ); ?></h3>
+    <p>
+        <?php
+        esc_html_e(
+            'Make your site lighter and safer by compressing and watermarking PDFs. 
+    iLovePDF reduces file size and protects your documents, helping improve performance, security, and loading speed.',
+            'ilove-pdf'
+        );
+        ?>
+    </p>
+    <p><?php esc_html_e( 'Sign up and get 2,500 free credits to start optimizing with iLovePDF.', 'ilove-pdf' ); ?></p>
 </article>

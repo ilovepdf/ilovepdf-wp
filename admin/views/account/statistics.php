@@ -33,37 +33,37 @@ use Ilove_Pdf_WP\Account\User_Data;
         </div>
 
         <?php if ( User_Data::user_has( 'package' ) ) : ?>
-        <div class="ilovepdf__account-info-inner ilovepdf__account-prepaid">
-            <h5 class="ipdf-subtitle">
-                <?php echo esc_html_x( 'Packages.', 'subtitle package section', 'ilove-pdf' ); ?>
-            </h5>
-            <div class="ipdf-bar-progress">
-                <div style="width: <?php echo (float) User_Data::get_percent_credits_used( 'package' ); ?>%;"></div>
+            <div class="ilovepdf__account-info-inner ilovepdf__account-prepaid">
+                <h5 class="ipdf-subtitle">
+                    <?php echo esc_html_x( 'Packages.', 'subtitle package section', 'ilove-pdf' ); ?>
+                </h5>
+                <div class="ipdf-bar-progress">
+                    <div style="width: <?php echo (float) User_Data::get_percent_credits_used( 'package' ); ?>%;"></div>
+                </div>
+                <p>
+                    <?php echo esc_html( User_Data::get_readable_credits( 'package' ) ); ?>
+                </p>
             </div>
-            <p>
-                <?php echo esc_html( User_Data::get_readable_credits( 'package' ) ); ?>
-            </p>
-        </div>
         <?php endif; ?>
 
         <?php if ( User_Data::user_has( 'suscription' ) ) : ?>
-        <div class="ilovepdf__account-info-inner ilovepdf__account-suscription">
-            <h5 class="ipdf-subtitle">
-                <?php echo esc_html( User_Data::get_readable_suscription_type() ); ?>
-            </h5>
-            <div class="ipdf-bar-progress">
-                <div style="width: <?php echo (float) User_Data::get_percent_credits_used( 'suscription' ); ?>%;"></div>
+            <div class="ilovepdf__account-info-inner ilovepdf__account-suscription">
+                <h5 class="ipdf-subtitle">
+                    <?php echo esc_html( User_Data::get_readable_suscription_type() ); ?>
+                </h5>
+                <div class="ipdf-bar-progress">
+                    <div style="width: <?php echo (float) User_Data::get_percent_credits_used( 'suscription' ); ?>%;"></div>
+                </div>
+                <p>
+                    <?php echo esc_html( User_Data::get_readable_credits( 'suscription' ) ); ?>
+                </p>
             </div>
-            <p>
-                <?php echo esc_html( User_Data::get_readable_credits( 'suscription' ) ); ?>
-            </p>
-        </div>
         <?php endif; ?>
     </div>
 
     <div class="ilovepdf__account-details-wrapper ilovepdf-base__layout-flex-1">
         <p>
-            <?php esc_html_e( 'You get 2,500 free credits every month to process your files.', 'ilove-pdf' ); ?>
+            <?php esc_html_e( 'You get 2,500 free credits each month to process your files.', 'ilove-pdf' ); ?>
         </p>
         <p>
             <?php
