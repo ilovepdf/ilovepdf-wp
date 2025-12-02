@@ -12,12 +12,12 @@ btnClearBackup?.addEventListener('click', function (e) {
 
 	const currentTarget = e.currentTarget;
 	const titleDialog = _x(
-		'Are you sure you want to clear all backups?',
+		'Are you sure you want to delete all backups?',
 		'title dialog box',
 		'ilove-pdf'
 	);
 	const contentDialog = _x(
-		'This will delete all backups. Do you want to continue?',
+		'This will permanently delete all backups. Continue?',
 		'body content dialog box',
 		'ilove-pdf'
 	);
