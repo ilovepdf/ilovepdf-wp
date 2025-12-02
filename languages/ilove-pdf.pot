@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "POT-Creation-Date: 2025-02-10T12:04:09+00:00\n"
-"PO-Revision-Date: 2025-12-02T11:50:54+00:00\n"
+"PO-Revision-Date: 2025-12-02T12:56:35+00:00\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: ilove-pdf\n"
 
@@ -461,7 +461,7 @@ msgstr ""
 
 #: admin/Tools/Base/Form.php:35
 msgctxt "button link"
-msgid "Save"
+msgid "Save changes"
 msgstr ""
 
 #: admin/Tools/Base/Form.php:36
