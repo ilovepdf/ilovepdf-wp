@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "POT-Creation-Date: 2025-02-10T12:04:09+00:00\n"
-"PO-Revision-Date: 2025-11-28T14:21:22+00:00\n"
+"PO-Revision-Date: 2025-12-02T11:50:54+00:00\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: ilove-pdf\n"
 
@@ -55,15 +55,6 @@ msgstr ""
 #: admin/Account/User_Auth.php:184
 #: admin/Account/User_Auth.php:295
 #: admin/Account/User_Auth.php:351
-#: admin/Media/Files_List_Table.php:273
-#: admin/Tools/Backup.php:88
-#: admin/Tools/Backup.php:171
-#: admin/Tools/Backup.php:290
-#: admin/Tools/Compress/Settings.php:66
-#: admin/Tools/Compress/Tool_Compress.php:106
-#: admin/Tools/General/Settings.php:73
-#: admin/Tools/Watermark/Settings.php:75
-#: admin/Tools/Watermark/Tool_Watermark.php:81
 msgctxt "Error message, invalid nonce code."
 msgid "Couldn’t complete the request. Please refresh and try again."
 msgstr ""
@@ -328,6 +319,19 @@ msgstr ""
 #: admin/Tools/Watermark/Tool_Watermark.php:368
 msgctxt "Bulk action button"
 msgid "Apply Watermark"
+msgstr ""
+
+#: admin/Media/Files_List_Table.php:273
+#: admin/Tools/Backup.php:88
+#: admin/Tools/Backup.php:171
+#: admin/Tools/Backup.php:290
+#: admin/Tools/Compress/Settings.php:66
+#: admin/Tools/Compress/Tool_Compress.php:106
+#: admin/Tools/General/Settings.php:73
+#: admin/Tools/Watermark/Settings.php:75
+#: admin/Tools/Watermark/Tool_Watermark.php:81
+msgctxt "Error message, invalid nonce code."
+msgid "Couldn't complete the request. Please refresh and try again."
 msgstr ""
 
 #: admin/Media/Files_List_Table.php:290
@@ -866,7 +870,7 @@ msgstr ""
 
 #: admin/views/account/components/banner-info.php:18
 msgid ""
-"Make your site lighter and safer by compressing and watermarking PDFs. \r\n"
+"Make your site lighter and safer by compressing and watermarking PDFs. \n"
 "    iLovePDF reduces file size and protects your documents, helping improve performance, security, and loading speed."
 msgstr ""
 
@@ -931,12 +935,12 @@ msgstr ""
 
 #: assets/build/main.min.js:1
 msgctxt "title dialog box"
-msgid "Are you sure you want to clear all backups?"
+msgid "Are you sure you want to delete all backups?"
 msgstr ""
 
 #: assets/build/main.min.js:1
 msgctxt "body content dialog box"
-msgid "This will delete all backups. Do you want to continue?"
+msgid "This will permanently delete all backups. Continue?"
 msgstr ""
 
 #: assets/build/main.min.js:1
@@ -951,7 +955,7 @@ msgstr ""
 
 #: assets/build/main.min.js:1
 msgctxt "body content dialog box"
-msgid "This will undo all changes made to the files. Do you want to continue?"
+msgid "This will undo all changes. Do you want to continue?"
 msgstr ""
 
 #: assets/build/main.min.js:1
@@ -966,5 +970,5 @@ msgstr ""
 
 #: assets/build/main.min.js:1
 msgctxt "body content dialog box"
-msgid "This will undo all changes made to the file. Do you want to continue?"
+msgid "This will undo all changes to this file. Continue?"
 msgstr ""
