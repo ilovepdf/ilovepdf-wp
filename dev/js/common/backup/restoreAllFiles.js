@@ -17,7 +17,7 @@ btnRestoreAll?.addEventListener('click', function (e) {
 		'ilove-pdf'
 	);
 	const contentDialog = _x(
-		'This will undo all changes made to the files. Do you want to continue?',
+		'This will undo all changes. Do you want to continue?',
 		'body content dialog box',
 		'ilove-pdf'
 	);

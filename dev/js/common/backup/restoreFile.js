@@ -43,7 +43,7 @@ export const restoreFile = (btnTrigger) => {
 		'ilove-pdf'
 	);
 	const contentDialog = _x(
-		'This will undo all changes made to the file. Do you want to continue?',
+		'This will undo all changes to this file. Continue?',
 		'body content dialog box',
 		'ilove-pdf'
 	);
