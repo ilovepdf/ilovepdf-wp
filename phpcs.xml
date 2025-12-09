@@ -1,6 +1,7 @@
 <?xml version="1.0"?>
 <ruleset name="ilovepdf">
     <description>WordPress Config.</description>
+        <exclude-pattern>phpstan-bootstrap\.php</exclude-pattern>
         <rule ref="WordPress-Extra">
             <exclude name="Generic.Functions.CallTimePassByReference"/>
             <exclude name="Generic.WhiteSpace.DisallowSpaceIndent" />
