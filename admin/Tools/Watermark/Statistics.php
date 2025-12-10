@@ -91,21 +91,17 @@ class Statistics {
      */
     public static function get_resume() {
         $stats = self::compute_stats();
-        /* translators: %1$d: Total files, %2$d: Protected files */
-        $line_scaped_summary = esc_html_x( "Your files, summary:\nTotal files: %1\$d\nProtected files: %2\$d", 'Watermark Overview: Tool Resume.', 'ilove-pdf' );
-        $formatted_summary   = nl2br( $line_scaped_summary );
-        $allowed_tags        = array(
-            'br'   => array(),
-            'br/'  => array(),
-            'br /' => array(),
-        );
-        $output_html         = wp_kses( $formatted_summary, $allowed_tags );
 
-        return sprintf(
-            $output_html,
+        /* translators: %1$d: Total files, %2$d: Protected files */
+        $template = _x( "Your files, summary:\nTotal files: %1\$d\nProtected files: %2\$d", 'Watermark Overview: Tool Resume.', 'ilove-pdf' );
+
+        $summary = sprintf(
+            $template,
             $stats['total'],
             $stats['watermarked'],
         );
+
+        return nl2br( esc_html( $summary ) );
     }
 
     /**

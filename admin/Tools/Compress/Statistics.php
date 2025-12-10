@@ -137,20 +137,15 @@ class Statistics {
         $stats = self::compute_stats();
 
         /* translators: %1$s: Original size, %2$s: Compressed size */
-        $line_scaped_summary = esc_html_x( "Your files, summary:\nOriginal size: %1\$s\nAfter compression: %2\$s", 'Compress Overview: Tool Resume.', 'ilove-pdf' );
-        $formatted_summary   = nl2br( $line_scaped_summary );
-        $allowed_tags        = array(
-            'br'   => array(),
-            'br/'  => array(),
-            'br /' => array(),
-        );
-        $output_html         = wp_kses( $formatted_summary, $allowed_tags );
+        $template = _x( "Your files, summary:\nOriginal size: %1\$s\nAfter compression: %2\$s", 'Compress Overview: Tool Resume.', 'ilove-pdf' );
 
-        return sprintf(
-            $output_html,
+        $summary = sprintf(
+            $template,
             size_format( $stats['total_original_size'], 2 ),
             size_format( $stats['total_compressed_size'], 2 ),
         );
+
+        return nl2br( esc_html( $summary ) );
     }
 
     /**
