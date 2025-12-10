@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "POT-Creation-Date: 2025-02-10T12:04:09+00:00\n"
-"PO-Revision-Date: 2025-12-02T12:56:35+00:00\n"
+"PO-Revision-Date: 2025-12-10T15:10:14+00:00\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: ilove-pdf\n"
 
@@ -686,7 +686,7 @@ msgid "Clear backup"
 msgstr ""
 
 #. translators: %1$d: Total files, %2$d: Protected files
-#: admin/Tools/Watermark/Statistics.php:95
+#: admin/Tools/Watermark/Statistics.php:96
 #, php-format
 msgctxt "Watermark Overview: Tool Resume."
 msgid ""
