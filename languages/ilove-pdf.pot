@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "POT-Creation-Date: 2025-02-10T12:04:09+00:00\n"
-"PO-Revision-Date: 2025-12-10T15:10:14+00:00\n"
+"PO-Revision-Date: 2025-12-11T14:42:31+00:00\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: ilove-pdf\n"
 
@@ -829,29 +829,24 @@ msgctxt "input text: placeholder"
 msgid "Enter text for watermark"
 msgstr ""
 
-#: admin/Tools/Watermark/Views/Form_Options.php:612
+#: admin/Tools/Watermark/Views/Form_Options.php:611
 msgctxt "subtitle for watermark image mode"
 msgid "Watermark image"
 msgstr ""
 
-#: admin/Tools/Watermark/Views/Form_Options.php:613
+#: admin/Tools/Watermark/Views/Form_Options.php:612
 msgctxt "Help text for image stamp"
 msgid "Select an image stamp from Media or a URL. Then adjust its position, size, opacity, and rotation"
 msgstr ""
 
-#: admin/Tools/Watermark/Views/Form_Options.php:614
+#: admin/Tools/Watermark/Views/Form_Options.php:613
 msgctxt "button"
 msgid "Add Image"
 msgstr ""
 
-#: admin/Tools/Watermark/Views/Form_Options.php:615
-msgctxt "before text: add image button, after text: input image URL"
-msgid "or enter an URL"
-msgstr ""
-
-#: admin/Tools/Watermark/Views/Form_Options.php:618
+#: admin/Tools/Watermark/Views/Form_Options.php:616
 msgctxt "input text: placeholder"
-msgid "Enter image URL"
+msgid "or enter an image URL"
 msgstr ""
 
 #: admin/Tools/Watermark/Views/Overview.php:33
@@ -972,3 +967,4 @@ msgstr ""
 msgctxt "body content dialog box"
 msgid "This will undo all changes to this file. Continue?"
 msgstr ""
+
