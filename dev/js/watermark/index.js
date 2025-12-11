@@ -47,13 +47,14 @@ export const applyWatermark = (container, btnTrigger) => {
 	const btnCompress = container.querySelector('#ipdf-action-compress');
 	let isFileCompressed = false;
 
+	// Check if the compress button was already disabled BEFORE we disable it for loading
+	if (btnCompress && btnCompress.classList.contains('ipdf-btn--media-action-trigger')) {
+		isFileCompressed = true;
+	}
+
 	// If is loading disables the compress button
 	if (btnCompress && loading) {
 		btnCompress.classList.add('ipdf-btn--media-action-trigger');
-	}
-	// Check if the compress button was already disabled
-	if (btnCompress && btnCompress.classList.contains('ipdf-btn--media-action-trigger')) {
-		isFileCompressed = true;
 	}
 
 	const formData = getFormData(btnTrigger);
