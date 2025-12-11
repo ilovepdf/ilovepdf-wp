@@ -41,20 +41,20 @@ export const applyWatermark = (container, btnTrigger) => {
 		btnRestoreFile.classList.remove('ipdf-btn--media-action-restore-active');
 	}
 
+	const loading = container.querySelector('.ipdf-item-status-watermark-processing');
+	loading?.classList.add('ipdf-item-status-active');
+
 	const btnCompress = container.querySelector('#ipdf-action-compress');
 	let isFileCompressed = false;
 
+	// If is loading disables the compress button
+	if (btnCompress && loading) {
+		btnCompress.classList.add('ipdf-btn--media-action-trigger');
+	}
+	// Check if the compress button was already disabled
 	if (btnCompress && btnCompress.classList.contains('ipdf-btn--media-action-trigger')) {
 		isFileCompressed = true;
 	}
-
-	// Disable compress button if exists
-	if (btnCompress) {
-		btnCompress.classList.add('ipdf-btn--media-action-trigger');
-	}
-
-	const loading = container.querySelector('.ipdf-item-status-watermark-processing');
-	loading?.classList.add('ipdf-item-status-active');
 
 	const formData = getFormData(btnTrigger);
 
@@ -91,6 +91,7 @@ export const applyWatermark = (container, btnTrigger) => {
 
 			if (success) {
 				statusSuccess?.classList.add('ipdf-item-status-active');
+				btnTrigger.classList.add('ipdf-btn--media-action-trigger');
 
 				switch (typeof data) {
 					case 'string':

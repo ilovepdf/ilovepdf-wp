@@ -50,7 +50,7 @@ export const setResume = (resume) => {
 	);
 
 	if (elementResume) {
-		elementResume.textContent = resume;
+		elementResume.innerHTML = resume;
 	}
 };
 

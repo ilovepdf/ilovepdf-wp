@@ -78,22 +78,27 @@ export const restoreFile = (btnTrigger) => {
 			.then((response) => {
 				const { success, data } = response;
 
-				if (!success && typeof data === 'string') {
-					showAdminNotice(data, 'error');
+				loading?.classList.remove('ipdf-item-status-active');
+
+				if (!success) {
 					statusFail?.classList.add('ipdf-item-status-active');
 					btnTrigger.classList.add('ipdf-btn--media-action-restore-active');
-					loading?.classList.remove('ipdf-item-status-active');
+
+					if (typeof data === 'string') {
+						showAdminNotice(data, 'error');
+					} else if (typeof data === 'object' && data.message) {
+						showAdminNotice(data.message, 'error');
+					}
 				}
 
-				if (success && typeof data === 'string') {
-					showAdminNotice(data);
+				if (success) {
 					statusSuccess?.classList.add('ipdf-item-status-active');
 					btnTrigger.classList.remove('ipdf-btn--media-action-restore-active');
 					loading?.classList.remove('ipdf-item-status-active');
 
 					setTimeout(() => {
 						location.reload();
-					}, 3000);
+					}, 1000);
 				}
 
 				btnsToolsActionsActive.forEach((btn) => {
