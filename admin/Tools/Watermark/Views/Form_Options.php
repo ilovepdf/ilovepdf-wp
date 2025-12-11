@@ -587,7 +587,7 @@ class Form_Options extends Form {
         $value_mode_checked = self::value_mode_checked();
 
         return sprintf(
-            '<div class="ilovepdf_option-settings-item ilovepdf_option-settings-image %8$s">
+            '<div class="ilovepdf_option-settings-item ilovepdf_option-settings-image %7$s">
                 <h5>%1$s</h5>
                 <p>%2$s</p>
                 <button class="ipdf-btn--upload-file">
@@ -606,16 +606,14 @@ class Form_Options extends Form {
                     </div>
                     %3$s
                 </button>
-                <span>%4$s</span>
-                <input type="url" name="%5$s" id="%5$s_url" value="%6$s" placeholder="%7$s" />
+                <input type="url" name="%4$s" id="%4$s_url" value="%5$s" placeholder="%6$s" />
             </div>',
             esc_html_x( 'Watermark image', 'subtitle for watermark image mode', 'ilove-pdf' ),
             esc_html_x( 'Select an image stamp from Media or a URL. Then adjust its position, size, opacity, and rotation', 'Help text for image stamp', 'ilove-pdf' ),
             esc_html_x( 'Add Image', 'button', 'ilove-pdf' ),
-            esc_html_x( 'or enter an URL', 'before text: add image button, after text: input image URL', 'ilove-pdf' ),
             $db_key_mode_image,
             Settings::get_settings( $db_key_mode_image ),
-            esc_html_x( 'Enter image URL', 'input text: placeholder', 'ilove-pdf' ),
+            esc_html_x( 'or enter an image URL', 'input text: placeholder', 'ilove-pdf' ),
             Settings::get_mode_values( 'image' ) === $value_mode_checked ? 'ipdf-option-selected' : '',
         );
     }
