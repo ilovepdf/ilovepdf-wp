@@ -1,4 +1,4 @@
-import { _x } from '@wordpress/i18n';
+import { _x, sprintf } from '@wordpress/i18n';
 
 /**
  * Create the component for the dialog box.
@@ -17,15 +17,15 @@ export const createDialogComponent = (content, title, buttonActionText) => {
                 <p class="ilovepdf-content-dialog">${content}</p>
                 <div class="ilovepdf-btn-groups">
                     <button id="ilovepdf-dialog-aceptted" class="ipdf-btn ipdf-btn--primary">${_x(
-						buttonActionText,
-						'button dialog box',
-						'ilove-pdf'
-					)}</button>
+		buttonActionText,
+		'button dialog box',
+		'ilove-pdf'
+	)}</button>
                     <button id="ilovepdf-dialog-close" class="ipdf-btn ipdf-btn--secondary">${_x(
-						'Cancel',
-						'button dialog box',
-						'ilove-pdf'
-					)}</button>
+		'Cancel',
+		'button dialog box',
+		'ilove-pdf'
+	)}</button>
                 </div>
             </dialog>`;
 
