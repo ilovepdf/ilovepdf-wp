@@ -8,3 +8,7 @@ parameters:
 					- node_modules
 			analyse:
 					- vendor/ilovepdf
+	scanFiles:
+		- vendor/php-stubs/wordpress-stubs/wordpress-stubs.php
+	bootstrapFiles:
+		- phpstan-bootstrap.php

@@ -12,7 +12,7 @@
  * Description:       Compress and watermark your PDFs directly in WordPress. Save space, speed up loading, and protect your content all without leaving your site.
  * Version:           3.0.0
  * Requires at least: 5.3
- * Requires PHP:      7.4
+ * Requires PHP:      8.3
  * Author:            ILovePDF
  * Author URI:        https://ilovepdf.com/
  * License:           GPL-2.0+
