@@ -11,7 +11,7 @@
         }
     ],
     "require": {
-        "php": ">=8.3",
+        "php": ">=7.4",
         "ilovepdf/ilovepdf-php": "^1.2"
     },
     "require-dev": {
@@ -22,7 +22,7 @@
     },
     "config": {
         "platform": {
-            "php": "8.3"
+            "php": "7.4"
         },
         "allow-plugins": {
             "phpstan/extension-installer": true,

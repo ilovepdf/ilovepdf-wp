@@ -252,17 +252,18 @@ class Tool_Watermark {
 
             $wp_filesystem->move( $watermarked_file, $attachment_file, true );
 
-            $original_size   = '';
-            $compressed_size = '';
+            $original_size   = 0;
+            $compressed_size = 0;
 
             // When applying a watermark, the file may end up increasing in size than the original.
-            // If the file was compressed, we make sure to reapply the process to mitigate the increase in size.
+            // If the file was compressed, we preserve the original compression metadata.
             if ( Tool_Compress::is_file_compressed( $post_id ) ) {
-                $compress = new Tool_Compress();
-                delete_post_meta( $post_id, $compress->get_db_key_status() );
-                $file_compressed = $compress->compress_process( $post_id );
-                $original_size   = $file_compressed['data']['original_size'];
-                $compressed_size = $file_compressed['data']['compressed_size'];
+                // Get the existing compression metadata to preserve it
+                $compress_metadata = get_post_meta( $post_id, Tool_Compress::get_db_key_process(), true );
+                if ( ! empty( $compress_metadata ) && isset( $compress_metadata['original_size'] ) && isset( $compress_metadata['compressed_size'] ) ) {
+                    $original_size   = (int) $compress_metadata['original_size'];
+                    $compressed_size = (int) $compress_metadata['compressed_size'];
+                }
             } else {
                 Compress_Statistics::reset_statistics();
             }
@@ -295,8 +296,8 @@ class Tool_Watermark {
                         'average_reduction' => Compress_Statistics::get_average_reduction(),
                         'space_saved'       => Compress_Statistics::get_space_saved(),
                         'total_resume'      => Compress_Statistics::get_resume(),
-                        'original_size'     => size_format( $original_size, 2 ),
-                        'compressed_size'   => size_format( $compressed_size, 2 ),
+                        'original_size'     => $original_size,
+                        'compressed_size'   => $compressed_size,
                     ),
                 ),
             );
