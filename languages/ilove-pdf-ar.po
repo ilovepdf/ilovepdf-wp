@@ -1,0 +1,980 @@
+# Copyright (C) 2025 ILovePDF
+# This file is distributed under the GPL-2.0+.
+msgid ""
+msgstr ""
+"Project-Id-Version: f77715d6d2ed986a477e9b7ddb58a66c\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/ilovepdf\n"
+"Last-Translator: ilovepdf <info@ilovepdf.com>\n"
+"Language-Team: Arabic\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2025-02-10T12:04:09+00:00\n"
+"PO-Revision-Date: 2026-01-13 13:58\n"
+"X-Generator: WP-CLI 2.12.0\n"
+"X-Domain: ilove-pdf\n"
+"Plural-Forms: nplurals=6; plural=(n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5);\n"
+"X-Crowdin-Project: f77715d6d2ed986a477e9b7ddb58a66c\n"
+"X-Crowdin-Project-ID: 5\n"
+"X-Crowdin-Language: ar\n"
+"X-Crowdin-File: /Wordpress/ilove-pdf.pot\n"
+"X-Crowdin-File-ID: 1578\n"
+"Language: ar_SA\n"
+
+#. Plugin Name of the plugin
+#. Author of the plugin
+#: ilove-pdf.php
+msgid "iLovePDF"
+msgstr "iLovePDF"
+
+#. Plugin URI of the plugin
+#: ilove-pdf.php
+msgid "https://iloveapi.com/"
+msgstr "https://iloveapi.com/"
+
+#. Description of the plugin
+#: ilove-pdf.php
+msgid "Compress and watermark your PDFs directly in WordPress. Save space, speed up loading, and protect your content all without leaving your site."
+msgstr "ضغط ملفات PDF الخاصة بك ووضع علامة مائية عليها مباشرة في WordPress. حفظ المساحة، وتسريع التحميل، وحماية محتواك دون ترك موقعك."
+
+#. Author URI of the plugin
+#: ilove-pdf.php
+msgid "https://ilovepdf.com/"
+msgstr "https://ilovepdf.com/"
+
+#: admin/Account/User_Auth.php:51
+#: admin/Account/User_Auth.php:174
+#: admin/Account/User_Auth.php:285
+#: admin/Account/User_Auth.php:341
+#: admin/Account/User_Data.php:416
+#: admin/Tools/Compress/Settings.php:56
+#: admin/Tools/General/Settings.php:63
+#: admin/Tools/Watermark/Settings.php:65
+msgctxt "Error message, user without permissions."
+msgid "You do not have permission to edit these settings"
+msgstr "ليست لديك الصَّلاحية لتعديل هذه الإعدادات"
+
+#: admin/Account/User_Auth.php:61
+#: admin/Account/User_Auth.php:184
+#: admin/Account/User_Auth.php:295
+#: admin/Account/User_Auth.php:351
+msgctxt "Error message, invalid nonce code."
+msgid "Couldn’t complete the request. Please refresh and try again."
+msgstr "تعذر إكمال الطلب. يُرجى التحديث وإعادة المحاولة."
+
+#: admin/Account/User_Auth.php:71
+#: admin/Account/User_Auth.php:138
+msgctxt "Error message: account creation failed."
+msgid "Account creation failed. Please try again."
+msgstr "فشل إنشاء الحساب. يُرجى إعادة المحاولة."
+
+#: admin/Account/User_Auth.php:82
+#: admin/Account/User_Auth.php:205
+msgctxt "Form submission: Error message, invalid input field."
+msgid "Email required."
+msgstr "البريد الإلكتروني مطلوب."
+
+#: admin/Account/User_Auth.php:93
+#: admin/Account/User_Auth.php:216
+msgctxt "Form submission: Error message, invalid input field."
+msgid "Password required."
+msgstr "يلزم إدخال كلمة المرور."
+
+#: admin/Account/User_Auth.php:104
+msgctxt "Form submission: Error message, invalid input field."
+msgid "Name required"
+msgstr "الاسم مطلوب"
+
+#: admin/Account/User_Auth.php:155
+msgctxt "Form submission: Success message."
+msgid "User created successfully."
+msgstr "تم إنشاء المستخدم بنجاح."
+
+#: admin/Account/User_Auth.php:194
+msgctxt "Error message, login failed."
+msgid "Login failed. Please try again"
+msgstr "فشل تسجيل الدخول. يُرجى إعادة المحاولة"
+
+#: admin/Account/User_Auth.php:250
+msgctxt "Error message, login failed."
+msgid "There was a problem logging in. Please try again later."
+msgstr "حدثت مشكلة في تسجيل الدخول. يُرجى إعادة المحاولة لاحقًا."
+
+#: admin/Account/User_Auth.php:267
+msgctxt "Form submission: Success message."
+msgid "Logged in successfully."
+msgstr "تم تسجيل الدخول بنجاح."
+
+#: admin/Account/User_Auth.php:305
+msgctxt "Form submission: Error message, invalid action."
+msgid "Logout failed. Please try again."
+msgstr "فشل تسجيل الخروج. يُرجى إعادة المحاولة."
+
+#: admin/Account/User_Auth.php:324
+msgctxt "Form submission: Success message."
+msgid "Logged out successfully."
+msgstr "تم تسجيل الخروج بنجاح."
+
+#: admin/Account/User_Auth.php:361
+msgctxt "Error message."
+msgid "Could not change project. Please try again."
+msgstr "تعذر تغيير المشروع. يُرجى إعادة المحاولة."
+
+#: admin/Account/User_Auth.php:371
+msgctxt "Error message, invalid input field."
+msgid "Project field is required."
+msgstr "حقل المشروع مطلوب."
+
+#: admin/Account/User_Auth.php:385
+msgctxt "Form submission: Error message, invalid input field."
+msgid "The selected project is not valid."
+msgstr "المشروع المحدد غير صالح."
+
+#: admin/Account/User_Auth.php:402
+msgctxt "Form submission: Success message."
+msgid "Project changed successfully."
+msgstr "تغير المشروع بنجاح."
+
+#: admin/Account/User_Data.php:290
+#: admin/Account/User_Data.php:450
+msgctxt "User Account: Error message."
+msgid "Unable to fetch user data. Please try again."
+msgstr "تعذر جلب بيانات المستخدم. يُرجى إعادة المحاولة."
+
+#: admin/Account/User_Data.php:308
+msgctxt "User Account: Success message on migration."
+msgid "Account settings migrated successfully."
+msgstr "تم ترحيل إعدادات الحساب بنجاح."
+
+#: admin/Account/User_Data.php:378
+msgctxt "credits popup: title"
+msgid "You're out of credits!"
+msgstr "نفدت أرصدتك!"
+
+#: admin/Account/User_Data.php:379
+msgctxt "credits popup: content"
+msgid "Buy more credits to keep processing, or wait for your free credits to renew."
+msgstr "شراء المزيد من الأرصدة لمتابعة المعالجة، أو الانتظار حتى تجدد رصيدك المجاني."
+
+#: admin/Account/User_Data.php:380
+msgctxt "credits popup: button link"
+msgid "Buy credits"
+msgstr "شراء أرصدة"
+
+#: admin/Account/User_Data.php:381
+msgctxt "credits popup: button action"
+msgid "Cancel"
+msgstr "إلغاء"
+
+#. translators: %1$s: used credits, %2$s: total credits
+#: admin/Account/User_Statistics.php:25
+#: admin/Account/User_Statistics.php:34
+#: admin/Account/User_Statistics.php:43
+#, php-format
+msgid "%1$s / %2$s credits used this month."
+msgstr "تم استخدام رصيد %1$s من أصل %2$s هذا الشهر."
+
+#: admin/Account/User_Statistics.php:80
+msgctxt "subtitle suscription section"
+msgid "Monthly plan."
+msgstr "الخطة الشهرية."
+
+#: admin/Account/User_Statistics.php:84
+msgctxt "subtitle suscription section"
+msgid "Yearly plan."
+msgstr "الخطة السنوية."
+
+#: admin/Account/Views/Base/Form.php:26
+msgctxt "input placeholder"
+msgid "Email"
+msgstr "البريد الإلكتروني"
+
+#: admin/Account/Views/Base/Form.php:41
+msgctxt "input placeholder"
+msgid "Password"
+msgstr "كلمة المرور"
+
+#: admin/Account/Views/Form_Login.php:40
+msgctxt "form title"
+msgid "Log in to your account"
+msgstr "تسجيل الدخول إلى حسابك"
+
+#: admin/Account/Views/Form_Login.php:59
+msgctxt "button link"
+msgid "Forgot your password?"
+msgstr "هل نسيت كلمة المرور؟"
+
+#: admin/Account/Views/Form_Login.php:88
+msgctxt "button link"
+msgid "Create an iLoveAPI account"
+msgstr "إنشاء حساب iloveAPI"
+
+#: admin/Account/Views/Form_Login.php:107
+msgctxt "button link"
+msgid "Log in"
+msgstr "تسجيل الدخول"
+
+#: admin/Account/Views/Form_Logout.php:50
+msgctxt "button link"
+msgid "Log out"
+msgstr "تسجيل الخروج"
+
+#: admin/Account/Views/Form_Project.php:65
+msgctxt "Input Project Select label"
+msgid "Select project"
+msgstr "تحديد المشروع"
+
+#: admin/Account/Views/Form_Project.php:86
+msgctxt "Form change project: submit button"
+msgid "Change project"
+msgstr "تغيير المشروع"
+
+#: admin/Account/Views/Form_Register.php:40
+msgctxt "form title"
+msgid "Create an iLoveAPI account"
+msgstr "إنشاء حساب iloveAPI"
+
+#: admin/Account/Views/Form_Register.php:59
+msgctxt "input placeholder"
+msgid "Name"
+msgstr "الاسم"
+
+#: admin/Account/Views/Form_Register.php:87
+msgctxt "button link"
+msgid "Log in to your account"
+msgstr "تسجيل الدخول إلى حسابك"
+
+#: admin/Account/Views/Form_Register.php:106
+msgctxt "button link"
+msgid "Create account"
+msgstr "إنشاء حساب"
+
+#: admin/Helpers/File_System.php:187
+#: admin/Tools/Backup.php:93
+#: admin/Tools/Backup.php:166
+#: admin/Tools/Backup.php:285
+#: admin/Tools/Backup.php:340
+#: admin/Tools/Backup.php:387
+#: admin/Tools/Backup.php:433
+#: admin/Tools/Backup.php:463
+#: admin/Tools/Compress/Tool_Compress.php:183
+#: admin/Tools/Watermark/Tool_Watermark.php:161
+msgctxt "Error message: Unable to connect to the core WordPress function."
+msgid "Could not connect to the server."
+msgstr "لم يتم التمكّن من الاتصال بالسيرفر."
+
+#. translators: %1$s: File name.
+#: admin/Helpers/File_System.php:217
+#, php-format
+msgctxt "This happened during the migration process."
+msgid "File moved to new backup folder: %1$s"
+msgstr "تم نقل المِلَف إلى مجلد النسخ الاحتياطي الجديد: %1$s"
+
+#. translators: %1$s: File name.
+#: admin/Helpers/File_System.php:228
+#, php-format
+msgctxt "This happened during the migration process."
+msgid "Could not move file to backup folder: %1$s"
+msgstr "تعذر نقل المِلَف إلى مجلد النسخ الاحتياطي: %1$s"
+
+#: admin/Media/Files_List_Table.php:124
+msgctxt "File List Table: column name"
+msgid "File"
+msgstr "الملف"
+
+#: admin/Media/Files_List_Table.php:125
+msgctxt "File List Table: column name"
+msgid "Original"
+msgstr "مبتكرة"
+
+#: admin/Media/Files_List_Table.php:126
+msgctxt "File List Table: column name"
+msgid "Compressed"
+msgstr "مضغوط"
+
+#: admin/Media/Files_List_Table.php:127
+msgctxt "File List Table: column name"
+msgid "Author"
+msgstr "المُنشئ"
+
+#: admin/Media/Files_List_Table.php:128
+msgctxt "File List Table: column name"
+msgid "Upload Date"
+msgstr "تاريخ الرفع"
+
+#: admin/Media/Files_List_Table.php:129
+msgctxt "File List Table: column name"
+msgid "Status"
+msgstr "الحالة"
+
+#: admin/Media/Files_List_Table.php:130
+msgctxt "File List Table: column name"
+msgid "Actions"
+msgstr "الإجراءات"
+
+#: admin/Media/Files_List_Table.php:242
+#: admin/Tools/Compress/Tool_Compress.php:413
+msgctxt "Bulk action button"
+msgid "Compress PDF"
+msgstr "ضغط ملف PDF"
+
+#: admin/Media/Files_List_Table.php:243
+#: admin/Tools/Watermark/Tool_Watermark.php:369
+msgctxt "Bulk action button"
+msgid "Apply Watermark"
+msgstr "إضافة العلامة المائية"
+
+#: admin/Media/Files_List_Table.php:273
+#: admin/Tools/Backup.php:88
+#: admin/Tools/Backup.php:171
+#: admin/Tools/Backup.php:290
+#: admin/Tools/Compress/Settings.php:66
+#: admin/Tools/Compress/Tool_Compress.php:106
+#: admin/Tools/General/Settings.php:73
+#: admin/Tools/Watermark/Settings.php:75
+#: admin/Tools/Watermark/Tool_Watermark.php:81
+msgctxt "Error message, invalid nonce code."
+msgid "Couldn't complete the request. Please refresh and try again."
+msgstr "تعذر إكمال الطلب. يُرجى التحديث وإعادة المحاولة."
+
+#: admin/Media/Files_List_Table.php:290
+msgid "No files selected to compress."
+msgstr "لم يتم تحديد ملفات لضغطها."
+
+#: admin/Media/Files_List_Table.php:293
+msgid "No files selected to watermark."
+msgstr "لم يتم تحديد ملفات لوضع علامة مائية عليها."
+
+#: admin/Media/Views/Media_Overview.php:31
+msgctxt "Section Title"
+msgid "Summary"
+msgstr "ملخّص"
+
+#: admin/Submenu_Page.php:70
+#: admin/Submenu_Page.php:84
+#: admin/Submenu_Page.php:85
+msgctxt "Link element: This appears in the WordPress side menu."
+msgid "General Settings"
+msgstr "الإعدادات العامة"
+
+#: admin/Submenu_Page.php:97
+#: admin/Submenu_Page.php:98
+msgctxt "Link element: This appears in the WordPress side menu."
+msgid "Compress settings"
+msgstr "إعدادات الضغط"
+
+#: admin/Submenu_Page.php:110
+#: admin/Submenu_Page.php:111
+msgctxt "Link element: This appears in the WordPress side menu."
+msgid "Watermark settings"
+msgstr "إعدادات العلامة المائية"
+
+#: admin/Submenu_Page.php:201
+msgctxt "Link item: appears in the plugins list."
+msgid "General Settings"
+msgstr "الإعدادات العامة"
+
+#: admin/Submenu_Page.php:207
+msgctxt "Link item: appears in the plugins list."
+msgid "Compress Settings"
+msgstr "إعدادات الضغط"
+
+#: admin/Submenu_Page.php:213
+msgctxt "Link item: appears in the plugins list."
+msgid "Watermark Settings"
+msgstr "إعدادات العلامة المائية"
+
+#: admin/Submenu_Page.php:219
+msgctxt "Link item: appears in the plugins list."
+msgid "Media Optimization"
+msgstr "تحسين الوسائط"
+
+#: admin/Tools/Backup.php:98
+#: admin/Tools/Compress/Tool_Compress.php:110
+#: admin/Tools/Watermark/Tool_Watermark.php:85
+msgid "Could not process the request. Missing file ID."
+msgstr "تعذر معالجة الطلب. معرف المِلَف مفقود."
+
+#: admin/Tools/Backup.php:106
+msgid "No backup found for this file"
+msgstr "لم يتم العثور على نسخة احتياطية لهذا المِلَف"
+
+#. translators: %1$s: file name
+#: admin/Tools/Backup.php:132
+#: admin/Tools/Backup.php:256
+#, php-format
+msgid "File restored: %1$s"
+msgstr "تم استعادة المِلَف: %1$s"
+
+#. translators: %1$s: error message
+#: admin/Tools/Backup.php:141
+#, php-format
+msgid "Could not restore file: %1$s"
+msgstr "تعذر استعادة الملف: %1$s"
+
+#: admin/Tools/Backup.php:175
+#: admin/Tools/Backup.php:294
+msgid "No backup folder found."
+msgstr "لم يتم العثور على مجلد النسخ الاحتياطي."
+
+#: admin/Tools/Backup.php:181
+msgid "No files found."
+msgstr "لم يتم العثور على أي ملفات."
+
+#. translators: %1$s: file ID
+#: admin/Tools/Backup.php:196
+#, php-format
+msgid "Original file not found: %1$s"
+msgstr "لم يتم العثور على المِلَف الأصلي: %1$s"
+
+#. translators: %1$s: file ID
+#: admin/Tools/Backup.php:212
+#, php-format
+msgid "Backup file not found: %1$s"
+msgstr "لم يتم العثور على مِلَف النسخ الاحتياطي: %1$s"
+
+#: admin/Tools/Backup.php:315
+msgid "Backup folder deleted successfully"
+msgstr "تم حذف مجلد النسخ الاحتياطي بنجاح"
+
+#: admin/Tools/Backup.php:402
+msgid "Backup could not be created."
+msgstr "تعذر إنشاء النسخ الاحتياطي."
+
+#: admin/Tools/Base/Actions.php:37
+msgctxt "Error message: the file could not be processed."
+msgid "Something went wrong"
+msgstr "حدث خطأ ما"
+
+#: admin/Tools/Base/Actions.php:59
+#: assets/build/main.min.js:1
+msgctxt "button action"
+msgid "Restore"
+msgstr "استعادة"
+
+#: admin/Tools/Base/Actions.php:76
+msgctxt "Status process: Restoring file"
+msgid "Restoring file"
+msgstr "استعادة الملف"
+
+#: admin/Tools/Base/Actions.php:91
+msgctxt "Status process: file restored"
+msgid "file restored"
+msgstr "تمت استعادة المِلَف"
+
+#: admin/Tools/Base/Form.php:35
+msgctxt "button link"
+msgid "Save changes"
+msgstr "حفظ التغييرات"
+
+#: admin/Tools/Base/Form.php:36
+msgctxt "tooltip: Appears when the user is not logged in."
+msgid "Log in to save your settings"
+msgstr "سجّل الدخول لحفظ إعداداتك"
+
+#: admin/Tools/Compress/Settings.php:85
+#: admin/Tools/General/Settings.php:92
+#: admin/Tools/Watermark/Settings.php:94
+msgctxt "Form submission: Success message"
+msgid "Changes saved."
+msgstr "تم حفظ التغييرات."
+
+#. translators: %1$s: Original size, %2$s: Compressed size
+#: admin/Tools/Compress/Statistics.php:140
+#, php-format
+msgctxt "Compress Overview: Tool Resume."
+msgid "Your files, summary:\n"
+"Original size: %1$s\n"
+"After compression: %2$s"
+msgstr "ملفاتك، الموجز:\n"
+"الحجم الأصلي: %1$s\n"
+"بعد الضغط: %2$s"
+
+#. translators: %1$s Additional process error
+#: admin/Tools/Compress/Tool_Compress.php:125
+#, php-format
+msgctxt "Compress PDF: Error message."
+msgid "Could not compress file: %1$s"
+msgstr "تعذر ضغط الملف: %1$s"
+
+#. translators: %1$s The file name
+#: admin/Tools/Compress/Tool_Compress.php:151
+#, php-format
+msgctxt "Compress PDF: File already processed."
+msgid "File is already compressed: %1$s"
+msgstr "المِلَف مضغوط مسبقًا: %1$s"
+
+#: admin/Tools/Compress/Tool_Compress.php:165
+msgctxt "Compress PDF: Error message."
+msgid "Compress PDF is not enabled. Please check your settings."
+msgstr "ضغط ملف PDF غير مفعل. يُرجى التحقق من إعداداتك."
+
+#. translators: %1$s The file name
+#: admin/Tools/Compress/Tool_Compress.php:171
+#: admin/Tools/Watermark/Tool_Watermark.php:149
+#, php-format
+msgctxt "Error message."
+msgid "This is not a PDF file: %1$s"
+msgstr "هذا ليس ملف PDF: ‏%1$s"
+
+#: admin/Tools/Compress/Tool_Compress.php:192
+#: admin/Tools/Watermark/Tool_Watermark.php:170
+msgctxt "Auth: Error message."
+msgid "API key is missing. Please check your settings."
+msgstr "مفتاح API مفقود. يُرجى التحقق من إعداداتك."
+
+#. translators: %1$s The file name
+#: admin/Tools/Compress/Tool_Compress.php:226
+#: admin/Tools/Watermark/Tool_Watermark.php:246
+#, php-format
+msgctxt "Process Error"
+msgid "Temporary file not found: %1$s"
+msgstr "لم يتم العثور على المِلَف المؤقت: %1$s"
+
+#. translators: %1$s The file name
+#: admin/Tools/Compress/Tool_Compress.php:253
+#, php-format
+msgctxt "Compress PDF: Success message."
+msgid "File compressed successfully: %1$s"
+msgstr "تم ضغط الملف بنجاح: %1$s"
+
+#. translators: %1$s: compression percentage
+#: admin/Tools/Compress/Tool_Compress.php:317
+#: admin/Tools/Compress/Tool_Compress.php:331
+#, php-format
+msgctxt "Compress PDF: Compressed percentage."
+msgid "Compressed (%1$s%%)"
+msgstr "مضغوط (%1$s%%)"
+
+#: admin/Tools/Compress/Views/Actions.php:36
+msgctxt "Button action"
+msgid "Compress"
+msgstr "ضغط"
+
+#: admin/Tools/Compress/Views/Actions.php:36
+#: admin/Tools/Watermark/Views/Actions.php:32
+msgctxt "tooltip: Appears when the user is not logged in."
+msgid "Please log in or sign up to use the tool."
+msgstr "يُرجى تسجيل الدخول أو التسجيل لاستخدام الأداة."
+
+#: admin/Tools/Compress/Views/Actions.php:58
+msgctxt "Status: Not compressed"
+msgid "Not compressed"
+msgstr "غير مضغوط"
+
+#: admin/Tools/Compress/Views/Actions.php:75
+msgctxt "Status: Compressing"
+msgid "Compressing..."
+msgstr "جارٍ الضغط..."
+
+#: admin/Tools/Compress/Views/Form_Options.php:56
+msgctxt "form title"
+msgid "Compress Settings"
+msgstr "إعدادات الضغط"
+
+#: admin/Tools/Compress/Views/Form_Options.php:82
+msgctxt "checkbox field label"
+msgid "Compress enabled"
+msgstr "تم تمكين الضغط"
+
+#: admin/Tools/Compress/Views/Form_Options.php:83
+msgctxt "help text for checkbox field"
+msgid "Reduce the file size of your PDFs for easy sharing and storage."
+msgstr "قلل حجم ملفات PDF لتشاركها وتحفظها بسهولة."
+
+#: admin/Tools/Compress/Views/Form_Options.php:106
+msgctxt "checkbox field label"
+msgid "Automatically apply to uploaded files"
+msgstr "تطبيق تلقائي على الملفات المرفوعة"
+
+#: admin/Tools/Compress/Views/Form_Options.php:107
+msgctxt "help text for checkbox field"
+msgid "With auto-compression enabled, any file uploaded to the Media folder will be automatically compressed."
+msgstr "مع تمكين الضغط التلقائي، سيتم ضغط أي ملف تم رفعه إلى مجلد الوسائط تلقائيًا."
+
+#: admin/Tools/Compress/Views/Form_Options.php:147
+msgctxt "subtitle section"
+msgid "Compression level"
+msgstr "مستوى الضغط"
+
+#: admin/Tools/Compress/Views/Form_Options.php:148
+msgid "Choose a compression level. Recommended is selected by default."
+msgstr "اختر مستوى الضغط. يتم تحديد المستوى الموصى به افتراضيًا."
+
+#: admin/Tools/Compress/Views/Form_Options.php:151
+msgctxt "radio button field label"
+msgid "Extreme: High compression, less quality"
+msgstr "فائق: ضغط كبير، جودة أقل"
+
+#: admin/Tools/Compress/Views/Form_Options.php:153
+msgctxt "radio button field label"
+msgid "Recommended: Good compression, good quality"
+msgstr "موصى به: ضغط جيد، جودة جيدة"
+
+#: admin/Tools/Compress/Views/Form_Options.php:155
+msgctxt "radio button field label"
+msgid "Low: Less compression, high quality"
+msgstr "منخفض: ضغط أقل، جودة عالية"
+
+#: admin/Tools/Compress/Views/Overview.php:35
+msgctxt "Overview: tool title"
+msgid "Compress PDF"
+msgstr "ضغط ملف PDF"
+
+#: admin/Tools/Compress/Views/Overview.php:56
+msgctxt "Compress Overview: Files Processed"
+msgid "Files Processed"
+msgstr "الملفات المعالجَة"
+
+#: admin/Tools/Compress/Views/Overview.php:73
+msgctxt "Compress Overview: Average Reduction"
+msgid "Average Reduction"
+msgstr "متوسط تقليل الحجم"
+
+#: admin/Tools/Compress/Views/Overview.php:90
+msgctxt "Compress Overview: Total Space Saved"
+msgid "Total Space Saved"
+msgstr "إجمالي المساحة التي تم توفيرها"
+
+#: admin/Tools/General/Views/Form_Options.php:50
+msgctxt "form title"
+msgid "General Settings"
+msgstr "الإعدادات العامة"
+
+#. translators: %s: backup folder path
+#: admin/Tools/General/Views/Form_Options.php:73
+#, php-format
+msgid "Backups are stored at: %s"
+msgstr "يتم تخزين النسخ الاحتياطية في: %s"
+
+#: admin/Tools/General/Views/Form_Options.php:88
+msgctxt "checkbox field label"
+msgid "Back up original files"
+msgstr "النسخ الاحتياطي للملفات الأصلية"
+
+#: admin/Tools/General/Views/Form_Options.php:89
+msgid "Save a backup before processing so you can restore the original later. Uses server space."
+msgstr "احفظ نسخة احتياطية قبل المعالجة حتى تتمكن من استعادة النسخة الأصلية لاحقًا. يستخدم ذلك مساحة من الخادم."
+
+#. translators: %1$s and %2$s: html tags
+#: admin/Tools/General/Views/Form_Options.php:107
+#, php-format
+msgid "You can restore original files from backup. Restoring will return files to their state before any changes were made. %1$s Warning: This will remove all modifications applied using the tools. %2$s"
+msgstr "يمكنك استعادة الملفات الأصلية من النسخة الاحتياطية. استعادة الملفات سيعيدها إلى حالتها قبل إجراء أي تغييرات. %1$s تحذير: سيؤدي هذا إلى إزالة جميع التعديلات المطبقة باستخدام الأدوات. %2$s"
+
+#. translators: %1$s and %2$s: html tags
+#: admin/Tools/General/Views/Form_Options.php:116
+#, php-format
+msgid "You can delete all backup files to free up space. %1$s Warning: This will remove your ability to restore files. %2$s"
+msgstr "يمكنك حذف جميع ملفات النسخ الاحتياطي لتحرير المساحة. %1$s تحذير: سيؤدي هذا إلى إزالة قدرتك على استعادة الملفات. %2$s"
+
+#. translators: %s: backup size
+#: admin/Tools/General/Views/Form_Options.php:125
+#, php-format
+msgid "Backup size: %s"
+msgstr "حجم النسخ الاحتياطية: %s"
+
+#: admin/Tools/General/Views/Form_Options.php:141
+msgctxt "section title"
+msgid "Restore Backup Files"
+msgstr "استعادة ملفات النسخ الاحتياطي"
+
+#: admin/Tools/General/Views/Form_Options.php:161
+msgctxt "button"
+msgid "Restore all"
+msgstr "استعادة الكل"
+
+#: admin/Tools/General/Views/Form_Options.php:177
+msgctxt "button"
+msgid "Clear backup"
+msgstr "مسح النسخ الاحتياطية"
+
+#. translators: %1$d: Total files, %2$d: Protected files
+#: admin/Tools/Watermark/Statistics.php:96
+#, php-format
+msgctxt "Watermark Overview: Tool Resume."
+msgid "Your files, summary:\n"
+"Total files: %1$d\n"
+"Protected files: %2$d"
+msgstr "ملفاتك، الموجز:\n"
+"إجمالي الملفات: %1$d\n"
+"الملفات المحمية: %2$d"
+
+#. translators: %1$s Additional process error
+#: admin/Tools/Watermark/Tool_Watermark.php:100
+#, php-format
+msgctxt "Watermark PDF: Error message."
+msgid "Could not apply watermark: %1$s"
+msgstr "تعذر تطبيق العلامة المائية: %1$s"
+
+#. translators: %1$s The file name
+#: admin/Tools/Watermark/Tool_Watermark.php:129
+#, php-format
+msgctxt "Watermark PDF: Info message."
+msgid "File already watermarked: %1$s"
+msgstr "تم وضع علامة مائية على المِلَف:%1$s"
+
+#: admin/Tools/Watermark/Tool_Watermark.php:143
+msgctxt "Watermark PDF: Error message."
+msgid "Watermark is not enabled. Please check your settings."
+msgstr "وضع العلامة المائية غير مفعل. يُرجى التحقق من إعداداتك."
+
+#. translators: %1$s The file name
+#: admin/Tools/Watermark/Tool_Watermark.php:280
+#, php-format
+msgctxt "Watermark PDF: Success message."
+msgid "Watermark applied successfully: %1$s"
+msgstr "تم تطبيق العلامة المائية بنجاح: %1$s"
+
+#: admin/Tools/Watermark/Views/Actions.php:32
+msgctxt "Button action"
+msgid "Apply Watermark"
+msgstr "إضافة العلامة المائية"
+
+#: admin/Tools/Watermark/Views/Actions.php:55
+msgctxt "Status: No watermark applied"
+msgid "No watermark applied"
+msgstr "لم يتم تطبيق العلامة المائية"
+
+#: admin/Tools/Watermark/Views/Actions.php:73
+msgctxt "Status: Watermark applied"
+msgid "Watermark applied"
+msgstr "تم تطبيق العلامة المائية"
+
+#: admin/Tools/Watermark/Views/Actions.php:90
+msgctxt "Status: Applying watermark"
+msgid "Applying watermark..."
+msgstr "جارٍ تطبيق العلامة المائية..."
+
+#: admin/Tools/Watermark/Views/Form_Options.php:57
+msgctxt "form title"
+msgid "Watermark Settings"
+msgstr "إعدادات العلامة المائية"
+
+#: admin/Tools/Watermark/Views/Form_Options.php:82
+msgctxt "subtitle for watermark options section"
+msgid "Watermark preview"
+msgstr "معاينة العلامة المائية"
+
+#: admin/Tools/Watermark/Views/Form_Options.php:83
+msgctxt "Help text for the watermark options section"
+msgid "Use text or upload an image as your watermark."
+msgstr "استخدم نصًا أو حمّل صورة كعلامة مائية."
+
+#: admin/Tools/Watermark/Views/Form_Options.php:85
+msgctxt "Warning message: for family font selector."
+msgid "This font does not support bold or italic styles"
+msgstr "هذا الخط لا يدعم الأنماط العريضة أو المائلة"
+
+#: admin/Tools/Watermark/Views/Form_Options.php:217
+msgctxt "checkbox field label"
+msgid "Watermark enabled"
+msgstr "تم تمكين العلامة المائية"
+
+#: admin/Tools/Watermark/Views/Form_Options.php:218
+msgctxt "help text for checkbox field"
+msgid "Add a watermark to protect PDFs from unauthorized use."
+msgstr "إضافة علامة مائية لحماية ملفات PDF من الاستخدام غير المصرح به."
+
+#: admin/Tools/Watermark/Views/Form_Options.php:241
+msgctxt "checkbox field label"
+msgid "Automatically apply watermark to uploaded files"
+msgstr "تطبيق علامة مائية تلقائيًا على الملفات المرفوعة"
+
+#: admin/Tools/Watermark/Views/Form_Options.php:242
+msgid "Automatically stamp new Media uploads with your selected watermark. You can still apply it manually to other files."
+msgstr "خَتْم العلامة المائية تلقائيًا على ملفات الوسائط المرفوعة الجديدة. لا يزال يمكنك تطبيقها يدويًا على ملفات أخرى."
+
+#: admin/Tools/Watermark/Views/Form_Options.php:277
+msgctxt "radio button label"
+msgid "Use text"
+msgstr "استخدام نص"
+
+#: admin/Tools/Watermark/Views/Form_Options.php:280
+msgctxt "radio button label"
+msgid "Use image"
+msgstr "استخدام صورة"
+
+#: admin/Tools/Watermark/Views/Form_Options.php:319
+msgctxt "radio field label"
+msgid "Position"
+msgstr "الموقع"
+
+#: admin/Tools/Watermark/Views/Form_Options.php:349
+msgctxt "checkbox field label"
+msgid "Mosaic"
+msgstr "فسيفساء"
+
+#: admin/Tools/Watermark/Views/Form_Options.php:350
+msgid "If enabled, this overrides manual position settings to print image or text 9 times per page."
+msgstr "في حالة التمكين، يتجاوز هذا إعدادات الموضع اليدوي لطباعة الصورة أو النص 9 مرات لكل صفحة."
+
+#: admin/Tools/Watermark/Views/Form_Options.php:389
+msgctxt "radio button label"
+msgid "Above PDF content"
+msgstr "فوق محتوى PDF"
+
+#: admin/Tools/Watermark/Views/Form_Options.php:392
+msgctxt "radio button label"
+msgid "Below PDF content"
+msgstr "أسفل محتوى PDF"
+
+#: admin/Tools/Watermark/Views/Form_Options.php:421
+msgctxt "input range field label"
+msgid "Opacity"
+msgstr "العتامة"
+
+#: admin/Tools/Watermark/Views/Form_Options.php:451
+msgctxt "input range field label"
+msgid "Rotation"
+msgstr "التدوير"
+
+#: admin/Tools/Watermark/Views/Form_Options.php:472
+msgctxt "input text: placeholder"
+msgid "Enter text for watermark"
+msgstr "إدخال نص كعلامة مائية"
+
+#: admin/Tools/Watermark/Views/Form_Options.php:612
+msgctxt "subtitle for watermark image mode"
+msgid "Watermark image"
+msgstr "صورة العلامة المائية"
+
+#: admin/Tools/Watermark/Views/Form_Options.php:613
+msgctxt "Help text for image stamp"
+msgid "Select an image stamp from Media or a URL. Then adjust its position, size, opacity, and rotation"
+msgstr "تحديد خَتْم صورة من الوسائط أو عنوان URL. ثم عدل موقعه، وحجمه، وعتامته، وتدويره"
+
+#: admin/Tools/Watermark/Views/Form_Options.php:614
+msgctxt "button"
+msgid "Add Image"
+msgstr "إضافة صورة"
+
+#: admin/Tools/Watermark/Views/Form_Options.php:615
+msgctxt "before text: add image button, after text: input image URL"
+msgid "or enter an URL"
+msgstr "أو إدخال عنوان URL"
+
+#: admin/Tools/Watermark/Views/Form_Options.php:618
+msgctxt "input text: placeholder"
+msgid "Enter image URL"
+msgstr "أدخل رابط URL للصورة"
+
+#: admin/Tools/Watermark/Views/Overview.php:33
+msgctxt "Overview: tool title"
+msgid "Watermark PDF"
+msgstr "وضع علامة مائية على ملف PDF"
+
+#: admin/Tools/Watermark/Views/Overview.php:52
+msgctxt "Watermark Overview: Files protected"
+msgid "Files Protected"
+msgstr "الملفات المحمية"
+
+#: admin/views/account/components/banner-info.php:15
+msgid "Easily optimize your PDFs in WordPress!"
+msgstr "حسّن ملفاتك PDF بسهولة في WordPress!"
+
+#: admin/views/account/components/banner-info.php:18
+msgid "Make your site lighter and safer by compressing and watermarking PDFs. \n"
+"    iLovePDF reduces file size and protects your documents, helping improve performance, security, and loading speed."
+msgstr "اجعل موقعك أخف وأكثر أمانًا بضغط ملفات PDF ووضع العلامات المائية عليها. \n"
+"    يقلل iLovePDF  حجم الملفات ويحمي مستنداتك، مما يساعد على تحسين الأداء والأمان وسرعة التحميل."
+
+#: admin/views/account/components/banner-info.php:25
+msgid "Sign up and get 2,500 free credits to start optimizing with iLovePDF."
+msgstr "سجّل واحصل على 2500 رصيد مجاني لبدء التحسين باستخدام iLovePDF."
+
+#: admin/views/account/statistics.php:20
+msgctxt "title account statistics"
+msgid "Remaining Credits"
+msgstr "الأرصدة المتبقية"
+
+#: admin/views/account/statistics.php:25
+msgctxt "subtitle package section"
+msgid "Free."
+msgstr "مجانًا."
+
+#: admin/views/account/statistics.php:38
+msgctxt "subtitle package section"
+msgid "Packages."
+msgstr "الباقات."
+
+#: admin/views/account/statistics.php:66
+msgid "You get 2,500 free credits each month to process your files."
+msgstr "ستحصل على رصيد 2500 مجاني كل شهر لمعالجة ملفاتك."
+
+#. translators: %1$s and %2$s are HTML link tags.
+#: admin/views/account/statistics.php:73
+#, php-format
+msgid "Need more credits? %1$s Upgrade your plan %2$s or %1$s buy a credit package. %2$s"
+msgstr "هل تحتاج إلى المزيد من الأرصدة؟ %1$s قم بترقية خطتك %2$s أو %1$s اشتر باقة رصيد. %2$s"
+
+#: admin/views/account/statistics.php:81
+msgctxt "button link"
+msgid "Buy credits"
+msgstr "شراء أرصدة"
+
+#: admin/views/account/user.php:20
+msgctxt "title section"
+msgid "Account"
+msgstr "الحساب"
+
+#: admin/views/components/tab-menu.php:62
+msgctxt "link menu: appears inside iLovePDF settings"
+msgid "General settings"
+msgstr "الإعدادات العامة"
+
+#: admin/views/components/tab-menu.php:80
+msgctxt "link menu: appears inside iLovePDF settings"
+msgid "Compress settings"
+msgstr "إعدادات الضغط"
+
+#: admin/views/components/tab-menu.php:98
+msgctxt "link menu: appears inside iLovePDF settings"
+msgid "Watermark settings"
+msgstr "إعدادات العلامة المائية"
+
+#: assets/build/main.min.js:1
+msgctxt "button dialog box"
+msgid "Cancel"
+msgstr "إلغاء"
+
+#: assets/build/main.min.js:1
+msgctxt "title dialog box"
+msgid "Are you sure you want to delete all backups?"
+msgstr "هل أنت متأكد من أنك تريد حذف جميع النسخ الاحتياطية؟"
+
+#: assets/build/main.min.js:1
+msgctxt "body content dialog box"
+msgid "This will permanently delete all backups. Continue?"
+msgstr "سيؤدي هذا إلى حذف جميع النسخ الاحتياطية بشكل دائم. هل تريد المتابعة؟"
+
+#: assets/build/main.min.js:1
+msgctxt "button dialog box"
+msgid "Clear backups"
+msgstr "مسح النسخ الاحتياطية"
+
+#: assets/build/main.min.js:1
+msgctxt "title dialog box"
+msgid "Are you sure you want to restore all files?"
+msgstr "هل أنت متأكد من أنك تريد استعادة كل الملفات؟"
+
+#: assets/build/main.min.js:1
+msgctxt "body content dialog box"
+msgid "This will undo all changes. Do you want to continue?"
+msgstr "سيؤدي هذا إلى التراجع عن جميع التغييرات. هل تريد المتابعة؟"
+
+#: assets/build/main.min.js:1
+msgctxt "button dialog box"
+msgid "Restore files"
+msgstr "استعادة الملفات"
+
+#: assets/build/main.min.js:1
+msgctxt "body title dialog box"
+msgid "Are you sure you want to restore this file?"
+msgstr "هل أنت متأكد من أنك تريد استعادة هذا الملف؟"
+
+#: assets/build/main.min.js:1
+msgctxt "body content dialog box"
+msgid "This will undo all changes to this file. Continue?"
+msgstr "سيؤدي هذا إلى التراجع عن جميع التغييرات لهذا المِلَف. هل تريد المتابعة؟"
+
