@@ -258,7 +258,7 @@ class Tool_Watermark {
             // When applying a watermark, the file may end up increasing in size than the original.
             // If the file was compressed, we preserve the original compression metadata.
             if ( Tool_Compress::is_file_compressed( $post_id ) ) {
-                // Get the existing compression metadata to preserve it
+                // Get the existing compression metadata to preserve it.
                 $compress_metadata = get_post_meta( $post_id, Tool_Compress::get_db_key_process(), true );
                 if ( ! empty( $compress_metadata ) && isset( $compress_metadata['original_size'] ) && isset( $compress_metadata['compressed_size'] ) ) {
                     $original_size   = (int) $compress_metadata['original_size'];

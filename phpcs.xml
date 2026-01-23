@@ -32,5 +32,8 @@
         <rule ref="Squiz.Commenting.FileComment.Missing">
             <severity>0</severity>
         </rule>
+        <rule ref="Generic.Commenting.DocComment.ShortNotCapital">
+            <severity>0</severity>
+        </rule>
         <config name="minimum_wp_version" value="5.3"/>
 </ruleset>
