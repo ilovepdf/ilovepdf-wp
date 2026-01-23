@@ -1,6 +1,6 @@
 <?php
 /**
- * ilovePdf WordPress Plugin
+ * iLovePDF WordPress Plugin
  *
  * @link              https://ilovepdf.com/
  * @since             1.0.0
