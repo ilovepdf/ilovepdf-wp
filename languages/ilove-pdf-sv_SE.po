@@ -1,0 +1,980 @@
+# Copyright (C) 2025 ILovePDF
+# This file is distributed under the GPL-2.0+.
+msgid ""
+msgstr ""
+"Project-Id-Version: f77715d6d2ed986a477e9b7ddb58a66c\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/ilovepdf\n"
+"Last-Translator: ilovepdf <info@ilovepdf.com>\n"
+"Language-Team: Swedish\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2025-02-10T12:04:09+00:00\n"
+"PO-Revision-Date: 2026-01-13 13:58\n"
+"X-Generator: WP-CLI 2.12.0\n"
+"X-Domain: ilove-pdf\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Crowdin-Project: f77715d6d2ed986a477e9b7ddb58a66c\n"
+"X-Crowdin-Project-ID: 5\n"
+"X-Crowdin-Language: sv\n"
+"X-Crowdin-File: /Wordpress/ilove-pdf.pot\n"
+"X-Crowdin-File-ID: 1578\n"
+"Language: sv_SE\n"
+
+#. Plugin Name of the plugin
+#. Author of the plugin
+#: ilove-pdf.php
+msgid "iLovePDF"
+msgstr "iLovePDF"
+
+#. Plugin URI of the plugin
+#: ilove-pdf.php
+msgid "https://iloveapi.com/"
+msgstr "https://iloveapi.com/"
+
+#. Description of the plugin
+#: ilove-pdf.php
+msgid "Compress and watermark your PDFs directly in WordPress. Save space, speed up loading, and protect your content all without leaving your site."
+msgstr "Komprimera och vattenstämpla dina PDF-filer direkt i WordPress. Spara lagringsutrymme, snabba upp laddningstiderna och skydda ditt innehåll – allt utan att lämna din webbplats."
+
+#. Author URI of the plugin
+#: ilove-pdf.php
+msgid "https://ilovepdf.com/"
+msgstr "https://ilovepdf.com/"
+
+#: admin/Account/User_Auth.php:51
+#: admin/Account/User_Auth.php:174
+#: admin/Account/User_Auth.php:285
+#: admin/Account/User_Auth.php:341
+#: admin/Account/User_Data.php:416
+#: admin/Tools/Compress/Settings.php:56
+#: admin/Tools/General/Settings.php:63
+#: admin/Tools/Watermark/Settings.php:65
+msgctxt "Error message, user without permissions."
+msgid "You do not have permission to edit these settings"
+msgstr "Du har inte behörighet att ändra de här inställningarna"
+
+#: admin/Account/User_Auth.php:61
+#: admin/Account/User_Auth.php:184
+#: admin/Account/User_Auth.php:295
+#: admin/Account/User_Auth.php:351
+msgctxt "Error message, invalid nonce code."
+msgid "Couldn’t complete the request. Please refresh and try again."
+msgstr "Kunde inte slutföra begäran. Ladda om och försök igen."
+
+#: admin/Account/User_Auth.php:71
+#: admin/Account/User_Auth.php:138
+msgctxt "Error message: account creation failed."
+msgid "Account creation failed. Please try again."
+msgstr "Det gick inte att skapa kontot. Försök igen."
+
+#: admin/Account/User_Auth.php:82
+#: admin/Account/User_Auth.php:205
+msgctxt "Form submission: Error message, invalid input field."
+msgid "Email required."
+msgstr "E-post krävs."
+
+#: admin/Account/User_Auth.php:93
+#: admin/Account/User_Auth.php:216
+msgctxt "Form submission: Error message, invalid input field."
+msgid "Password required."
+msgstr "Lösenord krävs."
+
+#: admin/Account/User_Auth.php:104
+msgctxt "Form submission: Error message, invalid input field."
+msgid "Name required"
+msgstr "Namn krävs"
+
+#: admin/Account/User_Auth.php:155
+msgctxt "Form submission: Success message."
+msgid "User created successfully."
+msgstr "Användaren har skapats."
+
+#: admin/Account/User_Auth.php:194
+msgctxt "Error message, login failed."
+msgid "Login failed. Please try again"
+msgstr "Inloggningen misslyckades. Försök igen"
+
+#: admin/Account/User_Auth.php:250
+msgctxt "Error message, login failed."
+msgid "There was a problem logging in. Please try again later."
+msgstr "Det gick inte att logga in. Försök igen senare."
+
+#: admin/Account/User_Auth.php:267
+msgctxt "Form submission: Success message."
+msgid "Logged in successfully."
+msgstr "Du är inloggad."
+
+#: admin/Account/User_Auth.php:305
+msgctxt "Form submission: Error message, invalid action."
+msgid "Logout failed. Please try again."
+msgstr "Utloggningen misslyckades. Försök igen."
+
+#: admin/Account/User_Auth.php:324
+msgctxt "Form submission: Success message."
+msgid "Logged out successfully."
+msgstr "Du har loggats ut."
+
+#: admin/Account/User_Auth.php:361
+msgctxt "Error message."
+msgid "Could not change project. Please try again."
+msgstr "Kunde inte ändra projektet. Försök igen."
+
+#: admin/Account/User_Auth.php:371
+msgctxt "Error message, invalid input field."
+msgid "Project field is required."
+msgstr "Projektfältet krävs."
+
+#: admin/Account/User_Auth.php:385
+msgctxt "Form submission: Error message, invalid input field."
+msgid "The selected project is not valid."
+msgstr "Det valda projektet är inte giltigt."
+
+#: admin/Account/User_Auth.php:402
+msgctxt "Form submission: Success message."
+msgid "Project changed successfully."
+msgstr "Projektet har ändrats."
+
+#: admin/Account/User_Data.php:290
+#: admin/Account/User_Data.php:450
+msgctxt "User Account: Error message."
+msgid "Unable to fetch user data. Please try again."
+msgstr "Kunde inte hämta användardata. Försök igen."
+
+#: admin/Account/User_Data.php:308
+msgctxt "User Account: Success message on migration."
+msgid "Account settings migrated successfully."
+msgstr "Kontoinställningarna har migrerats."
+
+#: admin/Account/User_Data.php:378
+msgctxt "credits popup: title"
+msgid "You're out of credits!"
+msgstr "Du har slut på krediter!"
+
+#: admin/Account/User_Data.php:379
+msgctxt "credits popup: content"
+msgid "Buy more credits to keep processing, or wait for your free credits to renew."
+msgstr "Köp fler krediter för att fortsätta bearbeta eller vänta tills dina kostnadsfria krediter förnyas."
+
+#: admin/Account/User_Data.php:380
+msgctxt "credits popup: button link"
+msgid "Buy credits"
+msgstr "Köp krediter"
+
+#: admin/Account/User_Data.php:381
+msgctxt "credits popup: button action"
+msgid "Cancel"
+msgstr "Annullera"
+
+#. translators: %1$s: used credits, %2$s: total credits
+#: admin/Account/User_Statistics.php:25
+#: admin/Account/User_Statistics.php:34
+#: admin/Account/User_Statistics.php:43
+#, php-format
+msgid "%1$s / %2$s credits used this month."
+msgstr "%1$s/%2$s krediter använda den här månaden."
+
+#: admin/Account/User_Statistics.php:80
+msgctxt "subtitle suscription section"
+msgid "Monthly plan."
+msgstr "Månadsplan."
+
+#: admin/Account/User_Statistics.php:84
+msgctxt "subtitle suscription section"
+msgid "Yearly plan."
+msgstr "Årsplan."
+
+#: admin/Account/Views/Base/Form.php:26
+msgctxt "input placeholder"
+msgid "Email"
+msgstr "Email"
+
+#: admin/Account/Views/Base/Form.php:41
+msgctxt "input placeholder"
+msgid "Password"
+msgstr "Lösenord"
+
+#: admin/Account/Views/Form_Login.php:40
+msgctxt "form title"
+msgid "Log in to your account"
+msgstr "Logga in på ditt konto"
+
+#: admin/Account/Views/Form_Login.php:59
+msgctxt "button link"
+msgid "Forgot your password?"
+msgstr "Glömt ditt lösenord?"
+
+#: admin/Account/Views/Form_Login.php:88
+msgctxt "button link"
+msgid "Create an iLoveAPI account"
+msgstr "Skapa ett iLoveAPI-konto"
+
+#: admin/Account/Views/Form_Login.php:107
+msgctxt "button link"
+msgid "Log in"
+msgstr "Logga in"
+
+#: admin/Account/Views/Form_Logout.php:50
+msgctxt "button link"
+msgid "Log out"
+msgstr "Logga ut"
+
+#: admin/Account/Views/Form_Project.php:65
+msgctxt "Input Project Select label"
+msgid "Select project"
+msgstr "Välj projekt"
+
+#: admin/Account/Views/Form_Project.php:86
+msgctxt "Form change project: submit button"
+msgid "Change project"
+msgstr "Ändra projekt"
+
+#: admin/Account/Views/Form_Register.php:40
+msgctxt "form title"
+msgid "Create an iLoveAPI account"
+msgstr "Skapa ett iLoveAPI-konto"
+
+#: admin/Account/Views/Form_Register.php:59
+msgctxt "input placeholder"
+msgid "Name"
+msgstr "Namn"
+
+#: admin/Account/Views/Form_Register.php:87
+msgctxt "button link"
+msgid "Log in to your account"
+msgstr "Logga in på ditt konto"
+
+#: admin/Account/Views/Form_Register.php:106
+msgctxt "button link"
+msgid "Create account"
+msgstr "Skapa konto"
+
+#: admin/Helpers/File_System.php:187
+#: admin/Tools/Backup.php:93
+#: admin/Tools/Backup.php:166
+#: admin/Tools/Backup.php:285
+#: admin/Tools/Backup.php:340
+#: admin/Tools/Backup.php:387
+#: admin/Tools/Backup.php:433
+#: admin/Tools/Backup.php:463
+#: admin/Tools/Compress/Tool_Compress.php:183
+#: admin/Tools/Watermark/Tool_Watermark.php:161
+msgctxt "Error message: Unable to connect to the core WordPress function."
+msgid "Could not connect to the server."
+msgstr "Kunde inte ansluta till servern."
+
+#. translators: %1$s: File name.
+#: admin/Helpers/File_System.php:217
+#, php-format
+msgctxt "This happened during the migration process."
+msgid "File moved to new backup folder: %1$s"
+msgstr "Filen har flyttats till den nya säkerhetskopieringsmappen: %1$s"
+
+#. translators: %1$s: File name.
+#: admin/Helpers/File_System.php:228
+#, php-format
+msgctxt "This happened during the migration process."
+msgid "Could not move file to backup folder: %1$s"
+msgstr "Kunde inte flytta filen till säkerhetskopieringsmappen: %1$s"
+
+#: admin/Media/Files_List_Table.php:124
+msgctxt "File List Table: column name"
+msgid "File"
+msgstr "Fil"
+
+#: admin/Media/Files_List_Table.php:125
+msgctxt "File List Table: column name"
+msgid "Original"
+msgstr "Original"
+
+#: admin/Media/Files_List_Table.php:126
+msgctxt "File List Table: column name"
+msgid "Compressed"
+msgstr "Komprimerad"
+
+#: admin/Media/Files_List_Table.php:127
+msgctxt "File List Table: column name"
+msgid "Author"
+msgstr "Författare"
+
+#: admin/Media/Files_List_Table.php:128
+msgctxt "File List Table: column name"
+msgid "Upload Date"
+msgstr "Uppladdningsdatum"
+
+#: admin/Media/Files_List_Table.php:129
+msgctxt "File List Table: column name"
+msgid "Status"
+msgstr "Status"
+
+#: admin/Media/Files_List_Table.php:130
+msgctxt "File List Table: column name"
+msgid "Actions"
+msgstr "Åtgärder"
+
+#: admin/Media/Files_List_Table.php:242
+#: admin/Tools/Compress/Tool_Compress.php:413
+msgctxt "Bulk action button"
+msgid "Compress PDF"
+msgstr "Komprimera PDF"
+
+#: admin/Media/Files_List_Table.php:243
+#: admin/Tools/Watermark/Tool_Watermark.php:369
+msgctxt "Bulk action button"
+msgid "Apply Watermark"
+msgstr "Använd vattenstämpel"
+
+#: admin/Media/Files_List_Table.php:273
+#: admin/Tools/Backup.php:88
+#: admin/Tools/Backup.php:171
+#: admin/Tools/Backup.php:290
+#: admin/Tools/Compress/Settings.php:66
+#: admin/Tools/Compress/Tool_Compress.php:106
+#: admin/Tools/General/Settings.php:73
+#: admin/Tools/Watermark/Settings.php:75
+#: admin/Tools/Watermark/Tool_Watermark.php:81
+msgctxt "Error message, invalid nonce code."
+msgid "Couldn't complete the request. Please refresh and try again."
+msgstr "Kunde inte slutföra begäran. Ladda om och försök igen."
+
+#: admin/Media/Files_List_Table.php:290
+msgid "No files selected to compress."
+msgstr "Inga filer har valts för komprimering."
+
+#: admin/Media/Files_List_Table.php:293
+msgid "No files selected to watermark."
+msgstr "Inga filer har valts för vattenstämpling."
+
+#: admin/Media/Views/Media_Overview.php:31
+msgctxt "Section Title"
+msgid "Summary"
+msgstr "Summering"
+
+#: admin/Submenu_Page.php:70
+#: admin/Submenu_Page.php:84
+#: admin/Submenu_Page.php:85
+msgctxt "Link element: This appears in the WordPress side menu."
+msgid "General Settings"
+msgstr "Allmänna inställningar"
+
+#: admin/Submenu_Page.php:97
+#: admin/Submenu_Page.php:98
+msgctxt "Link element: This appears in the WordPress side menu."
+msgid "Compress settings"
+msgstr "Inställningar för komprimering"
+
+#: admin/Submenu_Page.php:110
+#: admin/Submenu_Page.php:111
+msgctxt "Link element: This appears in the WordPress side menu."
+msgid "Watermark settings"
+msgstr "Inställningar för vattenstämpel"
+
+#: admin/Submenu_Page.php:201
+msgctxt "Link item: appears in the plugins list."
+msgid "General Settings"
+msgstr "Allmänna inställningar"
+
+#: admin/Submenu_Page.php:207
+msgctxt "Link item: appears in the plugins list."
+msgid "Compress Settings"
+msgstr "Inställningar för komprimering"
+
+#: admin/Submenu_Page.php:213
+msgctxt "Link item: appears in the plugins list."
+msgid "Watermark Settings"
+msgstr "Inställningar för vattenstämpel"
+
+#: admin/Submenu_Page.php:219
+msgctxt "Link item: appears in the plugins list."
+msgid "Media Optimization"
+msgstr "Medieoptimering"
+
+#: admin/Tools/Backup.php:98
+#: admin/Tools/Compress/Tool_Compress.php:110
+#: admin/Tools/Watermark/Tool_Watermark.php:85
+msgid "Could not process the request. Missing file ID."
+msgstr "Kunde inte behandla begäran. Fil-ID saknas."
+
+#: admin/Tools/Backup.php:106
+msgid "No backup found for this file"
+msgstr "Ingen säkerhetskopia hittades för den här filen"
+
+#. translators: %1$s: file name
+#: admin/Tools/Backup.php:132
+#: admin/Tools/Backup.php:256
+#, php-format
+msgid "File restored: %1$s"
+msgstr "Filen har återställts: %1$s"
+
+#. translators: %1$s: error message
+#: admin/Tools/Backup.php:141
+#, php-format
+msgid "Could not restore file: %1$s"
+msgstr "Kunde inte återställa filen: %1$s"
+
+#: admin/Tools/Backup.php:175
+#: admin/Tools/Backup.php:294
+msgid "No backup folder found."
+msgstr "Ingen säkerhetskopieringsmapp hittades."
+
+#: admin/Tools/Backup.php:181
+msgid "No files found."
+msgstr "Inga filer hittades."
+
+#. translators: %1$s: file ID
+#: admin/Tools/Backup.php:196
+#, php-format
+msgid "Original file not found: %1$s"
+msgstr "Originalfilen hittades inte: %1$s"
+
+#. translators: %1$s: file ID
+#: admin/Tools/Backup.php:212
+#, php-format
+msgid "Backup file not found: %1$s"
+msgstr "Säkerhetskopian hittades inte: %1$s"
+
+#: admin/Tools/Backup.php:315
+msgid "Backup folder deleted successfully"
+msgstr "Säkerhetskopieringsmappen har tagits bort"
+
+#: admin/Tools/Backup.php:402
+msgid "Backup could not be created."
+msgstr "Det gick inte att skapa någon säkerhetskopia."
+
+#: admin/Tools/Base/Actions.php:37
+msgctxt "Error message: the file could not be processed."
+msgid "Something went wrong"
+msgstr "Något gick fel"
+
+#: admin/Tools/Base/Actions.php:59
+#: assets/build/main.min.js:1
+msgctxt "button action"
+msgid "Restore"
+msgstr "Återställ"
+
+#: admin/Tools/Base/Actions.php:76
+msgctxt "Status process: Restoring file"
+msgid "Restoring file"
+msgstr "Återställer filen"
+
+#: admin/Tools/Base/Actions.php:91
+msgctxt "Status process: file restored"
+msgid "file restored"
+msgstr "filen har återställts"
+
+#: admin/Tools/Base/Form.php:35
+msgctxt "button link"
+msgid "Save changes"
+msgstr "Spara ändringar"
+
+#: admin/Tools/Base/Form.php:36
+msgctxt "tooltip: Appears when the user is not logged in."
+msgid "Log in to save your settings"
+msgstr "Logga in för att spara dina inställningar"
+
+#: admin/Tools/Compress/Settings.php:85
+#: admin/Tools/General/Settings.php:92
+#: admin/Tools/Watermark/Settings.php:94
+msgctxt "Form submission: Success message"
+msgid "Changes saved."
+msgstr "Ändringarna sparade."
+
+#. translators: %1$s: Original size, %2$s: Compressed size
+#: admin/Tools/Compress/Statistics.php:140
+#, php-format
+msgctxt "Compress Overview: Tool Resume."
+msgid "Your files, summary:\n"
+"Original size: %1$s\n"
+"After compression: %2$s"
+msgstr "Dina filer, summering:\n"
+"Originalstorlek: %1$s\n"
+"Efter komprimering: %2$s"
+
+#. translators: %1$s Additional process error
+#: admin/Tools/Compress/Tool_Compress.php:125
+#, php-format
+msgctxt "Compress PDF: Error message."
+msgid "Could not compress file: %1$s"
+msgstr "Kunde inte komprimera filen: %1$s"
+
+#. translators: %1$s The file name
+#: admin/Tools/Compress/Tool_Compress.php:151
+#, php-format
+msgctxt "Compress PDF: File already processed."
+msgid "File is already compressed: %1$s"
+msgstr "Filen är redan komprimerad: %1$s%"
+
+#: admin/Tools/Compress/Tool_Compress.php:165
+msgctxt "Compress PDF: Error message."
+msgid "Compress PDF is not enabled. Please check your settings."
+msgstr "Komprimering av PDF är inte aktiverad. Kontrollera dina inställningar."
+
+#. translators: %1$s The file name
+#: admin/Tools/Compress/Tool_Compress.php:171
+#: admin/Tools/Watermark/Tool_Watermark.php:149
+#, php-format
+msgctxt "Error message."
+msgid "This is not a PDF file: %1$s"
+msgstr "Det här är inte en PDF-fil: %1$s"
+
+#: admin/Tools/Compress/Tool_Compress.php:192
+#: admin/Tools/Watermark/Tool_Watermark.php:170
+msgctxt "Auth: Error message."
+msgid "API key is missing. Please check your settings."
+msgstr "API-nyckeln saknas. Kontrollera dina inställningar."
+
+#. translators: %1$s The file name
+#: admin/Tools/Compress/Tool_Compress.php:226
+#: admin/Tools/Watermark/Tool_Watermark.php:246
+#, php-format
+msgctxt "Process Error"
+msgid "Temporary file not found: %1$s"
+msgstr "Den temporära filen hittades inte: %1$s"
+
+#. translators: %1$s The file name
+#: admin/Tools/Compress/Tool_Compress.php:253
+#, php-format
+msgctxt "Compress PDF: Success message."
+msgid "File compressed successfully: %1$s"
+msgstr "Filen har komprimerats: %1$s"
+
+#. translators: %1$s: compression percentage
+#: admin/Tools/Compress/Tool_Compress.php:317
+#: admin/Tools/Compress/Tool_Compress.php:331
+#, php-format
+msgctxt "Compress PDF: Compressed percentage."
+msgid "Compressed (%1$s%%)"
+msgstr "Komprimerad (%1$s%%)"
+
+#: admin/Tools/Compress/Views/Actions.php:36
+msgctxt "Button action"
+msgid "Compress"
+msgstr "Komprimera"
+
+#: admin/Tools/Compress/Views/Actions.php:36
+#: admin/Tools/Watermark/Views/Actions.php:32
+msgctxt "tooltip: Appears when the user is not logged in."
+msgid "Please log in or sign up to use the tool."
+msgstr "Logga in eller registrera dig för att använda verktyget."
+
+#: admin/Tools/Compress/Views/Actions.php:58
+msgctxt "Status: Not compressed"
+msgid "Not compressed"
+msgstr "Inte komprimerad"
+
+#: admin/Tools/Compress/Views/Actions.php:75
+msgctxt "Status: Compressing"
+msgid "Compressing..."
+msgstr "Komprimerar..."
+
+#: admin/Tools/Compress/Views/Form_Options.php:56
+msgctxt "form title"
+msgid "Compress Settings"
+msgstr "Inställningar för komprimering"
+
+#: admin/Tools/Compress/Views/Form_Options.php:82
+msgctxt "checkbox field label"
+msgid "Compress enabled"
+msgstr "Komprimering aktiverad"
+
+#: admin/Tools/Compress/Views/Form_Options.php:83
+msgctxt "help text for checkbox field"
+msgid "Reduce the file size of your PDFs for easy sharing and storage."
+msgstr "Minska dina PDF-doluments filstorlek för enkel delning och lagring."
+
+#: admin/Tools/Compress/Views/Form_Options.php:106
+msgctxt "checkbox field label"
+msgid "Automatically apply to uploaded files"
+msgstr "Tillämpa automatiskt på uppladdade filer"
+
+#: admin/Tools/Compress/Views/Form_Options.php:107
+msgctxt "help text for checkbox field"
+msgid "With auto-compression enabled, any file uploaded to the Media folder will be automatically compressed."
+msgstr "Med automatisk komprimering aktiverad kommer alla filer som laddas upp till mediamappen att komprimeras automatiskt."
+
+#: admin/Tools/Compress/Views/Form_Options.php:147
+msgctxt "subtitle section"
+msgid "Compression level"
+msgstr "Komprimeringsnivå"
+
+#: admin/Tools/Compress/Views/Form_Options.php:148
+msgid "Choose a compression level. Recommended is selected by default."
+msgstr "Välj en komprimeringsnivå. Rekommenderad är vald som standard."
+
+#: admin/Tools/Compress/Views/Form_Options.php:151
+msgctxt "radio button field label"
+msgid "Extreme: High compression, less quality"
+msgstr "Extrem: Hög komprimering, lägre kvalitet"
+
+#: admin/Tools/Compress/Views/Form_Options.php:153
+msgctxt "radio button field label"
+msgid "Recommended: Good compression, good quality"
+msgstr "Rekommenderad: Bra komprimering, bra kvalitet"
+
+#: admin/Tools/Compress/Views/Form_Options.php:155
+msgctxt "radio button field label"
+msgid "Low: Less compression, high quality"
+msgstr "Låg: Mindre komprimering, hög kvalitet"
+
+#: admin/Tools/Compress/Views/Overview.php:35
+msgctxt "Overview: tool title"
+msgid "Compress PDF"
+msgstr "Komprimera PDF"
+
+#: admin/Tools/Compress/Views/Overview.php:56
+msgctxt "Compress Overview: Files Processed"
+msgid "Files Processed"
+msgstr "bearbetade filer"
+
+#: admin/Tools/Compress/Views/Overview.php:73
+msgctxt "Compress Overview: Average Reduction"
+msgid "Average Reduction"
+msgstr "genomsnittlig minskning"
+
+#: admin/Tools/Compress/Views/Overview.php:90
+msgctxt "Compress Overview: Total Space Saved"
+msgid "Total Space Saved"
+msgstr "totalt sparat utrymme"
+
+#: admin/Tools/General/Views/Form_Options.php:50
+msgctxt "form title"
+msgid "General Settings"
+msgstr "Allmänna inställningar"
+
+#. translators: %s: backup folder path
+#: admin/Tools/General/Views/Form_Options.php:73
+#, php-format
+msgid "Backups are stored at: %s"
+msgstr "Säkerhetskopior lagras i: %s"
+
+#: admin/Tools/General/Views/Form_Options.php:88
+msgctxt "checkbox field label"
+msgid "Back up original files"
+msgstr "Säkerhetskopiera originalfiler"
+
+#: admin/Tools/General/Views/Form_Options.php:89
+msgid "Save a backup before processing so you can restore the original later. Uses server space."
+msgstr "Spara en säkerhetskopia innan du bearbetar den så att du kan återställa originalet senare. Använder serverutrymme."
+
+#. translators: %1$s and %2$s: html tags
+#: admin/Tools/General/Views/Form_Options.php:107
+#, php-format
+msgid "You can restore original files from backup. Restoring will return files to their state before any changes were made. %1$s Warning: This will remove all modifications applied using the tools. %2$s"
+msgstr "Du kan återställa originalfiler från säkerhetskopian. Återställning återför filerna till det skick de hade innan några ändringar gjordes. %1$s Varning: Detta tar bort alla ändringar som har gjorts med hjälp av verktygen. %2$s"
+
+#. translators: %1$s and %2$s: html tags
+#: admin/Tools/General/Views/Form_Options.php:116
+#, php-format
+msgid "You can delete all backup files to free up space. %1$s Warning: This will remove your ability to restore files. %2$s"
+msgstr "Du kan ta bort alla säkerhetskopior för att frigöra utrymme. %1$s Varning: Detta gör att du inte kan återställa filerna. %2$s"
+
+#. translators: %s: backup size
+#: admin/Tools/General/Views/Form_Options.php:125
+#, php-format
+msgid "Backup size: %s"
+msgstr "Säkerhetskopians storlek: %s"
+
+#: admin/Tools/General/Views/Form_Options.php:141
+msgctxt "section title"
+msgid "Restore Backup Files"
+msgstr "Återställ säkerhetskopior"
+
+#: admin/Tools/General/Views/Form_Options.php:161
+msgctxt "button"
+msgid "Restore all"
+msgstr "Återställ alla"
+
+#: admin/Tools/General/Views/Form_Options.php:177
+msgctxt "button"
+msgid "Clear backup"
+msgstr "Ta bort säkerhetskopiering"
+
+#. translators: %1$d: Total files, %2$d: Protected files
+#: admin/Tools/Watermark/Statistics.php:96
+#, php-format
+msgctxt "Watermark Overview: Tool Resume."
+msgid "Your files, summary:\n"
+"Total files: %1$d\n"
+"Protected files: %2$d"
+msgstr "Dina filer, sammanfattning:\n"
+"Totalt antal filer: %1$d\n"
+"Skyddade filer: %2$d"
+
+#. translators: %1$s Additional process error
+#: admin/Tools/Watermark/Tool_Watermark.php:100
+#, php-format
+msgctxt "Watermark PDF: Error message."
+msgid "Could not apply watermark: %1$s"
+msgstr "Kunde inte tillämpa vattenstämpel: %1$s"
+
+#. translators: %1$s The file name
+#: admin/Tools/Watermark/Tool_Watermark.php:129
+#, php-format
+msgctxt "Watermark PDF: Info message."
+msgid "File already watermarked: %1$s"
+msgstr "Filen är redan vattenstämplad: %1$s"
+
+#: admin/Tools/Watermark/Tool_Watermark.php:143
+msgctxt "Watermark PDF: Error message."
+msgid "Watermark is not enabled. Please check your settings."
+msgstr "Vattenstämpling är inte aktiverad. Kontrollera dina inställningar."
+
+#. translators: %1$s The file name
+#: admin/Tools/Watermark/Tool_Watermark.php:280
+#, php-format
+msgctxt "Watermark PDF: Success message."
+msgid "Watermark applied successfully: %1$s"
+msgstr "Vattenstämpel har tillämpats: %1$s"
+
+#: admin/Tools/Watermark/Views/Actions.php:32
+msgctxt "Button action"
+msgid "Apply Watermark"
+msgstr "Använd vattenstämpel"
+
+#: admin/Tools/Watermark/Views/Actions.php:55
+msgctxt "Status: No watermark applied"
+msgid "No watermark applied"
+msgstr "Ingen vattenstämpel har tillämpats"
+
+#: admin/Tools/Watermark/Views/Actions.php:73
+msgctxt "Status: Watermark applied"
+msgid "Watermark applied"
+msgstr "Vattenstämpel har tillämpats"
+
+#: admin/Tools/Watermark/Views/Actions.php:90
+msgctxt "Status: Applying watermark"
+msgid "Applying watermark..."
+msgstr "Tillämpar vattenstämpel..."
+
+#: admin/Tools/Watermark/Views/Form_Options.php:57
+msgctxt "form title"
+msgid "Watermark Settings"
+msgstr "Inställningar för vattenstämpel"
+
+#: admin/Tools/Watermark/Views/Form_Options.php:82
+msgctxt "subtitle for watermark options section"
+msgid "Watermark preview"
+msgstr "Förhandsvisning av vattenstämpel"
+
+#: admin/Tools/Watermark/Views/Form_Options.php:83
+msgctxt "Help text for the watermark options section"
+msgid "Use text or upload an image as your watermark."
+msgstr "Använd text eller ladda upp en bild som din vattenstämpel."
+
+#: admin/Tools/Watermark/Views/Form_Options.php:85
+msgctxt "Warning message: for family font selector."
+msgid "This font does not support bold or italic styles"
+msgstr "Det här teckensnittet stöder inte fet eller kursiv stil"
+
+#: admin/Tools/Watermark/Views/Form_Options.php:217
+msgctxt "checkbox field label"
+msgid "Watermark enabled"
+msgstr "Vattenstämpling aktiverad"
+
+#: admin/Tools/Watermark/Views/Form_Options.php:218
+msgctxt "help text for checkbox field"
+msgid "Add a watermark to protect PDFs from unauthorized use."
+msgstr "Lägg till en vattenstämpel för att skydda PDF-filer från obehörig användning."
+
+#: admin/Tools/Watermark/Views/Form_Options.php:241
+msgctxt "checkbox field label"
+msgid "Automatically apply watermark to uploaded files"
+msgstr "Tillämpa vattenstämpel automatiskt på uppladdade filer"
+
+#: admin/Tools/Watermark/Views/Form_Options.php:242
+msgid "Automatically stamp new Media uploads with your selected watermark. You can still apply it manually to other files."
+msgstr "Stämpla automatiskt nya medieuppladdningar med din valda vattenstämpel. Du kan fortfarande lägga till den manuellt på andra filer."
+
+#: admin/Tools/Watermark/Views/Form_Options.php:277
+msgctxt "radio button label"
+msgid "Use text"
+msgstr "Använd text"
+
+#: admin/Tools/Watermark/Views/Form_Options.php:280
+msgctxt "radio button label"
+msgid "Use image"
+msgstr "Använd bild"
+
+#: admin/Tools/Watermark/Views/Form_Options.php:319
+msgctxt "radio field label"
+msgid "Position"
+msgstr "Position"
+
+#: admin/Tools/Watermark/Views/Form_Options.php:349
+msgctxt "checkbox field label"
+msgid "Mosaic"
+msgstr "Mosaik"
+
+#: admin/Tools/Watermark/Views/Form_Options.php:350
+msgid "If enabled, this overrides manual position settings to print image or text 9 times per page."
+msgstr "Om detta är aktiverat åsidosätter det manuella positionsinställningar och skriver ut bild eller text 9 gånger per sida."
+
+#: admin/Tools/Watermark/Views/Form_Options.php:389
+msgctxt "radio button label"
+msgid "Above PDF content"
+msgstr "Ovanför PDF-innehållet"
+
+#: admin/Tools/Watermark/Views/Form_Options.php:392
+msgctxt "radio button label"
+msgid "Below PDF content"
+msgstr "Under PDF-innehållet"
+
+#: admin/Tools/Watermark/Views/Form_Options.php:421
+msgctxt "input range field label"
+msgid "Opacity"
+msgstr "Genomskinlighet"
+
+#: admin/Tools/Watermark/Views/Form_Options.php:451
+msgctxt "input range field label"
+msgid "Rotation"
+msgstr "Rotation"
+
+#: admin/Tools/Watermark/Views/Form_Options.php:472
+msgctxt "input text: placeholder"
+msgid "Enter text for watermark"
+msgstr "Ange text för vattenstämpel"
+
+#: admin/Tools/Watermark/Views/Form_Options.php:612
+msgctxt "subtitle for watermark image mode"
+msgid "Watermark image"
+msgstr "Vattenstämpelbild"
+
+#: admin/Tools/Watermark/Views/Form_Options.php:613
+msgctxt "Help text for image stamp"
+msgid "Select an image stamp from Media or a URL. Then adjust its position, size, opacity, and rotation"
+msgstr "Välj en bildstämpel från Media eller via en URL. Justera sedan dess position, storlek, genomskinlighet och rotation"
+
+#: admin/Tools/Watermark/Views/Form_Options.php:614
+msgctxt "button"
+msgid "Add Image"
+msgstr "Lägg till bild"
+
+#: admin/Tools/Watermark/Views/Form_Options.php:615
+msgctxt "before text: add image button, after text: input image URL"
+msgid "or enter an URL"
+msgstr "eller ange en URL"
+
+#: admin/Tools/Watermark/Views/Form_Options.php:618
+msgctxt "input text: placeholder"
+msgid "Enter image URL"
+msgstr "Ange bild-URL"
+
+#: admin/Tools/Watermark/Views/Overview.php:33
+msgctxt "Overview: tool title"
+msgid "Watermark PDF"
+msgstr "Vattenstämpla PDF"
+
+#: admin/Tools/Watermark/Views/Overview.php:52
+msgctxt "Watermark Overview: Files protected"
+msgid "Files Protected"
+msgstr "skyddade filer"
+
+#: admin/views/account/components/banner-info.php:15
+msgid "Easily optimize your PDFs in WordPress!"
+msgstr "Optimera dina PDF-filer enkelt i WordPress!"
+
+#: admin/views/account/components/banner-info.php:18
+msgid "Make your site lighter and safer by compressing and watermarking PDFs. \n"
+"    iLovePDF reduces file size and protects your documents, helping improve performance, security, and loading speed."
+msgstr "Gör din webbplats lättare och säkrare genom att komprimera och vattenstämpla PDF-filer. \n"
+"    iLovePDF minskar filstorleken och skyddar dina dokument, hjälper till att förbättra prestanda, säkerhet och laddningshastighet."
+
+#: admin/views/account/components/banner-info.php:25
+msgid "Sign up and get 2,500 free credits to start optimizing with iLovePDF."
+msgstr "Registrera dig och få 2 500 krediter gratis för att börja optimera med iLovePDF."
+
+#: admin/views/account/statistics.php:20
+msgctxt "title account statistics"
+msgid "Remaining Credits"
+msgstr "Återstående krediter"
+
+#: admin/views/account/statistics.php:25
+msgctxt "subtitle package section"
+msgid "Free."
+msgstr "Gratis."
+
+#: admin/views/account/statistics.php:38
+msgctxt "subtitle package section"
+msgid "Packages."
+msgstr "Paket."
+
+#: admin/views/account/statistics.php:66
+msgid "You get 2,500 free credits each month to process your files."
+msgstr "Du får 2 500 gratis krediter varje månad för att bearbeta dina filer."
+
+#. translators: %1$s and %2$s are HTML link tags.
+#: admin/views/account/statistics.php:73
+#, php-format
+msgid "Need more credits? %1$s Upgrade your plan %2$s or %1$s buy a credit package. %2$s"
+msgstr "Behöver du fler krediter? %1$s Uppgradera din prenumeration %2$s eller %1$s köp ett kreditpaket. %2$s"
+
+#: admin/views/account/statistics.php:81
+msgctxt "button link"
+msgid "Buy credits"
+msgstr "Köp krediter"
+
+#: admin/views/account/user.php:20
+msgctxt "title section"
+msgid "Account"
+msgstr "Konto"
+
+#: admin/views/components/tab-menu.php:62
+msgctxt "link menu: appears inside iLovePDF settings"
+msgid "General settings"
+msgstr "Allmänna inställningar"
+
+#: admin/views/components/tab-menu.php:80
+msgctxt "link menu: appears inside iLovePDF settings"
+msgid "Compress settings"
+msgstr "Inställningar för komprimering"
+
+#: admin/views/components/tab-menu.php:98
+msgctxt "link menu: appears inside iLovePDF settings"
+msgid "Watermark settings"
+msgstr "Inställningar för vattenstämpel"
+
+#: assets/build/main.min.js:1
+msgctxt "button dialog box"
+msgid "Cancel"
+msgstr "Annullera"
+
+#: assets/build/main.min.js:1
+msgctxt "title dialog box"
+msgid "Are you sure you want to delete all backups?"
+msgstr "Är du säker på att du vill radera alla säkerhetskopior?"
+
+#: assets/build/main.min.js:1
+msgctxt "body content dialog box"
+msgid "This will permanently delete all backups. Continue?"
+msgstr "Detta kommer att permanent radera alla säkerhetskopior. Vill du fortsätta?"
+
+#: assets/build/main.min.js:1
+msgctxt "button dialog box"
+msgid "Clear backups"
+msgstr "Ta bort säkerhetskopior"
+
+#: assets/build/main.min.js:1
+msgctxt "title dialog box"
+msgid "Are you sure you want to restore all files?"
+msgstr "Är du säker på att du vill återställa alla filer?"
+
+#: assets/build/main.min.js:1
+msgctxt "body content dialog box"
+msgid "This will undo all changes. Do you want to continue?"
+msgstr "Detta kommer att ångra alla ändringar. Vill du fortsätta?"
+
+#: assets/build/main.min.js:1
+msgctxt "button dialog box"
+msgid "Restore files"
+msgstr "Återställ filerna"
+
+#: assets/build/main.min.js:1
+msgctxt "body title dialog box"
+msgid "Are you sure you want to restore this file?"
+msgstr "Är du säker på att du vill återställa den här filen?"
+
+#: assets/build/main.min.js:1
+msgctxt "body content dialog box"
+msgid "This will undo all changes to this file. Continue?"
+msgstr "Detta kommer att ångra alla ändringar i den här filen. Vill du fortsätta?"
+

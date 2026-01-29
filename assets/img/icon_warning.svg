@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 52.6 (67491) - http://www.bohemiancoding.com/sketch -->
+    <title>alert</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Plugin-WP-iLoveIMG" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Account-and-Configure" transform="translate(-449.000000, -259.000000)" fill="#FFB900">
+            <path d="M459,259 C453.48,259 449,263.48 449,269 C449,274.52 453.48,279 459,279 C464.52,279 469,274.52 469,269 C469,263.48 464.52,259 459,259 L459,259 Z M460,274 L458,274 L458,272 L460,272 L460,274 L460,274 Z M460,270 L458,270 L458,264 L460,264 L460,270 L460,270 Z" id="alert"></path>
+        </g>
+    </g>
+</svg>

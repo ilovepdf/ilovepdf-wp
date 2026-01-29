@@ -1,0 +1,149 @@
+@use '../../variables' as *;
+@use '../../components/bars' as *;
+
+@mixin account {
+	.ilovepdf-settings__main__account {
+		.ilovepdf-settings__main__account-inner {
+			background-color: $white;
+			padding: 30px;
+			box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.1);
+			border-radius: 5px;
+			margin-bottom: 30px;
+
+			.ilovepdf-settings__main__account-common {
+				min-width: 100%;
+				padding: 0 10px;
+
+				.ilovepdf-form-elements {
+					margin: 12px 0;
+				}
+			}
+
+			&.ilovepdf-settings__main__account-user-logout {
+				.ilovepdf-banner-account {
+					overflow: hidden;
+					border-radius: 5px;
+
+					img {
+						width: 100%;
+						height: 100%;
+						object-fit: cover;
+					}
+				}
+			}
+
+			&.ilovepdf-settings__main__account-user-loggedin {
+				.ilovepdf__account-credits-section {
+					background-color: $light_color_300;
+					padding: 20px;
+					gap: 15px 80px;
+
+					.ilovepdf__account-info-inner {
+						margin: 0 0 30px 0;
+
+						.ipdf-subtitle {
+							font-size: 0.9rem;
+							margin: 0 0 0.5rem 0;
+						}
+
+						.ipdf-bar-progress {
+							@extend %bar-progress;
+						}
+
+						> p {
+							color: $secondary_color_500;
+							margin: 5px 0;
+						}
+					}
+
+					.ilovepdf__account-details-wrapper {
+						position: relative;
+
+						p {
+							margin: 0 0 10px 0;
+							font-size: 0.9rem;
+							color: $secondary_color;
+						}
+
+						.ipdf-btn {
+							margin: 15px 0 0 0;
+							position: relative;
+						}
+					}
+				}
+
+				.ilovepdf-settings__main__account-user-details {
+					.ilovepdf__account-logged-user-name {
+						margin: 0 0 3px 0;
+						color: $secondary_color;
+					}
+
+					.ilovepdf__account-logged-user-email {
+						margin: 0;
+						color: $primary_color;
+					}
+
+					.form-ilovepdf_user_logout {
+						margin: 15px 0 0 0;
+					}
+
+					.ilovepdf-form-elements {
+						margin: 0;
+						align-self: flex-end;
+					}
+
+					.ilovepdf__account-project-select {
+						label {
+							display: block;
+							margin: 0 0 10px 0;
+						}
+					}
+				}
+			}
+		}
+
+		.ilovepdf-settings__main__account-info {
+			margin: 5px 0 30px 0;
+			background-color: $primary_color;
+			padding: 30px;
+			border-radius: 5px;
+
+			h3,
+			p {
+				color: $white;
+			}
+
+			h3 {
+				font-size: 1.4rem;
+			}
+
+			p {
+				font-size: 1rem;
+			}
+		}
+
+		@media (min-width: 1440px) {
+			.ilovepdf-settings__main__account-inner {
+				.ilovepdf-settings__main__account-common {
+					min-width: 15%;
+				}
+
+				&.ilovepdf-settings__main__account-user-loggedin {
+					.ilovepdf__account-credits-section {
+						padding: 30px;
+
+						.ilovepdf__account-details-wrapper {
+							position: relative;
+
+							.ipdf-btn {
+								position: absolute;
+								right: 0;
+								bottom: 0;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}

@@ -1,0 +1,525 @@
+<?php
+
+namespace Ilove_Pdf_WP\Tools;
+
+use Exception;
+use Ilove_Pdf_WP\Helpers\DB_Handler;
+use Ilove_Pdf_WP\Helpers\File_System;
+use Ilove_Pdf_WP\Helpers\Admin_Notice;
+use Ilove_Pdf_WP\Helpers\Media_Handler;
+use Ilove_Pdf_WP\Tools\Compress\Tool_Compress;
+use Ilove_Pdf_WP\Tools\Watermark\Tool_Watermark;
+use Ilove_Pdf_WP\Tools\General\Settings as General_Settings;
+use Ilove_Pdf_WP\Tools\Compress\Statistics as Compress_Statistics;
+use Ilove_Pdf_WP\Tools\Watermark\Statistics as Watermark_Statistics;
+
+/**
+ * Handles backup and restoration of PDF files in the WordPress media library.
+ *
+ * @package Ilove_Pdf_WP\Tools
+ * @since 3.0.0
+ */
+class Backup {
+    /**
+     * Post meta key used to store individual attachment backups.
+     *
+     * @var string
+     * @since 3.0.0
+     */
+    private static $db_key_file_backup = '_ipdf_attachment_backup';
+
+    /**
+     * Option key used to store all attachments that have a backup available.
+     *
+     * @var string
+     * @since 3.0.0
+     */
+    private static $db_key_all_files_backup = 'ilovepdf_files_to_restore';
+
+    /**
+     * Legacy post meta key used to store individual attachment backups.
+     *
+     * This is used for migration purposes to ensure compatibility with older versions.
+     *
+     * @var string
+     * @since 3.0.0
+     */
+    private static $legacy_db_key_file_backup = '_wp_attached_file_backup';
+
+    /**
+     * Initializes AJAX actions related to file processing.
+     *
+     * @since 3.0.0
+     * @return void
+     */
+    public function __construct() {
+        add_action( 'wp_ajax_ilovepdf_restore_file', array( $this, 'restore_file' ) );
+        add_action( 'wp_ajax_ilovepdf_restore_all_files', array( $this, 'restore_all' ) );
+        add_action( 'wp_ajax_ilovepdf_clear_backup', array( $this, 'clear_backup' ) );
+
+        add_filter( 'delete_attachment', array( $this, 'handle_delete_file' ) );
+    }
+
+    /**
+     * Returns the database key for all files that have a backup available.
+     *
+     * @since 3.0.0
+     * @return string The database key for all files backup.
+     */
+    public static function get_db_key_all_files_backup() {
+        return self::$db_key_all_files_backup;
+    }
+
+    /**
+     * Restores a single file from the backup directory.
+     *
+     * Validates nonce and required POST data, then restores the file,
+     * updates media metadata, and cleans related post meta and backup references.
+     *
+     * @since 3.0.0
+     * @throws Exception If the file restoration fails.
+     */
+    public function restore_file() {
+        /** Filesystem @var \WP_Filesystem_Base $wp_filesystem */
+        global $wp_filesystem;
+
+        try {
+            if ( ! isset( $_POST['_wpnonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_wpnonce'] ) ), 'ilovepdf_restore_file' ) ) {
+				wp_send_json_error( _x( 'Couldn\'t complete the request. Please refresh and try again.', 'Error message, invalid nonce code.', 'ilove-pdf' ), 401 );
+			}
+
+            if ( ! WP_Filesystem() ) {
+                throw new Exception(
+                    esc_html_x( 'Could not connect to the server.', 'Error message: Unable to connect to the core WordPress function.', 'ilove-pdf' )
+                );
+			}
+
+			if ( ! isset( $_POST['post_id'] ) ) {
+				wp_send_json_error( __( 'Could not process the request. Missing file ID.', 'ilove-pdf' ), 400 );
+			}
+
+			$attachment_id = intval( $_POST['post_id'] );
+			$files_restore = DB_Handler::get_option( self::$db_key_all_files_backup, array() );
+			$key_founded   = array_search( $attachment_id, $files_restore, true );
+
+			if ( false === $key_founded ) {
+				wp_send_json_error( __( 'No backup found for this file', 'ilove-pdf' ), 404 );
+			}
+
+			$attached_file    = get_attached_file( $attachment_id );
+			$file_name        = basename( $attached_file );
+			$file_backup_path = File_System::get_full_path_backup_folder() . $file_name;
+
+			$wp_filesystem->copy( $file_backup_path, $attached_file, true );
+
+			Media_Handler::regenerate_attachment_data( $attachment_id );
+
+			delete_post_meta( $attachment_id, Tool_Watermark::get_db_key_status() );
+			delete_post_meta( $attachment_id, Tool_Compress::get_db_key_status() );
+			delete_post_meta( $attachment_id, Tool_Compress::get_db_key_process() );
+			delete_post_meta( $attachment_id, self::$db_key_file_backup );
+
+            unset( $files_restore[ $key_founded ] );
+            wp_delete_file( $file_backup_path );
+            DB_Handler::update_option( self::$db_key_all_files_backup, $files_restore );
+
+            Compress_Statistics::reset_statistics();
+            Watermark_Statistics::reset_statistics();
+
+			wp_send_json_success(
+                sprintf(
+                    /* translators: %1$s: file name */
+                    __( 'File restored: %1$s', 'ilove-pdf' ),
+                    $file_name,
+                ),
+                200
+			);
+        } catch ( Exception $e ) {
+            wp_send_json_error(
+                sprintf(
+                    /* translators: %1$s: error message */
+                    __( 'Could not restore file: %1$s', 'ilove-pdf' ),
+                    $e->getMessage(),
+                ),
+                $e->getCode(),
+            );
+        }
+    }
+
+    /**
+     * Restores all files listed in the backup directory.
+     *
+     * Iterates through all saved file IDs, restores each if possible,
+     * and returns a success or error JSON response.
+     *
+     * @since 3.0.0
+     * @throws Exception If unable to connect to the filesystem.
+     */
+    public function restore_all() {
+
+        /** Filesystem @var \WP_Filesystem_Base $wp_filesystem */
+        global $wp_filesystem;
+
+        try {
+			if ( ! WP_Filesystem() ) {
+                throw new Exception(
+                    esc_html_x( 'Could not connect to the server.', 'Error message: Unable to connect to the core WordPress function.', 'ilove-pdf' )
+                );
+			}
+
+			if ( ! isset( $_POST['_wpnonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_wpnonce'] ) ) ) ) {
+				wp_send_json_error( _x( 'Couldn\'t complete the request. Please refresh and try again.', 'Error message, invalid nonce code.', 'ilove-pdf' ), 401 );
+			}
+
+			if ( ! $wp_filesystem->exists( File_System::get_full_path_backup_folder() ) ) {
+				wp_send_json_error( __( 'No backup folder found.', 'ilove-pdf' ), 404 );
+			}
+
+			$files_restore = DB_Handler::get_option( self::$db_key_all_files_backup, array() );
+
+			if ( empty( $files_restore ) ) {
+				wp_send_json_error( __( 'No files found.', 'ilove-pdf' ), 404 );
+			}
+
+			$files_restored = array();
+			$files_errors   = array();
+
+			foreach ( $files_restore as $key => $value ) {
+
+				$attached_file = get_attached_file( $value );
+
+				if ( ! $attached_file ) {
+					$files_errors[] = array(
+						'id'      => $value,
+						'message' => sprintf(
+                            /* translators: %1$s: file ID */
+							__( 'Original file not found: %1$s', 'ilove-pdf' ),
+							$value
+						),
+					);
+
+					continue;
+				}
+
+				$file_name        = basename( $attached_file );
+				$file_backup_path = File_System::get_full_path_backup_folder() . $file_name;
+
+				if ( ! file_exists( $file_backup_path ) ) {
+					$files_errors[] = array(
+						'id'      => $value,
+						'message' => sprintf(
+                            /* translators: %1$s: file ID */
+							__( 'Backup file not found: %1$s', 'ilove-pdf' ),
+							$value
+						),
+					);
+
+					continue;
+				}
+
+				copy( $file_backup_path, $attached_file );
+
+				Media_Handler::regenerate_attachment_data( $value );
+
+				delete_post_meta( $value, Tool_Watermark::get_db_key_status() );
+				delete_post_meta( $value, Tool_Compress::get_db_key_status() );
+				delete_post_meta( $value, Tool_Compress::get_db_key_process() );
+				delete_post_meta( $value, self::$db_key_file_backup );
+
+				wp_delete_file( $file_backup_path );
+				unset( $files_restore[ $key ] );
+				DB_Handler::update_option( self::$db_key_all_files_backup, $files_restore );
+
+				$files_restored[] = $file_name;
+			}
+
+			if ( empty( $files_restored ) && ! empty( $files_errors ) ) {
+				wp_send_json_error(
+                    array(
+						'data'   => array(
+							'files_errors' => $files_errors,
+						),
+						'succes' => false,
+                    ),
+                    404
+				);
+			}
+
+            Compress_Statistics::reset_statistics();
+            Watermark_Statistics::reset_statistics();
+
+			wp_send_json(
+                array(
+					'data'    => array(
+						'files_restored' => sprintf(
+                            /* translators: %1$s: file name */
+							__( 'File restored: %1$s', 'ilove-pdf' ),
+							implode( ', ', $files_restored )
+						),
+						'files_errors'   => count( $files_errors ) ? $files_errors : false,
+					),
+					'success' => true,
+                ),
+                200
+			);
+
+        } catch ( Exception $e ) {
+            wp_send_json_error( $e->getMessage(), $e->getCode() );
+        }
+    }
+
+    /**
+     * Clears the entire backup directory and its corresponding database entries.
+     *
+     * @since 3.0.0
+     * @throws Exception If unable to connect to the filesystem.
+     */
+    public function clear_backup() {
+
+        try {
+            /** Filesystem @var \WP_Filesystem_Base $wp_filesystem */
+            global $wp_filesystem;
+
+            if ( ! WP_Filesystem() ) {
+                throw new Exception(
+                    esc_html_x( 'Could not connect to the server.', 'Error message: Unable to connect to the core WordPress function.', 'ilove-pdf' )
+                );
+            }
+
+            if ( ! isset( $_POST['_wpnonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_wpnonce'] ) ) ) ) {
+                wp_send_json_error( _x( 'Couldn\'t complete the request. Please refresh and try again.', 'Error message, invalid nonce code.', 'ilove-pdf' ), 401 );
+            }
+
+            if ( ! $wp_filesystem->exists( File_System::get_full_path_backup_folder() ) ) {
+                wp_send_json_error( __( 'No backup folder found.', 'ilove-pdf' ), 404 );
+            }
+
+            $files_backup = DB_Handler::get_option( self::$db_key_all_files_backup, array() );
+
+            if ( ! empty( $files_backup ) ) {
+                foreach ( $files_backup as $file_id ) {
+                    $attached_file = get_attached_file( $file_id );
+
+                    if ( $attached_file ) {
+                        delete_post_meta( $file_id, self::$db_key_file_backup );
+                    }
+                }
+            }
+
+            $wp_filesystem->rmdir( File_System::get_full_path_backup_folder(), true );
+            DB_Handler::delete_option( self::$db_key_all_files_backup );
+
+            Compress_Statistics::reset_statistics();
+            Watermark_Statistics::reset_statistics();
+
+            wp_send_json_success( __( 'Backup folder deleted successfully', 'ilove-pdf' ), 200 );
+
+        } catch ( Exception $e ) {
+            wp_send_json_error( $e->getMessage(), $e->getCode() );
+        }
+    }
+
+    /**
+     * Handles cleanup when a PDF attachment is deleted from the Media Library.
+     *
+     * If a matching backup file exists, it is removed from the backup folder.
+     * Also clears related post meta and updates the backup list if needed.
+     *
+     * @since 1.0.0
+     * @param int $attachment_id The ID of the attachment being deleted.
+     * @throws Exception If unable to connect to the filesystem.
+     */
+    public function handle_delete_file( $attachment_id ) {
+        if ( get_post_mime_type( $attachment_id ) === 'application/pdf' ) {
+
+            /** Filesystem @var \WP_Filesystem_Base $wp_filesystem */
+            global $wp_filesystem;
+
+            if ( ! WP_Filesystem() ) {
+                Admin_Notice::add_notice(
+                    esc_html_x( 'Could not connect to the server.', 'Error message: Unable to connect to the core WordPress function.', 'ilove-pdf' ),
+                    'error',
+                );
+
+                return;
+            }
+
+            $file_name     = basename( get_attached_file( $attachment_id ) );
+            $files_restore = DB_Handler::get_option( self::$db_key_all_files_backup, array() );
+            $key_founded   = array_search( $attachment_id, $files_restore, true );
+
+            delete_post_meta( $attachment_id, self::$db_key_file_backup );
+            delete_post_meta( $attachment_id, Tool_Compress::get_db_key_status() );
+            delete_post_meta( $attachment_id, Tool_Compress::get_db_key_process() );
+            delete_post_meta( $attachment_id, Tool_Watermark::get_db_key_status() );
+
+            if ( $wp_filesystem->exists( File_System::get_full_path_backup_folder() . $file_name ) ) {
+                wp_delete_file( File_System::get_full_path_backup_folder() . $file_name );
+
+                if ( false !== $key_founded ) {
+                    unset( $files_restore[ $key_founded ] );
+                    DB_Handler::update_option( self::$db_key_all_files_backup, $files_restore );
+                }
+            }
+
+            Compress_Statistics::reset_statistics();
+            Watermark_Statistics::reset_statistics();
+        }
+    }
+
+    /**
+     * Adds a file to the backup list and creates a backup copy if the backup feature is enabled.
+     *
+     * @since 3.0.0
+     * @param int    $file_id The ID of the file to be backed up.
+     * @param string $file_path The path to the file to be backed up.
+     * @throws Exception If unable to connect to the filesystem or if backup creation fails.
+     */
+    public static function add_file( $file_id, $file_path ) {
+        /** Filesystem @var \WP_Filesystem_Base $wp_filesystem */
+        global $wp_filesystem;
+
+        $is_backup_activated = General_Settings::get_general_settings( General_Settings::get_field_backup() );
+
+        if ( $is_backup_activated && ! self::is_file_backup( $file_id ) ) {
+            if ( ! WP_Filesystem() ) {
+                throw new Exception(
+                    esc_html_x( 'Could not connect to the server.', 'Error message: Unable to connect to the core WordPress function.', 'ilove-pdf' )
+                );
+            }
+
+            $files_restore = DB_Handler::get_option( self::$db_key_all_files_backup, array() );
+            $backup_folder = File_System::get_full_path_backup_folder();
+
+            if ( ! $wp_filesystem->exists( $backup_folder ) ) {
+                File_System::create_ilovepdf_directories();
+            }
+
+            $backup_file = $backup_folder . basename( $file_path );
+
+            if ( ! $wp_filesystem->exists( $backup_file ) ) {
+                if ( ! $wp_filesystem->copy( $file_path, $backup_file ) ) {
+                    throw new Exception( esc_html__( 'Backup could not be created.', 'ilove-pdf' ) );
+                }
+            }
+
+            if ( ! in_array( $file_id, $files_restore, true ) ) {
+                $files_restore[] = (int) $file_id;
+                DB_Handler::update_option( self::$db_key_all_files_backup, $files_restore );
+            }
+
+            update_post_meta(
+                $file_id,
+                self::$db_key_file_backup,
+                $file_path,
+            );
+        }
+    }
+
+    /**
+     * Checks if a file has a backup available.
+     *
+     * @since 3.0.0
+     * @param int $file_id The ID of the file to check.
+     * @return bool True if the file has a backup, false otherwise.
+     * @throws Exception If unable to connect to the filesystem.
+     */
+    public static function is_file_backup( $file_id ) {
+        /** Filesystem @var \WP_Filesystem_Base $wp_filesystem */
+        global $wp_filesystem;
+
+        if ( ! WP_Filesystem() ) {
+            throw new Exception(
+                esc_html_x( 'Could not connect to the server.', 'Error message: Unable to connect to the core WordPress function.', 'ilove-pdf' )
+            );
+        }
+
+        $file_path = get_post_meta( $file_id, self::$db_key_file_backup, true );
+        if ( empty( $file_path ) ) {
+            return false;
+        }
+
+        $backup_folder = File_System::get_full_path_backup_folder();
+        $backup_file   = $backup_folder . basename( $file_path );
+
+        return $wp_filesystem->exists( $backup_file );
+    }
+
+    /**
+     * Migrates existing file backups from the legacy post meta key to the new option.
+     *
+     * This method checks for files with the legacy backup key and updates them to the new format.
+     * It also ensures that the backup folder exists before proceeding with the migration.
+     *
+     * @since 3.0.0
+     */
+    public static function migrate_file_backup() {
+        /** Filesystem @var \WP_Filesystem_Base $wp_filesystem */
+        global $wp_filesystem, $wpdb;
+
+        if ( ! WP_Filesystem() ) {
+
+            Admin_Notice::add_notice(
+                esc_html_x( 'Could not connect to the server.', 'Error message: Unable to connect to the core WordPress function.', 'ilove-pdf' ),
+                'error',
+            );
+
+            return;
+        }
+
+        $files_restore = DB_Handler::get_option( self::$db_key_all_files_backup, array() );
+
+        if ( ! $wp_filesystem->exists( File_System::get_full_path_backup_folder() ) ) {
+            File_System::create_ilovepdf_directories();
+        }
+
+        $batch_size                = 300;
+        $legacy_db_key_file_backup = self::$legacy_db_key_file_backup;
+
+        do {
+            $ids = $wpdb->get_col(// phpcs:ignore WordPress.DB.DirectDatabaseQuery
+                $wpdb->prepare(
+                    "
+                    SELECT p.ID
+                    FROM {$wpdb->posts} p
+                    INNER JOIN {$wpdb->postmeta} m1
+                        ON m1.post_id = p.ID AND m1.meta_key = %s
+                    WHERE p.post_type = 'attachment'
+                      AND p.post_mime_type = 'application/pdf'
+                    ORDER BY p.ID ASC
+                    LIMIT %d
+                    ",
+                    $legacy_db_key_file_backup,
+                    $batch_size
+                )
+            );
+
+            $ids_count = is_array( $ids ) ? count( $ids ) : 0;
+            if ( 0 === $ids_count ) {
+                break;
+            }
+
+            foreach ( $ids as $post_id ) {
+                $file_path = get_post_meta( $post_id, $legacy_db_key_file_backup, true );
+
+                if ( empty( $file_path ) ) {
+                    continue;
+                }
+
+                $file_name   = basename( $file_path );
+                $backup_file = File_System::get_full_path_backup_folder() . $file_name;
+                if ( ! $wp_filesystem->exists( $backup_file ) ) {
+                    continue;
+                }
+
+                if ( ! in_array( $post_id, $files_restore, true ) ) {
+                    $files_restore[] = (int) $post_id;
+                    DB_Handler::update_option( self::$db_key_all_files_backup, $files_restore );
+                }
+
+                update_post_meta( $post_id, self::$db_key_file_backup, $file_path ); // Update the post meta to use the new key.
+                delete_post_meta( $post_id, $legacy_db_key_file_backup ); // Remove the old post meta.
+            }
+		} while ( $ids_count === $batch_size );
+    }
+}

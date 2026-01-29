@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="28px" height="18px" viewBox="0 0 28 18" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 52.6 (67491) - http://www.bohemiancoding.com/sketch -->
+    <title>text_color</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <path d="M8.33152425,0 L10.0520785,0 L14.775,12.0438799 L12.8393764,12.0438799 L11.8758661,9.4630485 L6.49913395,9.4630485 L5.53562356,12.0438799 L3.6,12.0438799 L8.33152425,0 Z M7.1443418,7.74249423 L11.239261,7.74249423 L9.19180139,2.29693995 L7.1443418,7.74249423 Z" id="path-1"></path>
+    </defs>
+    <g id="WP-Watermark" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Account-and-Configure" transform="translate(-1027.000000, -1321.000000)">
+            <g id="Group-2" transform="translate(902.000000, 1310.000000)">
+                <g id="text_color" transform="translate(120.000000, 3.000000)">
+                    <rect id="Rectangle-4-Copy-5" x="0" y="0" width="38" height="32" rx="4"></rect>
+                    <g id="Group-3-Copy" transform="translate(5.000000, 8.000000)">
+                        <polygon id="Shape-Copy" fill="#626870" points="0 14.4 18 14.4 18 17.4 0 17.4"></polygon>
+                        <mask id="mask-2" fill="white">
+                            <use xlink:href="#path-1"></use>
+                        </mask>
+                        <use id="Mask" fill="#161616" xlink:href="#path-1"></use>
+                    </g>
+                    <g id="mida-copy-6" transform="translate(27.000000, 15.000000)" fill="#161616">
+                        <path d="M5.73602438,0 C5.79777637,0 5.85757403,0.0204501245 5.90501322,0.0577922725 C6.01700917,0.145950804 6.03214094,0.303177348 5.93881098,0.408967586 L3.20278329,3.51027645 C3.19256262,3.52186166 3.18125033,3.53254713 3.16898553,3.54220148 C3.05698958,3.63036001 2.89054004,3.61606669 2.79721009,3.51027645 L0.0611823968,0.408967586 C0.0216497393,0.364157008 0,0.307672743 0,0.249342443 C0,0.111634414 0.118182946,0 0.263968999,0 L5.73602438,0 Z" id="select-copy-11"></path>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

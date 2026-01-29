@@ -1,0 +1,42 @@
+@use '../variables' as *;
+@use './sections/main-menu' as *;
+@use './sections/account' as *;
+@use './sections/watermark' as *;
+@use './sections/general' as *;
+
+.ilovepdf-settings__main {
+	padding-right: 30px;
+
+	@include account;
+
+	.ilovepdf-settings__main__section {
+		gap: 20px;
+
+		@include main-menu;
+
+		.ilovepdf-settings__main__view {
+			width: 100%;
+			background-color: $white;
+			padding: 30px;
+			box-shadow: $box_shadow;
+			border-radius: $radius;
+
+			@include general-settings;
+			@include watermark-settings;
+		}
+	}
+
+	@media (min-width: 1280px) {
+		.ilovepdf-settings__main__section {
+			.ilovepdf-settings__main__view {
+				width: 90%;
+			}
+		}
+	}
+
+	@media (min-width: 1500px) {
+		.ilovepdf-settings__main__section {
+			gap: 50px;
+		}
+	}
+}

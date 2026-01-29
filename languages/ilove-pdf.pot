@@ -2,7 +2,7 @@
 # This file is distributed under the GPL-2.0+.
 msgid ""
 msgstr ""
-"Project-Id-Version: iLovePDF 1.0.0\n"
+"Project-Id-Version: iLovePDF 3.0.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/ilovepdf\n"
 "Last-Translator: ilovepdf <info@ilovepdf.com>\n"
 "Language-Team: ilovepdf <info@ilovepdf.com>\n"
@@ -10,703 +10,961 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "POT-Creation-Date: 2025-02-10T12:04:09+00:00\n"
-"PO-Revision-Date: \n"
-"X-Generator: WP-CLI 2.11.0\n"
+"PO-Revision-Date: 2025-12-15T11:30:01+00:00\n"
+"X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: ilove-pdf\n"
+
+#. Plugin Name of the plugin
+#. Author of the plugin
+#: ilove-pdf.php
+msgid "iLovePDF"
+msgstr ""
+
+#. Plugin URI of the plugin
+#: ilove-pdf.php
+msgid "https://iloveapi.com/"
+msgstr ""
 
 #. Description of the plugin
 #: ilove-pdf.php
-msgid "Compress your PDF files and Stamp Images or text into PDF files. This is the Official iLovePDF plugin for WordPress. You can optimize all your PDF and stamp them automatically as you do in ilovepdf.com."
+msgid "Compress and watermark your PDFs directly in WordPress. Save space, speed up loading, and protect your content all without leaving your site."
 msgstr ""
 
-#: admin/compress-settings.php:28
-msgid "Enable Compress PDF"
+#. Author URI of the plugin
+#: ilove-pdf.php
+msgid "https://ilovepdf.com/"
 msgstr ""
 
-#: admin/compress-settings.php:33
-msgid "Activate this setting for active/inactive Compress PDF."
+#: admin/Account/User_Auth.php:51
+#: admin/Account/User_Auth.php:174
+#: admin/Account/User_Auth.php:285
+#: admin/Account/User_Auth.php:341
+#: admin/Account/User_Data.php:416
+#: admin/Tools/Compress/Settings.php:56
+#: admin/Tools/General/Settings.php:63
+#: admin/Tools/Watermark/Settings.php:65
+msgctxt "Error message, user without permissions."
+msgid "You do not have permission to edit these settings"
 msgstr ""
 
-#: admin/compress-settings.php:39
-msgid "PDF Quality"
+#: admin/Account/User_Auth.php:61
+#: admin/Account/User_Auth.php:184
+#: admin/Account/User_Auth.php:295
+#: admin/Account/User_Auth.php:351
+msgctxt "Error message, invalid nonce code."
+msgid "Couldn’t complete the request. Please refresh and try again."
 msgstr ""
 
-#: admin/compress-settings.php:44
-msgid "Low"
+#: admin/Account/User_Auth.php:71
+#: admin/Account/User_Auth.php:138
+msgctxt "Error message: account creation failed."
+msgid "Account creation failed. Please try again."
 msgstr ""
 
-#: admin/compress-settings.php:45
-msgid "Recommended"
+#: admin/Account/User_Auth.php:82
+#: admin/Account/User_Auth.php:205
+msgctxt "Form submission: Error message, invalid input field."
+msgid "Email required."
 msgstr ""
 
-#: admin/compress-settings.php:46
-msgid "Extreme"
+#: admin/Account/User_Auth.php:93
+#: admin/Account/User_Auth.php:216
+msgctxt "Form submission: Error message, invalid input field."
+msgid "Password required."
 msgstr ""
 
-#: admin/compress-settings.php:52
-msgid "Enable Autocompress PDF"
+#: admin/Account/User_Auth.php:104
+msgctxt "Form submission: Error message, invalid input field."
+msgid "Name required"
 msgstr ""
 
-#: admin/compress-settings.php:57
-msgid "Activate this setting for Autocompress new PDF uploads."
+#: admin/Account/User_Auth.php:155
+msgctxt "Form submission: Success message."
+msgid "User created successfully."
 msgstr ""
 
-#: admin/compress-settings.php:74
-msgid "Configure your Compress PDF settings."
+#: admin/Account/User_Auth.php:194
+msgctxt "Error message, login failed."
+msgid "Login failed. Please try again"
 msgstr ""
 
-#: admin/compress-settings.php:109
-msgid "High quality, less compression"
+#: admin/Account/User_Auth.php:250
+msgctxt "Error message, login failed."
+msgid "There was a problem logging in. Please try again later."
 msgstr ""
 
-#: admin/compress-settings.php:111
-msgid "Good quality, good compression"
+#: admin/Account/User_Auth.php:267
+msgctxt "Form submission: Success message."
+msgid "Logged in successfully."
 msgstr ""
 
-#: admin/compress-settings.php:113
-msgid "Less quality, high compression"
+#: admin/Account/User_Auth.php:305
+msgctxt "Form submission: Error message, invalid action."
+msgid "Logout failed. Please try again."
 msgstr ""
 
-#: admin/functions-compress.php:28
-msgid "Enable Compress PDF option on Settings -> iLovePDF -> Compress PDF"
+#: admin/Account/User_Auth.php:324
+msgctxt "Form submission: Success message."
+msgid "Logged out successfully."
 msgstr ""
 
-#: admin/functions-compress.php:92
-#: admin/functions-watermark.php:147
-msgid "PDF file saved!"
+#: admin/Account/User_Auth.php:361
+msgctxt "Error message."
+msgid "Could not change project. Please try again."
 msgstr ""
 
-#: admin/functions-compress.php:102
-#: admin/functions-compress.php:109
-#: admin/functions-watermark.php:157
-#: admin/functions-watermark.php:164
-msgid "An error occured on start: "
+#: admin/Account/User_Auth.php:371
+msgctxt "Error message, invalid input field."
+msgid "Project field is required."
 msgstr ""
 
-#: admin/functions-compress.php:122
-#: admin/functions-watermark.php:177
-msgid "Check your credentials in the plugin settings page. If you recently deleted a project in your iloveapi account, try switching to another project to correctly save your API Keys."
+#: admin/Account/User_Auth.php:385
+msgctxt "Form submission: Error message, invalid input field."
+msgid "The selected project is not valid."
 msgstr ""
 
-#: admin/functions-compress.php:129
-#: admin/functions-compress.php:136
-#: admin/functions-watermark.php:184
-#: admin/functions-watermark.php:191
-msgid "An error occured on upload: "
+#: admin/Account/User_Auth.php:402
+msgctxt "Form submission: Success message."
+msgid "Project changed successfully."
 msgstr ""
 
-#: admin/functions-compress.php:142
-#: admin/functions-compress.php:149
-#: admin/functions-compress.php:155
-#: admin/functions-compress.php:162
-#: admin/functions-watermark.php:197
-#: admin/functions-watermark.php:204
-#: admin/functions-watermark.php:210
-#: admin/functions-watermark.php:217
-msgid "An error occured on process: "
+#: admin/Account/User_Data.php:290
+#: admin/Account/User_Data.php:450
+msgctxt "User Account: Error message."
+msgid "Unable to fetch user data. Please try again."
 msgstr ""
 
-#: admin/functions-compress.php:168
-#: admin/functions-compress.php:175
-#: admin/functions-watermark.php:223
-#: admin/functions-watermark.php:230
-msgid "An error occured: "
+#: admin/Account/User_Data.php:308
+msgctxt "User Account: Success message on migration."
+msgid "Account settings migrated successfully."
 msgstr ""
 
-#: admin/functions-watermark.php:29
-msgid "Enable Watermark PDF option on Settings -> iLovePDF -> Watermark"
+#: admin/Account/User_Data.php:378
+msgctxt "credits popup: title"
+msgid "You're out of credits!"
 msgstr ""
 
-#: admin/functions-watermark.php:230
-msgid "No image selected"
+#: admin/Account/User_Data.php:379
+msgctxt "credits popup: content"
+msgid "Buy more credits to keep processing, or wait for your free credits to renew."
 msgstr ""
 
-#: admin/general-settings.php:152
-msgctxt "Credits"
-msgid "You have no more credits!"
+#: admin/Account/User_Data.php:380
+msgctxt "credits popup: button link"
+msgid "Buy credits"
 msgstr ""
 
-#: admin/general-settings.php:152
-msgctxt "Credits"
-msgid "Please purchase more credits to process."
-msgstr ""
-
-#: admin/general-settings.php:163
-msgid "Accept"
-msgstr ""
-
-#: admin/general-settings.php:163
+#: admin/Account/User_Data.php:381
+msgctxt "credits popup: button action"
 msgid "Cancel"
 msgstr ""
 
-#: admin/general-settings.php:187
-msgid "Create backup of original files?"
+#. translators: %1$s: used credits, %2$s: total credits
+#: admin/Account/User_Statistics.php:25
+#: admin/Account/User_Statistics.php:34
+#: admin/Account/User_Statistics.php:43
+#, php-format
+msgid "%1$s / %2$s credits used this month."
 msgstr ""
 
-#: admin/general-settings.php:193
-msgid "Yes"
+#: admin/Account/User_Statistics.php:80
+msgctxt "subtitle suscription section"
+msgid "Monthly plan."
 msgstr ""
 
-#: admin/general-settings.php:210
-msgid "Configure your Tools settings."
+#: admin/Account/User_Statistics.php:84
+msgctxt "subtitle suscription section"
+msgid "Yearly plan."
 msgstr ""
 
-#: admin/general-settings.php:229
-msgid "The backup files can be found on your server:"
-msgstr ""
-
-#: admin/general-statistics.php:40
-#: admin/general-statistics.php:172
-#: admin/general-statistics.php:223
-#: admin/general-statistics.php:321
-#: admin/partials/ilove-pdf-settings-display.php:45
-#: admin/partials/ilove-pdf-statistics-display.php:37
-msgid "Compress PDF"
-msgstr ""
-
-#: admin/general-statistics.php:44
-msgid "Compressed"
-msgstr ""
-
-#: admin/general-statistics.php:44
-msgid "Savings"
-msgstr ""
-
-#: admin/general-statistics.php:46
-#: admin/general-statistics.php:181
-#: admin/general-statistics.php:330
-#: admin/partials/ilove-pdf-statistics-display.php:197
-msgid "Compressing"
-msgstr ""
-
-#: admin/general-statistics.php:47
-#: admin/general-statistics.php:60
-#: admin/general-statistics.php:66
-#: admin/general-statistics.php:183
-#: admin/general-statistics.php:332
-#: admin/partials/ilove-pdf-statistics-display.php:137
-#: admin/partials/ilove-pdf-statistics-display.php:198
-#: admin/partials/ilove-pdf-statistics-display.php:210
-#: admin/partials/ilove-pdf-statistics-display.php:283
-#: admin/partials/ilove-pdf-statistics-display.php:337
-#: admin/partials/ilove-pdf-statistics-display.php:343
-msgid "Error"
-msgstr ""
-
-#: admin/general-statistics.php:48
-#: admin/general-statistics.php:61
-#: admin/general-statistics.php:184
-#: admin/general-statistics.php:333
-#: admin/partials/ilove-pdf-statistics-display.php:199
-#: admin/partials/ilove-pdf-statistics-display.php:338
-msgid "Completed"
-msgstr ""
-
-#: admin/general-statistics.php:53
-#: admin/general-statistics.php:176
-#: admin/general-statistics.php:224
-#: admin/general-statistics.php:325
-#: admin/partials/ilove-pdf-statistics-display.php:335
-msgid "Apply Watermark"
-msgstr ""
-
-#: admin/general-statistics.php:55
-#: admin/general-statistics.php:178
-#: admin/general-statistics.php:327
-msgid "Stamped"
-msgstr ""
-
-#: admin/general-statistics.php:58
-#: admin/general-statistics.php:66
-#: admin/partials/ilove-pdf-statistics-display.php:209
-#: admin/partials/ilove-pdf-statistics-display.php:342
-msgid "Loading"
-msgstr ""
-
-#: admin/general-statistics.php:59
-#: admin/general-statistics.php:182
-#: admin/general-statistics.php:331
-#: admin/partials/ilove-pdf-statistics-display.php:336
-msgid "Applying Watermark"
-msgstr ""
-
-#: admin/general-statistics.php:66
-#: admin/general-statistics.php:189
-#: admin/general-statistics.php:337
-#: admin/partials/ilove-pdf-statistics-display.php:208
-#: admin/partials/ilove-pdf-statistics-display.php:341
-msgid "Restore original file"
-msgstr ""
-
-#: admin/general-statistics.php:66
-#: admin/partials/ilove-pdf-statistics-display.php:211
-#: admin/partials/ilove-pdf-statistics-display.php:344
-msgid "Completed, please refresh the page."
-msgstr ""
-
-#: admin/general-statistics.php:165
-msgid "Original size: "
-msgstr ""
-
-#: admin/general-statistics.php:166
-msgid "Current size: "
-msgstr ""
-
-#: admin/general-statistics.php:276
-msgid "Process complete!"
-msgstr ""
-
-#: admin/general-statistics.php:280
-msgid "An error occured on start."
-msgstr ""
-
-#: admin/general-statistics.php:284
-msgid "An error occured on auth."
-msgstr ""
-
-#: admin/general-statistics.php:288
-msgid "An error occured on upload."
-msgstr ""
-
-#: admin/general-statistics.php:292
-msgid "An error occured on process."
-msgstr ""
-
-#: admin/general-statistics.php:296
-msgid "An error occured."
-msgstr ""
-
-#: admin/Ilove_Pdf_Admin.php:122
-msgctxt "Link item"
-msgid "Settings"
-msgstr ""
-
-#: admin/partials/ilove-pdf-settings-display.php:20
-msgid "Bad request."
-msgstr ""
-
-#: admin/partials/ilove-pdf-settings-display.php:24
-msgid "Incorrect email or password."
-msgstr ""
-
-#: admin/partials/ilove-pdf-settings-display.php:28
-msgid "Welcome!"
-msgstr ""
-
-#: admin/partials/ilove-pdf-settings-display.php:32
-msgid "Error on register/login."
-msgstr ""
-
-#: admin/partials/ilove-pdf-settings-display.php:44
-msgid "General"
-msgstr ""
-
-#: admin/partials/ilove-pdf-settings-display.php:46
-#: admin/partials/ilove-pdf-statistics-display.php:38
-msgid "Watermark"
-msgstr ""
-
-#: admin/partials/ilove-pdf-settings-display.php:65
-#: admin/partials/ilove-pdf-statistics-display.php:47
-msgid "Credits available to process files"
-msgstr ""
-
-#: admin/partials/ilove-pdf-settings-display.php:67
-#: admin/partials/ilove-pdf-statistics-display.php:49
-msgid "Free"
-msgstr ""
-
-#: admin/partials/ilove-pdf-settings-display.php:70
-#: admin/partials/ilove-pdf-statistics-display.php:52
-msgid "credits used this month. Free Tier."
-msgstr ""
-
-#: admin/partials/ilove-pdf-settings-display.php:75
-#: admin/partials/ilove-pdf-statistics-display.php:57
-msgid "Subscription"
-msgstr ""
-
-#: admin/partials/ilove-pdf-settings-display.php:81
-#: admin/partials/ilove-pdf-statistics-display.php:63
-msgid "credits used this month. <strong>Yearly</strong> subscription."
-msgstr ""
-
-#: admin/partials/ilove-pdf-settings-display.php:81
-#: admin/partials/ilove-pdf-statistics-display.php:63
-msgid "credits used this month. <strong>Monthly</strong> subscription."
-msgstr ""
-
-#: admin/partials/ilove-pdf-settings-display.php:87
-#: admin/partials/ilove-pdf-statistics-display.php:69
-msgid "Prepaid"
-msgstr ""
-
-#: admin/partials/ilove-pdf-settings-display.php:90
-#: admin/partials/ilove-pdf-statistics-display.php:72
-msgid "credits used. Prepaid credits."
-msgstr ""
-
-#: admin/partials/ilove-pdf-settings-display.php:94
-#: admin/partials/ilove-pdf-statistics-display.php:76
-msgid "Account info"
-msgstr ""
-
-#: admin/partials/ilove-pdf-settings-display.php:95
-#: admin/partials/ilove-pdf-statistics-display.php:77
-msgid "Buy more credits"
-msgstr ""
-
-#: admin/partials/ilove-pdf-settings-display.php:98
-msgid "Account"
-msgstr ""
-
-#: admin/partials/ilove-pdf-settings-display.php:99
-msgid "Logged as"
-msgstr ""
-
-#: admin/partials/ilove-pdf-settings-display.php:99
-msgid "Logout"
-msgstr ""
-
-#: admin/partials/ilove-pdf-settings-display.php:111
-msgid "Change Project"
-msgstr ""
-
-#: admin/partials/ilove-pdf-settings-display.php:118
-msgid "Register as iLoveAPI developer"
-msgstr ""
-
-#: admin/partials/ilove-pdf-settings-display.php:122
-msgid "Provide your name and email address to generate keys."
-msgstr ""
-
-#: admin/partials/ilove-pdf-settings-display.php:123
-msgid "Name"
-msgstr ""
-
-#: admin/partials/ilove-pdf-settings-display.php:124
-#: admin/partials/ilove-pdf-settings-display.php:138
+#: admin/Account/Views/Base/Form.php:26
+msgctxt "input placeholder"
 msgid "Email"
 msgstr ""
 
-#: admin/partials/ilove-pdf-settings-display.php:125
-#: admin/partials/ilove-pdf-settings-display.php:139
+#: admin/Account/Views/Base/Form.php:41
+msgctxt "input placeholder"
 msgid "Password"
 msgstr ""
 
-#: admin/partials/ilove-pdf-settings-display.php:126
-msgid "Confirm Password"
+#: admin/Account/Views/Form_Login.php:40
+msgctxt "form title"
+msgid "Log in to your account"
 msgstr ""
 
-#: admin/partials/ilove-pdf-settings-display.php:127
-msgid "Register &amp; Generate keys"
+#: admin/Account/Views/Form_Login.php:59
+msgctxt "button link"
+msgid "Forgot your password?"
 msgstr ""
 
-#: admin/partials/ilove-pdf-settings-display.php:133
-#: admin/partials/ilove-pdf-settings-display.php:140
-msgid "Login"
+#: admin/Account/Views/Form_Login.php:88
+msgctxt "button link"
+msgid "Create an iLoveAPI account"
 msgstr ""
 
-#: admin/partials/ilove-pdf-settings-display.php:137
-msgid "If you have an account, please log in."
+#: admin/Account/Views/Form_Login.php:107
+msgctxt "button link"
+msgid "Log in"
 msgstr ""
 
-#: admin/partials/ilove-pdf-settings-display.php:151
-msgid "Incorrect password."
+#: admin/Account/Views/Form_Logout.php:50
+msgctxt "button link"
+msgid "Log out"
 msgstr ""
 
-#: admin/partials/ilove-pdf-settings-display.php:155
-msgid "Correct password."
+#: admin/Account/Views/Form_Project.php:65
+msgctxt "Input Project Select label"
+msgid "Select project"
 msgstr ""
 
-#: admin/partials/ilove-pdf-settings-display.php:175
-msgid "Go to Compress Tool"
+#: admin/Account/Views/Form_Project.php:86
+msgctxt "Form change project: submit button"
+msgid "Change project"
 msgstr ""
 
-#: admin/partials/ilove-pdf-settings-display.php:189
-msgid "Go to Watermark Tool"
+#: admin/Account/Views/Form_Register.php:40
+msgctxt "form title"
+msgid "Create an iLoveAPI account"
 msgstr ""
 
-#: admin/partials/ilove-pdf-statistics-display.php:36
-msgid "Overview"
+#: admin/Account/Views/Form_Register.php:59
+msgctxt "input placeholder"
+msgid "Name"
 msgstr ""
 
-#: admin/partials/ilove-pdf-statistics-display.php:80
-msgid "Tools"
+#: admin/Account/Views/Form_Register.php:87
+msgctxt "button link"
+msgid "Log in to your account"
 msgstr ""
 
-#: admin/partials/ilove-pdf-statistics-display.php:81
-msgid "Go to Compress PDF tab"
+#: admin/Account/Views/Form_Register.php:106
+msgctxt "button link"
+msgid "Create account"
 msgstr ""
 
-#: admin/partials/ilove-pdf-statistics-display.php:82
-msgid "Go to Watermark tab"
+#: admin/Helpers/File_System.php:187
+#: admin/Tools/Backup.php:93
+#: admin/Tools/Backup.php:166
+#: admin/Tools/Backup.php:285
+#: admin/Tools/Backup.php:340
+#: admin/Tools/Backup.php:387
+#: admin/Tools/Backup.php:433
+#: admin/Tools/Backup.php:463
+#: admin/Tools/Compress/Tool_Compress.php:183
+#: admin/Tools/Watermark/Tool_Watermark.php:161
+msgctxt "Error message: Unable to connect to the core WordPress function."
+msgid "Could not connect to the server."
 msgstr ""
 
-#: admin/partials/ilove-pdf-statistics-display.php:108
-msgid "Total savings"
+#. translators: %1$s: File name.
+#: admin/Helpers/File_System.php:217
+#, php-format
+msgctxt "This happened during the migration process."
+msgid "File moved to new backup folder: %1$s"
 msgstr ""
 
-#: admin/partials/ilove-pdf-statistics-display.php:109
-msgid "Here you can check how much space you saved."
+#. translators: %1$s: File name.
+#: admin/Helpers/File_System.php:228
+#, php-format
+msgctxt "This happened during the migration process."
+msgid "Could not move file to backup folder: %1$s"
 msgstr ""
 
-#: admin/partials/ilove-pdf-statistics-display.php:112
-msgid "Saved!"
-msgstr ""
-
-#: admin/partials/ilove-pdf-statistics-display.php:124
-msgid "PDF files compressed"
-msgstr ""
-
-#: admin/partials/ilove-pdf-statistics-display.php:125
-msgid "initial size"
-msgstr ""
-
-#: admin/partials/ilove-pdf-statistics-display.php:126
-msgid "current size"
-msgstr ""
-
-#: admin/partials/ilove-pdf-statistics-display.php:133
-#: admin/partials/ilove-pdf-statistics-display.php:279
-msgid "Processing"
-msgstr ""
-
-#: admin/partials/ilove-pdf-statistics-display.php:138
-#: admin/partials/ilove-pdf-statistics-display.php:284
-msgid "Finished"
-msgstr ""
-
-#: admin/partials/ilove-pdf-statistics-display.php:139
-#: admin/partials/ilove-pdf-statistics-display.php:285
-msgid "Canceled"
-msgstr ""
-
-#: admin/partials/ilove-pdf-statistics-display.php:142
-#: admin/partials/ilove-pdf-statistics-display.php:288
-msgid "Cancel Process"
-msgstr ""
-
-#: admin/partials/ilove-pdf-statistics-display.php:148
-#: admin/partials/ilove-pdf-statistics-display.php:293
-msgid "PDFs in your library"
-msgstr ""
-
-#: admin/partials/ilove-pdf-statistics-display.php:149
-msgid "Compress all non compressed PDF in your library at once."
-msgstr ""
-
-#: admin/partials/ilove-pdf-statistics-display.php:174
-#: admin/partials/ilove-pdf-statistics-display.php:320
+#: admin/Media/Files_List_Table.php:124
+msgctxt "File List Table: column name"
 msgid "File"
 msgstr ""
 
-#: admin/partials/ilove-pdf-statistics-display.php:175
-msgid "Original Size"
+#: admin/Media/Files_List_Table.php:125
+msgctxt "File List Table: column name"
+msgid "Original"
 msgstr ""
 
-#: admin/partials/ilove-pdf-statistics-display.php:176
-msgid "Compressed Size"
+#: admin/Media/Files_List_Table.php:126
+msgctxt "File List Table: column name"
+msgid "Compressed"
 msgstr ""
 
-#: admin/partials/ilove-pdf-statistics-display.php:196
+#: admin/Media/Files_List_Table.php:127
+msgctxt "File List Table: column name"
+msgid "Author"
+msgstr ""
+
+#: admin/Media/Files_List_Table.php:128
+msgctxt "File List Table: column name"
+msgid "Upload Date"
+msgstr ""
+
+#: admin/Media/Files_List_Table.php:129
+msgctxt "File List Table: column name"
+msgid "Status"
+msgstr ""
+
+#: admin/Media/Files_List_Table.php:130
+msgctxt "File List Table: column name"
+msgid "Actions"
+msgstr ""
+
+#: admin/Media/Files_List_Table.php:242
+#: admin/Tools/Compress/Tool_Compress.php:413
+msgctxt "Bulk action button"
+msgid "Compress PDF"
+msgstr ""
+
+#: admin/Media/Files_List_Table.php:243
+#: admin/Tools/Watermark/Tool_Watermark.php:369
+msgctxt "Bulk action button"
+msgid "Apply Watermark"
+msgstr ""
+
+#: admin/Media/Files_List_Table.php:273
+#: admin/Tools/Backup.php:88
+#: admin/Tools/Backup.php:171
+#: admin/Tools/Backup.php:290
+#: admin/Tools/Compress/Settings.php:66
+#: admin/Tools/Compress/Tool_Compress.php:106
+#: admin/Tools/General/Settings.php:73
+#: admin/Tools/Watermark/Settings.php:75
+#: admin/Tools/Watermark/Tool_Watermark.php:81
+msgctxt "Error message, invalid nonce code."
+msgid "Couldn't complete the request. Please refresh and try again."
+msgstr ""
+
+#: admin/Media/Files_List_Table.php:290
+msgid "No files selected to compress."
+msgstr ""
+
+#: admin/Media/Files_List_Table.php:293
+msgid "No files selected to watermark."
+msgstr ""
+
+#: admin/Media/Views/Media_Overview.php:31
+msgctxt "Section Title"
+msgid "Summary"
+msgstr ""
+
+#: admin/Submenu_Page.php:70
+#: admin/Submenu_Page.php:84
+#: admin/Submenu_Page.php:85
+msgctxt "Link element: This appears in the WordPress side menu."
+msgid "General Settings"
+msgstr ""
+
+#: admin/Submenu_Page.php:97
+#: admin/Submenu_Page.php:98
+msgctxt "Link element: This appears in the WordPress side menu."
+msgid "Compress settings"
+msgstr ""
+
+#: admin/Submenu_Page.php:110
+#: admin/Submenu_Page.php:111
+msgctxt "Link element: This appears in the WordPress side menu."
+msgid "Watermark settings"
+msgstr ""
+
+#: admin/Submenu_Page.php:201
+msgctxt "Link item: appears in the plugins list."
+msgid "General Settings"
+msgstr ""
+
+#: admin/Submenu_Page.php:207
+msgctxt "Link item: appears in the plugins list."
+msgid "Compress Settings"
+msgstr ""
+
+#: admin/Submenu_Page.php:213
+msgctxt "Link item: appears in the plugins list."
+msgid "Watermark Settings"
+msgstr ""
+
+#: admin/Submenu_Page.php:219
+msgctxt "Link item: appears in the plugins list."
+msgid "Media Optimization"
+msgstr ""
+
+#: admin/Tools/Backup.php:98
+#: admin/Tools/Compress/Tool_Compress.php:110
+#: admin/Tools/Watermark/Tool_Watermark.php:85
+msgid "Could not process the request. Missing file ID."
+msgstr ""
+
+#: admin/Tools/Backup.php:106
+msgid "No backup found for this file"
+msgstr ""
+
+#. translators: %1$s: file name
+#: admin/Tools/Backup.php:132
+#: admin/Tools/Backup.php:256
+#, php-format
+msgid "File restored: %1$s"
+msgstr ""
+
+#. translators: %1$s: error message
+#: admin/Tools/Backup.php:141
+#, php-format
+msgid "Could not restore file: %1$s"
+msgstr ""
+
+#: admin/Tools/Backup.php:175
+#: admin/Tools/Backup.php:294
+msgid "No backup folder found."
+msgstr ""
+
+#: admin/Tools/Backup.php:181
+msgid "No files found."
+msgstr ""
+
+#. translators: %1$s: file ID
+#: admin/Tools/Backup.php:196
+#, php-format
+msgid "Original file not found: %1$s"
+msgstr ""
+
+#. translators: %1$s: file ID
+#: admin/Tools/Backup.php:212
+#, php-format
+msgid "Backup file not found: %1$s"
+msgstr ""
+
+#: admin/Tools/Backup.php:315
+msgid "Backup folder deleted successfully"
+msgstr ""
+
+#: admin/Tools/Backup.php:402
+msgid "Backup could not be created."
+msgstr ""
+
+#: admin/Tools/Base/Actions.php:37
+msgctxt "Error message: the file could not be processed."
+msgid "Something went wrong"
+msgstr ""
+
+#: admin/Tools/Base/Actions.php:59
+#: assets/build/main.min.js:1
+msgctxt "button action"
+msgid "Restore"
+msgstr ""
+
+#: admin/Tools/Base/Actions.php:76
+msgctxt "Status process: Restoring file"
+msgid "Restoring file"
+msgstr ""
+
+#: admin/Tools/Base/Actions.php:91
+msgctxt "Status process: file restored"
+msgid "file restored"
+msgstr ""
+
+#: admin/Tools/Base/Form.php:35
+msgctxt "button link"
+msgid "Save changes"
+msgstr ""
+
+#: admin/Tools/Base/Form.php:36
+msgctxt "tooltip: Appears when the user is not logged in."
+msgid "Log in to save your settings"
+msgstr ""
+
+#: admin/Tools/Compress/Settings.php:85
+#: admin/Tools/General/Settings.php:92
+#: admin/Tools/Watermark/Settings.php:94
+msgctxt "Form submission: Success message"
+msgid "Changes saved."
+msgstr ""
+
+#. translators: %1$s: Original size, %2$s: Compressed size
+#: admin/Tools/Compress/Statistics.php:140
+#, php-format
+msgctxt "Compress Overview: Tool Resume."
+msgid ""
+"Your files, summary:\n"
+"Original size: %1$s\n"
+"After compression: %2$s"
+msgstr ""
+
+#. translators: %1$s Additional process error
+#: admin/Tools/Compress/Tool_Compress.php:125
+#, php-format
+msgctxt "Compress PDF: Error message."
+msgid "Could not compress file: %1$s"
+msgstr ""
+
+#. translators: %1$s The file name
+#: admin/Tools/Compress/Tool_Compress.php:151
+#, php-format
+msgctxt "Compress PDF: File already processed."
+msgid "File is already compressed: %1$s"
+msgstr ""
+
+#: admin/Tools/Compress/Tool_Compress.php:165
+msgctxt "Compress PDF: Error message."
+msgid "Compress PDF is not enabled. Please check your settings."
+msgstr ""
+
+#. translators: %1$s The file name
+#: admin/Tools/Compress/Tool_Compress.php:171
+#: admin/Tools/Watermark/Tool_Watermark.php:149
+#, php-format
+msgctxt "Error message."
+msgid "This is not a PDF file: %1$s"
+msgstr ""
+
+#: admin/Tools/Compress/Tool_Compress.php:192
+#: admin/Tools/Watermark/Tool_Watermark.php:170
+msgctxt "Auth: Error message."
+msgid "API key is missing. Please check your settings."
+msgstr ""
+
+#. translators: %1$s The file name
+#: admin/Tools/Compress/Tool_Compress.php:226
+#: admin/Tools/Watermark/Tool_Watermark.php:246
+#, php-format
+msgctxt "Process Error"
+msgid "Temporary file not found: %1$s"
+msgstr ""
+
+#. translators: %1$s The file name
+#: admin/Tools/Compress/Tool_Compress.php:253
+#, php-format
+msgctxt "Compress PDF: Success message."
+msgid "File compressed successfully: %1$s"
+msgstr ""
+
+#. translators: %1$s: compression percentage
+#: admin/Tools/Compress/Tool_Compress.php:317
+#: admin/Tools/Compress/Tool_Compress.php:331
+#, php-format
+msgctxt "Compress PDF: Compressed percentage."
+msgid "Compressed (%1$s%%)"
+msgstr ""
+
+#: admin/Tools/Compress/Views/Actions.php:36
+msgctxt "Button action"
 msgid "Compress"
 msgstr ""
 
-#: admin/partials/ilove-pdf-statistics-display.php:225
-msgid "PDFs non compressed"
+#: admin/Tools/Compress/Views/Actions.php:36
+#: admin/Tools/Watermark/Views/Actions.php:32
+msgctxt "tooltip: Appears when the user is not logged in."
+msgid "Please log in or sign up to use the tool."
 msgstr ""
 
-#: admin/partials/ilove-pdf-statistics-display.php:246
-#: admin/partials/ilove-pdf-statistics-display.php:378
-msgid "No pdf files found"
+#: admin/Tools/Compress/Views/Actions.php:58
+msgctxt "Status: Not compressed"
+msgid "Not compressed"
 msgstr ""
 
-#: admin/partials/ilove-pdf-statistics-display.php:248
-#: admin/partials/ilove-pdf-statistics-display.php:380
-msgid "Settings"
+#: admin/Tools/Compress/Views/Actions.php:75
+msgctxt "Status: Compressing"
+msgid "Compressing..."
 msgstr ""
 
-#: admin/partials/ilove-pdf-statistics-display.php:272
-msgid "Total PDF files stamped"
+#: admin/Tools/Compress/Views/Form_Options.php:56
+msgctxt "form title"
+msgid "Compress Settings"
 msgstr ""
 
-#: admin/partials/ilove-pdf-statistics-display.php:273
-msgid "Here you can check how many PDF files have been stamped."
+#: admin/Tools/Compress/Views/Form_Options.php:82
+msgctxt "checkbox field label"
+msgid "Compress enabled"
 msgstr ""
 
-#: admin/partials/ilove-pdf-statistics-display.php:274
-msgid "PDF files have been stamped!"
+#: admin/Tools/Compress/Views/Form_Options.php:83
+msgctxt "help text for checkbox field"
+msgid "Reduce the file size of your PDFs for easy sharing and storage."
 msgstr ""
 
-#: admin/partials/ilove-pdf-statistics-display.php:294
-msgid "Stamp all non stamped PDF in your library at once."
+#: admin/Tools/Compress/Views/Form_Options.php:106
+msgctxt "checkbox field label"
+msgid "Automatically apply to uploaded files"
 msgstr ""
 
-#: admin/partials/ilove-pdf-statistics-display.php:321
-msgid "Size"
+#: admin/Tools/Compress/Views/Form_Options.php:107
+msgctxt "help text for checkbox field"
+msgid "With auto-compression enabled, any file uploaded to the Media folder will be automatically compressed."
 msgstr ""
 
-#: admin/partials/ilove-pdf-statistics-display.php:356
-msgid "PDFs without watermark"
+#: admin/Tools/Compress/Views/Form_Options.php:147
+msgctxt "subtitle section"
+msgid "Compression level"
 msgstr ""
 
-#: admin/partials/ilove-pdf-statistics-display.php:390
-msgid "You must first login or register to use this plugin"
+#: admin/Tools/Compress/Views/Form_Options.php:148
+msgid "Choose a compression level. Recommended is selected by default."
 msgstr ""
 
-#: admin/partials/ilove-pdf-statistics-display.php:391
-msgid "Go to Settings"
+#: admin/Tools/Compress/Views/Form_Options.php:151
+msgctxt "radio button field label"
+msgid "Extreme: High compression, less quality"
 msgstr ""
 
-#: admin/watermark-settings.php:32
-msgid "Enable Watermark PDF"
+#: admin/Tools/Compress/Views/Form_Options.php:153
+msgctxt "radio button field label"
+msgid "Recommended: Good compression, good quality"
 msgstr ""
 
-#: admin/watermark-settings.php:37
-msgid "Activate this setting for active/inactive Watermark on PDF files."
+#: admin/Tools/Compress/Views/Form_Options.php:155
+msgctxt "radio button field label"
+msgid "Low: Less compression, high quality"
 msgstr ""
 
-#: admin/watermark-settings.php:43
-msgid "Enable Auto Watermark"
+#: admin/Tools/Compress/Views/Overview.php:35
+msgctxt "Overview: tool title"
+msgid "Compress PDF"
 msgstr ""
 
-#: admin/watermark-settings.php:48
-msgid "Activate this setting for Auto Watermark on new PDF uploads."
+#: admin/Tools/Compress/Views/Overview.php:56
+msgctxt "Compress Overview: Files Processed"
+msgid "Files Processed"
 msgstr ""
 
-#: admin/watermark-settings.php:65
-msgid "Configure your Watermark PDF settings."
+#: admin/Tools/Compress/Views/Overview.php:73
+msgctxt "Compress Overview: Average Reduction"
+msgid "Average Reduction"
 msgstr ""
 
-#: admin/watermark-settings.php:128
-msgid "Watermark mode"
+#: admin/Tools/Compress/Views/Overview.php:90
+msgctxt "Compress Overview: Total Space Saved"
+msgid "Total Space Saved"
 msgstr ""
 
-#: admin/watermark-settings.php:133
-msgid "Text"
+#: admin/Tools/General/Views/Form_Options.php:50
+msgctxt "form title"
+msgid "General Settings"
 msgstr ""
 
-#: admin/watermark-settings.php:134
-msgid "Image"
+#. translators: %s: backup folder path
+#: admin/Tools/General/Views/Form_Options.php:73
+#, php-format
+msgid "Backups are stored at: %s"
 msgstr ""
 
-#: admin/watermark-settings.php:140
-msgid "Watermark Text"
+#: admin/Tools/General/Views/Form_Options.php:88
+msgctxt "checkbox field label"
+msgid "Back up original files"
 msgstr ""
 
-#: admin/watermark-settings.php:145
-msgid "Watermark text."
+#: admin/Tools/General/Views/Form_Options.php:89
+msgid "Save a backup before processing so you can restore the original later. Uses server space."
 msgstr ""
 
-#: admin/watermark-settings.php:151
-msgid "Watermark Text Size"
+#. translators: %1$s and %2$s: html tags
+#: admin/Tools/General/Views/Form_Options.php:107
+#, php-format
+msgid "You can restore original files from backup. Restoring will return files to their state before any changes were made. %1$s Warning: This will remove all modifications applied using the tools. %2$s"
 msgstr ""
 
-#: admin/watermark-settings.php:156
-msgid "Indicate text size in pixels. From 5 to 80."
+#. translators: %1$s and %2$s: html tags
+#: admin/Tools/General/Views/Form_Options.php:116
+#, php-format
+msgid "You can delete all backup files to free up space. %1$s Warning: This will remove your ability to restore files. %2$s"
 msgstr ""
 
-#: admin/watermark-settings.php:162
-msgid "Watermark Font Family"
+#. translators: %s: backup size
+#: admin/Tools/General/Views/Form_Options.php:125
+#, php-format
+msgid "Backup size: %s"
 msgstr ""
 
-#: admin/watermark-settings.php:167
-msgid "Select Watermark font Family."
+#: admin/Tools/General/Views/Form_Options.php:141
+msgctxt "section title"
+msgid "Restore Backup Files"
 msgstr ""
 
-#: admin/watermark-settings.php:175
-msgid "Watermark Text Color"
+#: admin/Tools/General/Views/Form_Options.php:161
+msgctxt "button"
+msgid "Restore all"
 msgstr ""
 
-#: admin/watermark-settings.php:183
+#: admin/Tools/General/Views/Form_Options.php:177
+msgctxt "button"
+msgid "Clear backup"
+msgstr ""
+
+#. translators: %1$d: Total files, %2$d: Protected files
+#: admin/Tools/Watermark/Statistics.php:96
+#, php-format
+msgctxt "Watermark Overview: Tool Resume."
+msgid ""
+"Your files, summary:\n"
+"Total files: %1$d\n"
+"Protected files: %2$d"
+msgstr ""
+
+#. translators: %1$s Additional process error
+#: admin/Tools/Watermark/Tool_Watermark.php:100
+#, php-format
+msgctxt "Watermark PDF: Error message."
+msgid "Could not apply watermark: %1$s"
+msgstr ""
+
+#. translators: %1$s The file name
+#: admin/Tools/Watermark/Tool_Watermark.php:129
+#, php-format
+msgctxt "Watermark PDF: Info message."
+msgid "File already watermarked: %1$s"
+msgstr ""
+
+#: admin/Tools/Watermark/Tool_Watermark.php:143
+msgctxt "Watermark PDF: Error message."
+msgid "Watermark is not enabled. Please check your settings."
+msgstr ""
+
+#. translators: %1$s The file name
+#: admin/Tools/Watermark/Tool_Watermark.php:280
+#, php-format
+msgctxt "Watermark PDF: Success message."
+msgid "Watermark applied successfully: %1$s"
+msgstr ""
+
+#: admin/Tools/Watermark/Views/Actions.php:32
+msgctxt "Button action"
+msgid "Apply Watermark"
+msgstr ""
+
+#: admin/Tools/Watermark/Views/Actions.php:55
+msgctxt "Status: No watermark applied"
+msgid "No watermark applied"
+msgstr ""
+
+#: admin/Tools/Watermark/Views/Actions.php:73
+msgctxt "Status: Watermark applied"
+msgid "Watermark applied"
+msgstr ""
+
+#: admin/Tools/Watermark/Views/Actions.php:90
+msgctxt "Status: Applying watermark"
+msgid "Applying watermark..."
+msgstr ""
+
+#: admin/Tools/Watermark/Views/Form_Options.php:57
+msgctxt "form title"
+msgid "Watermark Settings"
+msgstr ""
+
+#: admin/Tools/Watermark/Views/Form_Options.php:82
+msgctxt "subtitle for watermark options section"
+msgid "Watermark preview"
+msgstr ""
+
+#: admin/Tools/Watermark/Views/Form_Options.php:83
+msgctxt "Help text for the watermark options section"
+msgid "Use text or upload an image as your watermark."
+msgstr ""
+
+#: admin/Tools/Watermark/Views/Form_Options.php:85
+msgctxt "Warning message: for family font selector."
+msgid "This font does not support bold or italic styles"
+msgstr ""
+
+#: admin/Tools/Watermark/Views/Form_Options.php:217
+msgctxt "checkbox field label"
+msgid "Watermark enabled"
+msgstr ""
+
+#: admin/Tools/Watermark/Views/Form_Options.php:218
+msgctxt "help text for checkbox field"
+msgid "Add a watermark to protect PDFs from unauthorized use."
+msgstr ""
+
+#: admin/Tools/Watermark/Views/Form_Options.php:241
+msgctxt "checkbox field label"
+msgid "Automatically apply watermark to uploaded files"
+msgstr ""
+
+#: admin/Tools/Watermark/Views/Form_Options.php:242
+msgid "Automatically stamp new Media uploads with your selected watermark. You can still apply it manually to other files."
+msgstr ""
+
+#: admin/Tools/Watermark/Views/Form_Options.php:277
+msgctxt "radio button label"
+msgid "Use text"
+msgstr ""
+
+#: admin/Tools/Watermark/Views/Form_Options.php:280
+msgctxt "radio button label"
+msgid "Use image"
+msgstr ""
+
+#: admin/Tools/Watermark/Views/Form_Options.php:319
+msgctxt "radio field label"
+msgid "Position"
+msgstr ""
+
+#: admin/Tools/Watermark/Views/Form_Options.php:349
+msgctxt "checkbox field label"
+msgid "Mosaic"
+msgstr ""
+
+#: admin/Tools/Watermark/Views/Form_Options.php:350
+msgid "If enabled, this overrides manual position settings to print image or text 9 times per page."
+msgstr ""
+
+#: admin/Tools/Watermark/Views/Form_Options.php:389
+msgctxt "radio button label"
+msgid "Above PDF content"
+msgstr ""
+
+#: admin/Tools/Watermark/Views/Form_Options.php:392
+msgctxt "radio button label"
+msgid "Below PDF content"
+msgstr ""
+
+#: admin/Tools/Watermark/Views/Form_Options.php:421
+msgctxt "input range field label"
+msgid "Opacity"
+msgstr ""
+
+#: admin/Tools/Watermark/Views/Form_Options.php:451
+msgctxt "input range field label"
+msgid "Rotation"
+msgstr ""
+
+#: admin/Tools/Watermark/Views/Form_Options.php:472
+msgctxt "input text: placeholder"
+msgid "Enter text for watermark"
+msgstr ""
+
+#: admin/Tools/Watermark/Views/Form_Options.php:612
+msgctxt "subtitle for watermark image mode"
 msgid "Watermark image"
 msgstr ""
 
-#: admin/watermark-settings.php:191
-msgid "Watermark Vertical position"
+#: admin/Tools/Watermark/Views/Form_Options.php:613
+msgctxt "Help text for image stamp"
+msgid "Select an image stamp from Media or a URL. Then adjust its position, size, opacity, and rotation"
 msgstr ""
 
-#: admin/watermark-settings.php:199
-msgid "Watermark Horizontal position"
+#: admin/Tools/Watermark/Views/Form_Options.php:614
+msgctxt "button"
+msgid "Add Image"
 msgstr ""
 
-#: admin/watermark-settings.php:207
-msgid "Watermark Opacity"
+#: admin/Tools/Watermark/Views/Form_Options.php:615
+msgctxt "before text: add image button, after text: input image URL"
+msgid "or enter an URL"
 msgstr ""
 
-#: admin/watermark-settings.php:212
-msgid "From 0 to 100."
+#: admin/Tools/Watermark/Views/Form_Options.php:618
+msgctxt "input text: placeholder"
+msgid "Enter image URL"
 msgstr ""
 
-#: admin/watermark-settings.php:218
-msgid "Watermark Rotation"
+#: admin/Tools/Watermark/Views/Overview.php:33
+msgctxt "Overview: tool title"
+msgid "Watermark PDF"
 msgstr ""
 
-#: admin/watermark-settings.php:223
-msgid "From 0 to 360."
+#: admin/Tools/Watermark/Views/Overview.php:52
+msgctxt "Watermark Overview: Files protected"
+msgid "Files Protected"
 msgstr ""
 
-#: admin/watermark-settings.php:229
-msgid "Watermark layer depth"
+#: admin/views/account/components/banner-info.php:15
+msgid "Easily optimize your PDFs in WordPress!"
 msgstr ""
 
-#: admin/watermark-settings.php:237
-msgid "Enable Mosaic Watermark"
+#: admin/views/account/components/banner-info.php:18
+msgid ""
+"Make your site lighter and safer by compressing and watermarking PDFs. \n"
+"    iLovePDF reduces file size and protects your documents, helping improve performance, security, and loading speed."
 msgstr ""
 
-#: admin/watermark-settings.php:242
-msgid "Activate this setting for enable Watermark Mosaic."
+#: admin/views/account/components/banner-info.php:25
+msgid "Sign up and get 2,500 free credits to start optimizing with iLovePDF."
 msgstr ""
 
-#: admin/watermark-settings.php:259
-msgid "Configure your Watermark format."
+#: admin/views/account/statistics.php:20
+msgctxt "title account statistics"
+msgid "Remaining Credits"
 msgstr ""
 
-#: admin/watermark-settings.php:351
-msgid "Bottom"
+#: admin/views/account/statistics.php:25
+msgctxt "subtitle package section"
+msgid "Free."
 msgstr ""
 
-#: admin/watermark-settings.php:353
-msgid "Middle"
+#: admin/views/account/statistics.php:38
+msgctxt "subtitle package section"
+msgid "Packages."
 msgstr ""
 
-#: admin/watermark-settings.php:355
-msgid "Top"
+#: admin/views/account/statistics.php:66
+msgid "You get 2,500 free credits each month to process your files."
 msgstr ""
 
-#: admin/watermark-settings.php:374
-msgid "Left"
+#. translators: %1$s and %2$s are HTML link tags.
+#: admin/views/account/statistics.php:73
+#, php-format
+msgid "Need more credits? %1$s Upgrade your plan %2$s or %1$s buy a credit package. %2$s"
 msgstr ""
 
-#: admin/watermark-settings.php:376
-msgid "Center"
+#: admin/views/account/statistics.php:81
+msgctxt "button link"
+msgid "Buy credits"
 msgstr ""
 
-#: admin/watermark-settings.php:378
-msgid "Right"
+#: admin/views/account/user.php:20
+msgctxt "title section"
+msgid "Account"
 msgstr ""
 
-#: admin/watermark-settings.php:432
-msgid "Over"
+#: admin/views/components/tab-menu.php:62
+msgctxt "link menu: appears inside iLovePDF settings"
+msgid "General settings"
 msgstr ""
 
-#: admin/watermark-settings.php:434
-msgid "Below"
+#: admin/views/components/tab-menu.php:80
+msgctxt "link menu: appears inside iLovePDF settings"
+msgid "Compress settings"
 msgstr ""
 
-#: admin/watermark-settings.php:495
-msgid "Upload image"
+#: admin/views/components/tab-menu.php:98
+msgctxt "link menu: appears inside iLovePDF settings"
+msgid "Watermark settings"
 msgstr ""
 
-#: admin/watermark-settings.php:497
-msgid "Save"
+#: assets/build/main.min.js:1
+msgctxt "button dialog box"
+msgid "Cancel"
 msgstr ""
 
-#: admin/watermark-settings.php:537
-msgid "Select a image to upload"
+#: assets/build/main.min.js:1
+msgctxt "title dialog box"
+msgid "Are you sure you want to delete all backups?"
 msgstr ""
 
-#: admin/watermark-settings.php:542
-msgid "Use this image"
+#: assets/build/main.min.js:1
+msgctxt "body content dialog box"
+msgid "This will permanently delete all backups. Continue?"
+msgstr ""
+
+#: assets/build/main.min.js:1
+msgctxt "button dialog box"
+msgid "Clear backups"
+msgstr ""
+
+#: assets/build/main.min.js:1
+msgctxt "title dialog box"
+msgid "Are you sure you want to restore all files?"
+msgstr ""
+
+#: assets/build/main.min.js:1
+msgctxt "body content dialog box"
+msgid "This will undo all changes. Do you want to continue?"
+msgstr ""
+
+#: assets/build/main.min.js:1
+msgctxt "button dialog box"
+msgid "Restore files"
+msgstr ""
+
+#: assets/build/main.min.js:1
+msgctxt "body title dialog box"
+msgid "Are you sure you want to restore this file?"
+msgstr ""
+
+#: assets/build/main.min.js:1
+msgctxt "body content dialog box"
+msgid "This will undo all changes to this file. Continue?"
 msgstr ""

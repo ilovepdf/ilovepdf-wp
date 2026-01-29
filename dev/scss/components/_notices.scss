@@ -1,0 +1,39 @@
+@use '../variables' as *;
+
+.ipdf-notice {
+	border-radius: 5px;
+	margin-left: 0;
+	border-right-width: 4px;
+	gap: 15px;
+
+	.ipdf-logo {
+		margin: 0;
+
+		img {
+			width: 60px;
+		}
+	}
+
+	p {
+		font-family: $font_family;
+		font-size: 0.85rem;
+		letter-spacing: $letter_spacing;
+		color: $dark;
+	}
+
+	&.notice-error {
+		border-color: $primary_color;
+	}
+
+	&.notice-warning {
+		border-color: $warning_color_500;
+	}
+
+	&.notice-info {
+		border-color: $processing_color;
+	}
+
+	&.notice-success {
+		border-color: $success_color_500;
+	}
+}

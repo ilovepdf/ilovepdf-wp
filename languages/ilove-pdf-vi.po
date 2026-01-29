@@ -1,0 +1,980 @@
+# Copyright (C) 2025 ILovePDF
+# This file is distributed under the GPL-2.0+.
+msgid ""
+msgstr ""
+"Project-Id-Version: f77715d6d2ed986a477e9b7ddb58a66c\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/ilovepdf\n"
+"Last-Translator: ilovepdf <info@ilovepdf.com>\n"
+"Language-Team: Vietnamese\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2025-02-10T12:04:09+00:00\n"
+"PO-Revision-Date: 2026-01-13 13:58\n"
+"X-Generator: WP-CLI 2.12.0\n"
+"X-Domain: ilove-pdf\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Crowdin-Project: f77715d6d2ed986a477e9b7ddb58a66c\n"
+"X-Crowdin-Project-ID: 5\n"
+"X-Crowdin-Language: vi\n"
+"X-Crowdin-File: /Wordpress/ilove-pdf.pot\n"
+"X-Crowdin-File-ID: 1578\n"
+"Language: vi_VN\n"
+
+#. Plugin Name of the plugin
+#. Author of the plugin
+#: ilove-pdf.php
+msgid "iLovePDF"
+msgstr "iLovePDF"
+
+#. Plugin URI of the plugin
+#: ilove-pdf.php
+msgid "https://iloveapi.com/"
+msgstr "https://iloveapi.com/"
+
+#. Description of the plugin
+#: ilove-pdf.php
+msgid "Compress and watermark your PDFs directly in WordPress. Save space, speed up loading, and protect your content all without leaving your site."
+msgstr "Nén và trực tiếp đóng dấu bản quyền lên PDF trong WordPress. Giải phóng dung lượng, tăng tốc độ tải và bảo vệ nội dung, hoàn toàn không cần rời khỏi trang."
+
+#. Author URI of the plugin
+#: ilove-pdf.php
+msgid "https://ilovepdf.com/"
+msgstr "https://ilovepdf.com/"
+
+#: admin/Account/User_Auth.php:51
+#: admin/Account/User_Auth.php:174
+#: admin/Account/User_Auth.php:285
+#: admin/Account/User_Auth.php:341
+#: admin/Account/User_Data.php:416
+#: admin/Tools/Compress/Settings.php:56
+#: admin/Tools/General/Settings.php:63
+#: admin/Tools/Watermark/Settings.php:65
+msgctxt "Error message, user without permissions."
+msgid "You do not have permission to edit these settings"
+msgstr "Bạn không có quyền chỉnh sửa các cài đặt này"
+
+#: admin/Account/User_Auth.php:61
+#: admin/Account/User_Auth.php:184
+#: admin/Account/User_Auth.php:295
+#: admin/Account/User_Auth.php:351
+msgctxt "Error message, invalid nonce code."
+msgid "Couldn’t complete the request. Please refresh and try again."
+msgstr "Không thể hoàn thành yêu cầu. Vui lòng làm mới và thử lại."
+
+#: admin/Account/User_Auth.php:71
+#: admin/Account/User_Auth.php:138
+msgctxt "Error message: account creation failed."
+msgid "Account creation failed. Please try again."
+msgstr "Không thể tạo tài khoản. Vui lòng thử lại."
+
+#: admin/Account/User_Auth.php:82
+#: admin/Account/User_Auth.php:205
+msgctxt "Form submission: Error message, invalid input field."
+msgid "Email required."
+msgstr "Cần nhập email."
+
+#: admin/Account/User_Auth.php:93
+#: admin/Account/User_Auth.php:216
+msgctxt "Form submission: Error message, invalid input field."
+msgid "Password required."
+msgstr "Yêu cầu mật khẩu."
+
+#: admin/Account/User_Auth.php:104
+msgctxt "Form submission: Error message, invalid input field."
+msgid "Name required"
+msgstr "Cần nhập tên"
+
+#: admin/Account/User_Auth.php:155
+msgctxt "Form submission: Success message."
+msgid "User created successfully."
+msgstr "Tạo người dùng thành công."
+
+#: admin/Account/User_Auth.php:194
+msgctxt "Error message, login failed."
+msgid "Login failed. Please try again"
+msgstr "Không thể đăng nhập. Vui lòng thử lại"
+
+#: admin/Account/User_Auth.php:250
+msgctxt "Error message, login failed."
+msgid "There was a problem logging in. Please try again later."
+msgstr "Đã xảy ra lỗi khi đăng nhập. Vui lòng thử lại sau."
+
+#: admin/Account/User_Auth.php:267
+msgctxt "Form submission: Success message."
+msgid "Logged in successfully."
+msgstr "Đăng nhập thành công."
+
+#: admin/Account/User_Auth.php:305
+msgctxt "Form submission: Error message, invalid action."
+msgid "Logout failed. Please try again."
+msgstr "Không thể đăng xuất. Vui lòng thử lại."
+
+#: admin/Account/User_Auth.php:324
+msgctxt "Form submission: Success message."
+msgid "Logged out successfully."
+msgstr "Đăng xuất thành công."
+
+#: admin/Account/User_Auth.php:361
+msgctxt "Error message."
+msgid "Could not change project. Please try again."
+msgstr "Không thể thay đổi dự án. Vui lòng thử lại."
+
+#: admin/Account/User_Auth.php:371
+msgctxt "Error message, invalid input field."
+msgid "Project field is required."
+msgstr "Trường dự án là bắt buộc."
+
+#: admin/Account/User_Auth.php:385
+msgctxt "Form submission: Error message, invalid input field."
+msgid "The selected project is not valid."
+msgstr "Dự án đã chọn không hợp lệ."
+
+#: admin/Account/User_Auth.php:402
+msgctxt "Form submission: Success message."
+msgid "Project changed successfully."
+msgstr "Thay đổi dự án thành công."
+
+#: admin/Account/User_Data.php:290
+#: admin/Account/User_Data.php:450
+msgctxt "User Account: Error message."
+msgid "Unable to fetch user data. Please try again."
+msgstr "Không thể tìm nạp dữ liệu người dùng. Vui lòng thử lại."
+
+#: admin/Account/User_Data.php:308
+msgctxt "User Account: Success message on migration."
+msgid "Account settings migrated successfully."
+msgstr "Di chuyển cài đặt tài khoản thành công."
+
+#: admin/Account/User_Data.php:378
+msgctxt "credits popup: title"
+msgid "You're out of credits!"
+msgstr "Bạn đã hết tín dụng!"
+
+#: admin/Account/User_Data.php:379
+msgctxt "credits popup: content"
+msgid "Buy more credits to keep processing, or wait for your free credits to renew."
+msgstr "Mua thêm tín dụng để tiếp tục xử lý, hoặc chờ gia hạn tín dụng miễn phí."
+
+#: admin/Account/User_Data.php:380
+msgctxt "credits popup: button link"
+msgid "Buy credits"
+msgstr "Mua tín dụng"
+
+#: admin/Account/User_Data.php:381
+msgctxt "credits popup: button action"
+msgid "Cancel"
+msgstr "Hủy"
+
+#. translators: %1$s: used credits, %2$s: total credits
+#: admin/Account/User_Statistics.php:25
+#: admin/Account/User_Statistics.php:34
+#: admin/Account/User_Statistics.php:43
+#, php-format
+msgid "%1$s / %2$s credits used this month."
+msgstr "%1$s / %2$s tín dụng đã dùng tháng này."
+
+#: admin/Account/User_Statistics.php:80
+msgctxt "subtitle suscription section"
+msgid "Monthly plan."
+msgstr "Gói theo tháng."
+
+#: admin/Account/User_Statistics.php:84
+msgctxt "subtitle suscription section"
+msgid "Yearly plan."
+msgstr "Gói theo năm."
+
+#: admin/Account/Views/Base/Form.php:26
+msgctxt "input placeholder"
+msgid "Email"
+msgstr "Email"
+
+#: admin/Account/Views/Base/Form.php:41
+msgctxt "input placeholder"
+msgid "Password"
+msgstr "Mật khẩu"
+
+#: admin/Account/Views/Form_Login.php:40
+msgctxt "form title"
+msgid "Log in to your account"
+msgstr "Đăng nhập vào tài khoản của bạn"
+
+#: admin/Account/Views/Form_Login.php:59
+msgctxt "button link"
+msgid "Forgot your password?"
+msgstr "Bạn quên mật khẩu?"
+
+#: admin/Account/Views/Form_Login.php:88
+msgctxt "button link"
+msgid "Create an iLoveAPI account"
+msgstr "Tạo tài khoản iLoveAPI"
+
+#: admin/Account/Views/Form_Login.php:107
+msgctxt "button link"
+msgid "Log in"
+msgstr "Đăng nhập"
+
+#: admin/Account/Views/Form_Logout.php:50
+msgctxt "button link"
+msgid "Log out"
+msgstr "Đăng xuất"
+
+#: admin/Account/Views/Form_Project.php:65
+msgctxt "Input Project Select label"
+msgid "Select project"
+msgstr "Chọn dự án"
+
+#: admin/Account/Views/Form_Project.php:86
+msgctxt "Form change project: submit button"
+msgid "Change project"
+msgstr "Thay đổi dự án"
+
+#: admin/Account/Views/Form_Register.php:40
+msgctxt "form title"
+msgid "Create an iLoveAPI account"
+msgstr "Tạo tài khoản iLoveAPI"
+
+#: admin/Account/Views/Form_Register.php:59
+msgctxt "input placeholder"
+msgid "Name"
+msgstr "Tên"
+
+#: admin/Account/Views/Form_Register.php:87
+msgctxt "button link"
+msgid "Log in to your account"
+msgstr "Đăng nhập vào tài khoản của bạn"
+
+#: admin/Account/Views/Form_Register.php:106
+msgctxt "button link"
+msgid "Create account"
+msgstr "Tạo tài khoản"
+
+#: admin/Helpers/File_System.php:187
+#: admin/Tools/Backup.php:93
+#: admin/Tools/Backup.php:166
+#: admin/Tools/Backup.php:285
+#: admin/Tools/Backup.php:340
+#: admin/Tools/Backup.php:387
+#: admin/Tools/Backup.php:433
+#: admin/Tools/Backup.php:463
+#: admin/Tools/Compress/Tool_Compress.php:183
+#: admin/Tools/Watermark/Tool_Watermark.php:161
+msgctxt "Error message: Unable to connect to the core WordPress function."
+msgid "Could not connect to the server."
+msgstr "Không thể kết nối máy chủ."
+
+#. translators: %1$s: File name.
+#: admin/Helpers/File_System.php:217
+#, php-format
+msgctxt "This happened during the migration process."
+msgid "File moved to new backup folder: %1$s"
+msgstr "Đã chuyển tệp đến thư mục sao lưu mới: %1$s"
+
+#. translators: %1$s: File name.
+#: admin/Helpers/File_System.php:228
+#, php-format
+msgctxt "This happened during the migration process."
+msgid "Could not move file to backup folder: %1$s"
+msgstr "Không thể chuyển tệp đến thư mục sao lưu: %1$s"
+
+#: admin/Media/Files_List_Table.php:124
+msgctxt "File List Table: column name"
+msgid "File"
+msgstr "Tệp"
+
+#: admin/Media/Files_List_Table.php:125
+msgctxt "File List Table: column name"
+msgid "Original"
+msgstr "Gốc"
+
+#: admin/Media/Files_List_Table.php:126
+msgctxt "File List Table: column name"
+msgid "Compressed"
+msgstr "Đã nén"
+
+#: admin/Media/Files_List_Table.php:127
+msgctxt "File List Table: column name"
+msgid "Author"
+msgstr "Người tạo"
+
+#: admin/Media/Files_List_Table.php:128
+msgctxt "File List Table: column name"
+msgid "Upload Date"
+msgstr "Ngày tải lên"
+
+#: admin/Media/Files_List_Table.php:129
+msgctxt "File List Table: column name"
+msgid "Status"
+msgstr "Trạng thái"
+
+#: admin/Media/Files_List_Table.php:130
+msgctxt "File List Table: column name"
+msgid "Actions"
+msgstr "Hành động"
+
+#: admin/Media/Files_List_Table.php:242
+#: admin/Tools/Compress/Tool_Compress.php:413
+msgctxt "Bulk action button"
+msgid "Compress PDF"
+msgstr "Nén PDF"
+
+#: admin/Media/Files_List_Table.php:243
+#: admin/Tools/Watermark/Tool_Watermark.php:369
+msgctxt "Bulk action button"
+msgid "Apply Watermark"
+msgstr "Áp dụng dấu bản quyền"
+
+#: admin/Media/Files_List_Table.php:273
+#: admin/Tools/Backup.php:88
+#: admin/Tools/Backup.php:171
+#: admin/Tools/Backup.php:290
+#: admin/Tools/Compress/Settings.php:66
+#: admin/Tools/Compress/Tool_Compress.php:106
+#: admin/Tools/General/Settings.php:73
+#: admin/Tools/Watermark/Settings.php:75
+#: admin/Tools/Watermark/Tool_Watermark.php:81
+msgctxt "Error message, invalid nonce code."
+msgid "Couldn't complete the request. Please refresh and try again."
+msgstr "Không thể hoàn thành yêu cầu. Vui lòng làm mới và thử lại."
+
+#: admin/Media/Files_List_Table.php:290
+msgid "No files selected to compress."
+msgstr "Chưa chọn tệp để nén."
+
+#: admin/Media/Files_List_Table.php:293
+msgid "No files selected to watermark."
+msgstr "Chưa chọn tệp để đóng dấu bản quyền."
+
+#: admin/Media/Views/Media_Overview.php:31
+msgctxt "Section Title"
+msgid "Summary"
+msgstr "Tóm tắt"
+
+#: admin/Submenu_Page.php:70
+#: admin/Submenu_Page.php:84
+#: admin/Submenu_Page.php:85
+msgctxt "Link element: This appears in the WordPress side menu."
+msgid "General Settings"
+msgstr "Cài đặt chung"
+
+#: admin/Submenu_Page.php:97
+#: admin/Submenu_Page.php:98
+msgctxt "Link element: This appears in the WordPress side menu."
+msgid "Compress settings"
+msgstr "Cài đặt nén"
+
+#: admin/Submenu_Page.php:110
+#: admin/Submenu_Page.php:111
+msgctxt "Link element: This appears in the WordPress side menu."
+msgid "Watermark settings"
+msgstr "Cài đặt dấu bản quyền"
+
+#: admin/Submenu_Page.php:201
+msgctxt "Link item: appears in the plugins list."
+msgid "General Settings"
+msgstr "Cài đặt chung"
+
+#: admin/Submenu_Page.php:207
+msgctxt "Link item: appears in the plugins list."
+msgid "Compress Settings"
+msgstr "Cài đặt Nén"
+
+#: admin/Submenu_Page.php:213
+msgctxt "Link item: appears in the plugins list."
+msgid "Watermark Settings"
+msgstr "Cài đặt Dấu bản quyền"
+
+#: admin/Submenu_Page.php:219
+msgctxt "Link item: appears in the plugins list."
+msgid "Media Optimization"
+msgstr "Tối ưu hóa phương tiện"
+
+#: admin/Tools/Backup.php:98
+#: admin/Tools/Compress/Tool_Compress.php:110
+#: admin/Tools/Watermark/Tool_Watermark.php:85
+msgid "Could not process the request. Missing file ID."
+msgstr "Không thể xử lý yêu cầu. Thiếu ID tệp."
+
+#: admin/Tools/Backup.php:106
+msgid "No backup found for this file"
+msgstr "Không tìm thấy bản sao lưu của tệp này"
+
+#. translators: %1$s: file name
+#: admin/Tools/Backup.php:132
+#: admin/Tools/Backup.php:256
+#, php-format
+msgid "File restored: %1$s"
+msgstr "Tệp đã khôi phục: %1$s"
+
+#. translators: %1$s: error message
+#: admin/Tools/Backup.php:141
+#, php-format
+msgid "Could not restore file: %1$s"
+msgstr "Không thể khôi phục tệp: %1$s"
+
+#: admin/Tools/Backup.php:175
+#: admin/Tools/Backup.php:294
+msgid "No backup folder found."
+msgstr "Không tìm thấy thư mục sao lưu."
+
+#: admin/Tools/Backup.php:181
+msgid "No files found."
+msgstr "Không tìm thấy tệp nào."
+
+#. translators: %1$s: file ID
+#: admin/Tools/Backup.php:196
+#, php-format
+msgid "Original file not found: %1$s"
+msgstr "Không tìm thấy tệp gốc: %1$s"
+
+#. translators: %1$s: file ID
+#: admin/Tools/Backup.php:212
+#, php-format
+msgid "Backup file not found: %1$s"
+msgstr "Không tìm thấy tệp sao lưu: %1$s"
+
+#: admin/Tools/Backup.php:315
+msgid "Backup folder deleted successfully"
+msgstr "Xóa thư mục sao lưu thành công"
+
+#: admin/Tools/Backup.php:402
+msgid "Backup could not be created."
+msgstr "Không thể tạo bản sao lưu."
+
+#: admin/Tools/Base/Actions.php:37
+msgctxt "Error message: the file could not be processed."
+msgid "Something went wrong"
+msgstr "Đã xảy ra sự cố"
+
+#: admin/Tools/Base/Actions.php:59
+#: assets/build/main.min.js:1
+msgctxt "button action"
+msgid "Restore"
+msgstr "Khôi phục"
+
+#: admin/Tools/Base/Actions.php:76
+msgctxt "Status process: Restoring file"
+msgid "Restoring file"
+msgstr "Đang khôi phục tệp"
+
+#: admin/Tools/Base/Actions.php:91
+msgctxt "Status process: file restored"
+msgid "file restored"
+msgstr "đã khôi phục tệp"
+
+#: admin/Tools/Base/Form.php:35
+msgctxt "button link"
+msgid "Save changes"
+msgstr "Lưu thay đổi"
+
+#: admin/Tools/Base/Form.php:36
+msgctxt "tooltip: Appears when the user is not logged in."
+msgid "Log in to save your settings"
+msgstr "Đăng nhập để lưu cài đặt của bạn"
+
+#: admin/Tools/Compress/Settings.php:85
+#: admin/Tools/General/Settings.php:92
+#: admin/Tools/Watermark/Settings.php:94
+msgctxt "Form submission: Success message"
+msgid "Changes saved."
+msgstr "Đã lưu thay đổi."
+
+#. translators: %1$s: Original size, %2$s: Compressed size
+#: admin/Tools/Compress/Statistics.php:140
+#, php-format
+msgctxt "Compress Overview: Tool Resume."
+msgid "Your files, summary:\n"
+"Original size: %1$s\n"
+"After compression: %2$s"
+msgstr "Tóm tắt về tệp của bạn:\n"
+"Kích thước gốc: %1$s\n"
+"Sau khi nén: %2$s"
+
+#. translators: %1$s Additional process error
+#: admin/Tools/Compress/Tool_Compress.php:125
+#, php-format
+msgctxt "Compress PDF: Error message."
+msgid "Could not compress file: %1$s"
+msgstr "Không thể nén tệp: %1$s"
+
+#. translators: %1$s The file name
+#: admin/Tools/Compress/Tool_Compress.php:151
+#, php-format
+msgctxt "Compress PDF: File already processed."
+msgid "File is already compressed: %1$s"
+msgstr "Tệp đã nén: %1$s"
+
+#: admin/Tools/Compress/Tool_Compress.php:165
+msgctxt "Compress PDF: Error message."
+msgid "Compress PDF is not enabled. Please check your settings."
+msgstr "Chưa bật Nén PDF. Vui lòng kiểm tra cài đặt của bạn."
+
+#. translators: %1$s The file name
+#: admin/Tools/Compress/Tool_Compress.php:171
+#: admin/Tools/Watermark/Tool_Watermark.php:149
+#, php-format
+msgctxt "Error message."
+msgid "This is not a PDF file: %1$s"
+msgstr "Đây không phải là tệp PDF: %1$s"
+
+#: admin/Tools/Compress/Tool_Compress.php:192
+#: admin/Tools/Watermark/Tool_Watermark.php:170
+msgctxt "Auth: Error message."
+msgid "API key is missing. Please check your settings."
+msgstr "Thiếu mã khóa API. Vui lòng kiểm tra cài đặt của bạn."
+
+#. translators: %1$s The file name
+#: admin/Tools/Compress/Tool_Compress.php:226
+#: admin/Tools/Watermark/Tool_Watermark.php:246
+#, php-format
+msgctxt "Process Error"
+msgid "Temporary file not found: %1$s"
+msgstr "Không tìm thấy tệp tạm thời: %1$s"
+
+#. translators: %1$s The file name
+#: admin/Tools/Compress/Tool_Compress.php:253
+#, php-format
+msgctxt "Compress PDF: Success message."
+msgid "File compressed successfully: %1$s"
+msgstr "Nén tệp thành công: %1$s"
+
+#. translators: %1$s: compression percentage
+#: admin/Tools/Compress/Tool_Compress.php:317
+#: admin/Tools/Compress/Tool_Compress.php:331
+#, php-format
+msgctxt "Compress PDF: Compressed percentage."
+msgid "Compressed (%1$s%%)"
+msgstr "Đã nén (%1$s%%)"
+
+#: admin/Tools/Compress/Views/Actions.php:36
+msgctxt "Button action"
+msgid "Compress"
+msgstr "Nén"
+
+#: admin/Tools/Compress/Views/Actions.php:36
+#: admin/Tools/Watermark/Views/Actions.php:32
+msgctxt "tooltip: Appears when the user is not logged in."
+msgid "Please log in or sign up to use the tool."
+msgstr "Đăng nhập hoặc đăng ký để sử dụng công cụ."
+
+#: admin/Tools/Compress/Views/Actions.php:58
+msgctxt "Status: Not compressed"
+msgid "Not compressed"
+msgstr "Chưa nén"
+
+#: admin/Tools/Compress/Views/Actions.php:75
+msgctxt "Status: Compressing"
+msgid "Compressing..."
+msgstr "Đang nén..."
+
+#: admin/Tools/Compress/Views/Form_Options.php:56
+msgctxt "form title"
+msgid "Compress Settings"
+msgstr "Cài đặt Nén"
+
+#: admin/Tools/Compress/Views/Form_Options.php:82
+msgctxt "checkbox field label"
+msgid "Compress enabled"
+msgstr "Đã bật công cụ nén"
+
+#: admin/Tools/Compress/Views/Form_Options.php:83
+msgctxt "help text for checkbox field"
+msgid "Reduce the file size of your PDFs for easy sharing and storage."
+msgstr "Giảm kích thước tệp PDF của bạn để dễ dàng chia sẻ và lưu trữ."
+
+#: admin/Tools/Compress/Views/Form_Options.php:106
+msgctxt "checkbox field label"
+msgid "Automatically apply to uploaded files"
+msgstr "Tự động áp dụng cho tệp đã tải lên"
+
+#: admin/Tools/Compress/Views/Form_Options.php:107
+msgctxt "help text for checkbox field"
+msgid "With auto-compression enabled, any file uploaded to the Media folder will be automatically compressed."
+msgstr "Khi bật tùy chọn tự động nén, mọi tệp đã tải lên thư mục Phương tiện sẽ tự động được nén."
+
+#: admin/Tools/Compress/Views/Form_Options.php:147
+msgctxt "subtitle section"
+msgid "Compression level"
+msgstr "Mức độ nén"
+
+#: admin/Tools/Compress/Views/Form_Options.php:148
+msgid "Choose a compression level. Recommended is selected by default."
+msgstr "Chọn mức độ nén. Mức độ khuyên dùng được chọn theo mặc định."
+
+#: admin/Tools/Compress/Views/Form_Options.php:151
+msgctxt "radio button field label"
+msgid "Extreme: High compression, less quality"
+msgstr "Cao: Mức độ nén cao, chất lượng thấp"
+
+#: admin/Tools/Compress/Views/Form_Options.php:153
+msgctxt "radio button field label"
+msgid "Recommended: Good compression, good quality"
+msgstr "Khuyên dùng: Mức độ nén trung bình, chất lượng tốt"
+
+#: admin/Tools/Compress/Views/Form_Options.php:155
+msgctxt "radio button field label"
+msgid "Low: Less compression, high quality"
+msgstr "Thấp: Mức độ nén thấp, chất lượng cao"
+
+#: admin/Tools/Compress/Views/Overview.php:35
+msgctxt "Overview: tool title"
+msgid "Compress PDF"
+msgstr "Nén PDF"
+
+#: admin/Tools/Compress/Views/Overview.php:56
+msgctxt "Compress Overview: Files Processed"
+msgid "Files Processed"
+msgstr "Tệp đã xử lý"
+
+#: admin/Tools/Compress/Views/Overview.php:73
+msgctxt "Compress Overview: Average Reduction"
+msgid "Average Reduction"
+msgstr "Giảm trung bình"
+
+#: admin/Tools/Compress/Views/Overview.php:90
+msgctxt "Compress Overview: Total Space Saved"
+msgid "Total Space Saved"
+msgstr "Tổng dung lượng đã giải phóng"
+
+#: admin/Tools/General/Views/Form_Options.php:50
+msgctxt "form title"
+msgid "General Settings"
+msgstr "Cài đặt chung"
+
+#. translators: %s: backup folder path
+#: admin/Tools/General/Views/Form_Options.php:73
+#, php-format
+msgid "Backups are stored at: %s"
+msgstr "Bản sao lưu được lưu trữ ở: %s"
+
+#: admin/Tools/General/Views/Form_Options.php:88
+msgctxt "checkbox field label"
+msgid "Back up original files"
+msgstr "Sao lưu tệp gốc"
+
+#: admin/Tools/General/Views/Form_Options.php:89
+msgid "Save a backup before processing so you can restore the original later. Uses server space."
+msgstr "Lưu bản sao lưu trước khi xử lý để bạn có thể khôi phục bản gốc về sau. Sử dụng dung lượng máy chủ."
+
+#. translators: %1$s and %2$s: html tags
+#: admin/Tools/General/Views/Form_Options.php:107
+#, php-format
+msgid "You can restore original files from backup. Restoring will return files to their state before any changes were made. %1$s Warning: This will remove all modifications applied using the tools. %2$s"
+msgstr "Bạn có thể khôi phục tệp gốc từ bản sao lưu. Khi đó, tệp sẽ trở về trạng thái trước khi thay đổi. %1$s Cảnh báo: Thao tác này sẽ loại bỏ hết các sửa đổi đã áp dụng bằng công cụ. %2$s"
+
+#. translators: %1$s and %2$s: html tags
+#: admin/Tools/General/Views/Form_Options.php:116
+#, php-format
+msgid "You can delete all backup files to free up space. %1$s Warning: This will remove your ability to restore files. %2$s"
+msgstr "Bạn có thể xóa hết các tệp sao lưu để giải phóng dung lượng. %1$s Cảnh báo: Thao tác này sẽ khiến bạn không thể khôi phục tệp. %2$s"
+
+#. translators: %s: backup size
+#: admin/Tools/General/Views/Form_Options.php:125
+#, php-format
+msgid "Backup size: %s"
+msgstr "Kích thước bản sao lưu: %s"
+
+#: admin/Tools/General/Views/Form_Options.php:141
+msgctxt "section title"
+msgid "Restore Backup Files"
+msgstr "Khôi phục tệp sao lưu"
+
+#: admin/Tools/General/Views/Form_Options.php:161
+msgctxt "button"
+msgid "Restore all"
+msgstr "Khôi phục tất cả"
+
+#: admin/Tools/General/Views/Form_Options.php:177
+msgctxt "button"
+msgid "Clear backup"
+msgstr "Xóa bản sao lưu"
+
+#. translators: %1$d: Total files, %2$d: Protected files
+#: admin/Tools/Watermark/Statistics.php:96
+#, php-format
+msgctxt "Watermark Overview: Tool Resume."
+msgid "Your files, summary:\n"
+"Total files: %1$d\n"
+"Protected files: %2$d"
+msgstr "Tóm tắt về tệp của bạn:\n"
+"Tổng số tệp: %1$d\n"
+"Số tệp được bảo vệ: %2$d"
+
+#. translators: %1$s Additional process error
+#: admin/Tools/Watermark/Tool_Watermark.php:100
+#, php-format
+msgctxt "Watermark PDF: Error message."
+msgid "Could not apply watermark: %1$s"
+msgstr "Không thể đóng dấu bản quyền: %1$s"
+
+#. translators: %1$s The file name
+#: admin/Tools/Watermark/Tool_Watermark.php:129
+#, php-format
+msgctxt "Watermark PDF: Info message."
+msgid "File already watermarked: %1$s"
+msgstr "Tệp đã đóng dấu bản quyền: %1$s"
+
+#: admin/Tools/Watermark/Tool_Watermark.php:143
+msgctxt "Watermark PDF: Error message."
+msgid "Watermark is not enabled. Please check your settings."
+msgstr "Chưa bật Dấu bản quyền. Vui lòng kiểm tra cài đặt của bạn."
+
+#. translators: %1$s The file name
+#: admin/Tools/Watermark/Tool_Watermark.php:280
+#, php-format
+msgctxt "Watermark PDF: Success message."
+msgid "Watermark applied successfully: %1$s"
+msgstr "Đóng dấu bản quyền thành công: %1$s"
+
+#: admin/Tools/Watermark/Views/Actions.php:32
+msgctxt "Button action"
+msgid "Apply Watermark"
+msgstr "Áp dụng dấu bản quyền"
+
+#: admin/Tools/Watermark/Views/Actions.php:55
+msgctxt "Status: No watermark applied"
+msgid "No watermark applied"
+msgstr "Chưa đóng dấu bản quyền"
+
+#: admin/Tools/Watermark/Views/Actions.php:73
+msgctxt "Status: Watermark applied"
+msgid "Watermark applied"
+msgstr "Đã đóng dấu bản quyền"
+
+#: admin/Tools/Watermark/Views/Actions.php:90
+msgctxt "Status: Applying watermark"
+msgid "Applying watermark..."
+msgstr "Đang đóng dấu bản quyền..."
+
+#: admin/Tools/Watermark/Views/Form_Options.php:57
+msgctxt "form title"
+msgid "Watermark Settings"
+msgstr "Cài đặt Dấu bản quyền"
+
+#: admin/Tools/Watermark/Views/Form_Options.php:82
+msgctxt "subtitle for watermark options section"
+msgid "Watermark preview"
+msgstr "Xem trước dấu bản quyền"
+
+#: admin/Tools/Watermark/Views/Form_Options.php:83
+msgctxt "Help text for the watermark options section"
+msgid "Use text or upload an image as your watermark."
+msgstr "Sử dụng văn bản hoặc tải lên ảnh làm dấu bản quyền."
+
+#: admin/Tools/Watermark/Views/Form_Options.php:85
+msgctxt "Warning message: for family font selector."
+msgid "This font does not support bold or italic styles"
+msgstr "Phông chữ này không hỗ trợ kiểu in đậm hoặc nghiêng"
+
+#: admin/Tools/Watermark/Views/Form_Options.php:217
+msgctxt "checkbox field label"
+msgid "Watermark enabled"
+msgstr "Đã bật dấu bản quyền"
+
+#: admin/Tools/Watermark/Views/Form_Options.php:218
+msgctxt "help text for checkbox field"
+msgid "Add a watermark to protect PDFs from unauthorized use."
+msgstr "Thêm dấu bản quyền để bảo vệ tệp PDF không bị sử dụng trái phép."
+
+#: admin/Tools/Watermark/Views/Form_Options.php:241
+msgctxt "checkbox field label"
+msgid "Automatically apply watermark to uploaded files"
+msgstr "Tự động đóng dấu bản quyền vào tệp đã tải lên"
+
+#: admin/Tools/Watermark/Views/Form_Options.php:242
+msgid "Automatically stamp new Media uploads with your selected watermark. You can still apply it manually to other files."
+msgstr "Tự động đóng dấu bản quyền đã chọn vào tệp Phương tiện mới tải lên. Bạn vẫn có thể đóng dấu thủ công vào các tệp khác."
+
+#: admin/Tools/Watermark/Views/Form_Options.php:277
+msgctxt "radio button label"
+msgid "Use text"
+msgstr "Sử dụng văn bản"
+
+#: admin/Tools/Watermark/Views/Form_Options.php:280
+msgctxt "radio button label"
+msgid "Use image"
+msgstr "Sử dụng ảnh"
+
+#: admin/Tools/Watermark/Views/Form_Options.php:319
+msgctxt "radio field label"
+msgid "Position"
+msgstr "Vị trí"
+
+#: admin/Tools/Watermark/Views/Form_Options.php:349
+msgctxt "checkbox field label"
+msgid "Mosaic"
+msgstr "Ghép mảnh"
+
+#: admin/Tools/Watermark/Views/Form_Options.php:350
+msgid "If enabled, this overrides manual position settings to print image or text 9 times per page."
+msgstr "Nếu bật, tùy chọn này sẽ ghi đè cài đặt vị trí thủ công để in ảnh hoặc văn bản 9 lần mỗi trang."
+
+#: admin/Tools/Watermark/Views/Form_Options.php:389
+msgctxt "radio button label"
+msgid "Above PDF content"
+msgstr "Trên nội dung PDF"
+
+#: admin/Tools/Watermark/Views/Form_Options.php:392
+msgctxt "radio button label"
+msgid "Below PDF content"
+msgstr "Dưới nội dung PDF"
+
+#: admin/Tools/Watermark/Views/Form_Options.php:421
+msgctxt "input range field label"
+msgid "Opacity"
+msgstr "Độ mờ"
+
+#: admin/Tools/Watermark/Views/Form_Options.php:451
+msgctxt "input range field label"
+msgid "Rotation"
+msgstr "Góc xoay"
+
+#: admin/Tools/Watermark/Views/Form_Options.php:472
+msgctxt "input text: placeholder"
+msgid "Enter text for watermark"
+msgstr "Nhập văn bản cho dấu bản quyền"
+
+#: admin/Tools/Watermark/Views/Form_Options.php:612
+msgctxt "subtitle for watermark image mode"
+msgid "Watermark image"
+msgstr "Ảnh của dấu bản quyền"
+
+#: admin/Tools/Watermark/Views/Form_Options.php:613
+msgctxt "Help text for image stamp"
+msgid "Select an image stamp from Media or a URL. Then adjust its position, size, opacity, and rotation"
+msgstr "Chọn ảnh đóng dấu từ thư mục Phương tiện hoặc URL. Sau đó, điều chỉnh vị trí, kích thước, độ mờ và góc xoay"
+
+#: admin/Tools/Watermark/Views/Form_Options.php:614
+msgctxt "button"
+msgid "Add Image"
+msgstr "Thêm ảnh"
+
+#: admin/Tools/Watermark/Views/Form_Options.php:615
+msgctxt "before text: add image button, after text: input image URL"
+msgid "or enter an URL"
+msgstr "hoặc nhập URL"
+
+#: admin/Tools/Watermark/Views/Form_Options.php:618
+msgctxt "input text: placeholder"
+msgid "Enter image URL"
+msgstr "Nhập URL ảnh"
+
+#: admin/Tools/Watermark/Views/Overview.php:33
+msgctxt "Overview: tool title"
+msgid "Watermark PDF"
+msgstr "Đóng dấu bản quyền lên PDF"
+
+#: admin/Tools/Watermark/Views/Overview.php:52
+msgctxt "Watermark Overview: Files protected"
+msgid "Files Protected"
+msgstr "Tệp được bảo vệ"
+
+#: admin/views/account/components/banner-info.php:15
+msgid "Easily optimize your PDFs in WordPress!"
+msgstr "Dễ dàng tối ưu hóa PDF trong WordPress!"
+
+#: admin/views/account/components/banner-info.php:18
+msgid "Make your site lighter and safer by compressing and watermarking PDFs. \n"
+"    iLovePDF reduces file size and protects your documents, helping improve performance, security, and loading speed."
+msgstr "Nén và đóng dấu bản quyền lên PDF để trang an toàn hơn và giải phóng dung lượng. \n"
+"    iLovePDF giảm kích thước tệp và bảo vệ tài liệu của bạn, giúp cải thiện hiệu suất, bảo mật và tốc độ tải."
+
+#: admin/views/account/components/banner-info.php:25
+msgid "Sign up and get 2,500 free credits to start optimizing with iLovePDF."
+msgstr "Đăng ký và nhận 2.500 tín dụng miễn phí để bắt đầu tối ưu hóa bằng iLovePDF."
+
+#: admin/views/account/statistics.php:20
+msgctxt "title account statistics"
+msgid "Remaining Credits"
+msgstr "Tín dụng còn lại"
+
+#: admin/views/account/statistics.php:25
+msgctxt "subtitle package section"
+msgid "Free."
+msgstr "Miễn phí."
+
+#: admin/views/account/statistics.php:38
+msgctxt "subtitle package section"
+msgid "Packages."
+msgstr "Các bộ chương trình."
+
+#: admin/views/account/statistics.php:66
+msgid "You get 2,500 free credits each month to process your files."
+msgstr "Bạn nhận được 2.500 tín dụng miễn phí mỗi tháng để xử lý tệp."
+
+#. translators: %1$s and %2$s are HTML link tags.
+#: admin/views/account/statistics.php:73
+#, php-format
+msgid "Need more credits? %1$s Upgrade your plan %2$s or %1$s buy a credit package. %2$s"
+msgstr "Bạn cần thêm tín dụng? %1$s Nâng cấp gói hiện tại %2$s hoặc %1$s mua gói tín dụng. %2$s"
+
+#: admin/views/account/statistics.php:81
+msgctxt "button link"
+msgid "Buy credits"
+msgstr "Mua tín dụng"
+
+#: admin/views/account/user.php:20
+msgctxt "title section"
+msgid "Account"
+msgstr "Tài khoản"
+
+#: admin/views/components/tab-menu.php:62
+msgctxt "link menu: appears inside iLovePDF settings"
+msgid "General settings"
+msgstr "Cài đặt chung"
+
+#: admin/views/components/tab-menu.php:80
+msgctxt "link menu: appears inside iLovePDF settings"
+msgid "Compress settings"
+msgstr "Cài đặt nén"
+
+#: admin/views/components/tab-menu.php:98
+msgctxt "link menu: appears inside iLovePDF settings"
+msgid "Watermark settings"
+msgstr "Cài đặt dấu bản quyền"
+
+#: assets/build/main.min.js:1
+msgctxt "button dialog box"
+msgid "Cancel"
+msgstr "Hủy"
+
+#: assets/build/main.min.js:1
+msgctxt "title dialog box"
+msgid "Are you sure you want to delete all backups?"
+msgstr "Bạn có chắc chắn muốn xóa hết bản sao lưu không?"
+
+#: assets/build/main.min.js:1
+msgctxt "body content dialog box"
+msgid "This will permanently delete all backups. Continue?"
+msgstr "Thao tác này sẽ xóa hết các bản sao lưu. Tiếp tục?"
+
+#: assets/build/main.min.js:1
+msgctxt "button dialog box"
+msgid "Clear backups"
+msgstr "Xóa bản sao lưu"
+
+#: assets/build/main.min.js:1
+msgctxt "title dialog box"
+msgid "Are you sure you want to restore all files?"
+msgstr "Bạn có chắc chắn muốn khôi phục tất cả tệp không?"
+
+#: assets/build/main.min.js:1
+msgctxt "body content dialog box"
+msgid "This will undo all changes. Do you want to continue?"
+msgstr "Thao tác này sẽ hủy mọi thay đổi. Bạn có muốn tiếp tục không?"
+
+#: assets/build/main.min.js:1
+msgctxt "button dialog box"
+msgid "Restore files"
+msgstr "Khôi phục tệp"
+
+#: assets/build/main.min.js:1
+msgctxt "body title dialog box"
+msgid "Are you sure you want to restore this file?"
+msgstr "Bạn có chắc chắn muốn khôi phục tệp này không?"
+
+#: assets/build/main.min.js:1
+msgctxt "body content dialog box"
+msgid "This will undo all changes to this file. Continue?"
+msgstr "Thao tác này sẽ hủy mọi thay đổi với tệp này. Tiếp tục?"
+

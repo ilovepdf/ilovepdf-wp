@@ -1,0 +1,980 @@
+# Copyright (C) 2025 ILovePDF
+# This file is distributed under the GPL-2.0+.
+msgid ""
+msgstr ""
+"Project-Id-Version: f77715d6d2ed986a477e9b7ddb58a66c\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/ilovepdf\n"
+"Last-Translator: ilovepdf <info@ilovepdf.com>\n"
+"Language-Team: Portuguese\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2025-02-10T12:04:09+00:00\n"
+"PO-Revision-Date: 2026-01-13 13:58\n"
+"X-Generator: WP-CLI 2.12.0\n"
+"X-Domain: ilove-pdf\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Crowdin-Project: f77715d6d2ed986a477e9b7ddb58a66c\n"
+"X-Crowdin-Project-ID: 5\n"
+"X-Crowdin-Language: pt\n"
+"X-Crowdin-File: /Wordpress/ilove-pdf.pot\n"
+"X-Crowdin-File-ID: 1578\n"
+"Language: pt_PT\n"
+
+#. Plugin Name of the plugin
+#. Author of the plugin
+#: ilove-pdf.php
+msgid "iLovePDF"
+msgstr "o iLovePDF"
+
+#. Plugin URI of the plugin
+#: ilove-pdf.php
+msgid "https://iloveapi.com/"
+msgstr "https://iloveapi.com/"
+
+#. Description of the plugin
+#: ilove-pdf.php
+msgid "Compress and watermark your PDFs directly in WordPress. Save space, speed up loading, and protect your content all without leaving your site."
+msgstr "Comprima e aplique uma marca d'água aos seus PDFs diretamente no WordPress. Economize espaço, acelere o carregamento e proteja o seu conteúdo sem sair do seu site."
+
+#. Author URI of the plugin
+#: ilove-pdf.php
+msgid "https://ilovepdf.com/"
+msgstr "https://ilovepdf.com/"
+
+#: admin/Account/User_Auth.php:51
+#: admin/Account/User_Auth.php:174
+#: admin/Account/User_Auth.php:285
+#: admin/Account/User_Auth.php:341
+#: admin/Account/User_Data.php:416
+#: admin/Tools/Compress/Settings.php:56
+#: admin/Tools/General/Settings.php:63
+#: admin/Tools/Watermark/Settings.php:65
+msgctxt "Error message, user without permissions."
+msgid "You do not have permission to edit these settings"
+msgstr "Você não tem permissão para editar estas configurações"
+
+#: admin/Account/User_Auth.php:61
+#: admin/Account/User_Auth.php:184
+#: admin/Account/User_Auth.php:295
+#: admin/Account/User_Auth.php:351
+msgctxt "Error message, invalid nonce code."
+msgid "Couldn’t complete the request. Please refresh and try again."
+msgstr "Não foi possível concluir a solicitação. Atualize e tente novamente."
+
+#: admin/Account/User_Auth.php:71
+#: admin/Account/User_Auth.php:138
+msgctxt "Error message: account creation failed."
+msgid "Account creation failed. Please try again."
+msgstr "Falha ao criar a conta. Tente novamente."
+
+#: admin/Account/User_Auth.php:82
+#: admin/Account/User_Auth.php:205
+msgctxt "Form submission: Error message, invalid input field."
+msgid "Email required."
+msgstr "E-mail obrigatório."
+
+#: admin/Account/User_Auth.php:93
+#: admin/Account/User_Auth.php:216
+msgctxt "Form submission: Error message, invalid input field."
+msgid "Password required."
+msgstr "Senha necessária."
+
+#: admin/Account/User_Auth.php:104
+msgctxt "Form submission: Error message, invalid input field."
+msgid "Name required"
+msgstr "Nome obrigatório"
+
+#: admin/Account/User_Auth.php:155
+msgctxt "Form submission: Success message."
+msgid "User created successfully."
+msgstr "Usuário criado com sucesso."
+
+#: admin/Account/User_Auth.php:194
+msgctxt "Error message, login failed."
+msgid "Login failed. Please try again"
+msgstr "Falha ao fazer login. Tente novamente"
+
+#: admin/Account/User_Auth.php:250
+msgctxt "Error message, login failed."
+msgid "There was a problem logging in. Please try again later."
+msgstr "Houve um problema ao fazer login. Tente novamente mais tarde."
+
+#: admin/Account/User_Auth.php:267
+msgctxt "Form submission: Success message."
+msgid "Logged in successfully."
+msgstr "Login efetuado com sucesso."
+
+#: admin/Account/User_Auth.php:305
+msgctxt "Form submission: Error message, invalid action."
+msgid "Logout failed. Please try again."
+msgstr "Falha ao fazer logout. Tente novamente."
+
+#: admin/Account/User_Auth.php:324
+msgctxt "Form submission: Success message."
+msgid "Logged out successfully."
+msgstr "Logout efetuado com sucesso."
+
+#: admin/Account/User_Auth.php:361
+msgctxt "Error message."
+msgid "Could not change project. Please try again."
+msgstr "Não foi possível alterar o projeto. Tente novamente."
+
+#: admin/Account/User_Auth.php:371
+msgctxt "Error message, invalid input field."
+msgid "Project field is required."
+msgstr "O campo Projeto é obrigatório."
+
+#: admin/Account/User_Auth.php:385
+msgctxt "Form submission: Error message, invalid input field."
+msgid "The selected project is not valid."
+msgstr "O projeto selecionado não é válido."
+
+#: admin/Account/User_Auth.php:402
+msgctxt "Form submission: Success message."
+msgid "Project changed successfully."
+msgstr "Projeto alterado com sucesso."
+
+#: admin/Account/User_Data.php:290
+#: admin/Account/User_Data.php:450
+msgctxt "User Account: Error message."
+msgid "Unable to fetch user data. Please try again."
+msgstr "Não foi possível obter os dados do usuário. Tente novamente."
+
+#: admin/Account/User_Data.php:308
+msgctxt "User Account: Success message on migration."
+msgid "Account settings migrated successfully."
+msgstr "Configurações de conta migradas com sucesso."
+
+#: admin/Account/User_Data.php:378
+msgctxt "credits popup: title"
+msgid "You're out of credits!"
+msgstr "Você ficou sem créditos!"
+
+#: admin/Account/User_Data.php:379
+msgctxt "credits popup: content"
+msgid "Buy more credits to keep processing, or wait for your free credits to renew."
+msgstr "Compre mais créditos para continuar processando ou aguarde a renovação dos seus créditos gratuitos."
+
+#: admin/Account/User_Data.php:380
+msgctxt "credits popup: button link"
+msgid "Buy credits"
+msgstr "Comprar créditos"
+
+#: admin/Account/User_Data.php:381
+msgctxt "credits popup: button action"
+msgid "Cancel"
+msgstr "Cancelar"
+
+#. translators: %1$s: used credits, %2$s: total credits
+#: admin/Account/User_Statistics.php:25
+#: admin/Account/User_Statistics.php:34
+#: admin/Account/User_Statistics.php:43
+#, php-format
+msgid "%1$s / %2$s credits used this month."
+msgstr "%1$s/%2$s créditos usados este mês."
+
+#: admin/Account/User_Statistics.php:80
+msgctxt "subtitle suscription section"
+msgid "Monthly plan."
+msgstr "Plano mensal."
+
+#: admin/Account/User_Statistics.php:84
+msgctxt "subtitle suscription section"
+msgid "Yearly plan."
+msgstr "Plano anual."
+
+#: admin/Account/Views/Base/Form.php:26
+msgctxt "input placeholder"
+msgid "Email"
+msgstr "E-mail"
+
+#: admin/Account/Views/Base/Form.php:41
+msgctxt "input placeholder"
+msgid "Password"
+msgstr "Senha"
+
+#: admin/Account/Views/Form_Login.php:40
+msgctxt "form title"
+msgid "Log in to your account"
+msgstr "Faça login na sua conta"
+
+#: admin/Account/Views/Form_Login.php:59
+msgctxt "button link"
+msgid "Forgot your password?"
+msgstr "Esqueceu a sua senha?"
+
+#: admin/Account/Views/Form_Login.php:88
+msgctxt "button link"
+msgid "Create an iLoveAPI account"
+msgstr "Crie uma conta iLoveAPI"
+
+#: admin/Account/Views/Form_Login.php:107
+msgctxt "button link"
+msgid "Log in"
+msgstr "Efetuar Login"
+
+#: admin/Account/Views/Form_Logout.php:50
+msgctxt "button link"
+msgid "Log out"
+msgstr "Sair"
+
+#: admin/Account/Views/Form_Project.php:65
+msgctxt "Input Project Select label"
+msgid "Select project"
+msgstr "Selecionar projeto"
+
+#: admin/Account/Views/Form_Project.php:86
+msgctxt "Form change project: submit button"
+msgid "Change project"
+msgstr "Alterar projeto"
+
+#: admin/Account/Views/Form_Register.php:40
+msgctxt "form title"
+msgid "Create an iLoveAPI account"
+msgstr "Crie uma conta iLoveAPI"
+
+#: admin/Account/Views/Form_Register.php:59
+msgctxt "input placeholder"
+msgid "Name"
+msgstr "Nome"
+
+#: admin/Account/Views/Form_Register.php:87
+msgctxt "button link"
+msgid "Log in to your account"
+msgstr "Faça login na sua conta"
+
+#: admin/Account/Views/Form_Register.php:106
+msgctxt "button link"
+msgid "Create account"
+msgstr "Criar conta"
+
+#: admin/Helpers/File_System.php:187
+#: admin/Tools/Backup.php:93
+#: admin/Tools/Backup.php:166
+#: admin/Tools/Backup.php:285
+#: admin/Tools/Backup.php:340
+#: admin/Tools/Backup.php:387
+#: admin/Tools/Backup.php:433
+#: admin/Tools/Backup.php:463
+#: admin/Tools/Compress/Tool_Compress.php:183
+#: admin/Tools/Watermark/Tool_Watermark.php:161
+msgctxt "Error message: Unable to connect to the core WordPress function."
+msgid "Could not connect to the server."
+msgstr "Não foi possível ligar ao servidor."
+
+#. translators: %1$s: File name.
+#: admin/Helpers/File_System.php:217
+#, php-format
+msgctxt "This happened during the migration process."
+msgid "File moved to new backup folder: %1$s"
+msgstr "Arquivo movido para a nova pasta de backup: %1$s"
+
+#. translators: %1$s: File name.
+#: admin/Helpers/File_System.php:228
+#, php-format
+msgctxt "This happened during the migration process."
+msgid "Could not move file to backup folder: %1$s"
+msgstr "Não foi possível mover o arquivo para a pasta de backup: %1$s"
+
+#: admin/Media/Files_List_Table.php:124
+msgctxt "File List Table: column name"
+msgid "File"
+msgstr "Arquivo"
+
+#: admin/Media/Files_List_Table.php:125
+msgctxt "File List Table: column name"
+msgid "Original"
+msgstr "Original"
+
+#: admin/Media/Files_List_Table.php:126
+msgctxt "File List Table: column name"
+msgid "Compressed"
+msgstr "Comprimido"
+
+#: admin/Media/Files_List_Table.php:127
+msgctxt "File List Table: column name"
+msgid "Author"
+msgstr "Autor"
+
+#: admin/Media/Files_List_Table.php:128
+msgctxt "File List Table: column name"
+msgid "Upload Date"
+msgstr "Data de carregamento"
+
+#: admin/Media/Files_List_Table.php:129
+msgctxt "File List Table: column name"
+msgid "Status"
+msgstr "Estado"
+
+#: admin/Media/Files_List_Table.php:130
+msgctxt "File List Table: column name"
+msgid "Actions"
+msgstr "Acções"
+
+#: admin/Media/Files_List_Table.php:242
+#: admin/Tools/Compress/Tool_Compress.php:413
+msgctxt "Bulk action button"
+msgid "Compress PDF"
+msgstr "Comprimir PDF"
+
+#: admin/Media/Files_List_Table.php:243
+#: admin/Tools/Watermark/Tool_Watermark.php:369
+msgctxt "Bulk action button"
+msgid "Apply Watermark"
+msgstr "Aplicar marca d'água"
+
+#: admin/Media/Files_List_Table.php:273
+#: admin/Tools/Backup.php:88
+#: admin/Tools/Backup.php:171
+#: admin/Tools/Backup.php:290
+#: admin/Tools/Compress/Settings.php:66
+#: admin/Tools/Compress/Tool_Compress.php:106
+#: admin/Tools/General/Settings.php:73
+#: admin/Tools/Watermark/Settings.php:75
+#: admin/Tools/Watermark/Tool_Watermark.php:81
+msgctxt "Error message, invalid nonce code."
+msgid "Couldn't complete the request. Please refresh and try again."
+msgstr "Não foi possível concluir a solicitação. Atualize e tente novamente."
+
+#: admin/Media/Files_List_Table.php:290
+msgid "No files selected to compress."
+msgstr "Nenhum arquivo selecionado para comprimir."
+
+#: admin/Media/Files_List_Table.php:293
+msgid "No files selected to watermark."
+msgstr "Nenhum arquivo selecionado para aplicar marca d'água."
+
+#: admin/Media/Views/Media_Overview.php:31
+msgctxt "Section Title"
+msgid "Summary"
+msgstr "Resumo"
+
+#: admin/Submenu_Page.php:70
+#: admin/Submenu_Page.php:84
+#: admin/Submenu_Page.php:85
+msgctxt "Link element: This appears in the WordPress side menu."
+msgid "General Settings"
+msgstr "Configurações gerais"
+
+#: admin/Submenu_Page.php:97
+#: admin/Submenu_Page.php:98
+msgctxt "Link element: This appears in the WordPress side menu."
+msgid "Compress settings"
+msgstr "Configurações de compressão"
+
+#: admin/Submenu_Page.php:110
+#: admin/Submenu_Page.php:111
+msgctxt "Link element: This appears in the WordPress side menu."
+msgid "Watermark settings"
+msgstr "Configurações de marca d'água"
+
+#: admin/Submenu_Page.php:201
+msgctxt "Link item: appears in the plugins list."
+msgid "General Settings"
+msgstr "Configurações gerais"
+
+#: admin/Submenu_Page.php:207
+msgctxt "Link item: appears in the plugins list."
+msgid "Compress Settings"
+msgstr "Configurações de compressão"
+
+#: admin/Submenu_Page.php:213
+msgctxt "Link item: appears in the plugins list."
+msgid "Watermark Settings"
+msgstr "Configurações de marca d'água"
+
+#: admin/Submenu_Page.php:219
+msgctxt "Link item: appears in the plugins list."
+msgid "Media Optimization"
+msgstr "Otimização de mídia"
+
+#: admin/Tools/Backup.php:98
+#: admin/Tools/Compress/Tool_Compress.php:110
+#: admin/Tools/Watermark/Tool_Watermark.php:85
+msgid "Could not process the request. Missing file ID."
+msgstr "Não foi possível processar a solicitação. Falta o ID do arquivo."
+
+#: admin/Tools/Backup.php:106
+msgid "No backup found for this file"
+msgstr "Nenhum backup encontrado para este arquivo"
+
+#. translators: %1$s: file name
+#: admin/Tools/Backup.php:132
+#: admin/Tools/Backup.php:256
+#, php-format
+msgid "File restored: %1$s"
+msgstr "Arquivo restaurado: %1$s"
+
+#. translators: %1$s: error message
+#: admin/Tools/Backup.php:141
+#, php-format
+msgid "Could not restore file: %1$s"
+msgstr "Não foi possível restaurar o arquivo: %1$s"
+
+#: admin/Tools/Backup.php:175
+#: admin/Tools/Backup.php:294
+msgid "No backup folder found."
+msgstr "Nenhuma pasta de backup encontrada."
+
+#: admin/Tools/Backup.php:181
+msgid "No files found."
+msgstr "Nenhum arquivo encontrado."
+
+#. translators: %1$s: file ID
+#: admin/Tools/Backup.php:196
+#, php-format
+msgid "Original file not found: %1$s"
+msgstr "Arquivo original não encontrado: %1$s"
+
+#. translators: %1$s: file ID
+#: admin/Tools/Backup.php:212
+#, php-format
+msgid "Backup file not found: %1$s"
+msgstr "Arquivo de backup não encontrado: %1$s"
+
+#: admin/Tools/Backup.php:315
+msgid "Backup folder deleted successfully"
+msgstr "Pasta de backup excluída com sucesso"
+
+#: admin/Tools/Backup.php:402
+msgid "Backup could not be created."
+msgstr "Não foi possível criar o backup."
+
+#: admin/Tools/Base/Actions.php:37
+msgctxt "Error message: the file could not be processed."
+msgid "Something went wrong"
+msgstr "Algo deu errado"
+
+#: admin/Tools/Base/Actions.php:59
+#: assets/build/main.min.js:1
+msgctxt "button action"
+msgid "Restore"
+msgstr "Restaurar"
+
+#: admin/Tools/Base/Actions.php:76
+msgctxt "Status process: Restoring file"
+msgid "Restoring file"
+msgstr "Restaurando arquivo"
+
+#: admin/Tools/Base/Actions.php:91
+msgctxt "Status process: file restored"
+msgid "file restored"
+msgstr "arquivo restaurado"
+
+#: admin/Tools/Base/Form.php:35
+msgctxt "button link"
+msgid "Save changes"
+msgstr "Salvar alterações"
+
+#: admin/Tools/Base/Form.php:36
+msgctxt "tooltip: Appears when the user is not logged in."
+msgid "Log in to save your settings"
+msgstr "Faça login para salvar as suas configurações"
+
+#: admin/Tools/Compress/Settings.php:85
+#: admin/Tools/General/Settings.php:92
+#: admin/Tools/Watermark/Settings.php:94
+msgctxt "Form submission: Success message"
+msgid "Changes saved."
+msgstr "Alterações salvas."
+
+#. translators: %1$s: Original size, %2$s: Compressed size
+#: admin/Tools/Compress/Statistics.php:140
+#, php-format
+msgctxt "Compress Overview: Tool Resume."
+msgid "Your files, summary:\n"
+"Original size: %1$s\n"
+"After compression: %2$s"
+msgstr "Seus arquivos, resumo:\n"
+"Tamanho original: %1$s\n"
+"Após a compressão: %2$s"
+
+#. translators: %1$s Additional process error
+#: admin/Tools/Compress/Tool_Compress.php:125
+#, php-format
+msgctxt "Compress PDF: Error message."
+msgid "Could not compress file: %1$s"
+msgstr "Não foi possível comprimir o arquivo: %1$s"
+
+#. translators: %1$s The file name
+#: admin/Tools/Compress/Tool_Compress.php:151
+#, php-format
+msgctxt "Compress PDF: File already processed."
+msgid "File is already compressed: %1$s"
+msgstr "O arquivo já está comprimido: %1$s"
+
+#: admin/Tools/Compress/Tool_Compress.php:165
+msgctxt "Compress PDF: Error message."
+msgid "Compress PDF is not enabled. Please check your settings."
+msgstr "Comprimir PDF não está habilitado. Verifique as suas configurações."
+
+#. translators: %1$s The file name
+#: admin/Tools/Compress/Tool_Compress.php:171
+#: admin/Tools/Watermark/Tool_Watermark.php:149
+#, php-format
+msgctxt "Error message."
+msgid "This is not a PDF file: %1$s"
+msgstr "Este não é um arquivo PDF: %1$s"
+
+#: admin/Tools/Compress/Tool_Compress.php:192
+#: admin/Tools/Watermark/Tool_Watermark.php:170
+msgctxt "Auth: Error message."
+msgid "API key is missing. Please check your settings."
+msgstr "Falta a chave de API. Verifique as suas configurações."
+
+#. translators: %1$s The file name
+#: admin/Tools/Compress/Tool_Compress.php:226
+#: admin/Tools/Watermark/Tool_Watermark.php:246
+#, php-format
+msgctxt "Process Error"
+msgid "Temporary file not found: %1$s"
+msgstr "Arquivo temporário não encontrado: %1$s"
+
+#. translators: %1$s The file name
+#: admin/Tools/Compress/Tool_Compress.php:253
+#, php-format
+msgctxt "Compress PDF: Success message."
+msgid "File compressed successfully: %1$s"
+msgstr "Arquivo comprimido com sucesso: %1$s"
+
+#. translators: %1$s: compression percentage
+#: admin/Tools/Compress/Tool_Compress.php:317
+#: admin/Tools/Compress/Tool_Compress.php:331
+#, php-format
+msgctxt "Compress PDF: Compressed percentage."
+msgid "Compressed (%1$s%%)"
+msgstr "Comprimido (%1$s%%)"
+
+#: admin/Tools/Compress/Views/Actions.php:36
+msgctxt "Button action"
+msgid "Compress"
+msgstr "Comprimir"
+
+#: admin/Tools/Compress/Views/Actions.php:36
+#: admin/Tools/Watermark/Views/Actions.php:32
+msgctxt "tooltip: Appears when the user is not logged in."
+msgid "Please log in or sign up to use the tool."
+msgstr "Faça login ou crie uma conta para usar a ferramenta."
+
+#: admin/Tools/Compress/Views/Actions.php:58
+msgctxt "Status: Not compressed"
+msgid "Not compressed"
+msgstr "Não comprimido"
+
+#: admin/Tools/Compress/Views/Actions.php:75
+msgctxt "Status: Compressing"
+msgid "Compressing..."
+msgstr "Comprimindo..."
+
+#: admin/Tools/Compress/Views/Form_Options.php:56
+msgctxt "form title"
+msgid "Compress Settings"
+msgstr "Configurações de compressão"
+
+#: admin/Tools/Compress/Views/Form_Options.php:82
+msgctxt "checkbox field label"
+msgid "Compress enabled"
+msgstr "Compressão habilitada"
+
+#: admin/Tools/Compress/Views/Form_Options.php:83
+msgctxt "help text for checkbox field"
+msgid "Reduce the file size of your PDFs for easy sharing and storage."
+msgstr "Reduza o tamanho dos seus arquivos PDFs para facilitar o compartilhamento e o armazenamento."
+
+#: admin/Tools/Compress/Views/Form_Options.php:106
+msgctxt "checkbox field label"
+msgid "Automatically apply to uploaded files"
+msgstr "Aplicar automaticamente aos arquivos carregados"
+
+#: admin/Tools/Compress/Views/Form_Options.php:107
+msgctxt "help text for checkbox field"
+msgid "With auto-compression enabled, any file uploaded to the Media folder will be automatically compressed."
+msgstr "Com a compressão automática habilitada, qualquer arquivo carregado na pasta Mídia será automaticamente comprimido."
+
+#: admin/Tools/Compress/Views/Form_Options.php:147
+msgctxt "subtitle section"
+msgid "Compression level"
+msgstr "Nível de compressão"
+
+#: admin/Tools/Compress/Views/Form_Options.php:148
+msgid "Choose a compression level. Recommended is selected by default."
+msgstr "Escolha um nível de compressão. A opção \"Recomendado\" está selecionada por padrão."
+
+#: admin/Tools/Compress/Views/Form_Options.php:151
+msgctxt "radio button field label"
+msgid "Extreme: High compression, less quality"
+msgstr "Extremo: alta compressão, menor qualidade"
+
+#: admin/Tools/Compress/Views/Form_Options.php:153
+msgctxt "radio button field label"
+msgid "Recommended: Good compression, good quality"
+msgstr "Recomendado: boa compressão, boa qualidade"
+
+#: admin/Tools/Compress/Views/Form_Options.php:155
+msgctxt "radio button field label"
+msgid "Low: Less compression, high quality"
+msgstr "Baixo: menor compressão, alta qualidade"
+
+#: admin/Tools/Compress/Views/Overview.php:35
+msgctxt "Overview: tool title"
+msgid "Compress PDF"
+msgstr "Comprimir PDF"
+
+#: admin/Tools/Compress/Views/Overview.php:56
+msgctxt "Compress Overview: Files Processed"
+msgid "Files Processed"
+msgstr "Arquivos processados"
+
+#: admin/Tools/Compress/Views/Overview.php:73
+msgctxt "Compress Overview: Average Reduction"
+msgid "Average Reduction"
+msgstr "Redução média"
+
+#: admin/Tools/Compress/Views/Overview.php:90
+msgctxt "Compress Overview: Total Space Saved"
+msgid "Total Space Saved"
+msgstr "Espaço total economizado"
+
+#: admin/Tools/General/Views/Form_Options.php:50
+msgctxt "form title"
+msgid "General Settings"
+msgstr "Configurações gerais"
+
+#. translators: %s: backup folder path
+#: admin/Tools/General/Views/Form_Options.php:73
+#, php-format
+msgid "Backups are stored at: %s"
+msgstr "Os backups são armazenados em: %s"
+
+#: admin/Tools/General/Views/Form_Options.php:88
+msgctxt "checkbox field label"
+msgid "Back up original files"
+msgstr "Fazer backup dos arquivos originais"
+
+#: admin/Tools/General/Views/Form_Options.php:89
+msgid "Save a backup before processing so you can restore the original later. Uses server space."
+msgstr "Salve um backup antes do processamento para que você possa restaurar o original depois. Usa espaço no servidor."
+
+#. translators: %1$s and %2$s: html tags
+#: admin/Tools/General/Views/Form_Options.php:107
+#, php-format
+msgid "You can restore original files from backup. Restoring will return files to their state before any changes were made. %1$s Warning: This will remove all modifications applied using the tools. %2$s"
+msgstr "Você pode restaurar os arquivos originais a partir do backup. A restauração retornará os arquivos ao estado em que estavam antes de quaisquer alterações. %1$s Aviso: Isso removerá todas as modificações aplicadas usando as ferramentas. %2$s"
+
+#. translators: %1$s and %2$s: html tags
+#: admin/Tools/General/Views/Form_Options.php:116
+#, php-format
+msgid "You can delete all backup files to free up space. %1$s Warning: This will remove your ability to restore files. %2$s"
+msgstr "Você pode excluir todos os arquivos de backup para liberar espaço. %1$s Aviso: Isso removerá a sua capacidade de restaurar arquivos. %2$s"
+
+#. translators: %s: backup size
+#: admin/Tools/General/Views/Form_Options.php:125
+#, php-format
+msgid "Backup size: %s"
+msgstr "Tamanho do backup: %s"
+
+#: admin/Tools/General/Views/Form_Options.php:141
+msgctxt "section title"
+msgid "Restore Backup Files"
+msgstr "Restaurar arquivos de backup"
+
+#: admin/Tools/General/Views/Form_Options.php:161
+msgctxt "button"
+msgid "Restore all"
+msgstr "Restaurar tudo"
+
+#: admin/Tools/General/Views/Form_Options.php:177
+msgctxt "button"
+msgid "Clear backup"
+msgstr "Limpar backup"
+
+#. translators: %1$d: Total files, %2$d: Protected files
+#: admin/Tools/Watermark/Statistics.php:96
+#, php-format
+msgctxt "Watermark Overview: Tool Resume."
+msgid "Your files, summary:\n"
+"Total files: %1$d\n"
+"Protected files: %2$d"
+msgstr "Seus arquivos, resumo:\n"
+"Total de arquivos: %1$d\n"
+"Arquivos protegidos: %2$d"
+
+#. translators: %1$s Additional process error
+#: admin/Tools/Watermark/Tool_Watermark.php:100
+#, php-format
+msgctxt "Watermark PDF: Error message."
+msgid "Could not apply watermark: %1$s"
+msgstr "Não foi possível aplicar marca d'água: %1$s"
+
+#. translators: %1$s The file name
+#: admin/Tools/Watermark/Tool_Watermark.php:129
+#, php-format
+msgctxt "Watermark PDF: Info message."
+msgid "File already watermarked: %1$s"
+msgstr "Arquivo com marca d'água já aplicada: %1$s"
+
+#: admin/Tools/Watermark/Tool_Watermark.php:143
+msgctxt "Watermark PDF: Error message."
+msgid "Watermark is not enabled. Please check your settings."
+msgstr "A marca d'água não está habilitada. Verifique as suas configurações."
+
+#. translators: %1$s The file name
+#: admin/Tools/Watermark/Tool_Watermark.php:280
+#, php-format
+msgctxt "Watermark PDF: Success message."
+msgid "Watermark applied successfully: %1$s"
+msgstr "Marca d'água aplicada com sucesso: %1$s"
+
+#: admin/Tools/Watermark/Views/Actions.php:32
+msgctxt "Button action"
+msgid "Apply Watermark"
+msgstr "Aplicar marca d'água"
+
+#: admin/Tools/Watermark/Views/Actions.php:55
+msgctxt "Status: No watermark applied"
+msgid "No watermark applied"
+msgstr "Nenhuma marca d'água aplicada"
+
+#: admin/Tools/Watermark/Views/Actions.php:73
+msgctxt "Status: Watermark applied"
+msgid "Watermark applied"
+msgstr "Marca d'água aplicada"
+
+#: admin/Tools/Watermark/Views/Actions.php:90
+msgctxt "Status: Applying watermark"
+msgid "Applying watermark..."
+msgstr "Aplicando marca d'água..."
+
+#: admin/Tools/Watermark/Views/Form_Options.php:57
+msgctxt "form title"
+msgid "Watermark Settings"
+msgstr "Configurações de marca d'água"
+
+#: admin/Tools/Watermark/Views/Form_Options.php:82
+msgctxt "subtitle for watermark options section"
+msgid "Watermark preview"
+msgstr "Pré-visualização de marca d'água"
+
+#: admin/Tools/Watermark/Views/Form_Options.php:83
+msgctxt "Help text for the watermark options section"
+msgid "Use text or upload an image as your watermark."
+msgstr "Use texto ou carregue uma imagem como a sua marca d'água."
+
+#: admin/Tools/Watermark/Views/Form_Options.php:85
+msgctxt "Warning message: for family font selector."
+msgid "This font does not support bold or italic styles"
+msgstr "Esta fonte não suporta os estilos negrito ou itálico"
+
+#: admin/Tools/Watermark/Views/Form_Options.php:217
+msgctxt "checkbox field label"
+msgid "Watermark enabled"
+msgstr "Marca d'água habilitada"
+
+#: admin/Tools/Watermark/Views/Form_Options.php:218
+msgctxt "help text for checkbox field"
+msgid "Add a watermark to protect PDFs from unauthorized use."
+msgstr "Adicione uma marca d'água para proteger os PDFs contra uso não autorizado."
+
+#: admin/Tools/Watermark/Views/Form_Options.php:241
+msgctxt "checkbox field label"
+msgid "Automatically apply watermark to uploaded files"
+msgstr "Aplicar marca d'água automaticamente aos arquivos carregados"
+
+#: admin/Tools/Watermark/Views/Form_Options.php:242
+msgid "Automatically stamp new Media uploads with your selected watermark. You can still apply it manually to other files."
+msgstr "Adicione automaticamente a sua marca d'água selecionada aos novos carregamentos em Mídia. Você ainda poderá aplicá-la manualmente a outros arquivos."
+
+#: admin/Tools/Watermark/Views/Form_Options.php:277
+msgctxt "radio button label"
+msgid "Use text"
+msgstr "Usar texto"
+
+#: admin/Tools/Watermark/Views/Form_Options.php:280
+msgctxt "radio button label"
+msgid "Use image"
+msgstr "Usar imagem"
+
+#: admin/Tools/Watermark/Views/Form_Options.php:319
+msgctxt "radio field label"
+msgid "Position"
+msgstr "Posição"
+
+#: admin/Tools/Watermark/Views/Form_Options.php:349
+msgctxt "checkbox field label"
+msgid "Mosaic"
+msgstr "Mosaico"
+
+#: admin/Tools/Watermark/Views/Form_Options.php:350
+msgid "If enabled, this overrides manual position settings to print image or text 9 times per page."
+msgstr "Se habilitada, esta opção substitui as configurações de posição manual para imprimir a imagem ou o texto 9 vezes por página."
+
+#: admin/Tools/Watermark/Views/Form_Options.php:389
+msgctxt "radio button label"
+msgid "Above PDF content"
+msgstr "Acima do conteúdo do PDF"
+
+#: admin/Tools/Watermark/Views/Form_Options.php:392
+msgctxt "radio button label"
+msgid "Below PDF content"
+msgstr "Abaixo do conteúdo do PDF"
+
+#: admin/Tools/Watermark/Views/Form_Options.php:421
+msgctxt "input range field label"
+msgid "Opacity"
+msgstr "Opacidade"
+
+#: admin/Tools/Watermark/Views/Form_Options.php:451
+msgctxt "input range field label"
+msgid "Rotation"
+msgstr "Rotação"
+
+#: admin/Tools/Watermark/Views/Form_Options.php:472
+msgctxt "input text: placeholder"
+msgid "Enter text for watermark"
+msgstr "Insira o texto da marca d'água"
+
+#: admin/Tools/Watermark/Views/Form_Options.php:612
+msgctxt "subtitle for watermark image mode"
+msgid "Watermark image"
+msgstr "Imagem da marca d'água"
+
+#: admin/Tools/Watermark/Views/Form_Options.php:613
+msgctxt "Help text for image stamp"
+msgid "Select an image stamp from Media or a URL. Then adjust its position, size, opacity, and rotation"
+msgstr "Selecione uma imagem para marca d'água em Mídia ou uma URL. Em seguida, ajuste a sua posição, tamanho, opacidade e rotação"
+
+#: admin/Tools/Watermark/Views/Form_Options.php:614
+msgctxt "button"
+msgid "Add Image"
+msgstr "Adicionar imagem"
+
+#: admin/Tools/Watermark/Views/Form_Options.php:615
+msgctxt "before text: add image button, after text: input image URL"
+msgid "or enter an URL"
+msgstr "ou insira uma URL"
+
+#: admin/Tools/Watermark/Views/Form_Options.php:618
+msgctxt "input text: placeholder"
+msgid "Enter image URL"
+msgstr "Insira a URL da imagem"
+
+#: admin/Tools/Watermark/Views/Overview.php:33
+msgctxt "Overview: tool title"
+msgid "Watermark PDF"
+msgstr "Aplicar marca d'água a PDF"
+
+#: admin/Tools/Watermark/Views/Overview.php:52
+msgctxt "Watermark Overview: Files protected"
+msgid "Files Protected"
+msgstr "Arquivos protegidos"
+
+#: admin/views/account/components/banner-info.php:15
+msgid "Easily optimize your PDFs in WordPress!"
+msgstr "Otimize facilmente os seus PDFs no WordPress!"
+
+#: admin/views/account/components/banner-info.php:18
+msgid "Make your site lighter and safer by compressing and watermarking PDFs. \n"
+"    iLovePDF reduces file size and protects your documents, helping improve performance, security, and loading speed."
+msgstr "Torne o seu site mais leve e seguro comprimindo e aplicando marca d'água a PDFs. \n"
+"    O iLovePDF reduz o tamanho dos arquivos e protege os seus documentos, ajudando a melhorar o desempenho, a segurança e a velocidade de carregamento."
+
+#: admin/views/account/components/banner-info.php:25
+msgid "Sign up and get 2,500 free credits to start optimizing with iLovePDF."
+msgstr "Crie uma conta e ganhe 2.500 créditos gratuitos para começar a otimizar com o iLovePDF."
+
+#: admin/views/account/statistics.php:20
+msgctxt "title account statistics"
+msgid "Remaining Credits"
+msgstr "Créditos restantes"
+
+#: admin/views/account/statistics.php:25
+msgctxt "subtitle package section"
+msgid "Free."
+msgstr "Gratuito."
+
+#: admin/views/account/statistics.php:38
+msgctxt "subtitle package section"
+msgid "Packages."
+msgstr "Pacotes."
+
+#: admin/views/account/statistics.php:66
+msgid "You get 2,500 free credits each month to process your files."
+msgstr "Você recebe 2.500 créditos gratuitos todo mês para processar os seus arquivos."
+
+#. translators: %1$s and %2$s are HTML link tags.
+#: admin/views/account/statistics.php:73
+#, php-format
+msgid "Need more credits? %1$s Upgrade your plan %2$s or %1$s buy a credit package. %2$s"
+msgstr "Precisa de mais créditos? %1$s Atualize o seu plano %2$s ou %1$s compre um pacote de créditos. %2$s"
+
+#: admin/views/account/statistics.php:81
+msgctxt "button link"
+msgid "Buy credits"
+msgstr "Comprar créditos"
+
+#: admin/views/account/user.php:20
+msgctxt "title section"
+msgid "Account"
+msgstr "Conta"
+
+#: admin/views/components/tab-menu.php:62
+msgctxt "link menu: appears inside iLovePDF settings"
+msgid "General settings"
+msgstr "Configurações gerais"
+
+#: admin/views/components/tab-menu.php:80
+msgctxt "link menu: appears inside iLovePDF settings"
+msgid "Compress settings"
+msgstr "Configurações de compressão"
+
+#: admin/views/components/tab-menu.php:98
+msgctxt "link menu: appears inside iLovePDF settings"
+msgid "Watermark settings"
+msgstr "Configurações de marca d'água"
+
+#: assets/build/main.min.js:1
+msgctxt "button dialog box"
+msgid "Cancel"
+msgstr "Cancelar"
+
+#: assets/build/main.min.js:1
+msgctxt "title dialog box"
+msgid "Are you sure you want to delete all backups?"
+msgstr "Tem certeza que deseja excluir todos os backups?"
+
+#: assets/build/main.min.js:1
+msgctxt "body content dialog box"
+msgid "This will permanently delete all backups. Continue?"
+msgstr "Isso excluirá permanentemente todos os backups. Continuar?"
+
+#: assets/build/main.min.js:1
+msgctxt "button dialog box"
+msgid "Clear backups"
+msgstr "Limpar backups"
+
+#: assets/build/main.min.js:1
+msgctxt "title dialog box"
+msgid "Are you sure you want to restore all files?"
+msgstr "Tem certeza de que deseja restaurar todos os arquivos?"
+
+#: assets/build/main.min.js:1
+msgctxt "body content dialog box"
+msgid "This will undo all changes. Do you want to continue?"
+msgstr "Isso desfará todas as alterações. Deseja continuar?"
+
+#: assets/build/main.min.js:1
+msgctxt "button dialog box"
+msgid "Restore files"
+msgstr "Restaurar arquivos"
+
+#: assets/build/main.min.js:1
+msgctxt "body title dialog box"
+msgid "Are you sure you want to restore this file?"
+msgstr "Tem certeza de que deseja restaurar este arquivo?"
+
+#: assets/build/main.min.js:1
+msgctxt "body content dialog box"
+msgid "This will undo all changes to this file. Continue?"
+msgstr "Isso desfará todas as alterações feitas neste arquivo. Continuar?"
+

@@ -1,0 +1,13 @@
+@mixin general-settings {
+	&.ilovepdf-settings__main__view--general {
+		.ilovepdf-settings__main__form_fields {
+			gap: 50px;
+		}
+
+		@media (min-width: 1280px) {
+			.ilovepdf-settings__main__form_fields {
+				flex-wrap: nowrap;
+			}
+		}
+	}
+}
