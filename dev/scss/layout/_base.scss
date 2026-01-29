@@ -1,0 +1,51 @@
+.ilovepdf-base__layout-flex {
+	display: flex;
+}
+
+.ilovepdf-base__layout-flex-wrap {
+	flex-wrap: wrap;
+
+	@media (min-width: 1440px) {
+		flex-wrap: nowrap;
+	}
+}
+
+.ilovepdf-base__layout-flex-1 {
+	width: 100%;
+
+	@media (min-width: 1440px) {
+		flex: 1;
+	}
+}
+
+.ilovepdf-base__layout-items--left {
+	align-items: flex-start;
+}
+
+.ilovepdf-base__layout-items--center {
+	align-items: center;
+}
+
+.ilovepdf-base__layout-justify--start {
+	justify-content: flex-start;
+}
+
+.ilovepdf-base__layout-justify--end {
+	justify-content: flex-end;
+}
+
+.ilovepdf-base__layout-justify--center {
+	justify-content: center;
+}
+
+.ilovepdf-base__layout-justify--between {
+	justify-content: space-between;
+}
+
+.ilovepdf-base__layout-gap--small {
+	gap: 10px;
+}
+
+.ilovepdf-base__layout-gap--normal {
+	gap: 30px;
+}

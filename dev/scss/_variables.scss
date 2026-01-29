@@ -1,0 +1,40 @@
+// Typography
+$font_family: 'Roboto', sans-serif;
+$body_font_size: 13px;
+$letter_spacing: 0.45px;
+
+// Colors
+$white: #ffffff;
+$dark: #000000;
+
+$primary_color: #e5322d;
+$primary_color_700: #bd060a;
+$primary_color_300: #fde4df;
+$primary_color_100: #fff6f5;
+
+$secondary_color: #383e45;
+$secondary_color_500: #707078;
+$secondary_color_300: #969696;
+
+$success_color: #6fe21c;
+$success_color_500: #8fbc5d;
+$success_color_700: #166534;
+$success_color_300: #e5f5d2;
+$danger_color: #a00a00;
+$warning_color: #fff3d6;
+$warning_color_500: #ffe2a0;
+$processing_color: #1e40af;
+$processing_color_300: #ebf5ff;
+
+$light_color: #f9f8f6;
+$light_color_300: #f3f4f5;
+$light_color_500: #e1e1e1;
+$light_color_600: #cccccc;
+
+// Grid - Layout
+$width_small: 700px;
+$width_medium: 1024px;
+
+// Base
+$box_shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.1);
+$radius: 5px;

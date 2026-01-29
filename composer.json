@@ -1,7 +1,8 @@
 {
     "name": "ilovepdf/ilovepdf-wp",
-    "description": "iLovePDF Wordpress Plugin",
+    "description": "Compress and watermark your PDFs directly in WordPress. Save space, speed up loading, and protect your content all without leaving your site.",
     "type": "wordpress-plugin",
+    "version": "1.0.0",
     "homepage": "https://ilovepdf.com/",
     "license": "GPL-2.0-or-later",
     "authors": [
@@ -18,7 +19,7 @@
         "phpstan/phpstan": "^2.1",
         "szepeviktor/phpstan-wordpress": "^2.0",
         "phpstan/extension-installer": "^1.4",
-        "wp-coding-standards/wpcs": "^3.1"
+        "wp-coding-standards/wpcs": "^3.3"
     },
     "config": {
         "platform": {
@@ -34,12 +35,12 @@
         "phpcs": "phpcs -s --ignore=*/node_modules/*,*/vendor/*,*/.github/*,*/assets/*,*/dev/* --report-file=./codesniffer-report-ilovepdf.log ./",
         "phpcbf": "phpcbf --ignore=node_modules/,vendor/,assets/,dev/,.github/ ./",
         "autoload-dev": "composer dump-autoload",
-        "autoload-prod": "composer dump-autoload --no-dev"
+        "autoload-prod": "composer dump-autoload --no-dev",
+        "pot": "wp i18n make-pot . languages/ilove-pdf.pot --exclude=dev --include=*.php,assets/*js --headers='{\"Report-Msgid-Bugs-To\":\"https://wordpress.org/support/plugin/ilovepdf\",\"POT-Creation-Date\":\"2025-02-10T12:04:09+00:00\", \"PO-Revision-Date\":\"$(date -u +%Y-%m-%dT%H:%M:%S%z)\", \"Last-Translator\":\"ilovepdf <info@ilovepdf.com>\", \"Language-Team\":\"ilovepdf <info@ilovepdf.com>\"}'"
     },
     "autoload": {
         "psr-4": {
-            "Ilove_Pdf_Admin\\": "admin",
-            "Ilove_Pdf_Includes\\": "includes"
+            "Ilove_Pdf_WP\\": "admin"
         }
     }
 }

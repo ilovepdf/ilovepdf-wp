@@ -12,6 +12,8 @@ vendor/*
 composer.lock
 package-lock.json
 
+assets/**/*.map
+
 # Compiled Java class files
 *.class
 

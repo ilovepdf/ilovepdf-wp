@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitc8c93814224bd6d38e781da2d69243f3
+class ComposerStaticInit171fe3f3575e3ba40a160e5a5036620a
 {
     public static $files = array (
         '7b11c4dc42b3b3023073cb14e519683c' => __DIR__ . '/..' . '/ralouphie/getallheaders/src/getallheaders.php',
@@ -21,8 +21,7 @@ class ComposerStaticInitc8c93814224bd6d38e781da2d69243f3
         'I' => 
         array (
             'Ilovepdf\\' => 9,
-            'Ilove_Pdf_Includes\\' => 19,
-            'Ilove_Pdf_Admin\\' => 16,
+            'Ilove_Pdf_WP\\' => 13,
         ),
         'G' => 
         array (
@@ -50,11 +49,7 @@ class ComposerStaticInitc8c93814224bd6d38e781da2d69243f3
         array (
             0 => __DIR__ . '/..' . '/ilovepdf/ilovepdf-php/src',
         ),
-        'Ilove_Pdf_Includes\\' => 
-        array (
-            0 => __DIR__ . '/../..' . '/includes',
-        ),
-        'Ilove_Pdf_Admin\\' => 
+        'Ilove_Pdf_WP\\' => 
         array (
             0 => __DIR__ . '/../..' . '/admin',
         ),
@@ -83,9 +78,9 @@ class ComposerStaticInitc8c93814224bd6d38e781da2d69243f3
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitc8c93814224bd6d38e781da2d69243f3::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitc8c93814224bd6d38e781da2d69243f3::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInitc8c93814224bd6d38e781da2d69243f3::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit171fe3f3575e3ba40a160e5a5036620a::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit171fe3f3575e3ba40a160e5a5036620a::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit171fe3f3575e3ba40a160e5a5036620a::$classMap;
 
         }, null, ClassLoader::class);
     }

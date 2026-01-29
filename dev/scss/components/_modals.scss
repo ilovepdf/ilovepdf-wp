@@ -1,0 +1,82 @@
+@use '../variables' as *;
+@use '../utilities/animations' as *;
+@use '../components/buttons' as *;
+
+@mixin popup-dialog {
+	.ipdf-restore-dialog {
+		border: none;
+		border-radius: 20px;
+		padding: 40px;
+		animation: fade-out 0.2s ease-out;
+
+		.ilovepdf-title-dialog {
+			display: block !important;
+			padding: 0 !important;
+			text-align: center;
+			font-size: 2.6em !important;
+			margin: 0 0 15px 0 !important;
+			line-height: normal !important;
+			color: $primary_color;
+		}
+
+		.ilovepdf-content-dialog {
+			font-size: 18px;
+			font-weight: 500;
+			color: $secondary_color;
+			text-align: center;
+		}
+
+		.ilovepdf-btn-groups {
+			margin-top: 30px;
+			display: flex;
+			justify-content: center;
+			gap: 30px;
+
+			.button-primary {
+				@extend %button-primary;
+			}
+		}
+
+		&::backdrop {
+			background-color: rgba(56, 56, 56, 0.75);
+		}
+
+		&[open] {
+			animation: openDialog 300ms ease-in-out 0s 1 normal forwards;
+		}
+	}
+}
+
+@mixin popup-credits {
+	#TB_window {
+		border-radius: 10px;
+		box-sizing: border-box;
+
+		.ipdf-popup-buymore-content-box {
+			figure {
+				margin: 0;
+			}
+
+			p,
+			h3 {
+				text-align: center;
+			}
+
+			h3 {
+				margin: 10px 0 15px 0;
+			}
+
+			.ipdf-btn {
+				text-decoration: none;
+
+				&.ipdf-btn--primary {
+					@extend %button-primary;
+				}
+
+				&.ipdf-btn--secondary {
+					@extend %button-secondary;
+				}
+			}
+		}
+	}
+}

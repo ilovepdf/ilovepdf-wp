@@ -1,0 +1,173 @@
+@use 'variables' as *;
+@use 'components/buttons' as *;
+@use 'components/inputs' as *;
+@use 'components/spacers' as *;
+@use 'components/modals' as *;
+@use 'components/tooltips' as *;
+@use 'components/badges' as *;
+
+body {
+	.ilovepdf-base {
+		* {
+			font-family: $font_family;
+			box-sizing: border-box;
+		}
+
+		h1,
+		h2,
+		h3,
+		h4,
+		h5,
+		h6 {
+			margin: 0 0 1.33em 0;
+		}
+
+		ul {
+			margin: 0;
+
+			li {
+				transition: color 0.2s ease;
+			}
+		}
+
+		p {
+			color: $secondary_color_300;
+		}
+
+		a {
+			color: $secondary_color;
+			text-decoration: none;
+			transition: all 0.2s ease;
+
+			&:hover {
+				color: $primary_color;
+			}
+
+			&:focus {
+				box-shadow: none;
+			}
+		}
+
+		button {
+			transition: all 0.2s ease;
+		}
+
+		code {
+			background: $primary_color_300;
+			color: $dark;
+		}
+
+		figure {
+			margin: 0;
+			padding: 0;
+		}
+
+		@include all-buttons;
+
+		@include popup-dialog;
+
+		.ipdf-divisor {
+			@extend %solid-divisor;
+		}
+
+		.ipdf-spacer {
+			@extend %transparent-spacer;
+		}
+
+		.ipdf-logo {
+			margin: 0 0 20px 0;
+		}
+
+		@include tooltip;
+
+		// The switch
+		.ipdf-input-group-switch {
+			position: relative;
+			display: inline-block;
+			width: 30px;
+			height: 18px;
+
+			& + label {
+				color: $dark;
+				vertical-align: baseline;
+				margin-left: 5px;
+			}
+
+			// The slider
+			&-slider {
+				position: absolute;
+				cursor: pointer;
+				top: 0;
+				left: 0;
+				right: 0;
+				bottom: 0;
+				background-color: $white;
+				transition: 0.4s;
+				border-radius: 25px;
+				border: 1px solid $secondary_color;
+
+				&:after {
+					content: '';
+					position: absolute;
+					width: 3px;
+					height: 3px;
+					top: 6px;
+					right: 4px;
+					border: 1px solid $secondary_color;
+					border-radius: 100%;
+					background-color: $white;
+				}
+
+				&:before {
+					position: absolute;
+					content: '';
+					height: 10px;
+					width: 10px;
+					left: 3px;
+					bottom: 3px;
+					background-color: $secondary_color;
+					transition: 0.4s;
+					border-radius: 100%;
+				}
+			}
+
+			.ipdf-input-slider {
+				@include input-slider;
+			}
+		}
+
+		.ipdf-input {
+			@include input-base;
+
+			&--email {
+				@include input-icon('../img/icon_email.svg');
+			}
+			&--password {
+				@include input-icon('../img/icon_password.svg');
+			}
+			&--name {
+				@include input-icon('../img/icon_name.svg');
+			}
+			&--checkbox {
+				@include input-checkbox;
+			}
+		}
+
+		.ipdf-input-submit {
+			@include input-submit;
+		}
+
+		.ipdf-select,
+		select {
+			@include select-base;
+		}
+
+		.ipdf-input-range {
+			@include input-range;
+		}
+
+		@include badge;
+	}
+
+	@include popup-credits;
+}

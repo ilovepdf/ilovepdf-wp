@@ -1,0 +1,12 @@
+@use '../variables' as *;
+
+%solid-divisor {
+	border: 0;
+	margin: 16px 0;
+	height: 1px;
+	background: $light_color_500;
+}
+
+%transparent-spacer {
+	margin-bottom: 10px;
+}

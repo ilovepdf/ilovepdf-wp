@@ -1,0 +1,97 @@
+@use '../variables' as *;
+
+@mixin tooltip {
+	.ipdf-tooltip {
+		position: relative;
+		display: inline-block;
+		border-bottom: 1px dotted $dark;
+
+		.ipdf-tooltip-text {
+			overflow: hidden;
+			visibility: hidden;
+			width: 350px;
+			background-color: $dark;
+			color: $white;
+			text-align: center;
+			border-radius: 6px;
+			padding: 5px 0;
+			position: absolute;
+			z-index: 1;
+			bottom: 115%;
+			left: 50%;
+			margin-left: -290px;
+			font-size: 12px;
+			line-height: 16px;
+
+			&::after {
+				content: '';
+				position: absolute;
+				top: 100%;
+				left: 50%;
+				margin-left: -5px;
+				border-width: 5px;
+				border-style: solid;
+				border-color: $dark transparent transparent transparent;
+			}
+		}
+
+		&.ipdf-btn--media-action {
+			border: none;
+			padding: 0;
+			display: inline-flex;
+			box-shadow: none;
+			cursor: pointer;
+			background: transparent;
+
+			svg {
+				pointer-events: none;
+			}
+
+			.ipdf-tooltip-text {
+				left: 50%;
+				transform: translateX(-50%);
+				margin-left: 0;
+				min-width: max-content;
+				width: auto;
+				padding: 5px 10px;
+			}
+
+			&:hover {
+				.ipdf-tooltip-text {
+					animation: fadeIn 300ms ease-in-out 0s 1 normal forwards;
+					visibility: visible;
+				}
+			}
+
+			&:focus {
+				outline: none;
+			}
+
+			&.ipdf-btn--media-action-trigger,
+			&.ipdf-btn--media-action-restore {
+				pointer-events: none;
+
+				svg {
+					fill-opacity: 0.4;
+				}
+			}
+
+			&.ipdf-btn--media-action-restore-active {
+				pointer-events: auto;
+
+				svg {
+					fill: $primary_color_700;
+					fill-opacity: 1;
+				}
+			}
+
+			&:disabled {
+				cursor: not-allowed;
+
+				svg {
+					fill-opacity: 0.4;
+				}
+			}
+		}
+	}
+}

@@ -1,13 +1,13 @@
 === PDF Compressor & Watermark - iLovePDF ===
 Plugin Name: Image Compressor & Optimizer - iLovePDF
-Version: 2.1.11
+Version: 3.0.0
 Author: iLovePDF
 Author URI: https://www.ilovepdf.com/
 Contributors: iLovePDF
 Tags: compress, watermark, optimize, performance, pdf optimizer
 Requires at least: 5.3
-Tested up to: 6.8
-Stable tag: 2.1.11
+Tested up to: 6.9
+Stable tag: 3.0.0
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -40,7 +40,7 @@ All tools can be applied automatically when a PDF file is upload, so you don't n
 
 From your Admin panel:
 1. Visit Plugins > Add New.
-2. Search for **ilovePDF** and press the **Install Now** button.
+2. Search for **iLovePDF** and press the **Install Now** button.
 3. Activate the plugin from your Plugins page.
 
 Manual:
@@ -77,9 +77,25 @@ We will send you an email before limit is reached. When limit is reached, no mor
 
 1. Create an account or login.
 2. Configure Compress PDF.
-3. Configure Watermark PDF.
+3. Configure Watermark PDF with text.
+4. Configure Watermark PDF with image.
+5. Media Summary and Files List section.
+6. Media Library section.
+7. Edit Media section.
 
 == Changelog ==
+
+= 3.0.0 =
+Improved
+* New interface for settings.
+* New interface for user account.
+* New interface for action buttons.
+* New interface for Media Library.
+* Improvements to all existing features.
+* Update of translation template file.
+* New available languages have been added (ar, bg, ca, de, el, es, fr, hi, id, it, ja, ko, ms, nl, pl, pt, ru, sv, th, tr, uk, vi, zh_CN, zh_TW).
+* Update of libraries.
+* Compatibility with Wordpress 6.9.
 
 = 2.1.11 =
 Improved

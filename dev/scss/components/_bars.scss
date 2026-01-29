@@ -1,0 +1,14 @@
+@use '../variables' as *;
+
+%bar-progress {
+	width: 100%;
+	background-color: $white;
+	padding: 4px;
+	position: relative;
+
+	> div {
+		height: 8px;
+		background: $primary_color;
+		max-width: 100%;
+	}
+}

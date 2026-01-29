@@ -1,0 +1,44 @@
+@use '../../variables' as *;
+
+@mixin main-menu {
+	.ilovepdf-settings__main__menu {
+		.ilovepdf-settings__main__menu-item {
+			margin-bottom: 8px;
+			padding: 5px 15px;
+			border-radius: $radius;
+			transition: background-color 0.2s ease;
+
+			a {
+				display: flex;
+				align-items: center;
+				gap: 10px;
+				min-height: 24px;
+
+				span {
+					flex: 1;
+					max-width: 100%;
+					word-wrap: break-word;
+					overflow-wrap: break-word;
+					white-space: normal;
+					line-height: 1.4;
+				}
+
+				&:hover {
+					color: $dark;
+				}
+			}
+
+			&:hover {
+				background-color: $light_color;
+			}
+
+			&.ilovepdf-settings__main__menu-item-active {
+				background-color: $white;
+			}
+		}
+
+		@media (min-width: 1280px) {
+			width: 10%;
+		}
+	}
+}

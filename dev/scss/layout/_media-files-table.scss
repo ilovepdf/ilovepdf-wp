@@ -1,0 +1,171 @@
+@use '../variables' as *;
+@use '../components/buttons' as *;
+
+.ilovepdf-media__main {
+	padding-right: 20px;
+
+	.ilovepdf-media__overview {
+		margin-bottom: 40px;
+
+		.ilovepdf-media__overview-inner {
+			.ilovepdf-media__overview-inner-tools {
+				.ilovepdf-media__overview-tool {
+					flex: 1;
+					background-color: $white;
+					padding: 30px;
+					border-radius: 10px;
+					box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.1);
+
+					.ilovepdf-media__overview-subitem {
+						display: flex;
+						flex: 1;
+						flex-direction: column;
+						align-items: center;
+						background-color: $primary_color_100;
+						padding: 20px;
+						border-radius: 10px;
+						box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.1);
+
+						h3 {
+							margin: 0;
+							font-size: 0.9rem;
+							color: $secondary_color;
+						}
+
+						p {
+							margin: 0 0 6px 0;
+							font-size: 2rem;
+							font-weight: bold;
+							color: $primary_color;
+						}
+					}
+
+					.ilovepdf-media__overview-subitem-resume {
+						display: inline-block;
+						margin-top: 30px;
+
+						p {
+							margin: 0;
+							color: $secondary_color;
+							font-size: 0.9rem;
+							font-weight: bold;
+						}
+					}
+				}
+			}
+		}
+	}
+
+	.ilovepdf-media__table {
+		.bulkactions {
+			input[type='submit'] {
+				@extend %button-secondary;
+			}
+		}
+		.tablenav {
+			.tablenav-pages {
+				.paging-input {
+					input {
+						background-color: $white;
+						border: 1px solid $secondary_color_300;
+						border-radius: 2px;
+					}
+				}
+				.button {
+					border: none;
+					background-color: $light_color_500;
+
+					> span:last-child {
+						color: $secondary_color;
+					}
+
+					&:hover {
+						background-color: $light_color_600;
+					}
+				}
+			}
+		}
+		.media_page_ipdf-media-optimization,
+		.table-view-list {
+			border: 0;
+			box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.1);
+			border-radius: 4px;
+			margin: 30px 0 0 0;
+
+			input[type='checkbox'] {
+				border-radius: 2px;
+				box-shadow: none;
+				appearance: none;
+
+				&:checked {
+					border-color: $primary_color;
+					position: relative;
+
+					&::before {
+						color: $primary_color;
+						content: '';
+						background: url('../img/icon_check.svg') no-repeat center center;
+						display: block;
+						background-size: 60%;
+						position: absolute;
+						top: 0;
+						left: 0;
+						width: 100%;
+						height: 100%;
+						margin: 0;
+					}
+				}
+			}
+
+			.manage-column {
+				font-weight: bold;
+			}
+
+			thead,
+			tfoot {
+				tr {
+					background-color: $light_color_300;
+
+					th,
+					td {
+						color: $primary_color;
+						border: none;
+					}
+
+					a {
+						color: $primary_color;
+					}
+				}
+			}
+
+			tbody {
+				tr {
+					background-color: $white;
+
+					td,
+					th {
+						border-bottom: 1px solid $light_color_500;
+						vertical-align: middle;
+
+						&.check-column {
+							padding-top: 8px;
+							padding-bottom: 8px;
+						}
+					}
+				}
+
+				.ipdf-status {
+					.ipdf-item-status {
+						margin-bottom: 8px;
+					}
+				}
+			}
+
+			.column-file {
+				a {
+					display: flex;
+				}
+			}
+		}
+	}
+}
