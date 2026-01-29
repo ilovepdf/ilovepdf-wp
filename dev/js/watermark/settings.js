@@ -34,14 +34,15 @@ document.addEventListener('DOMContentLoaded', function () {
 		generateMosaic(originalImageElement);
 	}
 
-	updateModeWatermark(fieldModeWatermark.value);
+	const modeValue = fieldModeWatermark?.value;
+	updateModeWatermark(modeValue);
 	updatedFontFamily(getPreview(), fieldFontFamily);
 
 	const formWatermark = document.querySelector(
 		'.ilovepdf-settings__main .ilovepdf-settings__main__view--watermark form'
 	);
 	const btnUploadMedia = document.querySelector('.ipdf-btn--upload-file');
-	let modeSelected = 'text';
+	let modeSelected = modeValue;
 	const WpFrame = null;
 
 	formWatermark.addEventListener('input', function (event) {
