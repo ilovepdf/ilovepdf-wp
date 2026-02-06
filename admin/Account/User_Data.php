@@ -411,12 +411,12 @@ class User_Data {
      * @return array|false User data if successful, false if not logged in or an error occurs.
      */
     public static function get_user_data() {
-        if ( ! ( current_user_can( 'manage_options' ) ) ) {
+        if ( ! ( current_user_can( 'upload_files' ) ) ) {
             Admin_Notice::add_notice(
                 _x( 'You do not have permission to edit these settings', 'Error message, user without permissions.', 'ilove-pdf' ),
                 'error',
             );
-
+            
             wp_safe_redirect( wp_get_referer() );
             exit;
         }
