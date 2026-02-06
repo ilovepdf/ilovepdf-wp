@@ -147,7 +147,6 @@ class Submenu_Page {
 	 * @since 3.0.0
 	 */
 	public static function maybe_process_media_bulk_actions() {
-		// In multisite, explicitly verify the user can upload files on current site
 		if ( ! current_user_can( 'upload_files' ) ) {
 			return;
 		}
