@@ -1,13 +1,13 @@
 === PDF Compressor & Watermark - iLovePDF ===
 Plugin Name: Image Compressor & Optimizer - iLovePDF
-Version: 3.0.0
+Version: 3.0.1
 Author: iLovePDF
 Author URI: https://www.ilovepdf.com/
 Contributors: iLovePDF
 Tags: compress, watermark, optimize, performance, pdf optimizer
 Requires at least: 5.3
 Tested up to: 6.9
-Stable tag: 3.0.0
+Stable tag: 3.0.1
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -84,6 +84,10 @@ We will send you an email before limit is reached. When limit is reached, no mor
 7. Edit Media section.
 
 == Changelog ==
+
+= 3.0.1 =
+Fixed
+* Capabilities to acces Media sections: Library, Add Media File, iLovePDF
 
 = 3.0.0 =
 Improved
