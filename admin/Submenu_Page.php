@@ -127,7 +127,7 @@ class Submenu_Page {
 		$hook = add_media_page(
 			'iLovePDF',
 			'iLovePDF',
-			'manage_options',
+			'upload_files',
 			self::$media_slug,
 			array(
 				$this,
@@ -147,7 +147,8 @@ class Submenu_Page {
 	 * @since 3.0.0
 	 */
 	public static function maybe_process_media_bulk_actions() {
-		if ( ! current_user_can( 'manage_options' ) ) {
+		// In multisite, explicitly verify the user can upload files on current site
+		if ( ! current_user_can( 'upload_files' ) ) {
 			return;
 		}
 
