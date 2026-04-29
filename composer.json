@@ -12,7 +12,7 @@
         }
     ],
     "require": {
-        "php": ">=7.4",
+        "php": "8.2",
         "ilovepdf/ilovepdf-php": "^1.2"
     },
     "require-dev": {
