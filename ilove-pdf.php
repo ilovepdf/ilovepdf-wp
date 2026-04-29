@@ -10,7 +10,7 @@
  * Plugin Name:       iLovePDF
  * Plugin URI:        https://iloveapi.com/
  * Description:       Compress and watermark your PDFs directly in WordPress. Save space, speed up loading, and protect your content all without leaving your site.
- * Version:           3.0.2
+ * Version:           3.0.3
  * Requires at least: 6.1
  * Requires PHP:      8.2
  * Author:            iLovePDF
@@ -40,4 +40,4 @@ register_activation_hook( __FILE__, array( Activator::class, 'activate' ) );
 
 register_deactivation_hook( __FILE__, array( Deactivator::class, 'deactivate' ) );
 
-new Ilove_Pdf_Plugin( '3.0.2', plugin_basename( __FILE__ ) );
+new Ilove_Pdf_Plugin( '3.0.3', plugin_basename( __FILE__ ) );
