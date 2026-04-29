@@ -84,13 +84,6 @@ We will send you an email before limit is reached. When limit is reached, no mor
 7. Edit Media section.
 
 == Changelog ==
-Fixed
-* Chinese (zh_CN, zh_TW) language's popup have been fixed.
-Improved
-* Updated library compatibility with PHP 8.2
-* Updated library retrocompatibility with Wordpress 6.1
-
-== Changelog ==
 
 = 3.0.3 =
 Fixed
