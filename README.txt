@@ -85,6 +85,10 @@ We will send you an email before limit is reached. When limit is reached, no mor
 
 == Changelog ==
 
+= 3.0.4 =
+Fixed
+* Corrected changelog for clarity
+
 = 3.0.3 =
 Fixed
 * Updated library retrocompatibility with PHP 8.2
