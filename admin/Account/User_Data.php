@@ -416,7 +416,7 @@ class User_Data {
                 _x( 'You do not have permission to edit these settings', 'Error message, user without permissions.', 'ilove-pdf' ),
                 'error',
             );
-
+            
             wp_safe_redirect( wp_get_referer() );
             exit;
         }
