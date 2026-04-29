@@ -96,6 +96,10 @@ Improved
 Fixed
 * Capabilities to acces Media sections: Library, Add Media File, iLovePDF
 
+= 3.0.1 =
+Fixed
+* Capabilities to acces Media sections: Library, Add Media File, iLovePDF
+
 = 3.0.0 =
 Improved
 * New interface for settings.
