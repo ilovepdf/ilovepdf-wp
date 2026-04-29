@@ -107,6 +107,25 @@ Improved
 Fixed
 * Capabilities to acces Media sections: Library, Add Media File, iLovePDF
 
+= 3.0.4 =
+Fixed
+* Corrected changelog for clarity
+
+= 3.0.3 =
+Fixed
+* Updated library retrocompatibility with PHP 8.2
+
+= 3.0.2 =
+Fixed
+* Chinese (zh_CN, zh_TW) language's popup have been fixed.
+Improved
+* Updated library compatibility with PHP 8.2
+* Updated library retrocompatibility with Wordpress 6.1
+
+= 3.0.1 =
+Fixed
+* Capabilities to acces Media sections: Library, Add Media File, iLovePDF
+
 = 3.0.0 =
 Improved
 * New interface for settings.
