@@ -1,10 +1,11 @@
 parameters:
 	level: 5
+	phpVersion: 80400
 	paths:
 			- ./
 	excludePaths:
 			analyseAndScan:
 					- vendor
-					- node_modules
+					- node_modules (?)
 			analyse:
 					- vendor/ilovepdf

@@ -12,18 +12,20 @@
         }
     ],
     "require": {
-        "php": "^8.2",
+        "php": ">=8.3",
         "ilovepdf/ilovepdf-php": "^1.2"
     },
     "require-dev": {
         "phpstan/phpstan": "^2.1",
         "szepeviktor/phpstan-wordpress": "^2.0",
         "phpstan/extension-installer": "^1.4",
-        "wp-coding-standards/wpcs": "^3.3"
+        "wp-coding-standards/wpcs": "^3.3",
+        "phpcompatibility/php-compatibility": "^9.3",
+        "phpcompatibility/phpcompatibility-wp": "^2.1"
     },
     "config": {
         "platform": {
-            "php": "8.2"
+            "php": "8.4"
         },
         "allow-plugins": {
             "phpstan/extension-installer": true,

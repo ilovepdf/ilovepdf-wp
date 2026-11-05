@@ -8,6 +8,7 @@ use Ilovepdf\Exceptions\ProcessException;
 use Ilovepdf\Exceptions\StartException;
 use Ilovepdf\Exceptions\PathException;
 use Ilovepdf\Exceptions\UploadException;
+use Ilovepdf\Lib\BaseExtraUploadParams;
 use Psr\Http\Message\ResponseInterface;
 
 /**
@@ -123,17 +124,25 @@ class Task extends Ilovepdf
     public $remainingFiles;
 
     /**
+     * @var int|null
+     */
+    public $remainingPages;
+
+    /**
+     * @var int|null
+     */
+    public $remainingCredits;
+
+    /**
      * Task constructor.
      * @param string|null $publicKey
      * @param string|null $secretKey
+     * @param string|null $region
      */
-    function __construct(?string $publicKey, ?string $secretKey, bool $makeStart = false)
+    public function __construct(?string $publicKey, ?string $secretKey, ?string $region = null, bool $makeStart = true)
     {
-        parent::__construct($publicKey, $secretKey);
-
-        if ($makeStart) {
-            $this->start();
-        }
+        parent::__construct($publicKey, $secretKey, $region);
+        $makeStart && $this->start();
     }
 
     /**
@@ -150,7 +159,11 @@ class Task extends Ilovepdf
         }
         $data = ['v' => self::VERSION];
         $body = ['form_params' => $data];
-        $response = parent::sendRequest('get', 'start/' . $this->tool, $body);
+        $startPath = 'start/' . $this->tool;
+        if ($this->getRegion()) {
+            $startPath .= '/' . $this->getRegion();
+        }
+        $response = parent::sendRequest('get', $startPath, $body);
         try {
             $responseBody = json_decode($response->getBody());
         } catch (\Exception $e) {
@@ -160,6 +173,8 @@ class Task extends Ilovepdf
             throw new StartException('no server assigned on start');
         };
         $this->_setRemainingFiles($responseBody->remaining_files ?? null);
+        $this->_setRemainingPages($responseBody->remaining_pages ?? null);
+        $this->_setRemainingCredits($responseBody->remaining_credits ?? null);
         $this->setWorkerServer('https://' . $responseBody->server);
         $this->setTask($responseBody->task);
     }
@@ -187,8 +202,7 @@ class Task extends Ilovepdf
         } catch (\Exception $e) {
             throw new StartException('Error on start chained task');
         }
-
-        $next = $this->newTask($nextTool);
+        $next = $this->newChainedTask($nextTool);
         $next->setWorkerServer($this->getWorkerServer());
 
         $next->setTask($responseBody->task);
@@ -254,6 +268,7 @@ class Task extends Ilovepdf
      * @return Task
      * @throws \Exception
      */
+    #[\Override]
     public function getStatus(?string $server = null, ?string $taskId = null)
     {
         $server = $server ? $server : $this->getWorkerServer();
@@ -269,11 +284,11 @@ class Task extends Ilovepdf
      * @param string $filePath
      * @return File
      */
-    public function addFile($filePath)
+    public function addFile($filePath, BaseExtraUploadParams $extraParams = null)
     {
         $this->validateTaskStarted();
         /** @psalm-suppress PossiblyNullArgument */
-        $file = $this->uploadFile($this->task, $filePath);
+        $file = $this->uploadFile($this->task, $filePath, $extraParams);
         array_push($this->files, $file);
         return end($this->files);
     }
@@ -282,11 +297,11 @@ class Task extends Ilovepdf
      * @param string $url
      * @return File
      */
-    public function addFileFromUrl($url, $bearerToken = null)
+    public function addFileFromUrl($url, $bearerToken = null, BaseExtraUploadParams $extraParams = null)
     {
         $this->validateTaskStarted();
         /** @psalm-suppress PossiblyNullArgument */
-        $file = $this->uploadUrl($this->task, $url, $bearerToken);
+        $file = $this->uploadUrl($this->task, $url, $bearerToken, $extraParams);
         array_push($this->files, $file);
         return end($this->files);
     }
@@ -301,54 +316,82 @@ class Task extends Ilovepdf
      * @throws ProcessException
      * @throws UploadException
      */
-    public function uploadFile(string $task, string $filepath)
+    public function uploadFile(string $task, string $filepath, BaseExtraUploadParams $extraParams = null)
     {
         if (!file_exists($filepath)) {
             throw new \InvalidArgumentException('File ' . $filepath . ' does not exists');
         }
+        $body = $this->getBodyForUploadFile($task, $filepath, $extraParams);
+        $response = $this->sendRequest('post', 'upload', $body);
+        return $this->getFileFromUploadResponse($response, $filepath);
+    }
 
+    /**
+     * @return array[][]
+     *
+     * @psalm-return array{multipart: list{0: array, 1?: array, 2?: array, 3?: array,...}}
+     */
+    protected function getBodyForUploadFile(string $task, string $filePath, BaseExtraUploadParams $extraParams = null): array
+    {
         $body = [
             'multipart' => [
-                [
-                    'Content-type' => 'multipart/form-data',
-                    'name' => 'file',
-                    'contents' => fopen($filepath, 'r'),
-                    'filename' => basename($filepath)
-                ],
-                ['name' => 'task', 'contents' => $task],
-                ['name' => 'v', 'contents' => self::VERSION]
+                $this->getMultipartFileParam('file', $filePath),
+                $this->getMultipartContentParam('task', $task),
+                $this->getMultipartContentParam('v', self::VERSION)
             ],
         ];
+        if (!is_null($extraParams)) {
+            foreach ($extraParams->getValues() as $key => $value) {
+                $body['multipart'][] = $this->getMultipartContentParam($key, $value);
+            }
+        }
 
-        $response = $this->sendRequest('post', 'upload', $body);
+        return $body;
+    }
+
+    /**
+     * @param ResponseInterface $response
+     * @param string $filePath
+     *
+     * @return File
+     *
+     * @throws AuthException
+     * @throws ProcessException
+     * @throws UploadException
+     */
+    protected function getFileFromUploadResponse(ResponseInterface $response, string $filePath): File
+    {
         try {
             $responseBody = json_decode($response->getBody());
         } catch (\Exception $e) {
             throw new UploadException('Upload response error');
         }
-        return new File($responseBody->server_filename, basename($filepath));
+        $file = new File($responseBody->server_filename, basename($filePath));
+        if (property_exists($responseBody, 'pdf_pages')) {
+            $file->setPdfPages($responseBody->pdf_pages);
+        }
+        if (property_exists($responseBody, 'pdf_page_number')) {
+            $file->setPdfPageNumber((int)$responseBody->pdf_page_number);
+        }
+        if (property_exists($responseBody, 'pdf_forms')) {
+            $file->setPdfForms(json_decode(json_encode($responseBody->pdf_forms), true));
+        }
+        return $file;
     }
 
-    /**
-     * @param string $filePath
-     * @return File
-     */
-    public function addElementFile($filePath)
+    protected function getMultipartFileParam(string $name, string $filePath): array
     {
-        $this->validateTaskStarted();
-        /** @psalm-suppress PossiblyNullArgument */
-        return $this->uploadFile($this->task, $filePath);
+        return [
+            'Content-type' => 'multipart/form-data',
+            'name' => $name,
+            'contents' => fopen($filePath, 'r'),
+            'filename' => basename($filePath)
+        ];
     }
 
-    /**
-     * @param string $url
-     * @return File
-     */
-    public function addElementFileFromUrl($url)
+    protected function getMultipartContentParam(string $name, string $value): array
     {
-        $this->validateTaskStarted();
-        /** @psalm-suppress PossiblyNullArgument */
-        return $this->uploadUrl($this->task, $url);
+        return ['name' => $name, 'contents' => $value];
     }
 
     /**
@@ -373,25 +416,38 @@ class Task extends Ilovepdf
      * @throws ProcessException
      * @throws UploadException
      */
-    public function uploadUrl($task, $url, $bearerToken = null)
+    public function uploadUrl($task, $url, $bearerToken = null, BaseExtraUploadParams $extraParams = null)
     {
-        //$data = ['task' => $task, 'cloud_file' => $url, 'v' => self::VERSION];
-        //$body = ['form_data' => $data];
+        $body = $this->getBodyForUploadUrlFile($task, $url, $bearerToken, $extraParams);
+        $response = $this->sendRequest('post', 'upload', $body);
+        return $this->getFileFromUploadResponse($response, $url);
+    }
+
+    /**
+     * @return array[][]
+     *
+     * @psalm-return array{multipart: list{0: array, 1?: array, 2?: array, 3?: array,...}}
+     */
+    protected function getBodyForUploadUrlFile(string $task, string $url, $bearerToken = null, BaseExtraUploadParams $extraParams = null): array
+    {
         $body = [
             'multipart' => [
-                ['name' => 'task', 'contents' => $task],
-                ['name' => 'v', 'contents' => self::VERSION],
-                ['name' => 'cloud_file', 'contents' => $url]
+                $this->getMultipartFileParam('cloud_file', $url),
+                $this->getMultipartContentParam('task', $task),
+                $this->getMultipartContentParam('v', self::VERSION)
             ],
         ];
-
         if ($bearerToken) {
-            $body['multipart'][] = ['name' => 'cloud_token', 'contents' => $bearerToken];
+            $body['multipart'][] = $this->getMultipartContentParam('cloud_token', $bearerToken);
         }
 
-        $response = parent::sendRequest('post', 'upload', $body);
-        $responseBody = json_decode($response->getBody());
-        return new File($responseBody->server_filename, basename($url));
+        if (!is_null($extraParams)) {
+            foreach ($extraParams->getValues() as $key => $value) {
+                $body['multipart'][] = $this->getMultipartContentParam($key, $value);
+            }
+        }
+
+        return $body;
     }
 
     /**
@@ -406,7 +462,6 @@ class Task extends Ilovepdf
     public function download($path = null)
     {
         $this->validateTaskStarted();
-
         if ($path != null && !is_dir($path)) {
             if (pathinfo($path, PATHINFO_EXTENSION) == '') {
                 throw new PathException('Invalid download path. Use method setOutputFilename() to set the output file name.');
@@ -479,7 +534,6 @@ class Task extends Ilovepdf
 
     /**
      * @param string|null $task
-     * @param string $path
      *
      * @throws AuthException
      * @throws ProcessException
@@ -498,7 +552,6 @@ class Task extends Ilovepdf
     }
 
     /**
-     * @param string $task
      * @return ResponseInterface
      */
     public function downloadStream(): ResponseInterface
@@ -563,6 +616,11 @@ class Task extends Ilovepdf
     public function getEncrypted()
     {
         return $this->isEncrypted();
+    }
+
+    public function validate(): void
+    {
+
     }
 
     /**
@@ -741,6 +799,7 @@ class Task extends Ilovepdf
      * @return $this
      * @throws \Exception
      */
+    #[\Override]
     public function setFileEncryption(?string $encryptKey = null): self
     {
         if (count($this->files) > 0) {
@@ -767,7 +826,7 @@ class Task extends Ilovepdf
     }
 
     /**
-     * @param int|null $custom_int
+     * @param int|null $customInt
      * @return $this
      */
     public function setCustomInt(?int $customInt): self
@@ -777,7 +836,7 @@ class Task extends Ilovepdf
     }
 
     /**
-     * @param string|null $custom_string
+     * @param string|null $customString
      * @return $this
      */
     public function setCustomString(?string $customString): self
@@ -840,11 +899,29 @@ class Task extends Ilovepdf
     }
 
     /**
+     * @param $remainingCredits
+     * @return void
+     */
+    private function _setRemainingCredits($remainingCredits): void
+    {
+        $this->remainingCredits = $remainingCredits;
+    }
+
+    /**
      * @param $remainingFiles
      * @return void
      */
     private function _setRemainingFiles($remainingFiles): void
     {
         $this->remainingFiles = $remainingFiles;
+    }
+
+    /**
+     * @param $remainingFiles
+     * @return void
+     */
+    private function _setRemainingPages($remainingPages): void
+    {
+        $this->remainingPages = $remainingPages;
     }
 }
