@@ -328,23 +328,11 @@ class User_Data {
             return true;
         }
 
-        $user_credits = array(
-            'free'        => array(
-                'used'  => self::get_credits( 'free', 'used' ),
-                'limit' => self::get_credits( 'free', 'limit' ),
-            ),
-            'package'     => array(
-                'used'  => self::get_credits( 'package', 'used' ),
-                'limit' => self::get_credits( 'package', 'limit' ),
-            ),
-            'suscription' => array(
-                'used'  => self::get_credits( 'suscription', 'used' ),
-                'limit' => self::get_credits( 'suscription', 'limit' ),
-            ),
-        );
+        foreach ( array( 'free', 'package', 'suscription' ) as $account_type ) {
+            $limit = self::get_credits( $account_type, 'limit' );
 
-        foreach ( $user_credits as $type => $credits ) {
-            if ( $credits['used'] < $credits['limit'] ) {
+            // A tier the user does not have reports 0/0, which is not "credits available".
+            if ( $limit > 0 && self::get_credits( $account_type, 'used' ) < $limit ) {
                 return true;
             }
         }
