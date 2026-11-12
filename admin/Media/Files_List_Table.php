@@ -71,11 +71,17 @@ class Files_List_Table extends WP_List_Table {
 
         $order = 'ORDER BY post_date DESC';
 
-        if ( isset( $_GET['orderby'] ) && isset( $_GET['order'] ) ) {//phpcs:ignore
-            $order = 'ORDER BY ' . sanitize_text_field( wp_unslash( $_GET['orderby'] ) ) . ' ' . sanitize_text_field( wp_unslash( $_GET['order'] ) );//phpcs:ignore
+        // Allowlist orderby against the actual sortable columns; map 'file' to its DB column.
+        $allowed_orderby = array( 'file', 'post_author', 'post_date' );
+        $orderby_req     = isset( $_GET['orderby'] ) ? sanitize_text_field( wp_unslash( $_GET['orderby'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+        $orderby         = in_array( $orderby_req, $allowed_orderby, true ) ? $orderby_req : '';
+        $sort_direction  = ( isset( $_GET['order'] ) && 'ASC' === strtoupper( sanitize_text_field( wp_unslash( $_GET['order'] ) ) ) ) ? 'ASC' : 'DESC'; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 
-            if ( 'file' === $_GET['orderby'] ) {//phpcs:ignore
-                $order = 'ORDER BY post_title ' . sanitize_text_field( wp_unslash( $_GET['order'] ) );//phpcs:ignore
+        if ( $orderby ) {
+            if ( 'file' === $orderby ) {
+                $order = 'ORDER BY post_title ' . $sort_direction;
+            } else {
+                $order = 'ORDER BY ' . $orderby . ' ' . $sort_direction;
             }
         }
 
@@ -173,7 +179,7 @@ class Files_List_Table extends WP_List_Table {
         switch ( $column_name ) {
             case 'file':
                 return sprintf(
-                    '<a href="%1$s">%2$s</a>',
+                    '<a href="%1$s"><span class="ilovepdf-media__filename">%2$s</span></a>',
                     esc_url( get_edit_post_link( $item['ID'] ) ),
                     esc_html( $item['file'] ),
                 );
