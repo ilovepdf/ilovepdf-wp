@@ -24,6 +24,8 @@
         "phpcompatibility/phpcompatibility-wp": "^2.1"
     },
     "config": {
+        "optimize-autoloader": true,
+        "sort-packages": true,
         "platform": {
             "php": "8.4"
         },

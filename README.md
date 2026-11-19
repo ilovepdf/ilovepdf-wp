@@ -49,3 +49,19 @@ Set up the plugin to apply compression and watermarking automatically for all fu
 - Select a project, which will determine which API keys to use. The "Default Project" is selected by default.
 - Free accounts can process up to **2500 credits per month**. If more is needed, additional processing can be purchased.
 
+## Development Setup
+
+After cloning or switching branches, install dependencies before running any tooling:
+
+```bash
+composer install          # installs PHP dependencies including dev tools (PHPStan, etc.)
+composer run autoload-dev # regenerates autoloader in dev mode (includes dev packages)
+npm install && npm run build  # installs JS dependencies and compiles assets with webpack
+```
+
+The `vendor/` directory is committed in production mode (no dev dependencies). Before committing changes to `vendor/`, regenerate the autoloader in production mode to ensure dev-only packages (e.g. PHPStan) are excluded:
+
+```bash
+composer run autoload-prod  # regenerates autoloader without dev packages; commit vendor after this
+```
+

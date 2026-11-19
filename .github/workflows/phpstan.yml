@@ -6,6 +6,12 @@ jobs:
     steps:
     - name: Checkout Repository
       uses: actions/checkout@v2
+    - name: Guard - committed vendor autoloader must be production (--no-dev)
+      run: |
+        if grep -q "phpstan/phpstan/bootstrap.php" vendor/composer/autoload_files.php vendor/composer/autoload_static.php 2>/dev/null; then
+          echo "::error::Committed vendor autoloader references a dev dependency (phpstan). Run 'composer autoload-prod' before committing vendor."
+          exit 1
+        fi
     - name: Check if vendor directory exists and remove it
       run: |
         if [ -d "vendor" ]; then

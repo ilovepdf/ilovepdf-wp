@@ -1,0 +1,17 @@
+/.github
+/dev
+/node_modules
+/tests
+.distignore
+.gitignore
+.gitattributes
+composer.json
+composer.lock
+package.json
+package-lock.json
+phpstan.neon
+phpcs.xml
+webpack.config.js
+eslint.config.js
+*.log
+*.zip
