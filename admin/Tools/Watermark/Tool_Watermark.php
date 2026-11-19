@@ -59,6 +59,8 @@ class Tool_Watermark {
         add_action( 'load-toplevel_page_ilovepdf-admin-page', array( $this, 'reset_stale_rows' ) );
         add_action( 'load-ilovepdf_page_ipdf-compress-admin-page', array( $this, 'reset_stale_rows' ) );
         add_action( 'load-ilovepdf_page_ipdf-watermark-admin-page', array( $this, 'reset_stale_rows' ) );
+        // Submenu pages under upload.php fire load-{page_hook}, not load-upload.php.
+        add_action( 'load-media_page_ipdf-media-optimization', array( $this, 'reset_stale_rows' ) );
         // CHANGE-A: invalidate cached statistics whenever a new attachment is uploaded.
         Watermark_Statistics::register_hooks();
     }
@@ -428,8 +430,9 @@ class Tool_Watermark {
      * Reset any orphaned 'in_process' watermark rows on eligible admin page loads.
      *
      * Delegates to Status_Process::reset_stale_in_process() with the watermark status key.
-     * Hooked on load-upload.php and the three plugin admin page-load actions so the sweep
-     * runs only on screens where the watermark column appears, never on every admin request.
+     * Hooked on load-upload.php, the three plugin admin page-load actions and the media
+     * optimization page so the sweep runs only on screens where the watermark column appears,
+     * never on every admin request.
      *
      * @since 3.0.0
      */
