@@ -1,12 +1,6 @@
 import { showAdminNotice } from '../components';
-import { getFormData, getRowCompressedSize, getRowOriginalSize } from '../common/DOMElements';
-import {
-	setFilesProcessed,
-	setAverageReduction,
-	setSpaceSaved,
-	setResume,
-	setSize
-} from './statistics';
+import { getFormData } from '../common/DOMElements';
+import { applyCompressRowResult, refreshCompressSummary } from '../common/rowStatus';
 
 /**
  * Compress a file by sending a request to the server.
@@ -17,11 +11,8 @@ import {
 export const compressFile = (container, btnTrigger) => {
 	const statusNotCompressed = container.querySelector('.ipdf-item-status-not-compressed');
 	statusNotCompressed?.classList.remove('ipdf-item-status-active');
-	const statusSuccess = container.querySelector('.ipdf-item-status-compressed');
 	const statusFail = container.querySelector('.ipdf-item-status-fail');
 	statusFail.classList.remove('ipdf-item-status-active');
-	const colCompressedSize = getRowCompressedSize(container);
-	const colOriginalSize = getRowOriginalSize(container);
 
 	const btnRestoreFile = container.querySelector('.ipdf-btn--media-action-restore');
 	let isFileBackup = false;
@@ -86,8 +77,7 @@ export const compressFile = (container, btnTrigger) => {
 			}
 
 			if (success) {
-				statusSuccess?.classList.add('ipdf-item-status-active');
-				btnTrigger.classList.add('ipdf-btn--media-action-trigger');
+				applyCompressRowResult(container, typeof data === 'object' ? data.data : null);
 
 				switch (typeof data) {
 					case 'string':
@@ -95,29 +85,7 @@ export const compressFile = (container, btnTrigger) => {
 						break;
 
 					case 'object':
-						if (data.data.percentage) {
-							statusSuccess.querySelector('span').textContent = data.data.percentage;
-						}
-
-						const params = new URL(window.location.href).searchParams;
-
-						if (params.get('page') === 'ipdf-media-optimization') {
-							const {
-								files_processed,
-								average_reduction,
-								space_saved,
-								total_resume,
-								compressed_size,
-								original_size
-							} = data.data;
-
-							setFilesProcessed(files_processed);
-							setAverageReduction(average_reduction);
-							setSpaceSaved(space_saved);
-							setResume(total_resume);
-							setSize(compressed_size, colCompressedSize);
-							setSize(original_size, colOriginalSize);
-						}
+						refreshCompressSummary(data.data);
 
 						if (data.data.backup) {
 							btnRestoreFile.classList.add('ipdf-btn--media-action-restore-active');

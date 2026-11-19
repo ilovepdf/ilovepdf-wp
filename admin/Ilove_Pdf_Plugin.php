@@ -194,10 +194,27 @@ class Ilove_Pdf_Plugin {
 						logoUrl: "%s",
 						userIsLoggued: %s,
 						userHasCredits: %s,
+						compressNonce: %s,
+						watermarkNonce: %s,
+						bulkChunkSize: %d,
+						i18n: {
+							bulkProcessingFile: %s,
+							bulkSummaryCompress: %s,
+							bulkSummaryWatermark: %s,
+						},
 					};',
 					esc_url( $logo_url ),
 					wp_json_encode( User_Auth::is_user_logged_in() ),
 					wp_json_encode( User_Data::has_credits() ),
+					wp_json_encode( wp_create_nonce( 'ilovepdf_action_compress' ) ),
+					wp_json_encode( wp_create_nonce( 'ilovepdf_action_watermark' ) ),
+					(int) apply_filters( 'ilovepdf_bulk_chunk_size', IPDF_BULK_CHUNK_SIZE ), // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
+					/* translators: %1$d: current file number, %2$d: total files */
+					wp_json_encode( __( 'Processing file %1$d of %2$d', 'ilove-pdf' ) ),
+					/* translators: %1$d: files succeeded, %2$d: files failed */
+					wp_json_encode( __( '%1$d compressed, %2$d failed.', 'ilove-pdf' ) ),
+					/* translators: %1$d: files succeeded, %2$d: files failed */
+					wp_json_encode( __( '%1$d watermarked, %2$d failed.', 'ilove-pdf' ) ),
 				)
 			);
 		}

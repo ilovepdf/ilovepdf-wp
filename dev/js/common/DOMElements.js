@@ -112,3 +112,21 @@ export const getRowOriginalSize = (container) => {
 export const getRestoreBackupLoading = () => {
 	return document.getElementById('ipdf-loading-backup');
 };
+
+/**
+ * Build a FormData object for bulk actions without requiring a button element.
+ * Mirrors the field names/shape of getFormData but accepts the values directly.
+ *
+ * @param {string}        action  - The AJAX action name (e.g. 'ilovepdf_action_compress').
+ * @param {string|number} postId  - The attachment post ID.
+ * @param {string}        nonce   - The WP nonce value.
+ * @returns {FormData} - FormData with fields: action, post_id, _wpnonce.
+ * @since 3.0.0
+ */
+export const buildBulkFormData = (action, postId, nonce) => {
+	const formData = new FormData();
+	formData.append('action', action);
+	formData.append('post_id', postId);
+	formData.append('_wpnonce', nonce);
+	return formData;
+};

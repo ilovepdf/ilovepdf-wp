@@ -4,6 +4,7 @@ import { compressFile } from './compress';
 import { applyWatermark } from './watermark';
 import { addAnimationToBtnSaveChanges, getActionsContainer } from './common/DOMElements';
 import { userHasCredits } from './common/Account/user';
+import { initBulkQueue } from './bulk';
 
 import '../scss/app.scss';
 
@@ -11,6 +12,8 @@ window.addEventListener('load', function () {
 	addAnimationToBtnSaveChanges();
 
 	userHasCredits();
+
+	initBulkQueue();
 
 	document.addEventListener('click', function (event) {
 		const btnTrigger = event.target;

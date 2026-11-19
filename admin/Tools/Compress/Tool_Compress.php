@@ -70,6 +70,12 @@ class Tool_Compress {
         add_filter( 'bulk_actions-upload', array( $this, 'add_bulk_action' ) );
         add_filter( 'handle_bulk_actions-upload', array( $this, 'handle_bulk_action' ), 10, 3 );
         add_action( 'add_attachment', array( $this, 'handle_auto_compress' ) );
+        add_action( 'load-upload.php', array( $this, 'reset_stale_rows' ) );
+        add_action( 'load-toplevel_page_ilovepdf-admin-page', array( $this, 'reset_stale_rows' ) );
+        add_action( 'load-ilovepdf_page_ipdf-compress-admin-page', array( $this, 'reset_stale_rows' ) );
+        add_action( 'load-ilovepdf_page_ipdf-watermark-admin-page', array( $this, 'reset_stale_rows' ) );
+        // CHANGE-A: invalidate cached statistics whenever a new attachment is uploaded.
+        Statistics::register_hooks();
     }
 
     /**
@@ -106,12 +112,29 @@ class Tool_Compress {
             wp_send_json_error( _x( 'Couldn\'t complete the request. Please refresh and try again.', 'Error message, invalid nonce code.', 'ilove-pdf' ), 401 );
         }
 
+        if ( ! current_user_can( 'upload_files' ) ) {
+            wp_send_json_error(
+                __( 'You do not have permission to process files.', 'ilove-pdf' ),
+                403
+            );
+        }
+
         if ( ! isset( $_POST['post_id'] ) ) {
             wp_send_json_error( __( 'Could not process the request. Missing file ID.', 'ilove-pdf' ), 400 );
         }
 
+        $post_id = absint( $_POST['post_id'] );
+
+        if ( $post_id < 1 ) {
+            wp_send_json_error( __( 'Could not process the request. Invalid file ID.', 'ilove-pdf' ), 400 );
+        }
+
+        if ( ! current_user_can( 'edit_post', $post_id ) ) {
+            wp_send_json_error( __( 'You do not have permission to edit this file.', 'ilove-pdf' ), 403 );
+        }
+
         try {
-            $compress_process = $this->compress_process( (int) $_POST['post_id'] );
+            $compress_process = $this->compress_process( $post_id );
 
             wp_send_json_success(
                 $compress_process,
@@ -417,8 +440,10 @@ class Tool_Compress {
     /**
      * Handle the bulk action for compressing PDF files.
      *
-     * This method processes the selected files for compression and redirects to the media library.
-     * It sets a transient with success and error messages for the bulk action.
+     * Processing is now browser-driven via sequential per-file AJAX requests.
+     * This server-side handler is reached only when JavaScript did not intercept
+     * the form submit (e.g. JS disabled). It informs the user and returns without
+     * processing, ensuring the old memory-exhausting synchronous foreach never runs.
      *
      * @since 3.0.0
      * @param string $redirect_to The URL to redirect to after processing.
@@ -426,34 +451,34 @@ class Tool_Compress {
      * @param array  $post_ids The IDs of the selected posts/files.
      * @return string Redirect URL.
      */
-    public function handle_bulk_action( $redirect_to, $doaction, $post_ids ) {
+    public function handle_bulk_action( $redirect_to, $doaction, $post_ids ) { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed
 
         if ( 'ilovepdf_compress' !== $doaction ) {
             return $redirect_to;
         }
 
-        if ( empty( $post_ids ) ) {
-            return $redirect_to;
-        }
+        // Processing is browser-driven (sequential per-file AJAX). This server path is reached
+        // only when JS did not intercept the submit (e.g. JS disabled) — never run the old
+        // all-at-once foreach, which is what exhausted memory. Inform the user instead.
+        Admin_Notice::add_notice(
+            __( 'Bulk PDF processing requires JavaScript. Please enable it and try again.', 'ilove-pdf' ),
+            'warning'
+        );
 
-        foreach ( $post_ids as $id ) {
-            try {
-                $process = $this->compress_process( $id );
+        return $redirect_to;
+    }
 
-                Admin_Notice::add_notice(
-                    $process['message'],
-                    $process['type_notice'] ?? 'success',
-                );
-            } catch ( Exception $e ) {
-                Admin_Notice::add_notice(
-                    $e->getMessage(),
-                    'error',
-                );
-            }
-        }
-
-        wp_safe_redirect( $redirect_to );
-        exit;
+    /**
+     * Reset any orphaned 'in_process' compress rows on eligible admin page loads.
+     *
+     * Delegates to Status_Process::reset_stale_in_process() with the compress status key.
+     * Hooked on load-upload.php and the three plugin admin page-load actions so the sweep
+     * runs only on screens where the compress column appears, never on every admin request.
+     *
+     * @since 3.0.0
+     */
+    public function reset_stale_rows() {
+        $this->reset_stale_in_process( $this->db_key_status );
     }
 
     /**

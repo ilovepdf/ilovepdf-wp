@@ -30,6 +30,13 @@ if ( ini_get( 'max_execution_time' ) < 300 ) {
     set_time_limit( 300 );
 }
 
+if ( ! defined( 'IPDF_BULK_CHUNK_SIZE' ) ) {
+    define( 'IPDF_BULK_CHUNK_SIZE', 50 ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedConstantFound
+}
+if ( ! defined( 'IPDF_PROCESS_TIMEOUT' ) ) {
+    define( 'IPDF_PROCESS_TIMEOUT', 300 ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedConstantFound
+}
+
 require_once plugin_dir_path( __FILE__ ) . '/vendor/autoload.php';
 
 use Ilove_Pdf_WP\Activator;

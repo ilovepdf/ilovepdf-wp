@@ -112,4 +112,14 @@ class Statistics {
     public static function reset_statistics() {
         DB_Handler::delete_transient( self::$transient_key );
     }
+
+    /**
+     * Registers the add_attachment hook so the cached statistics are invalidated
+     * whenever a new attachment is uploaded — not only after a successful watermark.
+     *
+     * @since 3.0.0
+     */
+    public static function register_hooks() {
+        add_action( 'add_attachment', array( self::class, 'reset_statistics' ) );
+    }
 }

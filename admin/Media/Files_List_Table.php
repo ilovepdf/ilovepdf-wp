@@ -237,6 +237,24 @@ class Files_List_Table extends WP_List_Table {
     }
 
     /**
+     * Render a single table row.
+     *
+     * Overrides WP_List_Table::single_row() to add id="post-{ID}" on the <tr>,
+     * matching the convention used by WP_Posts_List_Table and WP_Media_List_Table.
+     * This is required so that dev/js/bulk/index.js's updateRow() can locate the row
+     * via document.getElementById('post-' + id) after bulk processing completes.
+     *
+     * @param array $item The item data (associative array with at least an 'ID' key).
+     * @return void
+     * @since 3.0.0
+     */
+    public function single_row( $item ) {
+        echo '<tr id="post-' . absint( $item['ID'] ) . '">';
+        $this->single_row_columns( $item );
+        echo '</tr>';
+    }
+
+    /**
      * Get the bulk actions for the table.
      *
      * @return array The array of bulk actions.
