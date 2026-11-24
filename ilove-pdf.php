@@ -31,7 +31,7 @@ if ( ini_get( 'max_execution_time' ) < 300 ) {
 }
 
 if ( ! defined( 'IPDF_BULK_CHUNK_SIZE' ) ) {
-    define( 'IPDF_BULK_CHUNK_SIZE', 50 ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedConstantFound
+    define( 'IPDF_BULK_CHUNK_SIZE', 10 ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedConstantFound
 }
 if ( ! defined( 'IPDF_PROCESS_TIMEOUT' ) ) {
     define( 'IPDF_PROCESS_TIMEOUT', 300 ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedConstantFound
