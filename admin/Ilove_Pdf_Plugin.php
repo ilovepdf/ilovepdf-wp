@@ -196,7 +196,6 @@ class Ilove_Pdf_Plugin {
 						userHasCredits: %s,
 						compressNonce: %s,
 						watermarkNonce: %s,
-						bulkChunkSize: %d,
 						i18n: {
 							bulkProcessingFile: %s,
 							bulkSummaryCompress: %s,
@@ -208,7 +207,6 @@ class Ilove_Pdf_Plugin {
 					wp_json_encode( User_Data::has_credits() ),
 					wp_json_encode( wp_create_nonce( 'ilovepdf_action_compress' ) ),
 					wp_json_encode( wp_create_nonce( 'ilovepdf_action_watermark' ) ),
-					(int) apply_filters( 'ilovepdf_bulk_chunk_size', IPDF_BULK_CHUNK_SIZE ), // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 					/* translators: %1$d: current file number, %2$d: total files */
 					wp_json_encode( __( 'Processing file %1$d of %2$d', 'ilove-pdf' ) ),
 					/* translators: %1$d: files succeeded, %2$d: files failed */

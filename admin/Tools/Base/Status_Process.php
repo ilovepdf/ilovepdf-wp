@@ -45,7 +45,7 @@ trait Status_Process {
      * @param int    $file_id File ID.
      * @param string $db_key Key where the status will be stored in the database.
      */
-    protected function set_status_in_process( $file_id, $db_key ) {
+    protected function set_status_in_process( int $file_id, string $db_key ) {
         update_post_meta( $file_id, $db_key, $this->allowed_status[0] );
         update_post_meta( $file_id, $db_key . '_started', time() );
     }
@@ -71,9 +71,89 @@ trait Status_Process {
      * @param int    $file_id File ID.
      * @param string $db_key Key where the status will be stored in the database.
      */
-    protected function set_status_error( $file_id, $db_key ) {
+    protected function set_status_error( int $file_id, string $db_key ) {
         update_post_meta( $file_id, $db_key, $this->allowed_status[2] );
         delete_post_meta( $file_id, $db_key . '_started' );
+    }
+
+    /**
+     * Verifies the AJAX request nonce, capabilities, and post ID, then returns the sanitized post ID.
+     *
+     * Performs, in order:
+     *  1. Nonce verification (401 on failure).
+     *  2. `upload_files` capability check (403 on failure).
+     *  3. `post_id` presence check (400 on failure).
+     *  4. `absint` sanitization and >= 1 range check (400 on failure).
+     *  5. `edit_post` capability check for the specific post (403 on failure).
+     *
+     * Terminates via wp_send_json_error on any failure — identical to the per-handler
+     * guards this replaces. Returns the sanitized int post ID on success.
+     *
+     * @param string $nonce_action The nonce action string to verify against.
+     * @return int Sanitized post ID (>= 1).
+     */
+    protected function verify_request_or_die( string $nonce_action ): int {
+        if ( ! isset( $_POST['_wpnonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_wpnonce'] ) ), $nonce_action ) ) { // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+            wp_send_json_error( _x( 'Couldn\'t complete the request. Please refresh and try again.', 'Error message, invalid nonce code.', 'ilove-pdf' ), 401 );
+        }
+
+        if ( ! current_user_can( 'upload_files' ) ) {
+            wp_send_json_error(
+                __( 'You do not have permission to process files.', 'ilove-pdf' ),
+                403
+            );
+        }
+
+        if ( ! isset( $_POST['post_id'] ) ) {
+            wp_send_json_error( __( 'Could not process the request. Missing file ID.', 'ilove-pdf' ), 400 );
+        }
+
+        $post_id = absint( $_POST['post_id'] );
+
+        if ( $post_id < 1 ) {
+            wp_send_json_error( __( 'Could not process the request. Invalid file ID.', 'ilove-pdf' ), 400 );
+        }
+
+        if ( ! current_user_can( 'edit_post', $post_id ) ) {
+            wp_send_json_error( __( 'You do not have permission to edit this file.', 'ilove-pdf' ), 403 );
+        }
+
+        return $post_id;
+    }
+
+    /**
+     * Resolves the current status of a single attachment, performing a per-attachment stale check.
+     *
+     * If the status is 'in_process' and the companion _started timestamp is missing or older
+     * than IPDF_PROCESS_TIMEOUT seconds, the stale meta is cleared (returning the attachment
+     * to a retriable, never-processed state) and an empty string is returned. A fresh in-flight
+     * row is left untouched and 'in_process' is returned. For all other statuses the stored
+     * value is returned unchanged.
+     *
+     * This method is intentionally scoped to a single attachment (O(1)) so it is safe to call
+     * on every poll request. It NEVER starts, re-runs, or triggers the processing pipeline.
+     *
+     * @param int    $file_id The attachment post ID.
+     * @param string $db_key  The post meta key used to store the process status.
+     * @return string Resolved status: 'in_process', 'ready', 'error', or '' (never-processed / stale-reset).
+     */
+    protected function resolve_status( int $file_id, string $db_key ): string {
+        $status      = (string) get_post_meta( (int) $file_id, $db_key, true );
+        $started_key = $db_key . '_started';
+
+        if ( 'in_process' === $status ) {
+            $started = (int) get_post_meta( (int) $file_id, $started_key, true );
+            // Guard: a fresh timestamp means a live request — leave it alone.
+            if ( $started && ( time() - $started ) < IPDF_PROCESS_TIMEOUT ) {
+                return 'in_process';
+            }
+            // Timestamp missing or stale: clear the orphaned meta and treat as never-processed.
+            delete_post_meta( (int) $file_id, $db_key );
+            delete_post_meta( (int) $file_id, $started_key );
+            return '';
+        }
+
+        return $status;
     }
 
     /**

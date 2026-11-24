@@ -67,6 +67,7 @@ class Tool_Compress {
      */
     public function __construct() {
         add_action( 'wp_ajax_ilovepdf_action_compress', array( $this, 'handler_compress_action' ) );
+        add_action( 'wp_ajax_ilovepdf_status_compress', array( $this, 'handler_status_compress' ) );
         add_filter( 'bulk_actions-upload', array( $this, 'add_bulk_action' ) );
         add_filter( 'handle_bulk_actions-upload', array( $this, 'handle_bulk_action' ), 10, 3 );
         add_action( 'add_attachment', array( $this, 'handle_auto_compress' ) );
@@ -110,30 +111,7 @@ class Tool_Compress {
      */
 	public function handler_compress_action() {
 
-		if ( ! isset( $_POST['_wpnonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_wpnonce'] ) ), 'ilovepdf_action_compress' ) ) {
-            wp_send_json_error( _x( 'Couldn\'t complete the request. Please refresh and try again.', 'Error message, invalid nonce code.', 'ilove-pdf' ), 401 );
-        }
-
-        if ( ! current_user_can( 'upload_files' ) ) {
-            wp_send_json_error(
-                __( 'You do not have permission to process files.', 'ilove-pdf' ),
-                403
-            );
-        }
-
-        if ( ! isset( $_POST['post_id'] ) ) {
-            wp_send_json_error( __( 'Could not process the request. Missing file ID.', 'ilove-pdf' ), 400 );
-        }
-
-        $post_id = absint( $_POST['post_id'] );
-
-        if ( $post_id < 1 ) {
-            wp_send_json_error( __( 'Could not process the request. Invalid file ID.', 'ilove-pdf' ), 400 );
-        }
-
-        if ( ! current_user_can( 'edit_post', $post_id ) ) {
-            wp_send_json_error( __( 'You do not have permission to edit this file.', 'ilove-pdf' ), 403 );
-        }
+        $post_id = $this->verify_request_or_die( 'ilovepdf_action_compress' );
 
         try {
             $compress_process = $this->compress_process( $post_id );
@@ -156,6 +134,72 @@ class Tool_Compress {
 	}
 
     /**
+     * Handle the read-only AJAX status check for a compress job.
+     *
+     * Performs the same nonce, capability and ID checks as handler_compress_action.
+     * Calls resolve_status() — a per-attachment stale check — and responds:
+     *   • HTTP 202 (in_process)   → job still in flight; client should keep polling.
+     *   • wp_send_json_success    → terminal success; data reconstructed from stored meta.
+     *   • wp_send_json_error      → terminal failure or never-processed.
+     *
+     * This handler MUST NOT call compress_process() or any pipeline step.
+     *
+     * @since 3.0.0
+     * @return void
+     */
+    public function handler_status_compress() {
+
+        $post_id = $this->verify_request_or_die( 'ilovepdf_action_compress' );
+
+        $status = $this->resolve_status( $post_id, $this->db_key_status );
+
+        if ( 'in_process' === $status ) {
+            // HTTP 202: job is still in flight — client must keep polling.
+            // We use wp_send_json (not http_response_code + wp_die) because WP's
+            // _ajax_wp_die_handler silently rewrites a bare 500 to a 200 empty body.
+            wp_send_json( array( 'status' => 'in_process' ), 202 );
+        }
+
+        if ( 'ready' === $status ) {
+            $process_data    = get_post_meta( $post_id, $this->db_key_process, true );
+            $original_size   = is_array( $process_data ) && isset( $process_data['original_size'] ) ? (int) $process_data['original_size'] : 0;
+            $compressed_size = is_array( $process_data ) && isset( $process_data['compressed_size'] ) ? (int) $process_data['compressed_size'] : 0;
+
+            $message = sprintf(
+                /* translators: %1$s The file name */
+                _x( 'File compressed successfully: %1$s', 'Compress PDF: Success message.', 'ilove-pdf' ),
+                basename( (string) get_attached_file( $post_id ) ),
+            );
+
+            wp_send_json_success(
+                array(
+                    'error'       => false,
+                    'type_notice' => 'success',
+                    'message'     => $message,
+                    'data'        => array(
+                        'percentage'        => self::get_compressed_reabable_percentage( $original_size, $compressed_size ),
+                        'files_processed'   => Statistics::get_files_processed(),
+                        'average_reduction' => Statistics::get_average_reduction(),
+                        'space_saved'       => Statistics::get_space_saved(),
+                        'total_resume'      => Statistics::get_resume(),
+                        'backup'            => true,
+                        'original_size'     => size_format( $original_size, 2 ),
+                        'compressed_size'   => size_format( $compressed_size, 2 ),
+                    ),
+                )
+            );
+        }
+
+        // Status is 'error', '' (never-processed), or any unexpected value — terminal failure.
+        wp_send_json_error(
+            array(
+                'status'  => 'error',
+                'message' => __( 'The file could not be compressed. Please try again.', 'ilove-pdf' ),
+            )
+        );
+    }
+
+    /**
      * Compress PDF File.
      *
      * @since    1.0.0
@@ -165,6 +209,11 @@ class Tool_Compress {
      * @throws   AuthException If the API keys are not set.
      */
 	public function compress_process( $post_id ) {
+        // Guarantee the job always runs to a terminal status even if the client disconnects
+        // mid-request (e.g. a proxy timeout). Covers both the AJAX path and the add_attachment
+        // auto-process hook since this is the shared choke point for both.
+        ignore_user_abort( true );
+
         $options   = Compress_Settings::get_compress_settings();
         $file_name = basename( get_attached_file( $post_id ) );
 

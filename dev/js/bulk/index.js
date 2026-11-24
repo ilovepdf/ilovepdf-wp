@@ -214,7 +214,6 @@ export const initBulkQueue = () => {
 		}
 
 		const { ajaxAction, nonce, successClass, btnSelector } = resolved;
-		const chunkSize = (IlovePdfData && IlovePdfData.bulkChunkSize) || 10;
 
 		upsertBanner(buildProgressMessage(0, ids.length));
 
@@ -222,7 +221,6 @@ export const initBulkQueue = () => {
 			ids,
 			ajaxAction,
 			nonce,
-			chunkSize,
 			onProgress: ({ done, total }) => {
 				upsertBanner(buildProgressMessage(done, total));
 			},

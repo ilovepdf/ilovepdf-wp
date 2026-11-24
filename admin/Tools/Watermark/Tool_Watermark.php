@@ -52,6 +52,7 @@ class Tool_Watermark {
      */
     public function __construct() {
         add_action( 'wp_ajax_ilovepdf_action_watermark', array( $this, 'handler_action_watermark' ) );
+        add_action( 'wp_ajax_ilovepdf_status_watermark', array( $this, 'handler_status_watermark' ) );
         add_filter( 'bulk_actions-upload', array( $this, 'add_bulk_action' ) );
         add_filter( 'handle_bulk_actions-upload', array( $this, 'handle_bulk_action' ), 10, 3 );
         add_action( 'add_attachment', array( $this, 'handle_auto_watermark' ) );
@@ -85,30 +86,7 @@ class Tool_Watermark {
      * @return void
      */
     public function handler_action_watermark() {
-        if ( ! isset( $_POST['_wpnonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_wpnonce'] ) ), 'ilovepdf_action_watermark' ) ) {
-            wp_send_json_error( _x( 'Couldn\'t complete the request. Please refresh and try again.', 'Error message, invalid nonce code.', 'ilove-pdf' ), 401 );
-        }
-
-        if ( ! current_user_can( 'upload_files' ) ) {
-            wp_send_json_error(
-                __( 'You do not have permission to process files.', 'ilove-pdf' ),
-                403
-            );
-        }
-
-        if ( ! isset( $_POST['post_id'] ) ) {
-            wp_send_json_error( __( 'Could not process the request. Missing file ID.', 'ilove-pdf' ), 400 );
-        }
-
-        $post_id = absint( $_POST['post_id'] );
-
-        if ( $post_id < 1 ) {
-            wp_send_json_error( __( 'Could not process the request. Invalid file ID.', 'ilove-pdf' ), 400 );
-        }
-
-        if ( ! current_user_can( 'edit_post', $post_id ) ) {
-            wp_send_json_error( __( 'You do not have permission to edit this file.', 'ilove-pdf' ), 403 );
-        }
+        $post_id = $this->verify_request_or_die( 'ilovepdf_action_watermark' );
 
         try {
             $watermark_process = $this->watermark_process( $post_id );
@@ -131,6 +109,85 @@ class Tool_Watermark {
     }
 
     /**
+     * Handle the read-only AJAX status check for a watermark job.
+     *
+     * Performs the same nonce, capability and ID checks as handler_action_watermark.
+     * Calls resolve_status() — a per-attachment stale check — and responds:
+     *   • HTTP 202 (in_process)   → job still in flight; client should keep polling.
+     *   • wp_send_json_success    → terminal success; data reconstructed from stored meta.
+     *   • wp_send_json_error      → terminal failure or never-processed.
+     *
+     * This handler MUST NOT call watermark_process() or any pipeline step.
+     *
+     * @since 3.0.0
+     * @return void
+     */
+    public function handler_status_watermark() {
+
+        $post_id = $this->verify_request_or_die( 'ilovepdf_action_watermark' );
+
+        $status = $this->resolve_status( $post_id, $this->db_key_status );
+
+        if ( 'in_process' === $status ) {
+            // HTTP 202: job is still in flight — client must keep polling.
+            // We use wp_send_json (not http_response_code + wp_die) because WP's
+            // _ajax_wp_die_handler silently rewrites a bare 500 to a 200 empty body.
+            wp_send_json( array( 'status' => 'in_process' ), 202 );
+        }
+
+        if ( 'ready' === $status ) {
+            $original_size   = 0;
+            $compressed_size = 0;
+
+            if ( Tool_Compress::is_file_compressed( $post_id ) ) {
+                $compress_metadata = get_post_meta( $post_id, Tool_Compress::get_db_key_process(), true );
+                if ( is_array( $compress_metadata ) && isset( $compress_metadata['original_size'] ) && isset( $compress_metadata['compressed_size'] ) ) {
+                    $original_size   = (int) $compress_metadata['original_size'];
+                    $compressed_size = (int) $compress_metadata['compressed_size'];
+                }
+            }
+
+            $file_name = basename( (string) get_attached_file( $post_id ) );
+            $message   = sprintf(
+                /* translators: %1$s The file name */
+                _x( 'Watermark applied successfully: %1$s', 'Watermark PDF: Success message.', 'ilove-pdf' ),
+                $file_name,
+            );
+
+            wp_send_json_success(
+                array(
+                    'error'       => false,
+                    'type_notice' => 'success',
+                    'message'     => $message,
+                    'data'        => array(
+                        'files_protected'     => Watermark_Statistics::get_protected_files(),
+                        'resume'              => Watermark_Statistics::get_resume(),
+                        'backup'              => true,
+                        'file_is_compressed'  => Tool_Compress::is_file_compressed( $post_id ),
+                        'compress_statistics' => array(
+                            'percentage'        => Tool_Compress::get_compressed_reabable_percentage( $original_size, $compressed_size ),
+                            'files_processed'   => Compress_Statistics::get_files_processed(),
+                            'average_reduction' => Compress_Statistics::get_average_reduction(),
+                            'space_saved'       => Compress_Statistics::get_space_saved(),
+                            'total_resume'      => Compress_Statistics::get_resume(),
+                            'original_size'     => $original_size,
+                            'compressed_size'   => $compressed_size,
+                        ),
+                    ),
+                )
+            );
+        }
+
+        // Status is 'error', '' (never-processed), or any unexpected value — terminal failure.
+        wp_send_json_error(
+            array(
+                'status'  => 'error',
+                'message' => __( 'The watermark could not be applied. Please try again.', 'ilove-pdf' ),
+            )
+        );
+    }
+
+    /**
      * Process the watermarking of a PDF file.
      *
      * This method applies the watermark to the specified PDF file, handling various settings and exceptions.
@@ -143,6 +200,11 @@ class Tool_Watermark {
      * @since 3.0.0
      */
     public function watermark_process( $post_id ) {
+        // Guarantee the job always runs to a terminal status even if the client disconnects
+        // mid-request (e.g. a proxy timeout). Covers both the AJAX path and the add_attachment
+        // auto-process hook since this is the shared choke point for both.
+        ignore_user_abort( true );
+
         $options   = Watermark_Settings::get_settings();
         $file_name = basename( get_attached_file( $post_id ) );
 
