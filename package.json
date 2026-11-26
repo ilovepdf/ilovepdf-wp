@@ -13,9 +13,12 @@
   "license": "ISC",
   "devDependencies": {
     "@wordpress/i18n": "^6.4",
-    "@wordpress/scripts": "^30.24",
+    "@wordpress/scripts": "^37.2",
     "eslint": "^9.35",
     "eslint-config-prettier": "^10.1",
     "prettier": "^3.6"
+  },
+  "overrides": {
+    "serialize-javascript": "^7.1.4"
   }
 }
