@@ -1,0 +1,20 @@
+# Normalize line endings to LF on commit so tooling (PHPCS, PHPStan) and CI
+# behave deterministically regardless of the committer's OS. This prevents the
+# `coding-standards` quality gate from failing on CRLF-vs-LF noise.
+* text=auto eol=lf
+
+# Shell scripts must stay LF (they run on ubuntu-latest in CI).
+*.sh text eol=lf
+
+# Treat common binary assets as binary (never line-ending-normalized).
+*.png  binary
+*.jpg  binary
+*.jpeg binary
+*.gif  binary
+*.webp binary
+*.ico  binary
+*.woff  binary
+*.woff2 binary
+*.ttf   binary
+*.eot   binary
+*.pdf   binary

@@ -1,20 +1,54 @@
 name: Deploy to WordPress.org
+
 on:
   release:
     types: [published]
   workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version to verify/deploy (defaults to plugin header)'
+        required: false
+
+permissions:
+  contents: read
+
+concurrency:
+  group: deploy-${{ github.ref }}
+  cancel-in-progress: false
+
 jobs:
-  release:
-    name: New release
+  verify-version:
+    name: Verify version integrity
     runs-on: ubuntu-latest
+    timeout-minutes: 5
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+
+      - name: Verify plugin version
+        run: bash .github/scripts/verify-version.sh
+        env:
+          INPUT_VERSION: ${{ github.event.inputs.version }}
+
+  quality:
+    name: Quality gates
+    uses: ./.github/workflows/quality.yml
+
+  deploy:
+    name: Deploy to WordPress.org
+    needs: [verify-version, quality]
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+
       - name: Install SVN
         run: sudo apt-get update && sudo apt-get install -y subversion
+
       - name: WordPress Plugin Deploy
         id: deploy
-        uses: 10up/action-wordpress-plugin-deploy@stable
+        uses: 10up/action-wordpress-plugin-deploy@54bd289b8525fd23a5c365ec369185f2966529c2 # 2.3.0
         with:
           generate-zip: true
         env:

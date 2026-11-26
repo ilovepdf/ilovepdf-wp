@@ -38,4 +38,10 @@
         <config name="minimum_wp_version" value="6.1"/>
         <config name="testVersion" value="8.3-8.4"/>
         <rule ref="PHPCompatibilityWP"/>
+    <file>.</file>
+    <exclude-pattern>*/vendor/*</exclude-pattern>
+    <exclude-pattern>*/node_modules/*</exclude-pattern>
+    <exclude-pattern>*/assets/*</exclude-pattern>
+    <exclude-pattern>*/dev/*</exclude-pattern>
+    <exclude-pattern>*/.github/*</exclude-pattern>
 </ruleset>

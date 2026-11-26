@@ -1,0 +1,134 @@
+name: Quality Gates
+
+on:
+  workflow_call:
+  pull_request:
+  push:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: quality-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+
+  phpstan:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+
+      - name: Guard - committed vendor autoloader must be production (--no-dev)
+        run: |
+          if grep -q "phpstan/phpstan/bootstrap.php" vendor/composer/autoload_files.php vendor/composer/autoload_static.php 2>/dev/null; then
+            echo "::error::Committed vendor autoloader references a dev dependency (phpstan). Run 'composer autoload-prod' before committing vendor."
+            exit 1
+          fi
+
+      - name: Check if vendor directory exists and remove it
+        run: |
+          if [ -d "vendor" ]; then
+            echo "Removing existing vendor directory"
+            rm -rf vendor
+          fi
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@accd6127cb78bee3e8082180cb391013d204ef9f # 2.37.0
+        with:
+          php-version: '8.4'
+
+      - name: Install Composer Dependencies
+        run: composer install --prefer-dist --no-interaction
+
+      - name: Run PHPStan
+        run: vendor/bin/phpstan analyse --no-progress --error-format=github
+
+  coding-standards:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@accd6127cb78bee3e8082180cb391013d204ef9f # 2.37.0
+        with:
+          php-version: '8.4'
+
+      - name: Install Composer Dependencies
+        run: composer install --prefer-dist --no-interaction
+
+      - name: Run PHP_CodeSniffer
+        # -n = fail on errors only for now; drop -n to also gate on warnings once the backlog is cleared
+        run: vendor/bin/phpcs -q -n --report=full
+
+  composer-audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@accd6127cb78bee3e8082180cb391013d204ef9f # 2.37.0
+        with:
+          php-version: '8.4'
+
+      - name: Install Composer Dependencies
+        run: composer install --prefer-dist --no-interaction
+
+      - name: Audit Composer dependencies for high/critical vulnerabilities
+        run: |
+          set +e
+          composer audit --locked --format=json > audit.json
+          AUDIT_EXIT=$?
+          set -e
+          # Exit code > 1 means infrastructure error (not just advisories found); fail hard.
+          if [ "$AUDIT_EXIT" -gt 1 ]; then
+            echo "::error::composer audit failed (exit $AUDIT_EXIT) — infrastructure error, not a clean result"
+            cat audit.json
+            exit "$AUDIT_EXIT"
+          fi
+          # Validate JSON before parsing (exit 0 = clean, exit 1 = advisories found — both proceed).
+          if ! jq empty audit.json 2>/dev/null; then
+            echo "::error::composer audit produced invalid JSON"
+            cat audit.json
+            exit 1
+          fi
+          # If the severity field is ever absent the gate should fail-on-any-advisory
+          ANY=$(jq '[.advisories[][]] | length' audit.json)
+          MISSING_SEV=$(jq '[.advisories[][] | select(.severity == null or .severity == "")] | length' audit.json)
+          if [ "$ANY" -gt 0 ] && [ "$MISSING_SEV" -gt 0 ]; then
+            echo "::error::$ANY advisories with missing severity field — failing on-any per policy"
+            cat audit.json
+            exit 1
+          fi
+          HIGH_CRIT=$(jq '[.advisories[][] | select(.severity != null) | select(.severity|ascii_downcase|test("high|critical"))] | length' audit.json)
+          if [ "$HIGH_CRIT" -gt 0 ]; then
+            echo "::error::Found $HIGH_CRIT HIGH/CRITICAL advisories in Composer dependencies"
+            cat audit.json
+            exit 1
+          fi
+          echo "composer audit: no HIGH/CRITICAL advisories."
+
+  npm-audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+
+      - name: Setup Node
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version: '20'
+
+      - name: Install npm dependencies
+        run: npm ci
+
+      # Audit ALL deps incl. devDependencies on purpose: this plugin ships NO runtime JS; its package.json is build tooling (@wordpress/scripts/webpack) that compiles the assets shipped to WordPress.org, so the build chain IS the production supply-chain surface. Do NOT add --omit=dev here — it would audit nothing and silently disable this gate.
+      - name: Audit npm dependencies for high/critical vulnerabilities
+        run: npm audit --audit-level=high
