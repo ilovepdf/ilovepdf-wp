@@ -124,10 +124,14 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
         with:
-          node-version: '20'
+          node-version: '24'
 
+      # package-lock.json is intentionally gitignored, so `npm ci` (which requires a
+      # committed lockfile) cannot be used. `npm install` resolves and installs from
+      # package.json. --no-audit avoids a redundant audit during install; the explicit
+      # audit gate runs below.
       - name: Install npm dependencies
-        run: npm ci
+        run: npm install --no-audit --no-fund
 
       # Audit ALL deps incl. devDependencies on purpose: this plugin ships NO runtime JS; its package.json is build tooling (@wordpress/scripts/webpack) that compiles the assets shipped to WordPress.org, so the build chain IS the production supply-chain surface. Do NOT add --omit=dev here — it would audit nothing and silently disable this gate.
       - name: Audit npm dependencies for high/critical vulnerabilities
