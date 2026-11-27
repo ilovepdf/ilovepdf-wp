@@ -1,18 +1,13 @@
-# Node/composer artifact files
+# Node/composer artifact files — built by CI from committed lockfiles, not committed
 node_modules/
-vendor/*
-!/vendor/autoload.php
-!/vendor/composer/
-!/vendor/ilovepdf/
-!/vendor/firebase/
-!/vendor/guzzlehttp/
-!/vendor/psr/
-!/vendor/ralouphie/
-!/vendor/symfony/
-composer.lock
-package-lock.json
+vendor/
+assets/build/
 
 assets/**/*.map
+
+# Environment / secrets
+.env
+.env*
 
 # Compiled Java class files
 *.class

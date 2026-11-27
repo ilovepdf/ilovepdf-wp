@@ -43,6 +43,25 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5.1.0
 
+      - name: Setup Node
+        uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # v5.0.0
+        with:
+          node-version: '24'
+
+      - name: Install npm dependencies
+        run: npm ci
+
+      - name: Build JS/CSS assets
+        run: npm run build
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@accd6127cb78bee3e8082180cb391013d204ef9f # 2.37.0
+        with:
+          php-version: '8.4'
+
+      - name: Install Composer production dependencies
+        run: composer install --no-dev --prefer-dist --optimize-autoloader --no-interaction --no-scripts
+
       - name: Install SVN
         run: sudo apt-get update && sudo apt-get install -y subversion
 

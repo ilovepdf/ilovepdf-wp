@@ -54,14 +54,42 @@ Set up the plugin to apply compression and watermarking automatically for all fu
 After cloning or switching branches, install dependencies before running any tooling:
 
 ```bash
-composer install          # installs PHP dependencies including dev tools (PHPStan, etc.)
-composer run autoload-dev # regenerates autoloader in dev mode (includes dev packages)
-npm install && npm run build  # installs JS dependencies and compiles assets with webpack
+composer install   # installs PHP dependencies including dev tools (PHPStan, etc.)
+npm ci             # installs JS dependencies from the committed lockfile
+npm run build      # compiles assets with webpack (output goes to assets/build/)
 ```
 
-The `vendor/` directory is committed in production mode (no dev dependencies). Before committing changes to `vendor/`, regenerate the autoloader in production mode to ensure dev-only packages (e.g. PHPStan) are excluded:
+## Build & Release
+
+**`assets/build/` and `vendor/` are NOT committed to the repository.** CI builds them from the committed lockfiles and ships exactly that artifact — what is tested is what ships.
+
+### Lockfiles are the source of truth
+
+- `composer.lock` and `package-lock.json` are **committed** and must be kept up to date.
+- CI uses `npm ci` and `composer install` (deterministic, locked installs) so builds are reproducible.
+- Dependabot opens weekly PRs to refresh both lockfiles — review and merge these to keep known vulnerabilities from getting frozen.
+
+### Local development
+
+Developers run `npm ci && npm run build` (and `composer install`) locally for development only. **Do NOT commit `assets/build/` or `vendor/`** — both directories are gitignored and are built fresh by CI for every deploy.
+
+When updating dependencies, run:
 
 ```bash
-composer run autoload-prod  # regenerates autoloader without dev packages; commit vendor after this
+# JS: update package-lock.json, then commit it
+npm update            # or: npm install <package>@<version>
+git add package-lock.json
+
+# PHP: update composer.lock, then commit it
+composer update       # or: composer require <package>:<version>
+git add composer.lock
 ```
+
+### Release process
+
+The deploy workflow (`main.yml`) automatically:
+1. Runs all quality gates (PHPStan, PHPCS, composer audit, npm audit, build check).
+2. Builds JS/CSS assets from the committed `package-lock.json` via `npm ci && npm run build`.
+3. Installs production PHP dependencies from the committed `composer.lock` via `composer install --no-dev --optimize-autoloader`.
+4. Packages the resulting directory (minus `.distignore` exclusions) and deploys to WordPress.org SVN.
 

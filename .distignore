@@ -15,3 +15,9 @@ webpack.config.js
 eslint.config.js
 *.log
 *.zip
+
+# Environment / secrets
+.env
+.env*
+
+assets/**/*.map
